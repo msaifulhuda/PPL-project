@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class materi extends Model
+class penilaian_ekstrakurikuler extends Model
 {
     use Notifiable;
 
@@ -47,30 +47,38 @@ class materi extends Model
      *
      * @var array
      */
-    protected $table = 'materi';
-    protected $fillable = [
-        'judul_materi',
-        'topik_id',
-        'kelas_mata_pelajaran_id',
-        'tanggal_dibuat',
-        'status',
-    ];
-        public function topik()
-    {
-        return $this->belongsTo(Topik::class, 'topik_id', 'id_topik');
-    }
 
-    public function kelasMataPelajaran()
-    {
-        return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
-    }
-    public function filemateri()
-    {
-        return $this->hasMany(file_materi::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    public function notifikasisistem()
-    {
-        return $this->hasMany(notifikasi_sistem::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    
+
+     protected $table = 'penilaian_ekstrakurikuler';
+
+     protected $fillable = [
+         'id_siswa',
+         'id_tahun_ajaran',
+         'id_laporan',
+         'penilaian',
+     ];
+ 
+     /**
+      * Relationship with Siswa
+      */
+     public function siswa()
+     {
+         return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
+     }
+ 
+     /**
+      * Relationship with TahunAjaran
+      */
+     public function tahunAjaran()
+     {
+         return $this->belongsTo(tahun_ajaran::class, 'id_tahun_ajaran', 'id_tahun_ajaran');
+     }
+ 
+     /**
+      * Relationship with LaporanPenilaianEkstrakurikuler
+      */
+     public function laporan()
+     {
+         return $this->belongsTo(laporan_penilaian_ekstrakurikuler::class, 'id_laporan', 'id_laporan');
+     }
 }

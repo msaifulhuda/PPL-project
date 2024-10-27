@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('pertemuan', function (Blueprint $table) {
             $table->uuid('id_pertemuan')->primary();
-            $table->uuid('jadwal_id');
+            $table->uuid('kelas_mata_pelajaran_id');
             $table->date('tanggal_pertemuan');
             $table->string('qr_code');
             $table->timestamps();
-            $table->foreign('jadwal_id')->references('id_jadwal')->on('jadwal');
-            
-
+            $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_mata_pelajaran')->on('kelas_mata_pelajaran');
         });
     }
 

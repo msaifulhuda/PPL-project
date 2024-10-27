@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class materi extends Model
+class berkas extends Model
 {
     use Notifiable;
 
@@ -47,30 +47,17 @@ class materi extends Model
      *
      * @var array
      */
-    protected $table = 'materi';
+
+
+    protected $table = 'berkas';
     protected $fillable = [
-        'judul_materi',
-        'topik_id',
-        'kelas_mata_pelajaran_id',
-        'tanggal_dibuat',
-        'status',
+        'id_registrasi',
+        'surat_izin_ortu',
+        'surat_riwayat_penyakit',
     ];
-        public function topik()
+    public function registrasiEkstrakurikuler()
     {
-        return $this->belongsTo(Topik::class, 'topik_id', 'id_topik');
+        return $this->belongsTo(registrasi_ekstrakurikuler::class, 'id_registrasi', 'id_registrasi');
     }
 
-    public function kelasMataPelajaran()
-    {
-        return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
-    }
-    public function filemateri()
-    {
-        return $this->hasMany(file_materi::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    public function notifikasisistem()
-    {
-        return $this->hasMany(notifikasi_sistem::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    
 }

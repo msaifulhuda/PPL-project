@@ -18,7 +18,7 @@ return new class extends Migration
             $table->uuid('kelas_mata_pelajaran_id');
             $table->timestamps();
             $table->foreign('mata_pelajaran_id')->references('id_matpel')->on('mata_pelajaran');
-            $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_matpel')->on('kelas_mata_pelajaran');
+            $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_mata_pelajaran')->on('kelas_mata_pelajaran');
         });
     }
 

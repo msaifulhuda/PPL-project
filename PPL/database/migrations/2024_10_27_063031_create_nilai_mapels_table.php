@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('nilai_mapel', function (Blueprint $table) {
             $table->uuid('id_nilai_mapel')->primary();  
-            $table->uuid('mapel_id');
+            $table->uuid('matpel_id');
             $table->uuid('rapor_id');
             $table->timestamps();
-            $table->foreign('mapel_id')->references('id_mapel')->on('mata_pelajaran');
+            $table->foreign('matpel_id')->references('id_matpel')->on('mata_pelajaran');
             $table->foreign('rapor_id')->references('id_rapor')->on('rapor');
         });
     }

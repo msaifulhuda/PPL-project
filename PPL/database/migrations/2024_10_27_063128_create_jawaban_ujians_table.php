@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('soal_id');
             $table->string('jawaban_dipilih');
             $table->timestamps();
-            $table->foreign('pengumpulan_ujian_id')->references('id_pengumpulan_ujian')->on('pengumpulan_ujians');
+            $table->foreign('pengumpulan_ujian_id')->references('id_pengumpulan_ujian')->on('pengumpulan_ujian');
             $table->foreign('soal_id')->references('id_soal_ujian')->on('soal_ujians');
         });
     }

@@ -16,14 +16,11 @@ return new class extends Migration
         Schema::create('ekstrakurikuler', function (Blueprint $table) {
             $table->uuid('id_ekstrakurikuler')->primary();
             $table->uuid('id_pembina');
-            $table->foreign('id_pembina')->references('id_pembina')->on('registrasi_ekstrakurikuler');
-            $table->uuid('id_registrasi');
-            $table->foreign('id_registrasi')->references('id_pembina_ekstra')->on('pembina_ekstra');
+            $table->foreign('id_pembina')->references('id_pembina_ekstra')->on('pembina_ekstra');
             $table->string('nama_ekstrakurikuler');
             $table->text('deskripsi');
             $table->string('gambar');
         });
-
         Schema::enableForeignKeyConstraints();
     }
 

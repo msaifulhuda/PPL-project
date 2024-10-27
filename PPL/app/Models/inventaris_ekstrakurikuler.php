@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class materi extends Model
+class inventaris_ekstrakurikuler extends Model
 {
     use Notifiable;
 
@@ -47,30 +47,25 @@ class materi extends Model
      *
      * @var array
      */
-    protected $table = 'materi';
+
+
+    protected $table = 'inventaris_ekstrakurikuler';
+
     protected $fillable = [
-        'judul_materi',
-        'topik_id',
-        'kelas_mata_pelajaran_id',
-        'tanggal_dibuat',
-        'status',
+        'id_ekstrakurikuler',
+        'nama_barang',
+        'stok',
     ];
-        public function topik()
+    public function ekstrakurikuler()
     {
-        return $this->belongsTo(Topik::class, 'topik_id', 'id_topik');
+        return $this->belongsTo(Ekstrakurikuler::class, 'id_ekstrakurikuler', 'id_ekstrakurikuler');
     }
 
-    public function kelasMataPelajaran()
+    /**
+     * Relationship with HistoriInventaris
+    */
+    public function historiInventaris()
     {
-        return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
+        return $this->hasMany(histori_inventaris::class, 'id_inventaris', 'id_inventaris');
     }
-    public function filemateri()
-    {
-        return $this->hasMany(file_materi::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    public function notifikasisistem()
-    {
-        return $this->hasMany(notifikasi_sistem::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
-    
 }

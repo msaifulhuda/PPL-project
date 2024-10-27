@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai_ekstras', function (Blueprint $table) {
+        Schema::create('nilai_ekstra', function (Blueprint $table) {
             $table->uuid('id_nilai_ekstra')->primary();
-            $table->uuid('ekstra_id');
+            $table->uuid('ekstrakurikuler_id');
             $table->string('pesan');
-            $table->string('ekstra_id');
             $table->timestamps();
+            $table->foreign('ekstrakurikuler_id')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nilai_ekstras');
+        Schema::dropIfExists('nilai_ekstra');
     }
 };

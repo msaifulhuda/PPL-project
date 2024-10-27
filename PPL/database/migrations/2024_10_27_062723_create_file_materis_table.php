@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('file_materis', function (Blueprint $table) {
+        Schema::create('file_materi', function (Blueprint $table) {
             $table->uuid('id_file_materi')->primary();
             $table->uuid('materi_id');
             $table->string('file_path');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('file_materis');
+        Schema::dropIfExists('file_materi');
     }
 };

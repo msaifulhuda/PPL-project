@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bobot_grades', function (Blueprint $table) {
             $table->uuid('id_bobot_grade')->primary();
             $table->string('grade');
-            $table->int('maksimal');
-            $table->int('minimal');
+            $table->float('maksimal');
+            $table->float('minimal');
             $table->timestamps();
         });
     }
