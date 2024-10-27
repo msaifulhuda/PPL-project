@@ -1,4 +1,0 @@
-##composer->download jika blm ada->kemudian composer install di folder clonenya
-##npm install
-##copy .env.example kemudian ganti nama menjadi .env.example menjadi .env(.env.example->.env),jika benar maka akan ada (.env.example dan .env)
-##php artisan key:generate
