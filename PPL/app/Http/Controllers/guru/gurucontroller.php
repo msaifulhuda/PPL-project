@@ -4,7 +4,7 @@ namespace App\Http\Controllers\guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class gurucontroller extends Controller
+class GuruController extends Controller
 {
     public function index()
     {

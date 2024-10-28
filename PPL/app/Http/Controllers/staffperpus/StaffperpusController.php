@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\staff_perpus;
+namespace App\Http\Controllers\staffperpus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class staffperpuscontroller extends Controller
+class StaffperpusController extends Controller
 {
     public function index()
     {

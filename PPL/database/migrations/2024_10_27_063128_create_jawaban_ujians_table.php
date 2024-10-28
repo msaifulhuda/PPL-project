@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('jawaban_dipilih');
             $table->timestamps();
             $table->foreign('pengumpulan_ujian_id')->references('id_pengumpulan_ujian')->on('pengumpulan_ujian');
-            $table->foreign('soal_id')->references('id_soal_ujian')->on('soal_ujians');
+            $table->foreign('soal_id')->references('id_soal_ujian')->on('soal_ujian');
         });
     }
 

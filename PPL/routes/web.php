@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\guru\gurucontroller;
-use App\Http\Controllers\pembina_ekstra\pembinaekstracontroller;
+use App\Http\Controllers\guru\GuruController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\siswa\siswacontroller;
-use App\Http\Controllers\staff_akademik\staffakademikcontroller;
-use App\Http\Controllers\staff_perpus\staffperpuscontroller;
-
-use App\Http\Controllers\superadmin\superadmincontroller;
+use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\staffakademik\StaffakademikController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\superadmin\SuperadminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,22 +23,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::group(['prefix' => 'superadmin'], function () {
-    Route::get('/dashboard', [superadmincontroller::class, 'index'])->name('superadmin.dashboard');
+    Route::get('/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
 });
 Route::group(['prefix' => 'staff_akademik'], function () {
-    Route::get('/dashboard', [staffakademikcontroller::class, 'index'])->name('staff_akademik.dashboard');
+    Route::get('/dashboard', [StaffakademikController::class, 'index'])->name('staff_akademik.dashboard');
 });
 Route::group(['prefix' => 'staff_perpus'], function () {
-    Route::get('/dashboard', [staffperpuscontroller::class, 'index'])->name('staff_perpus.dashboard');
+    Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
 });
 Route::group(['prefix' => 'siswa'], function () {
-    Route::get('/dashboard', [siswacontroller::class, 'index'])->name('siswa.dashboard');
+    Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
 });
 Route::group(['prefix' => 'guru'], function () {
-    Route::get('/dashboard', [gurucontroller::class, 'index'])->name('guru.dashboard');
+    Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
 });
 Route::group(['prefix' => 'pembina_ekstra'], function () {
-    Route::get('/dashboard', [pembinaekstracontroller::class, 'index'])->name('pembina_ekstra.dashboard');
+    Route::get('/dashboard', [PembinaekstraController::class, 'index'])->name('pembina_ekstra.dashboard');
 });
 
 
