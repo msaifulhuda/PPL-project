@@ -15,14 +15,14 @@ return new class extends Migration
             $table->uuid('id_guru')->primary();
             $table->string('nip');
             $table->string('nama_guru');
-            $table->string('email_guru');
-            $table->string('google_key_guru');
-            $table->string('foto_guru');
-            $table->string('nomor_wa_guru');
-            $table->string('username_guru');
-            $table->string('password_guru');
-            $table->string('alamat_guru');
-            $table->string('role_guru');
+            $table->string('email_guru')->nullable();
+            $table->string('google_key_guru')->nullable();
+            $table->string('foto_guru')->nullable();
+            $table->string('nomor_wa_guru')->nullable();
+            $table->string('username_guru')->nullable();
+            $table->string('password_guru')->nullable();
+            $table->string('alamat_guru')->nullable();
+            $table->string('role_guru')->nullable();
             $table->timestamps();
         });
     }

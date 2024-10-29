@@ -15,6 +15,7 @@ class Guru extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -60,6 +61,8 @@ class Guru extends Model
         'alamat_guru',
         'role_guru',
     ];
+    public $timestamps = false;
+    protected $primaryKey = 'id_guru';
     public function gurumatapelajaran()
     {
         return $this->hasMany(guru_mata_pelajaran::class,'id_laporan', 'id_laporan' );

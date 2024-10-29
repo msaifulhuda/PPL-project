@@ -15,6 +15,7 @@ class tahun_ajaran extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,7 +49,8 @@ class tahun_ajaran extends Model
      * @var array
      */
     protected $table = 'tahun_ajaran';
-
+    public $timestamps = false;
+    protected $primaryKey = 'id_tahun_ajaran';
     protected $fillable = [
         'tahun_mulai',
         'tahun_selesai',
