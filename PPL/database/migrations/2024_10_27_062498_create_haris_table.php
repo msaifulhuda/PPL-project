@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('hari', function (Blueprint $table) {
             $table->uuid('id_hari')->primary();
             $table->string('nama_hari');
-            $table->timestamps();
         });
     }
 

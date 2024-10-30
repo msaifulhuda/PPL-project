@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('superadmins', function (Blueprint $table) {
+        Schema::create('superadmin', function (Blueprint $table) {
             $table->uuid('id_admin')->primary();
-            $table->string('admin_username');
-            $table->string('admin_password');
-            $table->string('admin_email');
-            $table->string('admin_google_key');
+            $table->string('username');
+            $table->string('password');
+            $table->string('email')->nullable();
+            $table->string('admin_google_key')->nullable();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('superadmins');
+        Schema::dropIfExists('superadmin');
     }
 };

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class Staffakademik extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Staffakademik extends Authenticatable
 {
     
-    use Notifiable;
 
     /**
      * The "booting" function of model
@@ -16,6 +16,7 @@ class Staffakademik extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -45,11 +46,12 @@ class Staffakademik extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
+     *P
      * @var array
      */
-
+    public $timestamps = false;
+    protected $primaryKey = 'id_staff_akademik';
 
     protected $table = 'staffakademik';
-    protected $fillable = ['staff_akademik_username', 'staff_akademik_password', 'staff_akademik_email', 'staff_akademik_google_key'];
+    protected $fillable = ['id_staff_akademik','username', 'password', 'email', 'staff_akademik_google_key'];
 }

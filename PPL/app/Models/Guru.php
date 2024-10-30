@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class Guru extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Guru extends Authenticatable
 {
-    use Notifiable;
+
 
     /**
      * The "booting" function of model
@@ -15,7 +16,7 @@ class Guru extends Model
      * @return void
      */
     protected static function boot() {
-        parent::boot();
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -53,12 +54,12 @@ class Guru extends Model
         'id_guru',
         'nip',
         'nama_guru',
-        'email_guru',
+        'email',
         'google_key_guru',
         'foto_guru',
         'nomor_wa_guru',
-        'username_guru',
-        'password_guru',
+        'username',
+        'password',
         'alamat_guru',
         'role_guru',
     ];

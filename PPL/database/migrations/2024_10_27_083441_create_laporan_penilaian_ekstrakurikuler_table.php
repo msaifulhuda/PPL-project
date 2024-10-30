@@ -15,8 +15,8 @@ return new class extends Migration
 
         Schema::create('laporan_penilaian_ekstrakurikuler', function (Blueprint $table) {
             $table->uuid('id_laporan')->primary();
-            $table->uuid('id_pembina');
-            $table->foreign('id_pembina')->references('id_pembina_ekstra')->on('pembina_ekstra');
+            $table->uuid('guru_id');
+            $table->foreign('guru_id')->references('id_guru')->on('guru');
             $table->uuid('id_pengurus');
             $table->foreign('id_pengurus')->references('id_pengurus_ekstra')->on('pengurus_ekstra');
             $table->uuid('id_ekstrakurikuler');

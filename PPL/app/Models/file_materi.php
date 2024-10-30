@@ -7,7 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 class file_materi extends Model
 {
-    use Notifiable;
+    public $timestamps = false;
+    protected $primaryKey = 'id_file_materi';
 
     /**
      * The "booting" function of model
@@ -15,6 +16,7 @@ class file_materi extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();

@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 class file_tugas extends Model
 {
     use Notifiable;
+    public $timestamps = false;
+    protected $primaryKey = 'id_file_tugas';
 
     /**
      * The "booting" function of model
@@ -15,6 +17,7 @@ class file_tugas extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();

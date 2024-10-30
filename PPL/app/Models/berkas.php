@@ -7,14 +7,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 class berkas extends Model
 {
-    use Notifiable;
+    public $timestamps = false;
+    protected $primaryKey = 'id_berkas';
 
     /**
      * The "booting" function of model
      *
      * @return void
-     */
+     */    
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();

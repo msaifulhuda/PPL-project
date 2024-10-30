@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->uuid('id_siswa')->primary();
-            $table->uuid('kelas_id');
-            $table->string('nisn');
-            $table->string('nama_siswa');
-            $table->date('tgl_lahir_siswa');
-            $table->enum('jenis_kelamin_siswa', ['Laki-laki', 'Perempuan']);
-            $table->string('alamat_siswa');
-            $table->string('foto_siswa');
-            $table->string('nomor_wa_siswa');
-            $table->boolean('role_siswa');
-            $table->string('username_siswa');
-            $table->string('password_siswa');
-            $table->string('email_siswa');
-            $table->string('google_key_siswa');
+            $table->uuid('kelas_id')->nullable();
+            $table->string('nisn')->nullable();
+            $table->string('nama_siswa')->nullable();
+            $table->date('tgl_lahir_siswa')->nullable();
+            $table->enum('jenis_kelamin_siswa', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('alamat_siswa')->nullable();
+            $table->string('foto_siswa')->nullable();
+            $table->string('nomor_wa_siswa')->nullable();
+            $table->enum('role_siswa',['siswa','pengurus'])->nullable();
+            $table->string('username');
+            $table->string('password');
+            $table->string('email')->nullable();
+            $table->string('google_key_siswa')->nullable();
             $table->timestamps();
             $table->foreign('kelas_id')->references('id_kelas')->on('kelas');
         });

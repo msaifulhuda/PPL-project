@@ -40,6 +40,26 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'web-siswa' => [
+            'driver' => 'session',
+            'provider' => 'siswas',
+        ],
+        'web-guru' => [
+            'driver' => 'session',
+            'provider' => 'gurus',
+        ],
+        'web-staffakademik' => [
+            'driver' => 'session',
+            'provider' => 'staffakademiks',
+        ],
+        'web-staffperpus' => [
+            'driver' => 'session',
+            'provider' => 'staffperpus',
+        ],
+        'web-superadmin' => [
+            'driver' => 'session',
+            'provider' => 'superadmins',
+        ],
     ],
 
     /*
@@ -58,18 +78,33 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'siswas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Siswa::class,
+        ],
+        'gurus' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Guru::class,
+        ],
+        'staffakademiks' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staffakademik::class,
+        ],
+        'staffperpus' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staffperpus::class,
+        ],
+        'superadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Superadmin::class,
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
