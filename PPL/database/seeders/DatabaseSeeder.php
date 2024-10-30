@@ -6,7 +6,6 @@ use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\Staffakademik;
 use App\Models\Staffperpus;
-use Illuminate\Support\Str;
 use App\Models\Superadmin;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
