@@ -11,6 +11,10 @@ use App\Models\Superadmin;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\GuruSeeder;
+use Database\Seeders\KelasSeeder;
+use Database\Seeders\MatpelSeeder;
+use Database\Seeders\TahunAjaranSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -74,6 +78,12 @@ Guru::create([
     'role_guru' => 'pembina',
 ]);
         
+        $this->call([
+            GuruSeeder::class,
+            MatpelSeeder::class,
+            KelasSeeder::class,
+            TahunAjaranSeeder::class,
+        ]);
     }
 }
 

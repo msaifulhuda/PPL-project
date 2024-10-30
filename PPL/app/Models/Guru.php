@@ -8,8 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 class Guru extends Authenticatable
 {
-    public $timestamps = false;
-    protected $primaryKey = 'id_guru';
+
 
     /**
      * The "booting" function of model
@@ -63,6 +62,8 @@ class Guru extends Authenticatable
         'alamat_guru',
         'role_guru',
     ];
+    public $timestamps = false;
+    protected $primaryKey = 'id_guru';
     public function gurumatapelajaran()
     {
         return $this->hasMany(guru_mata_pelajaran::class,'id_laporan', 'id_laporan' );

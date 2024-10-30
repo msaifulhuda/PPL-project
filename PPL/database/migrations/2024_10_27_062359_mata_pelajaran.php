@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->uuid('id_matpel')->primary();
             $table->string('nama_matpel');
-            $table->string('deskripsi_matpel');
+            $table->string('deskripsi_matpel')->nullable();
             $table->timestamps();
         });
     }

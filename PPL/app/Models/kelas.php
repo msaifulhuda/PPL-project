@@ -15,7 +15,9 @@ class kelas extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
+            parent::boot();
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
@@ -48,6 +50,8 @@ class kelas extends Model
      * @var array
      */
     protected $table = 'kelas';
+    public $timestamps = false;
+    protected $primaryKey='id_kelas';
     protected $fillable = [
         'nama_kelas',
     ];
