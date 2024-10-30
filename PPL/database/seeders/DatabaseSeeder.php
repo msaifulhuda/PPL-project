@@ -78,12 +78,12 @@ Guru::create([
     'role_guru' => 'pembina',
 ]);
         
-        $this->call([
-            GuruSeeder::class,
-            MatpelSeeder::class,
-            KelasSeeder::class,
-            TahunAjaranSeeder::class,
-        ]);
+        // $this->call([
+        //     GuruSeeder::class,
+        //     MatpelSeeder::class,
+        //     KelasSeeder::class,
+        //     TahunAjaranSeeder::class,
+        // ]);
     }
 }
 
