@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -19,10 +20,10 @@ return new class extends Migration
             $table->string('google_key_guru')->nullable();
             $table->string('foto_guru')->nullable();
             $table->string('nomor_wa_guru')->nullable();
-            $table->string('username');
-            $table->string('password');
+            $table->string('username')->default('guru');
+            $table->string('password')->default(Hash::make('guru'));
             $table->string('alamat_guru')->nullable();
-            $table->enum('role_guru',['guru','pembina','wali_kelas']);
+            $table->enum('role_guru',['guru','pembina','wali_kelas'])->default('guru');
             $table->timestamps();
         });
     }

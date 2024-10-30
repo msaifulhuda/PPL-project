@@ -59,20 +59,6 @@ Siswa::create([
     'password' => bcrypt('pengurus'),
     'role_siswa' => 'pengurus',
 ]);
-$idUser6 = Str::uuid();
-$idUser7 = Str::uuid();
-Guru::create([
-    'id_guru' => $idUser6,
-    'username' => 'guru',
-    'password' => bcrypt('guru'),
-    'role_guru' => 'guru',
-]);
-Guru::create([
-    'id_guru' => $idUser7,
-    'username' => 'pembina',
-    'password' => bcrypt('pembina'),
-    'role_guru' => 'pembina',
-]);
         
         $this->call([
             KelasMapelGuruJadwalAjaranSeeder::class,
