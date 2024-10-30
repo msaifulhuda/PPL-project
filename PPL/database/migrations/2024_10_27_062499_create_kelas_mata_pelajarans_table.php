@@ -16,15 +16,16 @@ return new class extends Migration
             $table->uuid('kelas_id');
             $table->uuid('mata_pelajaran_id');
             $table->uuid('guru_id');
-            $table->string('hari',10);
-            $table->time('waktu_mulai');
-            $table->time('waktu_selesai');
-            $table->uuid('tahun_ajaran');
+            $table->uuid('hari_id');
+            $table->string('waktu_mulai');
+            $table->string('waktu_selesai');
+            $table->uuid('tahun_ajaran_id');
             $table->timestamps();
             $table->foreign('kelas_id')->references('id_kelas')->on('kelas');
             $table->foreign('mata_pelajaran_id')->references('id_matpel')->on('mata_pelajaran');
             $table->foreign('guru_id')->references('id_guru')->on('guru');
-            $table->foreign('tahun_ajaran')->references('id_tahun_ajaran')->on('tahun_ajaran');
+            $table->foreign('tahun_ajaran_id')->references('id_tahun_ajaran')->on('tahun_ajaran');
+            $table->foreign('hari_id')->references('id_hari')->on('hari');
         });
     }
 

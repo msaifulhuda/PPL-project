@@ -15,6 +15,7 @@ class hari extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,8 +49,13 @@ class hari extends Model
      * @var array
      */
     protected $table = 'hari';
+    protected $primaryKey = 'id_hari';
+    public $timestamps = false;
     protected $fillable = [
         'nama_hari',
     ];
-    
+    public function kelas_mata_pelajaran()
+    {
+        return $this->hasMany(kelas_mata_pelajaran::class);
+    }
 }

@@ -53,6 +53,7 @@ class kelas extends Model
     public $timestamps = false;
     protected $primaryKey='id_kelas';
     protected $fillable = [
+        'id_kelas',
         'nama_kelas',
     ];
     public function kelasmatapeljaran()

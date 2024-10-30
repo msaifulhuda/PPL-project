@@ -52,6 +52,7 @@ class tahun_ajaran extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_tahun_ajaran';
     protected $fillable = [
+        'id_tahun_ajaran',
         'tahun_mulai',
         'tahun_selesai',
         'semester',

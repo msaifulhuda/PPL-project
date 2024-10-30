@@ -5,10 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\GuruSeeder;
-use Database\Seeders\KelasSeeder;
-use Database\Seeders\MatpelSeeder;
-use Database\Seeders\TahunAjaranSeeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,10 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $this->call([
-            GuruSeeder::class,
-            MatpelSeeder::class,
-            KelasSeeder::class,
-            TahunAjaranSeeder::class,
+            KelasMapelGuruJadwalAjaranSeeder::class,
         ]);
     }
 }

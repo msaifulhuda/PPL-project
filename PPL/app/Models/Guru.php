@@ -50,6 +50,7 @@ class Guru extends Model
      */
     protected $table = 'guru';
     protected $fillable = [
+        'id_guru',
         'nip',
         'nama_guru',
         'email_guru',

@@ -52,6 +52,7 @@ class mata_pelajaran extends Model
      public $timestamps = false;
     protected $primaryKey='id_matpel';
     protected $fillable = [
+        'id_matpel',
         'nama_matpel',
         'deskripsi_matpel',
     ];

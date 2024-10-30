@@ -15,6 +15,7 @@ class guru_mata_pelajaran extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,7 +49,10 @@ class guru_mata_pelajaran extends Model
      * @var array
      */
     protected $table = 'guru_mata_pelajaran';
+    public $timestamps = false;
+    protected $primaryKey='id_guru_mata_pelajaran';
     protected $fillable = [
+        'id_guru_mata_pelajaran',
         'guru_id',
         'matpel_id',
     ];
