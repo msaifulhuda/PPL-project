@@ -8,7 +8,8 @@ use Illuminate\Support\Str;
 class ujian extends Model
 {
     use Notifiable;
-
+    public $timestamps = false;
+    protected $primaryKey = 'id_ujian';
     /**
      * The "booting" function of model
      *

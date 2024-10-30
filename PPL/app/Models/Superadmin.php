@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
-class Superadmin extends Model
+class Superadmin extends Authenticatable
 {
-    use Notifiable;
-
+    use HasFactory;
     /**
      * The "booting" function of model
      *
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -47,8 +50,8 @@ class Superadmin extends Model
      *
      * @var array
      */
-
-
+    public $timestamps = false;
+     protected $primaryKey = 'id_admin';
     protected $table = 'superadmin';
-    protected $fillable = ['admin_username', 'admin_password', 'admin_email', 'admin_google_key'];
+    protected $fillable = ['id_admin','username', 'password', 'email', 'admin_google_key'];
 }

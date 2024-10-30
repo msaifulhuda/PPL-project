@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('guru', function (Blueprint $table) {
             $table->uuid('id_guru')->primary();
-            $table->string('nip');
-            $table->string('nama_guru');
-            $table->string('email_guru');
-            $table->string('google_key_guru');
-            $table->string('foto_guru');
-            $table->string('nomor_wa_guru');
-            $table->string('username_guru');
-            $table->string('password_guru');
-            $table->string('alamat_guru');
-            $table->string('role_guru');
+            $table->string('nip')->nullable();
+            $table->string('nama_guru')->nullable();
+            $table->string('email')->nullable();
+            $table->string('google_key_guru')->nullable();
+            $table->string('foto_guru')->nullable();
+            $table->string('nomor_wa_guru')->nullable();
+            $table->string('username');
+            $table->string('password');
+            $table->string('alamat_guru')->nullable();
+            $table->enum('role_guru',['guru','pembina','wali_kelas']);
             $table->timestamps();
         });
     }

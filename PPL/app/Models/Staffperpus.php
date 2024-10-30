@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class Staffperpus extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Staffperpus extends Authenticatable
 {
-    use Notifiable;
+    public $timestamps = false;
+    protected $primaryKey = 'id_staff_perpustakaan';
 
     /**
      * The "booting" function of model
@@ -15,6 +17,7 @@ class Staffperpus extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -51,9 +54,10 @@ class Staffperpus extends Model
 
     protected $table = 'staffperpus';
     protected $fillable = [
-        'username_staff_perpustakaan',
-        'password_staff_perpustakaan',
-        'email_staff_perpustakaan',
+        'id_staff_perpustakaan',
+        'username',
+        'password',
+        'email',
         'google_key_staff_perpustakaan',
         'foto_staff_perpustakaan',
         'nomor_wa_staff_perpustakaan',

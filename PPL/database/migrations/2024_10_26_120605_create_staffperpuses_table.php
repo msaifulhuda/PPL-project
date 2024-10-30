@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('staffperpus', function (Blueprint $table) {
             $table->uuid('id_staff_perpustakaan')->primary();
-            $table->string('username_staff_perpustakaan');
-            $table->string('password_staff_perpustakaan');
-            $table->string('email_staff_perpustakaan');
-            $table->string('google_key_staff_perpustakaan');
-            $table->string('foto_staff_perpustakaan');
-            $table->string('nomor_wa_staff_perpustakaan');
+            $table->string('username');
+            $table->string('password');
+            $table->string('email')->nullable();
+            $table->string('google_key_staff_perpustakaan')->nullable();
+            $table->string('foto_staff_perpustakaan')->nullable();
+            $table->string('nomor_wa_staff_perpustakaan')->nullable();
             $table->timestamps();
         });
     }

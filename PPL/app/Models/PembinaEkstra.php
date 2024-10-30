@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class PembinaEkstra extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class PembinaEkstra extends Authenticatable
 {
-    use Notifiable;
+    public $timestamps = false;
+    protected $primaryKey = 'id_pembina_ekstra';
 
     /**
      * The "booting" function of model

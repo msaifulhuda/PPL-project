@@ -15,8 +15,8 @@ return new class extends Migration
 
         Schema::create('ekstrakurikuler', function (Blueprint $table) {
             $table->uuid('id_ekstrakurikuler')->primary();
-            $table->uuid('id_pembina');
-            $table->foreign('id_pembina')->references('id_pembina_ekstra')->on('pembina_ekstra');
+            $table->uuid('guru_id');
+            $table->foreign('guru_id')->references('id_guru')->on('guru');
             $table->string('nama_ekstrakurikuler');
             $table->text('deskripsi');
             $table->string('gambar');

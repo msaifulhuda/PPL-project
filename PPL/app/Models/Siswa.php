@@ -5,16 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class Siswa extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Siswa extends Authenticatable
 {
         use Notifiable;
-
+    public $timestamps = false;
+    protected $primaryKey = 'id_siswa';
     /**
      * The "booting" function of model
      *
      * @return void
      */
     protected static function boot() {
+        parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -47,10 +50,22 @@ class Siswa extends Model
      *
      * @var array
      */
-    protected $table = 'nilai_mapel';
+    protected $table = 'siswa';
     protected $fillable = [
-        'matpel_id',
-        'rapor_id',
+        'id_siswa',
+        'kelas_id',
+        'nisn',
+        'nama_siswa',
+        'tgl_lahir_siswa',
+        'jenis_kelamin_siswa',
+        'alamat_siswa',
+        'foto_siswa',
+        'nomor_wa_siswa',
+        'role_siswa',
+        'username',
+        'password',
+        'email',
+        'google_key_siswa',
     ];
     public function pengurusekstra()
     {

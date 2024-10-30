@@ -52,7 +52,7 @@ class laporan_penilaian_ekstrakurikuler extends Model
      protected $table = 'laporan_penilaian_ekstrakurikuler';
 
      protected $fillable = [
-         'id_pembina',
+         'guru_id',
          'id_pengurus',
          'id_ekstrakurikuler',
          'isi_laporan',
@@ -62,9 +62,9 @@ class laporan_penilaian_ekstrakurikuler extends Model
      /**
       * Relationship with PembinaEkstra
       */
-     public function pembina()
+     public function guru()
      {
-         return $this->belongsTo(PembinaEkstra::class, 'id_pembina', 'id_pembina_ekstra');
+         return $this->belongsTo(Guru::class);
      }
  
      /**
