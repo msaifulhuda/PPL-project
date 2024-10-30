@@ -15,6 +15,7 @@ class kelas_mata_pelajaran extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,13 +49,17 @@ class kelas_mata_pelajaran extends Model
      * @var array
      */
     protected $table = 'kelas_mata_pelajaran';
+    protected $primaryKey = 'id_kelas_mata_pelajaran';
+    public $timestamps = false;
     protected $fillable = [
+        'id_kelas_mata_pelajaran',
         'kelas_id',
         'mata_pelajaran_id',
         'guru_id',
+        'hari_id',
         'waktu_mulai',
         'waktu_selesai',
-        'tahun_ajaran',
+        'tahun_ajaran_id',
     ];
     public function kelas()
     {
@@ -94,5 +99,9 @@ class kelas_mata_pelajaran extends Model
     public function ujian()
     {
         return $this->hasMany(ujian::class);
+    }
+    public function hari()
+    {
+        return $this->belongsTo(hari::class, 'hari_id', 'id_hari');
     }
 }

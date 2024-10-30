@@ -6,15 +6,11 @@ use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\Staffakademik;
 use App\Models\Staffperpus;
-use Illuminate\Support\Str;
 use App\Models\Superadmin;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\GuruSeeder;
-use Database\Seeders\KelasSeeder;
-use Database\Seeders\MatpelSeeder;
-use Database\Seeders\TahunAjaranSeeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -63,27 +59,10 @@ Siswa::create([
     'password' => bcrypt('pengurus'),
     'role_siswa' => 'pengurus',
 ]);
-$idUser6 = Str::uuid();
-$idUser7 = Str::uuid();
-Guru::create([
-    'id_guru' => $idUser6,
-    'username' => 'guru',
-    'password' => bcrypt('guru'),
-    'role_guru' => 'guru',
-]);
-Guru::create([
-    'id_guru' => $idUser7,
-    'username' => 'pembina',
-    'password' => bcrypt('pembina'),
-    'role_guru' => 'pembina',
-]);
         
-        // $this->call([
-        //     GuruSeeder::class,
-        //     MatpelSeeder::class,
-        //     KelasSeeder::class,
-        //     TahunAjaranSeeder::class,
-        // ]);
+        $this->call([
+            KelasMapelGuruJadwalAjaranSeeder::class,
+        ]);
     }
 }
 
