@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
         $idUser3 = Str::uuid(); 
         Staffakademik::create([
         'id_staff_akademik'=>$idUser3,
-        'username' => 'akademik',
-        'password' => bcrypt('akademik123')
+        'username' => '123456789999',
+        'password' => bcrypt('Akademik123')
 ,
 ]);
 // Generate UUIDs
