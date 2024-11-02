@@ -5,6 +5,7 @@ aria-label="Sidebar">
     class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
         <div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+            {{-- Sidebar Header --}}
             <ul class="pb-2 space-y-2">
                 <li>
                     <form action="#" method="GET" class="lg:hidden">
@@ -45,13 +46,13 @@ aria-label="Sidebar">
                     </x-sidebar-dropdown>
                     <x-sidebar-dropdown-list id="lms" :active="request()->is('dashboard/lms*')">
                         <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms') }}" :active="request()->is('dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/lms/materi" :active="request()->is('dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/lms/materi" :active="request()->is('dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}" :active="request()->is('dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
@@ -96,7 +97,7 @@ aria-label="Sidebar">
                 </li>
             </ul>
 
-
+            {{-- Sidebar Footer --}}
             <div class="pt-2 space-y-2">
                 <x-sidebar-link href="#">
                     <x-sidebar-icon>
