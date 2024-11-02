@@ -13,7 +13,7 @@ class EkstrakurikulerController extends Controller
         return view('ekstrakurikuler.registrasi'); // Pastikan Anda memiliki file view ini
     }
 
-    // Fungsi untuk mengolah data yang dikirim dari form
+    // Fungsi untuk mengolah data yang dikirim dari form regis
     public function submitForm(Request $request)
     {
         // Validasi data
