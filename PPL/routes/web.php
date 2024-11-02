@@ -50,5 +50,31 @@ Route::group(['prefix' => 'pembina_ekstra','middleware' => ['pembina_ekstra']], 
     Route::get('/dashboard', [PembinaekstraController::class, 'index'])->name('pembina_ekstra.dashboard');
 });
 
+// router akses sidebar
+Route::get('/staff_akademik/master-matpel', function () {
+    return view('staff_akademik.master_matpel');
+})->name('master_matpel');
+
+Route::get('/staff_akademik/master-guru', function () {
+    return view('staff_akademik.master_guru');
+})->name('master_guru');
+
+Route::get('/staff_akademik/master-kelas', function () {
+    return view('staff_akademik.master_kelas');
+})->name('master_kelas');
+
+//route crud kelas
+
+Route::prefix('staff-akademik')->group(function () {
+    Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
+    Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
+    Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
+    Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
+    Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
+
+});
+
+
+
 
 require __DIR__.'/auth.php';
