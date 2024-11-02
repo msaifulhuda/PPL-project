@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\guru\GuruController;
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Siswa\SiswaController;
-use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\superadmin\SuperadminController;
-use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\guru\GuruController;
+use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\superadmin\SuperadminController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+use App\Http\Controllers\staffakademik\StaffakademikController;
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 
 Route::get('/', function () {
     return view('beranda');
@@ -59,6 +59,12 @@ Route::group(['prefix' => 'guru','middleware' => ['guru']], function () {
 Route::group(['prefix' => 'pembina_ekstra','middleware' => ['pembina_ekstra']], function () {
     Route::get('/dashboard', [PembinaekstraController::class, 'index'])->name('pembina_ekstra.dashboard');
 });
+
+
+Route::get('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'showForm'])->name('ekstrakurikuler.registrasi');
+Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
+
+
 
 
 require __DIR__.'/auth.php';
