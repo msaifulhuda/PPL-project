@@ -27,7 +27,7 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
-    @include('layouts.stackedLayout.navigation')
+    @include('layouts.guest.navigation')
     
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
 
@@ -37,7 +37,7 @@
             <main>
                 {{ $slot }}
             </main> 
-            @include('layouts.stackedLayout.footer')
+            @include('layouts.guest.footer')
         
         </div>
     </div>
