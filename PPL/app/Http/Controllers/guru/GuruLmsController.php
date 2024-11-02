@@ -11,4 +11,9 @@ class GuruLmsController extends Controller
     {
         return view('guru.lms.index');
     }
+
+    public function materi()
+    {
+        return view('guru.lms.materi');
+    }
 }
