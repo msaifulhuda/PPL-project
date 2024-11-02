@@ -7,9 +7,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 class guru_mata_pelajaran extends Model
 {
-    public $timestamps = false;
-    protected $primaryKey = 'id_ekstrakurikuler';
-
     /**
      * The "booting" function of model
      *

@@ -29,6 +29,16 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
 });
 Route::group(['prefix' => 'staff_akademik','middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [StaffakademikController::class, 'index'])->name('staff_akademik.dashboard');
+
+    /**
+     * START JADWAL MANAGEMENT
+     */
+    Route::get('/jadwal', [StaffakademikController::class, 'jadwalIndex'])->name('staff_akademik.jadwal');
+    Route::get('/jadwal/tambah', [StaffakademikController::class, 'createJadwal'])->name('staff_akademik.jadwal.create');
+    Route::post('/jadwal/tambah', [StaffakademikController::class, 'storeJadwal'])->name('staff_akademik.jadwal.store');
+    /**
+     * END JADWAL MANAGEMENT
+     */
 });
 Route::group(['prefix' => 'staff_perpus','middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');

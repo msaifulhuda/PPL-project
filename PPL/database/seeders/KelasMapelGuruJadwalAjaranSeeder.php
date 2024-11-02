@@ -31,11 +31,17 @@ class KelasMapelGuruJadwalAjaranSeeder extends Seeder
             'id_guru'=>$guruid1,
             'nip'=>'nip 1',
             'nama_guru'=>'Guru 1',
+            'username' => 'guru',
+            'password' => bcrypt('guru'),
+            'role_guru' => 'guru',
         ]);
         Guru::create([
             'id_guru'=>$guruid2,
             'nip'=>'nip 2',
             'nama_guru'=>'Guru 2',
+            'username' => 'pembina',
+            'password' => bcrypt('pembina'),
+            'role_guru' => 'pembina',
         ]);
         Guru::create([
             'id_guru'=>$guruid3,

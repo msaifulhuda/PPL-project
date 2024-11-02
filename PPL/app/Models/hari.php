@@ -8,8 +8,7 @@ use Illuminate\Support\Str;
 class hari extends Model
 {
     use HasFactory;
-    public $timestamps = false;
-    protected $primaryKey = 'id_hari';
+    
      /**
      * The "booting" function of model
      *
