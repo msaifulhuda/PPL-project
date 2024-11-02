@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
@@ -11,10 +10,11 @@ use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('beranda');
+})->name('beranda');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -66,4 +66,7 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
 });
 
 
-require __DIR__ . '/auth.php';
+Route::get('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'showForm'])->name('ekstrakurikuler.registrasi');
+Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
+
+require __DIR__.'/auth.php';
