@@ -57,10 +57,10 @@ class LoginRequest extends FormRequest
             'username.digits' => 'Username harus berisi tepat 12 angka.',
 
             'password.required' => 'Password wajib diisi.',
-            'password.string' => 'Password harus berupa string.',
-            'password.min' => 'Password minimal harus terdiri dari 8 karakter.',
-            'password.max' => 'Password maksimal terdiri dari 20 karakter.',
-            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan angka.',
+            // 'password.string' => 'Password harus berupa string.',
+            // 'password.min' => 'Password minimal harus terdiri dari 8 karakter.',
+            // 'password.max' => 'Password maksimal terdiri dari 20 karakter.',
+            // 'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan angka.',
         ];
     }
 

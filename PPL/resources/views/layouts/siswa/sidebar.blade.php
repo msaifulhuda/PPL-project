@@ -28,7 +28,7 @@ aria-label="Sidebar">
 
                 {{-- Overview --}}
                 <li>
-                    <x-sidebar-link href="{{ route('dashboard') }}" :active="request()->is('dashboard')">
+                    <x-sidebar-link href="{{ route('siswa.dashboard') }}" :active="request()->is('siswa/dashboard')">
                         <x-sidebar-icon>
                                 <path d="M13.5 2c-.178 0-.356.013-.492.022l-.074.005a1 1 0 0 0-.934.998V11a1 1 0 0 0 1 1h7.975a1 1 0 0 0 .998-.934l.005-.074A7.04 7.04 0 0 0 22 10.5 8.5 8.5 0 0 0 13.5 2Z"/>
                                 <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z"/>
@@ -39,20 +39,20 @@ aria-label="Sidebar">
 
                 {{-- LMS --}}
                 <li>
-                    <x-sidebar-dropdown label="LMS" id="lms" :active="request()->is('dashboard/lms*')">
+                    <x-sidebar-dropdown label="LMS" id="lms" :active="request()->is('siswa/dashboard/lms*')">
                         <x-sidebar-icon>
                             <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd"/>
                         </x-sidebar-icon>
                     </x-sidebar-dropdown>
-                    <x-sidebar-dropdown-list id="lms" :active="request()->is('dashboard/lms*')">
+                    <x-sidebar-dropdown-list id="lms" :active="request()->is('siswa/dashboard/lms*')">
                         <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms') }}" :active="request()->is('dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms') }}" :active="request()->is('siswa/dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.materi') }}" :active="request()->is('siswa/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}" :active="request()->is('dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tugas') }}" :active="request()->is('siswa/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
