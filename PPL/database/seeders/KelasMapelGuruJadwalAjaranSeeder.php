@@ -22,12 +22,45 @@ class KelasMapelGuruJadwalAjaranSeeder extends Seeder
     {
         // START GURU SEEDER
         $guruid1 = Str::uuid();
-        session(['guruid1' => $guruid1]);
         $guruid3 = Str::uuid();
         $guruid2 = Str::uuid();
         $guruid4 = Str::uuid();
         $guruid5 = Str::uuid();
         $guruid6 = Str::uuid();
+        $guruid7 = Str::uuid();
+        $guruid8 = Str::uuid();
+        $guruid9 = Str::uuid();
+
+        
+        // Guru Pembina
+        session(['guruid2' => $guruid2, 'guruid7' => $guruid7, 'guruid8' => $guruid8, 'guruid9' => $guruid9]);
+
+        Guru::create([
+            'id_guru'=>$guruid2,
+            'nip'=>'nip 2',
+            'nama_guru'=>'Guru 2',
+            'username' => 'pembina',
+            'password' => bcrypt('pembina'),
+            'role_guru' => 'pembina',
+        ]);
+        Guru::create([
+            'id_guru'=>$guruid7,
+            'nip'=>'nip 7',
+            'nama_guru'=>'Guru 7',
+            'username' => 'pembina7',
+            'password' => bcrypt('pembina7'),
+            'role_guru' => 'pembina',
+        ]);
+        Guru::create([
+            'id_guru'=>$guruid8,
+            'nip'=>'nip 8',
+            'nama_guru'=>'Guru 8',
+            'username' => 'pembina8',
+            'password' => bcrypt('pembina8'),
+            'role_guru' => 'pembina',
+        ]);
+        // End Guru Pembina
+
         Guru::create([
             'id_guru'=>$guruid1,
             'nip'=>'nip 1',
@@ -37,11 +70,11 @@ class KelasMapelGuruJadwalAjaranSeeder extends Seeder
             'role_guru' => 'guru',
         ]);
         Guru::create([
-            'id_guru'=>$guruid2,
-            'nip'=>'nip 2',
-            'nama_guru'=>'Guru 2',
-            'username' => 'pembina',
-            'password' => bcrypt('pembina'),
+            'id_guru'=>$guruid9,
+            'nip'=>'nip 9',
+            'nama_guru'=>'Guru 9',
+            'username' => 'pembina9',
+            'password' => bcrypt('pembina9'),
             'role_guru' => 'pembina',
         ]);
         Guru::create([
