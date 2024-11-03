@@ -54,7 +54,7 @@ class ekstrakurikuler extends Model
      protected $table = 'ekstrakurikuler';
 
      protected $fillable = [
-         'id_pembina',
+         'guru_id',
          'nama_ekstrakurikuler',
          'deskripsi',
          'gambar',
@@ -64,7 +64,7 @@ class ekstrakurikuler extends Model
      */
     public function pembinaEkstra()
     {
-        return $this->belongsTo(PembinaEkstra::class, 'id_pembina', 'id_pembina_ekstra');
+        return $this->belongsTo(Guru::class, );
     }
 
     /**
