@@ -10,9 +10,7 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\superadmin\SuperadminController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 
