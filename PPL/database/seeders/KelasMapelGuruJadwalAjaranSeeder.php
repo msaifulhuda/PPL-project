@@ -22,6 +22,7 @@ class KelasMapelGuruJadwalAjaranSeeder extends Seeder
     {
         // START GURU SEEDER
         $guruid1 = Str::uuid();
+        session(['guruid1' => $guruid1]);
         $guruid3 = Str::uuid();
         $guruid2 = Str::uuid();
         $guruid4 = Str::uuid();

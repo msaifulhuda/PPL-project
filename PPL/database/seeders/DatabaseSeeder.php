@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ekstrakurikuler;
 use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\Staffakademik;
@@ -59,6 +60,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             KelasMapelGuruJadwalAjaranSeeder::class,
+        ]);
+        $idekstra1= Str::uuid();
+        ekstrakurikuler::create([
+            'id_ekstrakurikuler' => $idekstra1,
+            'guru_id' => session('guruid1'),
+            'nama_ekstrakurikuler' => '69',
         ]);
     }
 }
