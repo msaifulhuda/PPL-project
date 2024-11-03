@@ -1,8 +1,10 @@
 <x-app-guru-layout>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <div class="p-4 bg-gray-100 min-h-screen">
         <!-- Header Anggota Ekstrakurikuler -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <!-- Breadcrumb -->
             <div class="text-sm text-gray-500 mb-4">
                 Dashboard > <span class="font-semibold text-gray-700">Anggota</span>
             </div>
@@ -29,7 +31,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Loop through members and display them in table rows -->
                     @foreach ($members as $member)
                     <tr class="hover:bg-gray-50">
                         <td class="p-2 border-b">{{ $member['name'] }}</td>

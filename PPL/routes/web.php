@@ -67,6 +67,9 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
     Route::group(['middleware' => 'pengurus'], function () {
+        // Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('pengurus_ekstra.anggota');
+        Route::get('/dashboard/ekstrakurikuler/anggota', [PengurusekstraController::class, 'index'])
+        ->name('pengurus_ekstra.anggota');
     });
 
     /**
@@ -79,7 +82,6 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      * END LMS
      */
 });
-Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('pengurus_ekstra.anggota');
 
 // GURU ROLE
 Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
