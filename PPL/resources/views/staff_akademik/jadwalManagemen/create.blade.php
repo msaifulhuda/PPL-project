@@ -7,6 +7,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                
+                 <!-- Tombol Kembali -->
+                 <a href="{{ route('staff_akademik.jadwal') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mb-4 inline-block">
+                    Kembali
+                </a>
 
                 <!-- Form Tambah Jadwal -->
                 <form action="{{ route('staff_akademik.jadwal.store') }}" method="POST">
@@ -29,13 +34,13 @@
                         <thead>
                             <tr>
                                 <th>Hari</th>
-                                <th>Waktu Mulai</th>
-                                <th>Waktu Selesai</th>
+                                <th>Waktu Mulai-Selesai</th>
                                 <th>Guru dan Mata Pelajaran</th>
                             </tr>
                         </thead>
                         <tbody id="jadwal-rows">
                             <tr>
+                                <!-- Pilihan Hari -->
                                 <td>
                                     <select name="jadwal[0][hari_id]" class="border-gray-300 rounded">
                                         @foreach ($hari as $h)
@@ -43,8 +48,16 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td><input type="time" name="jadwal[0][waktu_mulai]" class="border-gray-300 rounded"></td>
-                                <td><input type="time" name="jadwal[0][waktu_selesai]" class="border-gray-300 rounded"></td>
+                                <!-- Pilihan Jam Pelajaran -->
+                                <td>
+                                    <select name="jadwal[0][jam_pelajaran]" class="border-gray-300 rounded">
+                                        <option value="07:00-09:00">07:00-09:00</option>
+                                        <option value="10:00-12:00">10:00-12:00</option>
+                                        <option value="13:00-14:00">13:00-14:00</option>
+                                        <option value="14:00-16:00">14:00-16:00</option>
+                                    </select>
+                                </td>
+                                <!-- Pilihan Guru dan Mata Pelajaran -->
                                 <td>
                                     <select name="jadwal[0][guru_id]" class="border-gray-300 rounded">
                                         @foreach ($guruMataPelajaran as $guruMatpel)
@@ -86,8 +99,14 @@
                         @endforeach
                     </select>
                 </td>
-                <td><input type="time" name="jadwal[${rowCount}][waktu_mulai]" class="border-gray-300 rounded"></td>
-                <td><input type="time" name="jadwal[${rowCount}][waktu_selesai]" class="border-gray-300 rounded"></td>
+                <td>
+                    <select name="jadwal[${rowCount}][jam_pelajaran]" class="border-gray-300 rounded">
+                        <option value="07:00-09:00">07:00-09:00</option>
+                        <option value="10:00-12:00">10:00-12:00</option>
+                        <option value="13:00-14:00">13:00-14:00</option>
+                        <option value="14:00-16:00">14:00-16:00</option>
+                    </select>
+                </td>
                 <td>
                     <select name="jadwal[${rowCount}][guru_id]" class="border-gray-300 rounded">
                         @foreach ($guruMataPelajaran as $guruMatpel)
@@ -99,8 +118,9 @@
                 </td>
             `;
 
-            tbody.appendChild(newRow);
-            rowCount++;
-        }
+        tbody.appendChild(newRow);
+        rowCount++;
+    }
+
     </script>
 </x-app-layout>
