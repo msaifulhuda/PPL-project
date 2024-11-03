@@ -35,157 +35,170 @@
                         </div>
                     @endif
 
-                    <!-- Filter Kelas -->
-                    <div class="mb-4">
-                        <label for="kelasFilter" class="block text-sm font-medium text-gray-700">Filter Kelas:</label>
-                        <select id="kelasFilter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" onchange="filterTable()">
-                            <option value="">Semua Kelas</option>
-                            @foreach($kelas as $item)
-                                <option value="{{ $item->nama_kelas }}">{{ $item->nama_kelas }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div id="jadwalTableContainer">
-                        <!-- Tabel akan dimasukkan secara dinamis melalui JavaScript -->
+                    <!-- Pesan Update Bentrok -->
+                    @if(session('error-update'))
+                        <div class="bg-red-500 text-white p-4 rounded mb-4">
+                            <strong>List jadwal bentrok</strong>
+                            <ul class="list-disc pl-5">
+                                <li>{{ session('error-update') }}</li>
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Pesan Sukses -->
+                    @if(session('success'))
+                        <div class="bg-green-500 text-white p-4 rounded mb-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <div>
+                        @foreach ($kelas as $kls)
+                            <h3 class="text-lg font-semibold mb-4">Jadwal Kelas {{ $kls->nama_kelas }}</h3>
+                            <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden mb-6">
+                                <thead class="bg-gray-100 border-b">
+                                    <tr>
+                                        <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hari</th>
+                                        <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jam</th>
+                                        <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama Mata Pelajaran</th>
+                                        <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama Guru</th>
+                                        <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Senin")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Selasa")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Rabu")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Kamis")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Jumat")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Sabtu")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($data as $item)
+                                        @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Minggu")
+                                            <tr class="border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_hari }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_matpel }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $item->nama_guru }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="text-blue-500 hover:underline">Edit</a>
+                                                    <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </x-app-layout>
-    
-    <script>
-        const data = @json($data);
-    
-        function filterTable() {
-            const kelasFilter = document.getElementById('kelasFilter').value;
-    
-            // Filter data sesuai kelas yang dipilih
-            const filteredData = kelasFilter ? data.filter(item => item.nama_kelas === kelasFilter) : data;
-            
-            // Jika Semua Kelas dipilih, data akan dikelompokkan berdasarkan kelas
-            let groupedData = kelasFilter ? { [kelasFilter]: filteredData } : groupByKelas(filteredData);
-            
-            // Render tabel per kelas
-            let containerHTML = '';
-            Object.keys(groupedData).forEach(kelas => {
-                containerHTML += `
-                    <h3 class="text-lg font-semibold mb-4">Jadwal Kelas ${kelas}</h3>
-                    <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden mb-6">
-                        <thead class="bg-gray-100 border-b">
-                            <tr>
-                                <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hari</th>
-                                <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jam</th>
-                                <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama Mata Pelajaran</th>
-                                <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nama Guru</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-    
-                const kelasData = groupedData[kelas];
-                console.log(kelasData);
-                if (kelasData.length > 0) {
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Senin"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Selasa"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Rabu"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Kamis"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Jumat"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Sabtu"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                    kelasData.forEach(item => {
-                        if (item.nama_hari=="Minggu"){
-                            containerHTML += `
-                            <tr class="border-b">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_hari}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.waktu_mulai} - ${item.waktu_selesai}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_matpel}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nama_guru}</td>
-                            </tr>`;
-                        }
-                    });
-                } else {
-                    containerHTML += `
-                        <tr>
-                            <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">Tidak ada jadwal untuk kelas ini.</td>
-                        </tr>`;
-                }
-    
-                containerHTML += `</tbody></table>`;
-            });
-    
-            document.getElementById('jadwalTableContainer').innerHTML = containerHTML;
-        }
-    
-        // Helper function to group data by nama_kelas
-        function groupByKelas(data) {
-            return data.reduce((acc, item) => {
-                if (!acc[item.nama_kelas]) {
-                    acc[item.nama_kelas] = [];
-                }
-                acc[item.nama_kelas].push(item);
-                return acc;
-            }, {});
-        }
-    
-        // Load table for the first time
-        document.addEventListener("DOMContentLoaded", filterTable);
-    </script>

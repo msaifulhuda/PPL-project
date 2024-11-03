@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
+
 class Superadmin extends Authenticatable
 {
     use HasFactory;
@@ -16,16 +17,17 @@ class Superadmin extends Authenticatable
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -51,7 +53,7 @@ class Superadmin extends Authenticatable
      * @var array
      */
     public $timestamps = false;
-     protected $primaryKey = 'id_admin';
+    protected $primaryKey = 'id_admin';
     protected $table = 'superadmin';
-    protected $fillable = ['id_admin','username', 'password', 'email', 'admin_google_key'];
+    protected $fillable = ['id_admin', 'username', 'password', 'email', 'admin_google_key'];
 }

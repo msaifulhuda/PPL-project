@@ -1,10 +1,5 @@
 <x-app-guru-layout>
-    <x-slot name="header_content">
-        <h1>{{ __('Data LMS') }}</h1>
+    <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
 
-        {{-- <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('dashboard.lms') }}">Dashboard</a></div>
-        </div> --}}
-    </x-slot>
-
+    </div>
 </x-app-guru-layout>

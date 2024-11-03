@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 class Guru extends Authenticatable
 {
 
@@ -15,16 +16,17 @@ class Guru extends Authenticatable
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot(); // Pastikan memanggil parent::boot()
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -67,10 +69,10 @@ class Guru extends Authenticatable
     protected $primaryKey = 'id_guru';
     public function gurumatapelajaran()
     {
-        return $this->hasMany(guru_mata_pelajaran::class,'id_laporan', 'id_laporan' );
+        return $this->hasMany(guru_mata_pelajaran::class, 'id_laporan', 'id_laporan');
     }
     public function kelasmatapelajaran()
     {
-        return $this->hasMany(kelas_mata_pelajaran::class,'id_laporan', 'id_laporan' );
+        return $this->hasMany(kelas_mata_pelajaran::class, 'id_laporan', 'id_laporan');
     }
 }
