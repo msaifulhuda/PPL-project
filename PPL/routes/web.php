@@ -46,9 +46,9 @@ Route::group(['prefix' => 'staff_perpus','middleware' => ['staff_perpus']], func
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
     Route::group(['middleware' => 'pengurus'], function () {
-        Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('siswa.pengurus.dashboard');
     });
 });
+Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('siswa.pengurus.dashboard');
 
 Route::group(['prefix' => 'guru','middleware' => ['guru']], function () {
     Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
