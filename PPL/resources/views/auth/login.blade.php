@@ -44,7 +44,7 @@
                 <img src="/icon/username.png" alt="Username Icon" class="h-4 w-4">
               </span>
               <!-- Input Field -->
-              <input type="text" id="username" name="username" placeholder="username" value="{{ old('username') }}" class="w-full px-2 py-1 focus:outline-none text-xs">
+              <input type="text" id="username" name="username" placeholder="username" value="{{ old('username') }}" class="w-full px-2 py-1 focus:outline-none text-xs" maxlength="12">
             </div>
             <x-input-error :messages="$errors->get('username')" class="text-xs text-red-500 mt-0.5" />
           </div>
