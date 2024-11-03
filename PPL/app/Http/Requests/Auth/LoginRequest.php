@@ -29,20 +29,20 @@ class LoginRequest extends FormRequest
     {
         return [
             'username' => [
-                'required',
-                'digits:12', // hanya menerima huruf dan angka
+                // 'required',
+                // 'digits:12', // hanya menerima huruf dan angka
             ],
             'password' => [
                 'required',
-                'string',
-                'min:8',      // minimal 8 karakter
-                'max:20',    // maksimal 255 karakter
-                'regex:/[a-z]/',    // harus memiliki setidaknya satu huruf kecil
-                'regex:/[A-Z]/',    // harus memiliki setidaknya satu huruf besar
-                'regex:/[0-9]/',    // harus memiliki setidaknya satu angka
+                // 'string',
+                // 'min:8',      // minimal 8 karakter
+                // 'max:20',    // maksimal 255 karakter
+                // 'regex:/[a-z]/',    // harus memiliki setidaknya satu huruf kecil
+                // 'regex:/[A-Z]/',    // harus memiliki setidaknya satu huruf besar
+                // 'regex:/[0-9]/',    // harus memiliki setidaknya satu angka
             ],
         ];
-        
+
     }
 
     /**
@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
         return [
             'username.required' => 'Username wajib diisi.',
             'username.digits' => 'Username harus berisi tepat 12 angka.',
-    
+
             'password.required' => 'Password wajib diisi.',
             'password.string' => 'Password harus berupa string.',
             'password.min' => 'Password minimal harus terdiri dari 8 karakter.',
@@ -63,7 +63,7 @@ class LoginRequest extends FormRequest
             'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan angka.',
         ];
     }
-    
+
 
     /**
      * Attempt to authenticate the request's credentials.
