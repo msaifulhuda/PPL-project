@@ -38,28 +38,28 @@ class DatabaseSeeder extends Seeder
         'id_staff_akademik'=>$idUser3,
         'username' => '123456789999',
         'password' => bcrypt('Akademik123')
-,
-]);
-// Generate UUIDs
-$idUser4 = Str::uuid();
-$idUser5 = Str::uuid();
+        ,
+        ]);
+        // Generate UUIDs
+        $idUser4 = Str::uuid();
+        $idUser5 = Str::uuid();
 
-// Create siswa with role 'siswa'
-Siswa::create([
-    'id_siswa' => $idUser4,
-    'username' => 'siswa',
-    'password' => bcrypt('siswa'),
-    'role_siswa' => 'siswa',
-]);
+        // Create siswa with role 'siswa'
+        Siswa::create([
+            'id_siswa' => $idUser4,
+            'username' => '123456789012',
+            'password' => bcrypt('Ambatukam123'),
+            'role_siswa' => 'siswa',
+        ]);
 
-// Create siswa with role 'pengurus'
-Siswa::create([
-    'id_siswa' => $idUser5,
-    'username' => 'pengurus',
-    'password' => bcrypt('pengurus'),
-    'role_siswa' => 'pengurus',
-]);
-        
+        // Create siswa with role 'pengurus'
+        Siswa::create([
+            'id_siswa' => $idUser5,
+            'username' => 'pengurus',
+            'password' => bcrypt('pengurus'),
+            'role_siswa' => 'pengurus',
+        ]);
+                
         $this->call([
             KelasMapelGuruJadwalAjaranSeeder::class,
         ]);

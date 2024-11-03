@@ -5,6 +5,7 @@ use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\PerpustakaanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\superadmin\SuperadminController;
@@ -45,10 +46,15 @@ Route::group(['prefix' => 'staff_perpus','middleware' => ['staff_perpus']], func
 });
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+
+
+    Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+    
     Route::group(['middleware' => 'pengurus'], function () {
         Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('siswa.pengurus.dashboard');
     });
 });
+
 
 Route::group(['prefix' => 'guru','middleware' => ['guru']], function () {
     Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
