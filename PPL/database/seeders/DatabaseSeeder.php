@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ekstrakurikuler;
+use App\Models\PengurusEkstra;
 use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\Staffakademik;
@@ -41,6 +42,11 @@ class DatabaseSeeder extends Seeder
         // Generate UUIDs
         $idUser4 = Str::uuid();
         $idUser5 = Str::uuid();
+        $idUser6 = Str::uuid();
+        $idUser7 = Str::uuid();
+        $idUser8 = Str::uuid();
+
+        session(['siswa2' => $idUser5, 'siswa3' => $idUser6, 'siswa4' => $idUser7, 'siswa5' => $idUser8]);
 
         // Create siswa with role 'siswa'
         Siswa::create([
@@ -53,19 +59,34 @@ class DatabaseSeeder extends Seeder
         // Create siswa with role 'pengurus'
         Siswa::create([
             'id_siswa' => $idUser5,
-            'username' => 'pengurus',
-            'password' => bcrypt('pengurus'),
+            'username' => 'pengurus1',
+            'password' => bcrypt('pengurus1'),
+            'role_siswa' => 'pengurus',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser6,
+            'username' => 'pengurus2',
+            'password' => bcrypt('pengurus2'),
+            'role_siswa' => 'pengurus',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser7,
+            'username' => 'pengurus3',
+            'password' => bcrypt('pengurus3'),
+            'role_siswa' => 'pengurus',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser8,
+            'username' => 'pengurus4',
+            'password' => bcrypt('pengurus4'),
             'role_siswa' => 'pengurus',
         ]);
 
         $this->call([
             KelasMapelGuruJadwalAjaranSeeder::class,
         ]);
-        $idekstra1= Str::uuid();
-        ekstrakurikuler::create([
-            'id_ekstrakurikuler' => $idekstra1,
-            'guru_id' => session('guruid1'),
-            'nama_ekstrakurikuler' => '69',
+        $this->call([
+            EkstrakurikulerPengurusSeeder::class,
         ]);
     }
 }
