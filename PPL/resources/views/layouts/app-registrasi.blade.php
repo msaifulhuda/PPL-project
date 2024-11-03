@@ -16,12 +16,20 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" /> --}}
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
-    @include('layouts.guru.navigation')
+    @include('layouts.navigation')
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-        @include('layouts.guru.sidebar')
+        @include('ekstrakurikuler.customlayout.sidebarcustom')
         <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
             <!-- Page Content -->
@@ -29,7 +37,7 @@
                 {{ $slot }}
             </main>
 
-            @include('layouts.guru.footer')
+            @include('layouts.footer')
         </div>
     </div>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
