@@ -5,6 +5,7 @@ use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\superadmin\SuperadminController;
@@ -39,6 +40,18 @@ Route::group(['prefix' => 'staff_akademik','middleware' => ['staff_akademik']], 
     /**
      * END JADWAL MANAGEMENT
      */
+
+
+    /**
+     * START PRESTASI
+     */
+    Route::get("/prestasi", [PrestasiController::class, "index"])->name("prestasi.index");
+
+    /**
+     * END PRESTASI
+     */
+
+
 });
 Route::group(['prefix' => 'staff_perpus','middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
