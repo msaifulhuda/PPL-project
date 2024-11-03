@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
@@ -16,6 +17,8 @@ Route::get('/', function () {
     return view('beranda');
 })->name('beranda');
 
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+->name('logout');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
