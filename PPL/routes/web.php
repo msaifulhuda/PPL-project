@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
 use App\Http\Controllers\Siswa\SiswaController;
-use App\Http\Controllers\staffakademik\PrestasiController;
-use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\guru\GuruLmsController;
+use App\Http\Controllers\siswa\SiswaLmsController;
 use App\Http\Controllers\superadmin\SuperadminController;
+use App\Http\Controllers\staffakademik\PrestasiController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 
@@ -68,6 +69,16 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::group(['middleware' => 'pengurus'], function () {
         Route::get('/pengurus-dashboard', [PengurusekstraController::class, 'index'])->name('siswa.pengurus.dashboard');
     });
+
+    /**
+     * START LMS
+     */
+    Route::get('/dashboard/lms', [SiswaLmsController::class, 'index'])->name('siswa.dashboard.lms');
+    Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi');
+    Route::get('/dashboard/lms/tugas', [SiswaLmsController::class, 'tugas'])->name('siswa.dashboard.lms.tugas');
+    /**
+     * END LMS
+     */
 });
 
 // GURU ROLE
@@ -77,6 +88,16 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::group(['middleware' => 'pembina_ekstra'], function () {
         Route::get('/pembina-dashboard', [PembinaekstraController::class, 'index'])->name('guru.pembina.dashboard');
     });
+
+    /**
+     * START LMS
+     */
+    Route::get('/dashboard/lms', [GuruLmsController::class, 'index'])->name('guru.dashboard.lms');
+    Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])->name('guru.dashboard.lms.materi');
+    Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])->name('guru.dashboard.lms.tugas');
+    /**
+     * END LMS
+     */
 });
 
 

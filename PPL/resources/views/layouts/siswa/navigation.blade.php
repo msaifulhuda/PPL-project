@@ -100,6 +100,7 @@
                                     role="menuitem">Earnings</a>
                             </li>
                             <li>
+
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"

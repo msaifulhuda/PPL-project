@@ -35,13 +35,7 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
 
-    // LMS MANAGEMENT
-    Route::get('/dashboard/lms', [GuruLmsController::class, 'index'])
-        ->name('guru.dashboard.lms');
-    Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])
-        ->name('guru.dashboard.lms.materi');
-    Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])
-        ->name('guru.dashboard.lms.tugas');
+
 });
 
 Route::middleware('auth')->group(function () {
