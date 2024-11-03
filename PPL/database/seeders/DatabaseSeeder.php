@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $idUser2 = Str::uuid(); 
         Superadmin::create([
             'id_admin'=>$idUser1,
-            'username' => 'admin',
-            'password' => bcrypt('admin123')
+            'username' => '123456789012',
+            'password' => bcrypt('Admin123')
         ,
         ]);
         Staffperpus::create([
