@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Staffperpus::create([
             'id_staff_perpustakaan' => $idUser2,
-            'username' => 'perpus',
-            'password' => bcrypt('perpus123'),
+            'username' => '123456789101',
+            'password' => bcrypt('Perpus123'),
         ]);
         $idUser3 = Str::uuid();
         Staffakademik::create([
