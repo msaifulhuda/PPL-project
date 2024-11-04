@@ -74,4 +74,8 @@ class kelas extends Model
     {
         return $this->hasMany(Kelas_mata_pelajaran::class);
     }
+    public function kelas_siswa()
+    {
+        return $this->hasMany(KelasSiswa::class );
+    }
 }
