@@ -60,4 +60,8 @@ class kelas extends Model
     {
         return $this->hasMany(kelas_mata_pelajaran::class );
     }
+    public function kelas_siswa()
+    {
+        return $this->hasMany(KelasSiswa::class );
+    }
 }

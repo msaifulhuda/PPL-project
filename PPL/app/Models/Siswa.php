@@ -104,5 +104,9 @@ class Siswa extends Authenticatable
         return $this->hasMany(registrasi_ekstrakurikuler::class,'id_siswa', 'id_siswa' );
     }
 
-    
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
+    }
+
 }
