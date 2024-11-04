@@ -18,8 +18,8 @@ return new class extends Migration
             $table->uuid('guru_id');
             $table->foreign('guru_id')->references('id_guru')->on('guru');
             $table->string('nama_ekstrakurikuler');
-            $table->text('deskripsi');
-            $table->string('gambar');
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
         });
         Schema::enableForeignKeyConstraints();
     }

@@ -206,6 +206,122 @@ class StaffakademikController extends Controller
         return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil ditambahkan.');
     }
 
+    public function editJadwal($id)
+    {
+        $jadwal = DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->first();
+        $kelas = DB::table('kelas')->orderByRaw('LENGTH(nama_kelas)')->orderBy('nama_kelas')->get();
+        $hari = DB::table('hari')->orderByRaw("FIELD(nama_hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')")->get();
+        $guruMataPelajaran = DB::table('guru_mata_pelajaran')
+            ->join('guru', 'guru_mata_pelajaran.guru_id', '=', 'guru.id_guru')
+            ->join('mata_pelajaran', 'guru_mata_pelajaran.matpel_id', '=', 'mata_pelajaran.id_matpel')
+            ->select('guru.id_guru', 'guru.nama_guru', 'mata_pelajaran.id_matpel', 'mata_pelajaran.nama_matpel')
+            ->get();
+        
+        return view('staff_akademik.jadwalManagemen.edit', compact('jadwal', 'kelas', 'hari', 'guruMataPelajaran'));
+    }
+
+    public function updateJadwal(Request $request, $id)
+    {
+        $jadwalData = $request->validate([
+            'kelas_id' => 'required',
+            'hari_id' => 'required',
+            'jam_pelajaran' => 'required',
+            'guruid_matpelid' => 'required',
+        ]);
+
+        // Ambil waktu mulai dan selesai dari input jam_pelajaran
+        [$waktuMulai, $waktuSelesai] = explode('-', $request->input('jam_pelajaran'));
+        $kelasId = $request->input('kelas_id');
+        $hariId = $request->input('hari_id');
+        $guruId = explode('_', $request->input('guruid_matpelid'))[0];
+
+        // Ambil tahun ajaran yang aktif
+        $tahunAjaranId = DB::table('tahun_ajaran')
+            ->where('aktif', 1)
+            ->value('id_tahun_ajaran');
+
+        // Pastikan tahun ajaran aktif ditemukan
+        if (!$tahunAjaranId) {
+            return redirect()->route('staff_akademik.jadwal')
+                ->with('error-update', 'Tahun ajaran aktif tidak ditemukan. Periksa kembali pengaturan tahun ajaran.');
+        }
+
+        // Cek bentrok jadwal di kelas yang sama, hari yang sama, jam yang sama, dan tahun ajaran yang aktif
+        $bentrokKelas = DB::table('kelas_mata_pelajaran')
+            ->where('kelas_id', $kelasId)
+            ->where('hari_id', $hariId)
+            ->where('tahun_ajaran_id', $tahunAjaranId)
+            ->where('id_kelas_mata_pelajaran', '!=', $id)
+            ->where(function ($query) use ($waktuMulai, $waktuSelesai) {
+                $query->whereBetween('waktu_mulai', [$waktuMulai, $waktuSelesai])
+                    ->orWhereBetween('waktu_selesai', [$waktuMulai, $waktuSelesai])
+                    ->orWhere(function ($query) use ($waktuMulai, $waktuSelesai) {
+                        $query->where('waktu_mulai', '<=', $waktuMulai)
+                            ->where('waktu_selesai', '>=', $waktuSelesai);
+                    });
+            })
+            ->first();
+
+        if ($bentrokKelas) {
+            $namaKelas = DB::table('kelas')->where('id_kelas', $kelasId)->value('nama_kelas');
+            $namaHari = DB::table('hari')->where('id_hari', $hariId)->value('nama_hari');
+            $jamBentrok = "{$waktuMulai}-{$waktuSelesai}";
+
+            $pesanError = "Jadwal kelas {$namaKelas} bentrok dengan pelajaran lain pada hari {$namaHari} pukul {$jamBentrok}. Periksa kembali jadwal.";
+            
+            return redirect()->route('staff_akademik.jadwal')
+                ->with('error-update', $pesanError);
+        }
+
+        // Cek bentrok untuk guru di hari dan jam yang sama di tahun ajaran yang aktif, dalam semua kelas
+        $bentrokGuru = DB::table('kelas_mata_pelajaran')
+            ->where('guru_id', $guruId)
+            ->where('hari_id', $hariId)
+            ->where('tahun_ajaran_id', $tahunAjaranId)
+            ->where('id_kelas_mata_pelajaran', '!=', $id)
+            ->where(function ($query) use ($waktuMulai, $waktuSelesai) {
+                $query->whereBetween('waktu_mulai', [$waktuMulai, $waktuSelesai])
+                    ->orWhereBetween('waktu_selesai', [$waktuMulai, $waktuSelesai])
+                    ->orWhere(function ($query) use ($waktuMulai, $waktuSelesai) {
+                        $query->where('waktu_mulai', '<=', $waktuMulai)
+                            ->where('waktu_selesai', '>=', $waktuSelesai);
+                    });
+            })
+            ->first();
+
+        if ($bentrokGuru) {
+            $namaGuru = DB::table('guru')->where('id_guru', $guruId)->value('nama_guru');
+            $namaHari = DB::table('hari')->where('id_hari', $hariId)->value('nama_hari');
+            $jamBentrok = "{$waktuMulai}-{$waktuSelesai}";
+
+            $pesanError = "Guru {$namaGuru} sudah memiliki jadwal mengajar pada hari {$namaHari} pukul {$jamBentrok}. Periksa kembali jadwal.";
+            
+            return redirect()->route('staff_akademik.jadwal')
+                ->with('error-update', $pesanError);
+        }
+
+        // Jika tidak ada bentrok, lakukan update jadwal
+        $dataInput = [
+            'kelas_id' => $kelasId,
+            'hari_id' => $hariId,
+            'waktu_mulai' => $waktuMulai,
+            'waktu_selesai' => $waktuSelesai,
+            'guru_id' => $guruId,
+        ];
+
+        DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->update($dataInput);
+
+        return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil diperbarui.');
+    }
+
+    public function deleteJadwal($id)
+    {
+        DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->delete();
+
+        return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil dihapus.');
+    }
+
+
     /**
      * END JADWAL MANAGEMENT
      */
