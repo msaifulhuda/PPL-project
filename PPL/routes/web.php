@@ -39,6 +39,13 @@ Route::group(['prefix' => 'staff_akademik','middleware' => ['staff_akademik']], 
     /**
      * END JADWAL MANAGEMENT
      */
+
+     Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
+     Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
+     Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
+     Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
+     Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
+     
 });
 Route::group(['prefix' => 'staff_perpus','middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
@@ -75,14 +82,7 @@ Route::get('/staff_akademik/master-kelas', function () {
 
 //route crud kelas
 
-Route::prefix('staff-akademik')->group(function () {
-    Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
-    Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
-    Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
-    Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
-    Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
 
-});
 
 
 

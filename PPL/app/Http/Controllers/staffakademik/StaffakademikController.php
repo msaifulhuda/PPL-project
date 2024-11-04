@@ -38,19 +38,19 @@ class StaffakademikController extends Controller
 
     public function cari(Request $request)
     {
-        $query = $request->input('search'); // Ambil input pencarian
-
-        // Jika ada input pencarian, filter hasilnya
-        if ($query) {
-            $kelas = Kelas::where('nama_kelas', 'LIKE', "%{$query}%")->paginate(10); // Ganti 10 dengan jumlah item per halaman
-        } else {
-            $kelas = Kelas::paginate(5); // Ambil semua data jika tidak ada pencarian
-        }
-
+        $query = $request->input('search'); // Input pencarian
+        $kelas = Kelas::when($query, function($q) use ($query) {
+            return $q->where('nama_kelas', 'LIKE', "%{$query}%");
+        })->paginate(10)->appends(['search' => $query]); // Fungsi paginate()
+    
         $noDataMessage = $kelas->isEmpty() ? 'Data yang dicari tidak ada.' : '';
-
         return view('staff_akademik.master_kelas', compact('kelas', 'noDataMessage'));
     }
+
+    
+    
+    
+
 
     /**
      * START JADWAL MANAGEMENT
