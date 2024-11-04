@@ -1,18 +1,56 @@
 <?php
 
 namespace App\Http\Controllers\staffakademik;
+
+use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class StaffakademikController extends Controller
 {
     public function index()
     {
-        // Logic for the dashboard, e.g., fetching data or statistics for the dashboard view
-        return view('staff_akademik.dashboard'); // Adjust view path as needed
+        $kelas = Kelas::all();
+        return view('staff_akademik.master_kelas', compact('kelas'));
     }
+
+    public function store(Request $request)
+    {
+        Kelas::create($request->all());
+        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil ditambahkan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $kelas->update($request->only(['nama_kelas']));
+        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $kelas->delete();
+        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil dihapus.');
+    }
+
+    public function cari(Request $request)
+    {
+        $query = $request->input('search'); // Input pencarian
+        $kelas = Kelas::when($query, function($q) use ($query) {
+            return $q->where('nama_kelas', 'LIKE', "%{$query}%");
+        })->paginate(10)->appends(['search' => $query]); // Fungsi paginate()
+    
+        $noDataMessage = $kelas->isEmpty() ? 'Data yang dicari tidak ada.' : '';
+        return view('staff_akademik.master_kelas', compact('kelas', 'noDataMessage'));
+    }
+
+    
+    
+    
+
 
     /**
      * START JADWAL MANAGEMENT

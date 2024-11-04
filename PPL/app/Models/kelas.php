@@ -3,61 +3,75 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+
 class kelas extends Model
 {
-    use Notifiable;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'kelas';
 
     /**
-     * The "booting" function of model
+     * The primary key associated with the table.
      *
-     * @return void
+     * @var string
      */
-    protected static function boot() {
-        parent::boot();
-        static::creating(function ($model) {
-            parent::boot();
-            if ( ! $model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
-
-     /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
+    protected $primaryKey = 'id_kelas';
 
     /**
-     * Get the auto-incrementing key type.
+     * Indicates if the IDs are auto-incrementing.
      *
-     * @return string
+     * @var bool
      */
-    public function getKeyType()
-    {
-        return 'string';
-    }
+    public $incrementing = false;
+
+    /**
+     * The type of the primary key.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $table = 'kelas';
-    public $timestamps = false;
-    protected $primaryKey='id_kelas';
     protected $fillable = [
         'id_kelas',
         'nama_kelas',
     ];
-    public function kelasmatapeljaran()
+
+    /**
+     * The "booting" function of model
+     *
+     * @return void
+     */
+    protected static function boot()
     {
-        return $this->hasMany(kelas_mata_pelajaran::class );
+        parent::boot();
+        static::creating(function ($model) {
+            if (!$model->getKey()) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
+
+    /**
+     * Relationship with kelas_mata_pelajaran
+     */
+    public function kelasmatapelajaran()
+    {
+        return $this->hasMany(Kelas_mata_pelajaran::class);
     }
 }

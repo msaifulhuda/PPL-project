@@ -49,17 +49,19 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      * END JADWAL MANAGEMENT
      */
 
-
-    /**
+     Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
+     Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
+     Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
+     Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
+     Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
+  
+   /**
      * START PRESTASI
      */
     Route::get("/prestasi", [PrestasiController::class, "index"])->name("prestasi.index");
-
     /**
      * END PRESTASI
      */
-
-
 });
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
@@ -106,6 +108,25 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']], function () {
     Route::get('/dashboard', [PembinaekstraController::class, 'index'])->name('pembina_ekstra.dashboard');
 });
+
+// router akses sidebar
+Route::get('/staff_akademik/master-matpel', function () {
+    return view('staff_akademik.master_matpel');
+})->name('master_matpel');
+
+Route::get('/staff_akademik/master-guru', function () {
+    return view('staff_akademik.master_guru');
+})->name('master_guru');
+
+Route::get('/staff_akademik/master-kelas', function () {
+    return view('staff_akademik.master_kelas');
+})->name('master_kelas');
+
+//route crud kelas
+
+
+
+
 
 
 Route::get('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'showForm'])->name('ekstrakurikuler.registrasi');

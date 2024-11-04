@@ -153,4 +153,3 @@
             </div>
         </div>
     </div>
-</x-staffakademik-layout>
