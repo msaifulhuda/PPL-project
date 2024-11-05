@@ -27,9 +27,9 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
-    @include('layouts.navigation')
+    @include('layouts.staff_akademik.navigation')
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-        @include('layouts.sidebar')
+        @include('layouts.staff_akademik.sidebar')
         <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
             <!-- Page Content -->
@@ -37,7 +37,7 @@
                 {{ $slot }}
             </main>
 
-            @include('layouts.footer')
+            @include('layouts.staff_akademik.footer')
         </div>
     </div>
     <script async defer src="https://buttons.github.io/buttons.js"></script>

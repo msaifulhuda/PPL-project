@@ -83,6 +83,7 @@ class AuthenticatedSessionController extends Controller
         $user = auth()->guard('web-guru')->user();
         $request->session()->put('username', $user->username);
         $request->session()->put('role_guru', $user->role_guru);
+        
 
         if ($user->role_guru === 'guru') {
             return redirect()->route('guru.dashboard');
@@ -113,35 +114,20 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy_admin(Request $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
-        return $this->logout($request, 'web-superadmin');
-    }
+        // Cek guard mana yang sedang login
+        $guards = ['web-superadmin', 'web-siswa', 'web-guru', 'web-staffakademik', 'web-staffperpus'];
 
-    public function destroy_staff_akademik(Request $request): RedirectResponse
-    {
-        return $this->logout($request, 'web-staffakademik');
-    }
-    public function destroy_staff_perpus(Request $request): RedirectResponse
-    {
-        return $this->logout($request, 'web-staffperpus');
-    }
-    public function destroy_siswa(Request $request): RedirectResponse
-    {
-        return $this->logout($request, 'web-siswa');
-    }
-    public function destroy_guru(Request $request): RedirectResponse
-    {
-        return $this->logout($request, 'web-guru');
-    }
-
-    private function logout(Request $request, string $guard): RedirectResponse
-    {
-        Auth::guard($guard)->logout();
-
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                Auth::guard($guard)->logout();
+                break;
+            }
+        }
+        // Invalidate session dan regenerate token
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
-    }
+        return redirect('/');}
 }
