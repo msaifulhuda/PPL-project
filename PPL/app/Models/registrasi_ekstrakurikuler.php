@@ -3,44 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 class registrasi_ekstrakurikuler extends Model
 {
-    use Notifiable;
+    use HasUuids,Notifiable;
 
-    /**
-     * The "booting" function of model
-     *
-     * @return void
-     */
-    protected static function boot() {
-        static::creating(function ($model) {
-            if ( ! $model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
+    
+    protected $primaryKey = 'id_registrasi';
 
-     /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
+    public $incrementing = false;
 
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
+    protected $keyType = 'string';
+
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +29,7 @@ class registrasi_ekstrakurikuler extends Model
      protected $table = 'registrasi_ekstrakurikuler';
 
      protected $fillable = [
+        'id_registrasi',
          'id_siswa',
          'id_pengurus',
          'id_ekstrakurikuler',

@@ -18,11 +18,11 @@ return new class extends Migration
             $table->uuid('id_siswa');
             $table->uuid('id_pengurus');
             $table->uuid('id_ekstrakurikuler');
-            $table->string('riwayat_penyakit');
-            $table->text('alasan');
-            $table->char('no_ortu');
-            $table->enum('status', ["diterima","ditolak","menunggu"]);
-            $table->timestamp('tgl_registrasi');
+            $table->string('riwayat_penyakit')->nullable();
+            $table->text('alasan')->nullable();
+            $table->char('no_ortu')->nullable();
+            $table->enum('status', ["diterima","ditolak","menunggu"])->nullable();
+            $table->timestamp('tgl_registrasi')->useCurrent();
             $table->foreign('id_ekstrakurikuler')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
             $table->foreign('id_pengurus')->references('id_pengurus_ekstra')->on('pengurus_ekstra');
             $table->foreign('id_siswa')->references('id_siswa')->on('siswa');
