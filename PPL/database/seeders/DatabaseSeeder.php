@@ -8,6 +8,7 @@ use App\Models\Staffakademik;
 use App\Models\Staffperpus;
 use App\Models\Superadmin;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;

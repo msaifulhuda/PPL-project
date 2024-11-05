@@ -9,11 +9,10 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\superadmin\SuperadminController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+
 
 Route::get('/', function () {
     return view('beranda');
@@ -51,8 +50,10 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     /**
      * START PRESTASI
      */
-    Route::get("/prestasi", [PrestasiController::class, "index"])->name("prestasi.index");
-
+    Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
+    Route::get("/prestasi/create", [PrestasiController::class, "create"])->name("prestasi.create");
+    Route::post("/prestasi/store", [PrestasiController::class, "store"])->name("prestasi.store");
+    Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
     /**
      * END PRESTASI
      */
