@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->uuid('id_siswa')->primary();
-            $table->uuid('kelas_id')->nullable();
             $table->string('nisn')->nullable();
             $table->string('nama_siswa')->nullable();
             $table->date('tgl_lahir_siswa')->nullable();
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('google_key_siswa')->nullable();
             $table->timestamps();
-            $table->foreign('kelas_id')->references('id_kelas')->on('kelas');
         });
     }
 
