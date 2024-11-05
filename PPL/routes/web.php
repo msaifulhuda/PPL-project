@@ -12,10 +12,10 @@ use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\pengurusekstra\AnggotaController;
-use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
+use App\Http\Controllers\perpustakaan\PerpustakaanController;
+
+use App\Models\PengurusEkstra;
+
 
 
 
@@ -73,8 +73,11 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
 });
+
+
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+
 
     /**
      * Start Pengurus Ekstrakurikuler
@@ -104,7 +107,15 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     /**
      * END LMS
      */
+    // START PERPUS
+    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
+    //END PERPUS
 });
+
+//PERPUSTAKAAN
+// Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
+//     Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+// });
 
 // GURU ROLE
 Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
