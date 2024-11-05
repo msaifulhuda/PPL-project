@@ -17,6 +17,7 @@ class transaksi_peminjaman extends Model
      */
     protected static function boot()
     {
+        parent::boot();
         static::creating(function ($model) {
             if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -64,6 +65,8 @@ class transaksi_peminjaman extends Model
         'jenis_peminjam',
         'status_denda',
     ];
+    public $timestamps = false;
+    protected $primaryKey = 'id_transaksi_peminjaman';
     public function buku()
     {
         return $this->belongsTo(Buku::class, 'id_buku', 'id_buku');

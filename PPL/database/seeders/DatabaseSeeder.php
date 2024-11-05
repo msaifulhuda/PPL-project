@@ -2,19 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\ekstrakurikuler;
-use App\Models\PengurusEkstra;
 use App\Models\Guru;
-use App\Models\registrasi_ekstrakurikuler;
-use App\Models\Siswa;
-use App\Models\Staffakademik;
-use App\Models\Staffperpus;
-use App\Models\Superadmin;
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Superadmin;
+use App\Models\Staffperpus;
+use Illuminate\Support\Str;
+use App\Models\Staffakademik;
+use App\Models\PengurusEkstra;
+use App\Models\ekstrakurikuler;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
+use Database\Seeders\PerpustakaanSeeder;
+use App\Models\registrasi_ekstrakurikuler;
 
 class DatabaseSeeder extends Seeder
 {
@@ -120,6 +121,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             EkstrakurikulerPengurusSeeder::class,
+        ]);
+        $this->call([
+            PerpustakaanSeeder::class,
         ]);
 
         // Registrasi Ekstrakurikuler

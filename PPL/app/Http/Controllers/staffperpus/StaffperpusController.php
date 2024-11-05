@@ -4,12 +4,14 @@ namespace App\Http\Controllers\staffperpus;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StaffperpusController extends Controller
 {
     public function index()
     {
-        // Logic for the dashboard, e.g., fetching data or statistics for the dashboard view
-        return view('staff_perpus.dashboard', ['title' => 'Halaman Staff Perpustakaan']); // Adjust view path as needed
+        $transaksi_peminjaman = DB::table('transaksi_peminjaman')->get();
+        dd($transaksi_peminjaman);
+        return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman]);
     }
 }

@@ -17,6 +17,7 @@ class kategori_buku extends Model
      */
     protected static function boot()
     {
+        parent::boot();
         static::creating(function ($model) {
             if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -54,6 +55,8 @@ class kategori_buku extends Model
         'id_kategori_buku',
         'nama_kategori'
     ];
+    public $timestamps = false;
+    protected $primaryKey = 'id_kategori_buku';
     public function buku()
     {
         return $this->hasMany(Buku::class,  'id_kategori_buku', 'id_kategori_buku');
