@@ -75,4 +75,8 @@ class Guru extends Authenticatable
     {
         return $this->hasMany(kelas_mata_pelajaran::class, 'id_laporan', 'id_laporan');
     }
+    public function ekstrakurikuler()
+    {
+        return $this->hasMany(Ekstrakurikuler::class);
+    }
 }
