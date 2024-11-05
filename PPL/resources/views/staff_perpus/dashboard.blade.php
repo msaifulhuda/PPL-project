@@ -1,19 +1,4 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __('staff_perpus!') }}
-                </div>
-            </div>
-        </div>
-    </div> --}}
+<x-staffperpustakaan-layout>
     <div class="overview_transaksi_peminjaman px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
         <h1 class="font-bold text-xl leading-8">Transaksi Peminjaman</h1>
         <span class="text-[#6B7280] text-lg leading-8">Ini adalah sekilas list untuk peminjaman buku perpustakaan untuk 7
@@ -41,4 +26,5 @@
                 <td class="w-1/6 text-left">{{ $Status ?? 'None' }}</td>
             </tr>
         </table>
-</x-app-layout>
+    </div>
+</x-staffperpustakaan-layout>
