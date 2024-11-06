@@ -3,25 +3,23 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
-use App\Models\hari;
 use App\Models\User;
-use App\Models\kelas;
 use App\Models\Siswa;
-use App\Models\KelasSiswa;
 use App\Models\Superadmin;
 use App\Models\Staffperpus;
 use Illuminate\Support\Str;
-use App\Models\tahun_ajaran;
 use App\Models\Staffakademik;
-use App\Models\mata_pelajaran;
 use App\Models\PengurusEkstra;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\ekstrakurikuler;
-use Illuminate\Database\Seeder;
-use Database\Seeders\HariSeeder;
 use App\Models\guru_mata_pelajaran;
+use App\Models\hari;
+use App\Models\kelas;
+use App\Models\KelasSiswa;
+use App\Models\mata_pelajaran;
+use Illuminate\Database\Seeder;
+use Database\Seeders\PerpustakaanSeeder;
 use App\Models\registrasi_ekstrakurikuler;
+use App\Models\tahun_ajaran;
 
 class DatabaseSeeder extends Seeder
 {
@@ -82,6 +80,13 @@ class DatabaseSeeder extends Seeder
         if (hari::count() == 0) {
             $this->call([
                 HariSeeder::class,
+            ]);
+        }
+
+        // isi staff akademik jika belum ada
+        if (Staffakademik::count() == 0) {
+            $this->call([
+                StaffAkademikSeeder::class,
             ]);
         }
 
@@ -152,12 +157,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
+        // ]);
+        // $this->call([
+        //     PerpustakaanSeeder::class,
         // ]);
 
         // Registrasi Ekstrakurikuler
