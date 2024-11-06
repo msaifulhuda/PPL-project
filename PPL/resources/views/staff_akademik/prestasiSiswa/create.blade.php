@@ -76,8 +76,8 @@
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
-                        
-        
+
+
                         <div>
                             <label for="id_prestasi" class="block text-sm font-medium text-gray-700">ID Prestasi</label>
                             <input type="text" id="id_prestasi" name="id_prestasi" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Masukkan ID Prestasi">
@@ -85,7 +85,7 @@
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
-        
+
                         <div>
                             <label for="nama_prestasi" class="block text-sm font-medium text-gray-700">Nama Prestasi</label>
                             <input type="text" id="nama_prestasi" name="nama_prestasi" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Masukkan nama prestasi">
@@ -93,7 +93,7 @@
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
-        
+
                         <div>
                             <label for="bukti_prestasi" class="block text-sm font-medium text-gray-700">Bukti (file)</label>
                             <input type="file" id="bukti_prestasi" name="bukti_prestasi" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
@@ -101,7 +101,7 @@
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
-        
+
                         <div>
                             <label for="deskripsi_prestasi" class="block text-sm font-medium text-gray-700">Deskripsi Prestasi</label>
                             <textarea id="deskripsi_prestasi" name="deskripsi_prestasi" rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Masukkan deskripsi prestasi"></textarea>
@@ -109,7 +109,7 @@
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
-        
+
                         <div>
                             <label for="status_prestasi" class="block text-sm font-medium text-gray-700">Status Prestasi</label>
                             <select id="status_prestasi" name="status_prestasi" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
@@ -121,7 +121,7 @@
                             @enderror
                         </div>
                     </div>
-        
+
                     <div class="mt-6 flex justify-end">
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Simpan</button>
                     </div>

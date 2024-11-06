@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
@@ -10,14 +11,12 @@ use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 
-use App\Models\PengurusEkstra;
-
-
-
+use App\Http\Controllers\staffakademik\StaffakademikController;
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 Route::get('/', function () {
     return view('beranda');
@@ -38,7 +37,7 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     Route::get('/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
-    Route::get('/dashboard', [StaffakademikController::class, 'index'])->name('staff_akademik.dashboard');
+    Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
 
     /**
      * START JADWAL MANAGEMENT
@@ -58,7 +57,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
      Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
      Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
-  
+
    /**
      * START PRESTASI
      */
@@ -91,7 +90,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
         Route::post('/ekstrakurikuler/perlengkapan/tambah', [PerlengkapanController::class, 'store'])->name('pengurus_ekstra.perlengkapan.store');
         Route::put('/ekstrakurikuler/perlengkapan/update/{id}', [PerlengkapanController::class, 'update'])->name('pengurus_ekstra.perlengkapan.update');
         Route::delete('/ekstrakurikuler/perlengkapan/delete/{id}', [PerlengkapanController::class, 'destroy'])->name('pengurus_ekstra.perlengkapan.delete');
-        
+
         Route::get('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjaman::class, 'index'])->name('pengurus_ekstra.histori');
     });
     /**
