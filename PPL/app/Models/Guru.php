@@ -2,55 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Guru extends Authenticatable
 {
+    use Notifiable, HasUuids, HasFactory;
 
+    protected $primaryKey = 'id_guru';
+    public $incrementing = false;
+    public $timestamps = false;
+    protected $keyType = 'string';
 
-    /**
-     * The "booting" function of model
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot(); // Pastikan memanggil parent::boot()
-        static::creating(function ($model) {
-            if (! $model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
-
-    /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $table = 'guru';
     protected $fillable = [
         'id_guru',
@@ -65,8 +32,6 @@ class Guru extends Authenticatable
         'alamat_guru',
         'role_guru',
     ];
-    public $timestamps = false;
-    protected $primaryKey = 'id_guru';
     public function gurumatapelajaran()
     {
         return $this->hasMany(guru_mata_pelajaran::class, 'id_laporan', 'id_laporan');
