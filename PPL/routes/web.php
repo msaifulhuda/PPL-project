@@ -46,6 +46,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      * START JADWAL MANAGEMENT
      */
     Route::get('/jadwal', [StaffakademikController::class, 'jadwalIndex'])->name('staff_akademik.jadwal');
+    Route::get('/jadwal/{kelas_id?}', [StaffakademikController::class, 'jadwalIndex'])->name('staff_akademik.jadwal');
     Route::get('/jadwal/tambah', [StaffakademikController::class, 'createJadwal'])->name('staff_akademik.jadwal.create');
     Route::post('/jadwal/tambah', [StaffakademikController::class, 'storeJadwal'])->name('staff_akademik.jadwal.store');
     Route::get('/jadwal/edit/{id}', [StaffakademikController::class, 'editJadwal'])->name('staff_akademik.jadwal.edit');

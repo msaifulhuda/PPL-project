@@ -9,6 +9,22 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+
+                    <!-- Filter kelas -->
+                    <div class="mb-4">
+                        <form action="{{ route('staff_akademik.jadwal') }}" method="GET" class="flex items-center">
+                            <label for="kelas_id" class="mr-2">Pilih Kelas:</label>
+                            <select name="kelas_id" id="kelas_id" class="border-gray-300 rounded-md shadow-sm" onchange="this.form.submit()">
+                                <option value="">Semua Kelas</option>
+                                @foreach($kelas as $kls)
+                                    <option value="{{ $kls->id_kelas }}" {{ isset($kelas_id) && $kelas_id == $kls->id_kelas ? 'selected' : '' }}>
+                                        {{ $kls->nama_kelas }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                    
                     <!-- Tombol Tambah Jadwal -->
                     <div class="flex justify-end mb-4">
                         <a href="{{ route('staff_akademik.jadwal.create') }}" 
@@ -54,6 +70,22 @@
 
                     <div>
                         @foreach ($kelas as $kls)
+                            @if (isset($kelas_id) && $kelas_id != $kls->id_kelas)
+                                @continue
+                            @endif
+                            @php
+                                $cek = DB::table('kelas')
+                                ->join('kelas_mata_pelajaran', 'kelas.id_kelas', '=', 'kelas_mata_pelajaran.kelas_id')
+                                ->join('mata_pelajaran', 'kelas_mata_pelajaran.mata_pelajaran_id', '=', 'mata_pelajaran.id_matpel')
+                                ->join('tahun_ajaran', 'kelas_mata_pelajaran.tahun_ajaran_id', '=', 'tahun_ajaran.id_tahun_ajaran')
+                                ->where('tahun_ajaran.aktif', 1)
+                                ->where('kelas.nama_kelas', $kls->nama_kelas)
+                                ->get();
+
+                            @endphp
+                            @if ($cek->isEmpty())
+                                @continue
+                            @endif
                             <h3 class="text-lg font-semibold mb-4">Jadwal Kelas {{ $kls->nama_kelas }}</h3>
                             <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden mb-6">
                                 <thead class="bg-gray-100 border-b">
