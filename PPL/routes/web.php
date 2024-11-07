@@ -11,6 +11,7 @@ use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\beranda\BerandaController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 
@@ -18,9 +19,15 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
-Route::get('/', function () {
-    return view('beranda');
-})->name('beranda');
+// Route::get('/', function () {
+//     return view('beranda.home');
+// })->name('beranda.home');
+
+Route::prefix('/')->group(function () {
+    Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
+    Route::get('/perpustakaan', [BerandaController::class, 'perpustakaan'])->name('beranda.perpustakaan');
+});
+
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');

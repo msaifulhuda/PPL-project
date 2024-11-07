@@ -42,14 +42,14 @@ class StaffakademikController extends Controller
         $kelas = Kelas::when($query, function($q) use ($query) {
             return $q->where('nama_kelas', 'LIKE', "%{$query}%");
         })->paginate(10)->appends(['search' => $query]); // Fungsi paginate()
-    
+
         $noDataMessage = $kelas->isEmpty() ? 'Data yang dicari tidak ada.' : '';
         return view('staff_akademik.master_kelas', compact('kelas', 'noDataMessage'));
     }
 
-    
-    
-    
+
+
+
 
 
     /**
@@ -130,7 +130,7 @@ class StaffakademikController extends Controller
             $guruid_matpelid = explode('_', $jadwal['guru_id']);
             $guruId = $guruid_matpelid[0];
             $mataPelajaranId = $guruid_matpelid[1];
-            
+
             // Pisahkan waktu mulai dan selesai
             [$waktuMulai, $waktuSelesai] = explode('-', $jadwal['jam_pelajaran']);
             $hariId = $jadwal['hari_id'];
@@ -216,7 +216,7 @@ class StaffakademikController extends Controller
             ->join('mata_pelajaran', 'guru_mata_pelajaran.matpel_id', '=', 'mata_pelajaran.id_matpel')
             ->select('guru.id_guru', 'guru.nama_guru', 'mata_pelajaran.id_matpel', 'mata_pelajaran.nama_matpel')
             ->get();
-        
+
         return view('staff_akademik.jadwalManagemen.edit', compact('jadwal', 'kelas', 'hari', 'guruMataPelajaran'));
     }
 
@@ -268,7 +268,7 @@ class StaffakademikController extends Controller
             $jamBentrok = "{$waktuMulai}-{$waktuSelesai}";
 
             $pesanError = "Jadwal kelas {$namaKelas} bentrok dengan pelajaran lain pada hari {$namaHari} pukul {$jamBentrok}. Periksa kembali jadwal.";
-            
+
             return redirect()->route('staff_akademik.jadwal')
                 ->with('error-update', $pesanError);
         }
@@ -295,7 +295,7 @@ class StaffakademikController extends Controller
             $jamBentrok = "{$waktuMulai}-{$waktuSelesai}";
 
             $pesanError = "Guru {$namaGuru} sudah memiliki jadwal mengajar pada hari {$namaHari} pukul {$jamBentrok}. Periksa kembali jadwal.";
-            
+
             return redirect()->route('staff_akademik.jadwal')
                 ->with('error-update', $pesanError);
         }
@@ -317,7 +317,6 @@ class StaffakademikController extends Controller
     public function deleteJadwal($id)
     {
         DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->delete();
-
         return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil dihapus.');
     }
 
