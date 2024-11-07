@@ -27,10 +27,10 @@ class mata_pelajaran extends Model
     {
         return $this->hasMany(kelas_mata_pelajaran::class, 'mata_pelajaran_id', 'id_matpel');
     }
-    public function nilaimapel()
-    {
-        return $this->hasMany(Nilai_mapel::class, 'matpel_id', 'id_matpel');
-    }
+    // public function nilaimapel()
+    // {
+    //     return $this->hasMany(Nilai_mapel::class,'matpel_id', 'id_matpel');
+    // }
     public function gurumatapeljaran()
     {
         return $this->hasMany(guru_mata_pelajaran::class, 'matpel_id', 'id_matpel');

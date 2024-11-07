@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -72,7 +73,49 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     /**
      * END PRESTASI
      */
+
+     /**
+     * START MATA PELAJARAN MANAGEMENT
+     */
+    // Menampilkan daftar mata pelajaran
+    Route::get('/mata-pelajaran', [KelasController::class, 'index'])->name('staff_akademik.mata-pelajaran.index');
+    // Menampilkan form untuk membuat mata pelajaran baru
+    Route::get('/mata-pelajaran/create', [KelasController::class, 'create'])->name('staff_akademik.mata-pelajaran.create');
+    // Menyimpan mata pelajaran baru
+    Route::post('/mata-pelajaran', [KelasController::class, 'store'])->name('staff_akademik.mata-pelajaran.store');
+    // Menampilkan form edit mata pelajaran berdasarkan ID
+    Route::get('/mata-pelajaran/{id}/edit', [KelasController::class, 'edit'])->name('staff_akademik.mata-pelajaran.edit');
+    // Memperbarui data mata pelajaran berdasarkan ID
+    Route::put('/mata-pelajaran/{id}', [KelasController::class, 'update'])->name('staff_akademik.mata-pelajaran.update');
+    // Menghapus mata pelajaran berdasarkan ID
+    Route::delete('/mata-pelajaran/{id}', [KelasController::class, 'destroy'])->name('staff_akademik.mata-pelajaran.destroy');
+
+
+    //crud kelas
+    Route::get('/kelas', [KelasController::class, 'indexKelas'])->name('staff_akademik.kelas.index');
+    Route::get('/kelas/create', [KelasController::class, 'createKelas'])->name('staff_akademik.kelas.create');
+    Route::post('/kelas', [KelasController::class, 'storeKelas'])->name('staff_akademik.kelas.store');
+    Route::get('/kelas/{id}/edit', [KelasController::class, 'editKelas'])->name('staff_akademik.kelas.edit');
+    Route::put('/kelas/{id}', [KelasController::class, 'updateKelas'])->name('staff_akademik.kelas.update');
+    Route::delete('/kelas/{id}', [KelasController::class, 'destroyKelas'])->name('staff_akademik.kelas.destroy');
+
+    Route::get('/guru-mata-pelajaran', [KelasController::class, 'indexGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.index');
+    Route::get('/guru-mata-pelajaran/create', [KelasController::class, 'createGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.create');
+    Route::post('/guru-mata-pelajaran', [KelasController::class, 'storeGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.store');
+    Route::get('/guru-mata-pelajaran/{id}/edit', [KelasController::class, 'editGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.edit');
+    Route::put('/guru-mata-pelajaran/{id}', [KelasController::class, 'updateGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.update');
+    Route::delete('/guru-mata-pelajaran/{id}', [KelasController::class, 'destroyGuruMataPelajaran'])->name('staff_akademik.guru_mata_pelajaran.destroy');
+
+    Route::get('/matpel/master-guru', [KelasController::class, 'showMasterGuru'])->name('master.guru');
+    Route::get('/matpel/master-kelas', [KelasController::class, 'showMasterKelas'])->name('master.kelas');
+    Route::get('/matpel/master-matpel', [KelasController::class, 'showMasterMatpel'])->name('master.matpel');
 });
+    /**
+     * END MATA PELAJARAN MANAGEMENT
+     */
+
+    Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
+
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
 });
@@ -147,18 +190,9 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
     Route::get('/dashboard', [PembinaekstraController::class, 'index'])->name('pembina_ekstra.dashboard');
 });
 
-// router akses sidebar
-Route::get('/staff_akademik/master-matpel', function () {
-    return view('staff_akademik.master_matpel');
-})->name('master_matpel');
 
-Route::get('/staff_akademik/master-guru', function () {
-    return view('staff_akademik.master_guru');
-})->name('master_guru');
 
-Route::get('/staff_akademik/master-kelas', function () {
-    return view('staff_akademik.master_kelas');
-})->name('master_kelas');
+
 
 //route crud kelas
 
