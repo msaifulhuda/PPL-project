@@ -51,17 +51,17 @@ class PerpustakaanSeeder extends Seeder
                 'tgl_ditambahkan' => now(),
             ]);
 
-            transaksi_peminjaman::create([
-                'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
-                'id_buku' => $buku_id,
-                'kode_peminjam' => 'Unknown',
-                'tgl_awal_peminjaman' => now(),
-                'tgl_pengembalian' => now(),
-                'denda' => 1000,
-                'status_pengembalian' => 1,
-                'jenis_peminjam' => 1,
-                'status_denda' => 1,
-            ]);
+            // transaksi_peminjaman::create([
+            //     'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
+            //     'id_buku' => $buku_id,
+            //     'kode_peminjam' => 'Unknown',
+            //     'tgl_awal_peminjaman' => now(),
+            //     'tgl_pengembalian' => now(),
+            //     'denda' => 1000,
+            //     'status_pengembalian' => 1,
+            //     'jenis_peminjam' => 1,
+            //     'status_denda' => 1,
+            // ]);
         };
     }
 }
