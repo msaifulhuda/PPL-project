@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi kelas siswa jika belum ada
-        if(KelasSiswa::count() == 0) {
+        if (KelasSiswa::count() == 0) {
             $this->call([
                 KelasSiswaSeeder::class,
             ]);
@@ -91,17 +91,17 @@ class DatabaseSeeder extends Seeder
         }
 
         // $idUser1 = Str::uuid();
-        // $idUser2 = Str::uuid();
         // Superadmin::create([
         //     'id_admin' => $idUser1,
         //     'username' => 'admin',
         //     'password' => bcrypt('admin123'),
         // ]);
-        // Staffperpus::create([
-        //     'id_staff_perpustakaan' => $idUser2,
-        //     'username' => '123456789101',
-        //     'password' => bcrypt('Perpus123'),
-        // ]);
+        $idUser2 = Str::uuid();
+        Staffperpus::create([
+            'id_staff_perpustakaan' => $idUser2,
+            'username' => '123456789101',
+            'password' => bcrypt('Perpus123'),
+        ]);
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
         //     'id_staff_akademik' => $idUser3,
@@ -163,9 +163,9 @@ class DatabaseSeeder extends Seeder
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
-        // $this->call([
-        //     PerpustakaanSeeder::class,
-        // ]);
+        $this->call([
+            PerpustakaanSeeder::class,
+        ]);
 
         // Registrasi Ekstrakurikuler
         // $id_pengurus = [session('id_pengurus1'), session('id_pengurus2'), session('id_pengurus3'), session('id_pengurus4')];
