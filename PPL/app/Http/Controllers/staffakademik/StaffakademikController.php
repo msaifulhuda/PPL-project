@@ -10,63 +10,24 @@ use Illuminate\Support\Facades\DB;
 
 class StaffakademikController extends Controller
 {
-    public function index()
-    {
-        $kelas = Kelas::all();
-        return view('staff_akademik.master_kelas', compact('kelas'));
-    }
-
-    public function store(Request $request)
-    {
-        Kelas::create($request->all());
-        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil ditambahkan.');
-    }
-
-    public function update(Request $request, $id)
-    {
-        $kelas = Kelas::findOrFail($id);
-        $kelas->update($request->only(['nama_kelas']));
-        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil diperbarui.');
-    }
-
-    public function destroy($id)
-    {
-        $kelas = Kelas::findOrFail($id);
-        $kelas->delete();
-        return redirect()->route('staffakademik.kelas.index')->with('success', 'Kelas berhasil dihapus.');
-    }
-
-    public function cari(Request $request)
-    {
-        $query = $request->input('search'); // Input pencarian
-        $kelas = Kelas::when($query, function($q) use ($query) {
-            return $q->where('nama_kelas', 'LIKE', "%{$query}%");
-        })->paginate(10)->appends(['search' => $query]); // Fungsi paginate()
-
-        $noDataMessage = $kelas->isEmpty() ? 'Data yang dicari tidak ada.' : '';
-        return view('staff_akademik.master_kelas', compact('kelas', 'noDataMessage'));
-    }
-
-
-
-
-
-
     /**
      * START JADWAL MANAGEMENT
      */
 
     //  read jadwal
-    public function jadwalIndex()
+    public function jadwalIndex(Request $request, $kelas_id = null)
     {
         $kelas = DB::table('kelas')
             ->orderByRaw('LENGTH(nama_kelas)')
             ->orderBy('nama_kelas')
             ->get();
+
         $hari = DB::table('hari')
             ->orderByRaw("FIELD(nama_hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')")
             ->get();
-        $data = DB::table('kelas_mata_pelajaran')
+
+        // Query untuk data jadwal, dengan filter kelas_id jika ada
+        $query = DB::table('kelas_mata_pelajaran')
             ->join('kelas', 'kelas_mata_pelajaran.kelas_id', '=', 'kelas.id_kelas')
             ->join('mata_pelajaran', 'kelas_mata_pelajaran.mata_pelajaran_id', '=', 'mata_pelajaran.id_matpel')
             ->join('guru', 'kelas_mata_pelajaran.guru_id', '=', 'guru.id_guru')
@@ -91,12 +52,21 @@ class StaffakademikController extends Controller
                 'tahun_ajaran.semester',
                 'tahun_ajaran.aktif'
             )
-            ->where('tahun_ajaran.aktif', 1) // Kondisi where
+            ->where('tahun_ajaran.aktif', 1) // Hanya tahun ajaran aktif
             ->orderBy('hari.id_hari') // Urutkan berdasarkan hari
-            ->orderBy('kelas_mata_pelajaran.waktu_mulai') // Urutkan berdasarkan waktu mulai
-            ->get();
+            ->orderBy('kelas_mata_pelajaran.waktu_mulai'); // Urutkan berdasarkan waktu mulai
 
-        return view('staff_akademik.jadwalManagemen.index', compact('data', 'kelas'));
+        // Jika kelas_id ada, tambahkan filter berdasarkan kelas
+        if (isset($_GET['kelas_id']) && $_GET['kelas_id'] != '') {
+            $filter = $_GET['kelas_id'];
+            htmlspecialchars($filter);
+            $kelas_id = $filter;
+            $query->where('kelas_mata_pelajaran.kelas_id', $filter);
+        }
+
+        $data = $query->get();
+
+        return view('staff_akademik.jadwalManagemen.index', compact('data', 'kelas', 'kelas_id'));
     }
 
     // tambah jadwal

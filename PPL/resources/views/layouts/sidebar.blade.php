@@ -85,17 +85,21 @@
                              </svg>
                          </button>
                          <ul id="dropdown-crud" class="space-y-2 py-2 hidden ">
-                             <li>
-                                 <a href="{{ route('master_matpel') }}"
-                                     class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">kelola mata pelajaran</a>
-                             </li>
-                             <li>
-                                 <a href="{{ route('master_kelas') }}"
-                                     class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">kelola kelas</a>
-                             </li>
-                             <li>
-                                <a href="{{ route('master_guru') }}"
-                                    class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">kelola guru</a>
+                            <li>
+                                <a href="{{ route('staff_akademik.guru_mata_pelajaran.index') }}"
+                                    class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Guru Mata Pelajaran</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.guru') }}"
+                                    class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Master Guru</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.kelas') }}"
+                                    class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Master Kelas</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('master.matpel') }}"
+                                    class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Master Matpel</a>
                             </li>
                          </ul>
                      </li>
