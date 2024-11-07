@@ -15,6 +15,7 @@ use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
 
 use App\Models\PengurusEkstra;
+use App\Models\kategori_buku;
 
 
 
@@ -108,7 +109,10 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      * END LMS
      */
     // START PERPUS
+    Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
     Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
+    Route::get('/siswa/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
+
     //END PERPUS
 });
 
