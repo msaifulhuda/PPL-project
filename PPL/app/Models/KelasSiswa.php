@@ -13,7 +13,7 @@ class KelasSiswa extends Model
     protected $primaryKey = 'id_kelas_siswa';
     public $incrementing = false;
     public $timestamps = true;
-    protected $keyType = 'string';  
+    protected $keyType = 'string';
 
 
     protected $fillable = [
@@ -30,5 +30,10 @@ class KelasSiswa extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
+    }
+
+    public function tahunajaran()
+    {
+        return $this->belongsTo(TahunAjaran::class, 'tahun_ajaran', 'id_tahun_ajaran');
     }
 }

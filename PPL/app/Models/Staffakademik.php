@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Testing\Fluent\Concerns\Has;
+
 class Staffakademik extends Authenticatable
 {
-    
 
+    use Notifiable, HasFactory;
     /**
      * The "booting" function of model
      *
