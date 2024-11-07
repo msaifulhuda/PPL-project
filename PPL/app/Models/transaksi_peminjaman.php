@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+
 class transaksi_peminjaman extends Model
 {
     use Notifiable;
@@ -14,15 +15,17 @@ class transaksi_peminjaman extends Model
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
+        parent::boot();
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -49,20 +52,22 @@ class transaksi_peminjaman extends Model
      */
 
 
-     protected $table = 'transaksi_peminjaman';
+    protected $table = 'transaksi_peminjaman';
 
-     protected $fillable = [
-         'id_transaksi_peminjaman',
-         'id_buku',
-         'kode_peminjam',
-         'tgl_awal_pengembalian',
-         'tgl_pengembalian',
-         'denda',
-         'status_pengembalian',
-         'jenis_peminjam',
-         'status_denda',
-     ];
-     public function buku()
+    protected $fillable = [
+        'id_transaksi_peminjaman',
+        'id_buku',
+        'kode_peminjam',
+        'tgl_awal_peminjaman',
+        'tgl_pengembalian',
+        'denda',
+        'status_pengembalian',
+        'jenis_peminjam',
+        'status_denda',
+    ];
+    public $timestamps = false;
+    protected $primaryKey = 'id_transaksi_peminjaman';
+    public function buku()
     {
         return $this->belongsTo(Buku::class, 'id_buku', 'id_buku');
     }

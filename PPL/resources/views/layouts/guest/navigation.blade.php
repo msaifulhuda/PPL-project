@@ -7,7 +7,7 @@
         <nav class="space-x-8">
             <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Home</a>
             <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Tentang Kami</a>
-            <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Perpustakaan</a>
+            <a href="" class="text-gray-700 hover:text-blue-600">Perpustakaan</a>
             <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Tenaga Pengajar</a>
             <a href="{{ route('ekstrakurikuler.registrasi') }}" class="text-gray-700 hover:text-blue-600">Ekstrakurikuler</a>
         </nav>

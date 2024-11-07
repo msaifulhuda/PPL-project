@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id_buku');
             $table->foreign('id_buku')->references('id_buku')->on('buku');
             $table->string('kode_peminjam');
-            $table->dateTime('tgl_awal_pengembalian');
+            $table->dateTime('tgl_awal_peminjaman');
             $table->dateTime('tgl_pengembalian');
             $table->integer('denda');
             $table->integer('status_pengembalian');

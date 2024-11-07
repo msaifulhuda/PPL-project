@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class ekstrakurikuler extends Model
+class Ekstrakurikuler extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'id_ekstrakurikuler';
@@ -64,7 +64,7 @@ class ekstrakurikuler extends Model
      */
     public function pembinaEkstra()
     {
-        return $this->belongsTo(Guru::class, );
+        return $this->belongsTo(Guru::class, 'guru_id', 'id_guru');
     }
 
     /**
@@ -80,7 +80,7 @@ class ekstrakurikuler extends Model
     }
     public function inventarisekstra()
     {
-        return $this->hasMany(inventaris_ekstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
+        return $this->hasMany(InventarisEkstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
     }
     public function laporanpenilaianekstra()
     {

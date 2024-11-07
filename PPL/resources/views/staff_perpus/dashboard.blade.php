@@ -1,44 +1,74 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __('staff_perpus!') }}
-                </div>
-            </div>
-        </div>
-    </div> --}}
+<x-staffperpustakaan-layout>
     <div class="overview_transaksi_peminjaman px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
         <h1 class="font-bold text-xl leading-8">Transaksi Peminjaman</h1>
         <span class="text-[#6B7280] text-lg leading-8">Ini adalah sekilas list untuk peminjaman buku perpustakaan untuk 7
             hari
             terakhir</span>
-        <table class="rounded-t-3xl w-full text-sm overfow-hidden">
-            <tr class="mx-auto bg-[#F9FAFB] leading-10 font-bold text-gray-500">
-                <td class="w-1/6 text-left">Aktivitas</td>
-                <td class="w-1/6 text-left">Tanggal Peminjam</td>
-                <td class="w-1/6 text-left">Tanggal Kembali</td>
-                <td class="w-1/6 text-left">Judul Buku</td>
-                <td class="w-1/6 text-left">Kategori</td>
-                <td class="w-1/6 text-left">Status</td>
-            </tr>
-            <tr class="mx-auto leading-10">
-                <td class="w-1/6 text-left">{{ $Nama_Kategori ?? 'Buku' }} dipinjam oleh
-                    <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
-                </td>
-                <td class="w-1/6 text-left text-gray-500">{{ $Tanggal_Pinjam ?? 'Unknown' }}</td>
-                <td class="w-1/6 text-left text-gray-500">{{ $Tanggal_Kembali ?? 'Tidak ada batas kembali' }} <a
-                        href="#">Edit</a>
-                </td>
-                <td class="w-1/6 text-left text-gray-500">{{ $Judul_Buku ?? 'Lorem, ipsum dolor sit amet.' }}</td>
-                <td class="w-1/6 text-left">{{ $Nama_Kategori ?? 'Tidak Memiliki Kategori' }}</td>
-                <td class="w-1/6 text-left">{{ $Status ?? 'None' }}</td>
-            </tr>
-        </table>
-</x-app-layout>
+
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Aktivitas
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Tanggal Peminjam
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Tanggal Kembali
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Judul Buku
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Kategori
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($transaksi as $tp)
+                        <tr
+                            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $tp->nama_kategori ?? 'Buku' }} dipinjam oleh
+                                <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $tp->tgl_awal_Peminjaman ?? 'Unknown' }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $tp->tgl_pengembalian ?? 'Tidak ada batas kembali' }}
+                                <a href="#">Edit</a>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $tp->judul_buku ?? 'Lorem, ipsum dolor sit amet.' }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $tp->nama_kategori ?? 'Tidak Memiliki Kategori' }}
+                            </td>
+                            @php
+                                if ($tp->status_pengembalian == 0) {
+                                    $status = 'Sedang di Pinjam';
+                                } elseif ($tp->status_pengembalian == 1) {
+                                    $status = 'Sudah di Kembalikan';
+                                } else {
+                                    $status = 'Buku Hilang';
+                                }
+                            @endphp
+                            <td class="px-6 py-4">
+                                {{ $status ?? 'None' }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</x-staffperpustakaan-layout>
