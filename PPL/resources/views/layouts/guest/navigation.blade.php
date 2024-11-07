@@ -1,7 +1,9 @@
 <nav class="bg-white shadow">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-4">
-            <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-16">
+            <a href="{{ route('beranda') }}">
+                <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-16">
+            </a>
         </div>
 
         <nav class="space-x-8">
