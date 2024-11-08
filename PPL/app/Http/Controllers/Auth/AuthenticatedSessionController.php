@@ -50,7 +50,7 @@ class AuthenticatedSessionController extends Controller
         //  dd($guard, $credentials);
         return auth()->guard($guard)->attempt($credentials);
     }
-    
+
     private function handleSiswaLogin($request): RedirectResponse
     {
 
@@ -71,10 +71,10 @@ class AuthenticatedSessionController extends Controller
     private function handleAdminLogin($request): RedirectResponse
     {
         $user = auth()->guard('web-superadmin')->user();
-        
+
         $request->session()->regenerate();
         $request->session()->put('username', $user->username);
-        
+
         return redirect()->route('superadmin.dashboard');
     }
     private function handleGuruLogin($request): RedirectResponse
@@ -83,7 +83,7 @@ class AuthenticatedSessionController extends Controller
         $user = auth()->guard('web-guru')->user();
         $request->session()->put('username', $user->username);
         $request->session()->put('role_guru', $user->role_guru);
-        
+
 
         if ($user->role_guru === 'guru') {
             return redirect()->route('guru.dashboard');

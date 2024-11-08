@@ -35,6 +35,16 @@ aria-label="Sidebar">
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Overview</span>
                     </x-sidebar-link>
+
+                {{-- Overview --}}
+                <li>
+                    <x-sidebar-link href="{{ route('staff_akademik.dashboard') }}" :active="request()->is('staff_akademik/dashboard')">
+                        <x-sidebar-icon>
+                                <path d="M13.5 2c-.178 0-.356.013-.492.022l-.074.005a1 1 0 0 0-.934.998V11a1 1 0 0 0 1 1h7.975a1 1 0 0 0 .998-.934l.005-.074A7.04 7.04 0 0 0 22 10.5 8.5 8.5 0 0 0 13.5 2Z"/>
+                                <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z"/>
+                        </x-sidebar-icon>
+                        <span class="ml-3" sidebar-toggle-item>Overview</span>
+                    </x-sidebar-link>
                 </li>
 
                 {{-- Data Master --}}
@@ -46,13 +56,13 @@ aria-label="Sidebar">
                     </x-sidebar-dropdown>
                     <x-sidebar-dropdown-list id="master" :active="request()->is('staff-akademik/master/*')">
                         <li>
-                            <x-sidebar-dropdown-list-link href="" :active="request()->is('staff-akademik/master/kelas')">Data Kelas</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{route('staff_akademik.kelas.index')}}" :active="request()->is('staff-akademik/master/kelas')">Data Kelas</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="" :active="request()->is('staff-akademik/master/guru')">Data Guru</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{route('staff_akademik.guru_mata_pelajaran.index')}}" :active="request()->is('staff-akademik/master/guru')">Data Guru</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="" :active="request()->is('dashboard/master/mata_pelajaran')">Data Mata Pelajaran</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{route('staff_akademik.mata-pelajaran.index')}}" :active="request()->is('dashboard/master/mata_pelajaran')">Data Mata Pelajaran</x-sidebar-dropdown-list-link>
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
