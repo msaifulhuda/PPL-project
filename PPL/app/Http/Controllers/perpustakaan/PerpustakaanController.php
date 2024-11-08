@@ -1,20 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\perpustakaan;
+
 use App\Models\buku;
 use App\Models\kategori_buku;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
 
 class PerpustakaanController extends Controller
 {
     public function index(Request $request)
     {
-
-        // Ambil data search dan katrgori dari query string
+        // Ambil data search dan kategori dari query string
         $search = $request->input('search');
         $kategori_buku = $request->input('kategori_buku');
 
@@ -29,19 +26,18 @@ class PerpustakaanController extends Controller
         // Filter berdasarkan kategori (jika ada)
         if (!empty($kategori_buku)) {
             $query->where('id_kategori_buku', '=', $kategori_buku);
-        } else {
-            $query=buku::query();
         }
 
-
         // Dapatkan hasil dengan paginasi
-        $pages = $query->paginate(10);
+        $pages = $query->paginate(12);
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
         return view('perpustakaan.index', compact('pages', 'categories'));
     }
-    public function show($id){
+
+    public function show($id)
+    {
         $buku = buku::findOrFail($id);
         $kategori = $buku->kategori_buku;
         return view('perpustakaan.detail', compact('buku', 'kategori'));

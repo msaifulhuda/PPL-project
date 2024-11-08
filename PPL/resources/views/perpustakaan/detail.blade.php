@@ -19,8 +19,7 @@
     <div class="mt-6 max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 flex">
         <!-- Gambar Buku -->
         <div class="w-500">
-        {{ $buku->foto_buku }}
-            <img src="{{ ($buku->foto_buku) }}" alt="Cover Buku" class="w-full h-40 rounded-md">
+        <img src="{{ asset($buku->foto_buku) }}" alt="{{ $buku->judul_buku }}" class="w-full h-[250px] rounded-md object-cover mb-4">
         </div>
         
         <!-- Informasi Buku -->
