@@ -39,11 +39,15 @@
                     <!-- Book List -->
                     <div class="flex flex-wrap gap-4">
                         @foreach ($pages as $buku)
-                        <div class="w-500 bg-white p-4 rounded-lg shadow-md text-center flex flex-col">
-                            <img src="{{ asset('images/Perpustakaan/Narutos.jpg') }}" alt="{{ $buku->judul_buku }}" class="h-40 rounded-md">
-                            <h3 class="w-9 text-lg font-semibold">{{ $buku->judul_buku }}</h3>
-                            <p class="text-gray-600">Stok: {{ $buku->stok_buku }}</p>
-                            <a href="{{ route('dashboard.perpustakaan.detail', $buku->id_buku) }}" class="w-50 mt-4 bg-blue-500 text-white rounded-full px-4 py-2">
+                        <div class="w-[200px] h-[500px] bg-white p-4 rounded-lg shadow-md flex flex-col justify-between">
+                            <div>
+                                <img src="{{ asset($buku->foto_buku) }}" alt="{{ $buku->judul_buku }}" class="w-full h-[250px] rounded-md object-cover mb-4">
+                                <h3 class="text-lg font-semibold overflow-hidden text-ellipsis" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    {{ $buku->judul_buku }}
+                                </h3>
+                                <p class="text-gray-600 mt-2">Stok: {{ $buku->stok_buku }}</p>
+                            </div>
+                            <a href="{{ route('dashboard.perpustakaan.detail', $buku->id_buku) }}" class="mt-auto bg-blue-500 text-white rounded-full px-4 py-2 text-center">
                                 Detail
                             </a>
                         </div>
