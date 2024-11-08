@@ -61,7 +61,7 @@ class PerpustakaanSeeder extends Seeder
                 'author_buku' => 'Pembuat' . $kategori[$number],
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
-                'foto_buku' => asset('images/Perpustakaan/Dummies/Narutos.jpg'),
+                'foto_buku' => 'images/Perpustakaan/Dummies/Narutos.jpg',
                 'tahun_terbit' => 2024,
                 'bahasa_buku' => 'Chinese',
                 'stok_buku' => 10,

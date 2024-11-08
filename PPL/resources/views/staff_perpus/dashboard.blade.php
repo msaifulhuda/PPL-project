@@ -50,7 +50,7 @@
                                 <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
                             </th>
                             <td class="px-6 py-4">
-                                {{ $tp->tgl_awal_Peminjaman ?? 'Unknown' }}
+                                {{ $tp->tgl_awal_peminjaman ?? 'Unknown' }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $tp->tgl_pengembalian ?? 'Tidak ada batas kembali' }}

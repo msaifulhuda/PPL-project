@@ -137,7 +137,7 @@
     </div>
 
     <!-- Line Chart -->
-    <div class="py-6" id="pie-chart"></div>
+    <div class="py-6" id="pie-chart" style="max-height: 400px; width: 100%;"></div>
 
     <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
         <div class="flex justify-between items-center pt-5">
@@ -202,10 +202,21 @@
             series: [52.8, 26.8, 20.4],
             colors: ["#1C64F2", "#16BDCA", "#9061F9"],
             chart: {
-                height: 420,
+                height: "100%",
                 width: "100%",
                 type: "pie",
             },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 300 // atau ukuran yang lebih kecil
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }],
             stroke: {
                 colors: ["white"],
                 lineCap: "",
@@ -258,5 +269,10 @@
     if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
         const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
         chart.render();
+
+        // Rerender chart on window resize
+        window.addEventListener("resize", () => {
+            chart.updateOptions(getChartOptions());
+        });
     }
 </script>
