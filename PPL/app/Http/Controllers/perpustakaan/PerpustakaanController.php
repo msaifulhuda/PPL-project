@@ -13,6 +13,7 @@ class PerpustakaanController extends Controller
 {
     public function index(Request $request)
     {
+
         // Ambil data search dan katrgori dari query string
         $search = $request->input('search');
         $kategori_buku = $request->input('kategori_buku');
@@ -26,9 +27,12 @@ class PerpustakaanController extends Controller
         }
 
         // Filter berdasarkan kategori (jika ada)
-        if ($kategori_buku) {
-            $query->where('kategori_buku', $kategori_buku);
+        if (!empty($kategori_buku)) {
+            $query->where('id_kategori_buku', '=', $kategori_buku);
+        } else {
+            $query=buku::query();
         }
+
 
         // Dapatkan hasil dengan paginasi
         $pages = $query->paginate(10);

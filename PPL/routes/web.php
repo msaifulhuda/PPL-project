@@ -118,9 +118,15 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 });
 
 //PERPUSTAKAAN
-// Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
-//     Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
-// });
+
+// START PERPUS
+// Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+// Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
+// Route::get('/siswa/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
+
+//END PERPUS
+
+
 
 // GURU ROLE
 Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
@@ -139,6 +145,15 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     /**
      * END LMS
      */
+
+
+     
+    // START PERPUS
+    // Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+    // Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('guru.dashboard.perpustakaan');
+    // Route::get('/guru/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('guru.dashboard.perpustakaan.detail');
+
+    //END PERPUS
 });
 
 

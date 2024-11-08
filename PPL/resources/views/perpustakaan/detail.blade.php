@@ -18,8 +18,9 @@
     <!-- Konten Buku -->
     <div class="mt-6 max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 flex">
         <!-- Gambar Buku -->
-        <div class="w-1/3">
-            <img src="{{ asset('storage/' . $buku->foto_buku) }}" alt="Cover Buku" class="rounded-md w-full">
+        <div class="w-500">
+        {{ $buku->foto_buku }}
+            <img src="{{ ($buku->foto_buku) }}" alt="Cover Buku" class="w-full h-40 rounded-md">
         </div>
         
         <!-- Informasi Buku -->
@@ -27,19 +28,14 @@
             <h2 class="text-2xl font-bold">{{ $buku->judul_buku }}</h2>
             <p class="text-gray-700"><strong>Author:</strong> {{ $buku->author_buku }}</p>
             <p class="text-gray-700"><strong>Publisher:</strong> {{ $buku->publisher_buku }}</p>
-            <p class="text-gray-700"><strong>Kategori:</strong> {{ $buku->nama_kategori }}</p>
+            <p class="text-gray-700"><strong>Kategori:</strong> {{ $kategori->nama_kategori }} </p>
             <p class="text-gray-700"><strong>Tahun Terbit:</strong> {{ $buku->tahun_terbit }}</p>
             <p class="text-gray-700"><strong>Bahasa:</strong> {{ $buku->bahasa_buku }}</p>
             <p class="text-gray-700"><strong>Rak:</strong> {{ $buku->rak_buku }}</p>
-
+            <p class="text-gray-700"><strong>Stok:</strong> {{ $buku->stok_buku }}</p>
             <!-- Tombol Detail Buku -->
             
         </div>
-    </div>
-
-    <!-- Stok Buku -->
-    <div class="mt-4 max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
-        <p class="text-gray-700"><strong>Stok:</strong> {{ $buku->stok_buku }}</p>
     </div>
 
 </x-siswa-layout>
