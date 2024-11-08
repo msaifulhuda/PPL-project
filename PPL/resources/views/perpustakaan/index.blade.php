@@ -43,7 +43,7 @@
                             <img src="{{ asset('images/Perpustakaan/Narutos.jpg') }}" alt="{{ $buku->judul_buku }}" class="h-40 rounded-md">
                             <h3 class="w-9 text-lg font-semibold">{{ $buku->judul_buku }}</h3>
                             <p class="text-gray-600">Stok: {{ $buku->stok_buku }}</p>
-                            <a href="{{ route('siswa.dashboard.perpustakaan.detail', $buku->id_buku) }}" class="w-50 mt-4 bg-blue-500 text-white rounded-full px-4 py-2">
+                            <a href="{{ route('dashboard.perpustakaan.detail', $buku->id_buku) }}" class="w-50 mt-4 bg-blue-500 text-white rounded-full px-4 py-2">
                                 Detail
                             </a>
                         </div>

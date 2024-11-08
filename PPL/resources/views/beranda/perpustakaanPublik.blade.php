@@ -5,7 +5,7 @@
             <h1 class="text-4xl sm:text-5xl font-bold">Selamat Datang Di</h1>
             <h2 class="text-4xl sm:text-6xl font-bold mt-2 text-blue-400">Perpustakaan SMPN 2 Kamal</h2>
             <p class="text-lg mt-4 max-w-3xl mx-auto">Temukan dunia pengetahuan yang luas di Perpustakaan SMPN 2 Kamal. Kami menyediakan berbagai sumber belajar dan ruang yang tenang untuk membantu siswa belajar dan berkembang</p>
-            <a href="{{ route('siswa.dashboard.perpustakaan') }}" class="mt-8 inline-block bg-blue-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-800 transition duration-300">
+            <a href="{{ route('login') }}" class="mt-8 inline-block bg-blue-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-800 transition duration-300">
                 Mulai Meminjam →
             </a>
         </div>
@@ -68,7 +68,7 @@
                     <div class="py-2 flex flex-col gap-4">
                         <h3 class="text-lg font-semibold">Cara Mendapatkan Pahala di Sekolah</h3>
                         <p class="text-sm">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quisquam placeat labore rerum numquam nisi nesciunt earum</p>
-                        <a href="{{ route('siswa.dashboard.perpustakaan') }}" class="bg-white text-blue-600 text-sm font-semibold py-2 px-4 w-[120px] rounded-md border border-blue-600 hover:bg-blue-600 hover:text-white transition duration-300">
+                        <a href="{{ route('login') }}" class="bg-white text-blue-600 text-sm font-semibold py-2 px-4 w-[120px] rounded-md border border-blue-600 hover:bg-blue-600 hover:text-white transition duration-300">
                             Mulai Baca →
                         </a>
                     </div>

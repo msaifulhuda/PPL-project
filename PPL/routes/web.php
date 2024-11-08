@@ -29,7 +29,7 @@ use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
-    Route::get('/perpustakaan', [BerandaController::class, 'perpustakaan'])->name('beranda.perpustakaan');
+    Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
 });
 
 
@@ -160,9 +160,9 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      * END LMS
      */
     // START PERPUS
-    Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
-    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
-    Route::get('/siswa/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
+    // Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.perpustakaan');
+    // Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
+    // Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
 
     //END PERPUS
 });
@@ -170,9 +170,11 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 //PERPUSTAKAAN
 
 // START PERPUS
-// Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
-// Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
-// Route::get('/siswa/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
+
+Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+// Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('dashboard.perpustakaan');
+Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('dashboard.perpustakaan.detail');
+
 
 //END PERPUS
 
@@ -198,12 +200,6 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
 
      
-    // START PERPUS
-    // Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
-    // Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('guru.dashboard.perpustakaan');
-    // Route::get('/guru/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('guru.dashboard.perpustakaan.detail');
-
-    //END PERPUS
 });
 
 

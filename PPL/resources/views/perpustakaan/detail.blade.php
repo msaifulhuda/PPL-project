@@ -7,7 +7,7 @@
 
     <!-- Tombol Kembali -->
     <div>
-        <a href="{{ route('siswa.dashboard.perpustakaan') }}" class="text-blue-500 hover:text-blue-700 flex items-center">
+        <a href="{{ route('perpustakaan') }}" class="text-blue-500 hover:text-blue-700 flex items-center">
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>

@@ -12,7 +12,7 @@ class BerandaController extends Controller
         return view('beranda.home');
     }
 
-    public function perpustakaan(){
-        return view('beranda.perpustakaan');
+    public function perpustakaanPublik(){
+        return view('beranda.perpustakaanPublik');
     }
 }

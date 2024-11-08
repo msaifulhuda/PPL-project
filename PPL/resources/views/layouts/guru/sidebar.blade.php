@@ -66,7 +66,9 @@ aria-label="Sidebar">
                     </x-sidebar-dropdown>
                     <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
                         <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/perpustakaan" :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+
+                            <x-sidebar-dropdown-list-link href="{{ route('perpustakaan') }}" :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
