@@ -9,6 +9,7 @@ use App\Models\transaksi_peminjaman;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 
 class PerpustakaanSeeder extends Seeder
 {
@@ -30,11 +31,6 @@ class PerpustakaanSeeder extends Seeder
             return date("Y-m-d H:i:s", $randomTimestamp);
         }
 
-        // date
-        $startDate = "2024-07-03 00:00:00";
-        $endDate = "2024-07-10 23:59:59";
-        $startDate2 = "2024-07-11 00:00:00";
-        $endDate2 = "2024-07-28 23:59:59";
         $jenis_buku_id = Str::uuid();
 
         jenis_buku::create([
@@ -42,23 +38,34 @@ class PerpustakaanSeeder extends Seeder
             'nama_jenis_buku' => 'Non-Paket'
         ]);
 
-        $kategori = ['Komik', 'Komik', 'Jurnal', 'Komik', 'Novel', 'Ensiklopedia', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Novel', 'Jurnal', 'Biografi'];
-        foreach (range(0, count($kategori) - 1) as $number) {
+        $collection = collect([0, 1, 2]);
+        $nunggak = collect([0, 1]);
+
+        $kategori = collect(['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi']);
+        foreach (range(0, 84) as $number) {
             $kategori_id = Str::uuid();
             $buku_id = Str::uuid();
             $transaksi_peminjaman_id = Str::uuid();
 
+            // date addbook
+            $startDate = "2024-01-03 00:00:00";
+            $endDate = "2024-03-10 23:59:59";
+            // date Transaction
+            $startDate2 = "2024-04-11 00:00:00";
+            $endDate2 = "2024-07-11 00:00:00";
+            // date backbook
+            $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
 
             kategori_buku::create([
                 'id_kategori_buku' => $kategori_id,
-                'nama_kategori' => $kategori[$number]
+                'nama_kategori' => $kategori->random()
             ]);
 
             buku::create([
                 'id_buku' => $buku_id,
                 'id_kategori_buku' => $kategori_id,
                 'id_jenis_buku' => $jenis_buku_id,
-                'author_buku' => 'Pembuat' . $kategori[$number],
+                'author_buku' => 'Pembuat' . $kategori->random(),
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
                 'foto_buku' => 'images/Perpustakaan/Dummies/Narutos.jpg',
@@ -69,16 +76,23 @@ class PerpustakaanSeeder extends Seeder
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
             ]);
 
+            if ($number >= 80) {
+                $startDate2 = now();
+                $endDate2 = Carbon::now()->subDays(7)->toDateString();;
+                // date backbook
+                $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
+            }
+
             transaksi_peminjaman::create([
                 'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
                 'id_buku' => $buku_id,
                 'kode_peminjam' => 'Unknown',
-                'tgl_awal_peminjaman' => randomDate($startDate, $endDate),
-                'tgl_pengembalian' => randomDate($startDate2, $endDate2),
-                'denda' => 1000,
-                'status_pengembalian' => 1,
-                'jenis_peminjam' => 1,
-                'status_denda' => 1,
+                'tgl_awal_peminjaman' => randomDate($startDate2, $endDate2),
+                'tgl_pengembalian' => $endDate3,
+                'denda' => 0,
+                'status_pengembalian' => $collection->random(),
+                'jenis_peminjam' => 0,
+                'status_denda' => $nunggak->random(),
             ]);
         };
     }
