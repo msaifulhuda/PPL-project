@@ -14,8 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" /> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'node_modules/flowbite/dist/flowbite.min.css'])
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">

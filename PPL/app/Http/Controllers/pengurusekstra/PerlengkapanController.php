@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Http\Controllers\pengurusekstra;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\InventarisEkstrakurikuler as Perlengkapan;
+use App\Models\PengurusEkstra;
+
+class PerlengkapanController extends Controller
+{
+    public function index()
+    {
+        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler')->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->firstOrFail();
+
+        // if ($pengurusEkstra->isEmpty()) {
+        //     return redirect()->route('siswa.ekstrakurikuler');
+        // }
+
+        $nama_ekstrakurikuler = $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler;
+        $id_ekstra = $pengurusEkstra->ekstrakurikuler->id_ekstrakurikuler;
+        $perlengkapan_ekstras = Perlengkapan::where('id_ekstrakurikuler', $id_ekstra)->paginate(10);
+        return view('pengurus_ekstra.perlengkapan.index', compact([
+            'perlengkapan_ekstras',
+            'nama_ekstrakurikuler',
+            'id_ekstra'
+        ]));
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'id_ekstrakurikuler' => 'required',
+            'nama_barang' => 'required|string|max:255',
+            'stok' => 'required|integer',
+        ]);
+
+        Perlengkapan::create($request->all());
+
+        return redirect()->route('pengurus_ekstra.perlengkapan')->with('success', 'Item created successfully.');
+    }
+
+
+    public function update(Request $request, Perlengkapan $id)
+    {
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'stok' => 'required|integer',
+        ]);
+
+        $id->update($request->all());
+
+        return redirect()->route('pengurus_ekstra.perlengkapan')->with('success', 'Item updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $perlengkapan = Perlengkapan::findOrFail($id);
+        $perlengkapan->delete();
+
+        return redirect()->route('pengurus_ekstra.perlengkapan')->with('success', 'Item deleted successfully.');
+    }
+}
