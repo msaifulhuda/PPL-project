@@ -17,6 +17,24 @@ class PerpustakaanSeeder extends Seeder
      */
     public function run(): void
     {
+        function randomDate($startDate, $endDate)
+        {
+            // Mengonversi tanggal awal dan akhir ke timestamp
+            $startTimestamp = strtotime($startDate);
+            $endTimestamp = strtotime($endDate);
+
+            // Mendapatkan timestamp acak di antara tanggal awal dan akhir
+            $randomTimestamp = rand($startTimestamp, $endTimestamp);
+
+            // Mengonversi timestamp acak ke format tanggal
+            return date("Y-m-d H:i:s", $randomTimestamp);
+        }
+
+        // date
+        $startDate = "2024-07-03 00:00:00";
+        $endDate = "2024-07-10 23:59:59";
+        $startDate2 = "2024-07-11 00:00:00";
+        $endDate2 = "2024-07-28 23:59:59";
         $jenis_buku_id = Str::uuid();
 
         jenis_buku::create([
@@ -24,8 +42,8 @@ class PerpustakaanSeeder extends Seeder
             'nama_jenis_buku' => 'Non-Paket'
         ]);
 
-        $kategori = ['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi'];
-        foreach (range(0, 6) as $number) {
+        $kategori = ['Komik', 'Komik', 'Jurnal', 'Komik', 'Novel', 'Ensiklopedia', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Novel', 'Jurnal', 'Biografi'];
+        foreach (range(0, count($kategori) - 1) as $number) {
             $kategori_id = Str::uuid();
             $buku_id = Str::uuid();
             $transaksi_peminjaman_id = Str::uuid();
@@ -48,20 +66,20 @@ class PerpustakaanSeeder extends Seeder
                 'bahasa_buku' => 'Chinese',
                 'stok_buku' => 10,
                 'rak_buku' => 1,
-                'tgl_ditambahkan' => now(),
+                'tgl_ditambahkan' => randomDate($startDate, $endDate),
             ]);
 
-            // transaksi_peminjaman::create([
-            //     'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
-            //     'id_buku' => $buku_id,
-            //     'kode_peminjam' => 'Unknown',
-            //     'tgl_awal_peminjaman' => now(),
-            //     'tgl_pengembalian' => now(),
-            //     'denda' => 1000,
-            //     'status_pengembalian' => 1,
-            //     'jenis_peminjam' => 1,
-            //     'status_denda' => 1,
-            // ]);
+            transaksi_peminjaman::create([
+                'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
+                'id_buku' => $buku_id,
+                'kode_peminjam' => 'Unknown',
+                'tgl_awal_peminjaman' => randomDate($startDate, $endDate),
+                'tgl_pengembalian' => randomDate($startDate2, $endDate2),
+                'denda' => 1000,
+                'status_pengembalian' => 1,
+                'jenis_peminjam' => 1,
+                'status_denda' => 1,
+            ]);
         };
     }
 }

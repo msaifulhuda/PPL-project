@@ -1,5 +1,15 @@
 <x-staffperpustakaan-layout>
-    <div class="overview_transaksi_peminjaman px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
+    <div class="overview_staffperpustakaan px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
+        @include('staff_perpus/komponen/chart_transaction')
+
+        <div class="w-full flex py-6">
+            <div class="w-1/2 mr-1">@include('staff_perpus/komponen/chart_statbuku')</div>
+            <div class="flex w-1/2">
+                <div class="w-1/2 mx-3">@include('staff_perpus/komponen/overviewtabelkategori')</div>
+                <div class="w-1/2 ml-2">@include('staff_perpus/komponen/overviewtabelkategori')</div>
+            </div>
+        </div>
+
         <h1 class="font-bold text-xl leading-8">Transaksi Peminjaman</h1>
         <span class="text-[#6B7280] text-lg leading-8">Ini adalah sekilas list untuk peminjaman buku perpustakaan untuk 7
             hari
