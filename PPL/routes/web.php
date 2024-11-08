@@ -18,8 +18,12 @@ use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-
-
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
+use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 
 
 
@@ -31,7 +35,6 @@ Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
     Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
 });
-
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
 ->name('logout');
@@ -143,8 +146,11 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
         Route::post('/ekstrakurikuler/perlengkapan/tambah', [PerlengkapanController::class, 'store'])->name('pengurus_ekstra.perlengkapan.store');
         Route::put('/ekstrakurikuler/perlengkapan/update/{id}', [PerlengkapanController::class, 'update'])->name('pengurus_ekstra.perlengkapan.update');
         Route::delete('/ekstrakurikuler/perlengkapan/delete/{id}', [PerlengkapanController::class, 'destroy'])->name('pengurus_ekstra.perlengkapan.delete');
-
-        Route::get('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjaman::class, 'index'])->name('pengurus_ekstra.histori');
+        
+        Route::get('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjamanController::class, 'index'])->name('pengurus_ekstra.histori');
+        Route::post('/ekstrakurikuler/perlengkapan/histori/', [HistoriPeminjamanController::class, 'store'])->name('pengurus_ekstra.histori.store');
+        Route::put('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjamanController::class, 'update'])->name('pengurus_ekstra.histori.update');
+        Route::delete('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjamanController::class, 'destroy'])->name('pengurus_ekstra.histori.delete');
     });
     /**
      * End Pengurus Ekstrakurikuler
@@ -185,7 +191,10 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
 
     Route::group(['middleware' => 'pembina_ekstra'], function () {
-        Route::get('/pembina-dashboard', [PembinaekstraController::class, 'index'])->name('guru.pembina.dashboard');
+        Route::get('/pembina-dashboard', [PembinaekstraController::class, 'index'])->name('pembina.dashboard');
+
+        // Route::get('/pembina/anggota', [AnggotaController::class, 'index'])->name('pembina.anggota');
+        Route::get('/pembina/ekstrakurikuler/perlengkapan', [PembinaekstraPerlengkapanController::class, 'index'])->name('pembina.perlengkapan');
     });
 
     /**

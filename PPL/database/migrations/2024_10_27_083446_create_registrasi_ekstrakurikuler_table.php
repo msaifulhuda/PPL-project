@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('registrasi_ekstrakurikuler', function (Blueprint $table) {
             $table->uuid('id_registrasi')->primary();
             $table->uuid('id_siswa');
-            $table->uuid('id_pengurus');
             $table->uuid('id_ekstrakurikuler');
             $table->string('riwayat_penyakit')->nullable();
             $table->text('alasan')->nullable();
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->enum('status', ["diterima","ditolak","menunggu"])->nullable();
             $table->timestamp('tgl_registrasi')->useCurrent();
             $table->foreign('id_ekstrakurikuler')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
-            $table->foreign('id_pengurus')->references('id_pengurus_ekstra')->on('pengurus_ekstra');
             $table->foreign('id_siswa')->references('id_siswa')->on('siswa');
         });
 

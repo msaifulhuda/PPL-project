@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('histori_inventaris', function (Blueprint $table) {
             $table->uuid('id_histori')->primary();
             $table->uuid('id_inventaris');
+            $table->text('keterangan');
+            $table->bigInteger('jumlah');
             $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris_ekstrakurikuler');
             $table->timestamp('histori_keluar');
             $table->timestamp('histori_masuk');

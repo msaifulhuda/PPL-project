@@ -31,7 +31,6 @@ class registrasi_ekstrakurikuler extends Model
      protected $fillable = [
         'id_registrasi',
          'id_siswa',
-         'id_pengurus',
          'id_ekstrakurikuler',
          'riwayat_penyakit',
          'alasan',
@@ -47,15 +46,7 @@ class registrasi_ekstrakurikuler extends Model
      {
          return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
      }
- 
-     /**
-      * Relationship with PengurusEkstra
-      */
-     public function pengurus()
-     {
-         return $this->belongsTo(PengurusEkstra::class, 'id_pengurus', 'id_pengurus_ekstra');
-     }
- 
+  
      /**
       * Relationship with Ekstrakurikuler
       */
