@@ -162,13 +162,12 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard/lms', [SiswaLmsController::class, 'index'])->name('siswa.dashboard.lms');
     Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi');
     Route::get('/dashboard/lms/tugas', [SiswaLmsController::class, 'tugas'])->name('siswa.dashboard.lms.tugas');
-    /**
-     * END LMS
-     */
+    
     // START PERPUS
-    // Route::get('/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.perpustakaan');
-    // Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
-    // Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
+
+    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+    Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('dashboard.perpustakaan.detail');
+
 
     //END PERPUS
 });
@@ -177,9 +176,8 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
 // START PERPUS
 
-Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
-// Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('dashboard.perpustakaan');
-Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('dashboard.perpustakaan.detail');
+// Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.dashboard.perpustakaan');
+// Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('siswa.dashboard.perpustakaan.detail');
 
 
 //END PERPUS
@@ -207,7 +205,14 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
      * END LMS
      */
 
+        
+    // START PERPUS
 
+    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+    Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('dashboard.perpustakaan.detail');
+
+
+    //END PERPUS
      
 });
 
