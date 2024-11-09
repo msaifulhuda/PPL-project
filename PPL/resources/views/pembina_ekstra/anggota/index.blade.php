@@ -10,7 +10,7 @@
             </div>
             <h2 class="text-2xl font-semibold text-gray-800">Anggota Ekstrakurikuler</h2>
             <div class="mt-2 text-gray-600">
-                <p>Pengurus: <span class="font-semibold text-gray-700">{{ $loggedInUsername }}</span></p>
+                <p>Pembina: <span class="font-semibold text-gray-700">{{ $loggedInUsername }}</span></p>
                 <p>Tahun Ajaran: <span class="font-semibold text-gray-700">2024/2025</span></p>
                 <p>Total Anggota: <span class="font-semibold text-gray-700">{{ $totalItems ?? '404NOTFOUND' }}</span></p>
             </div>
