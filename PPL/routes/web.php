@@ -173,8 +173,8 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
     // START PERPUS
 
-    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexSiswa'])->name('siswa.perpustakaan');
-    Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showSiswa'])->name('dashboard.perpustakaan.detail');
+    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexSiswa'])->name('dashboard.perpustakaan');
+    Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showSiswa'])->name('siswa.dashboard.perpustakaan.detail');
 
 
     //END PERPUS
