@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -8,26 +7,33 @@ use App\Http\Controllers\guru\GuruController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\siswa\SiswaLmsController;
+use App\Http\Controllers\beranda\BerandaController;
+use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Http\Controllers\superadmin\SuperadminController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\beranda\BerandaController;
+
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+// <<<<<<< pengurus-ekstrakurikuler
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
+=======
+// >>>>>>> main
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
-
-
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\staffakademik\JadwalController;
 
 // Route::get('/', function () {
 //     return view('beranda.home');
@@ -53,17 +59,17 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     Route::get('/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
-    Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
+//     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
 
     /**
      * START JADWAL MANAGEMENT
      */
-    Route::get('/jadwal', [StaffakademikController::class, 'jadwalIndex'])->name('staff_akademik.jadwal');
-    Route::get('/jadwal/tambah', [StaffakademikController::class, 'createJadwal'])->name('staff_akademik.jadwal.create');
-    Route::post('/jadwal/tambah', [StaffakademikController::class, 'storeJadwal'])->name('staff_akademik.jadwal.store');
-    Route::get('/jadwal/edit/{id}', [StaffakademikController::class, 'editJadwal'])->name('staff_akademik.jadwal.edit');
-    Route::put('/jadwal/update/{id}', [StaffakademikController::class, 'updateJadwal'])->name('staff_akademik.jadwal.update');
-    Route::delete('/jadwal/delete/{id}', [StaffakademikController::class, 'deleteJadwal'])->name('staff_akademik.jadwal.delete');
+    Route::get('/jadwal', [JadwalController::class, 'jadwalIndex'])->name('staff_akademik.jadwal');
+    Route::get('/jadwal/tambah', [JadwalController::class, 'createJadwal'])->name('staff_akademik.jadwal.create');
+    Route::post('/jadwal/tambah', [JadwalController::class, 'storeJadwal'])->name('staff_akademik.jadwal.store');
+    Route::get('/jadwal/edit/{id}', [JadwalController::class, 'editJadwal'])->name('staff_akademik.jadwal.edit');
+    Route::put('/jadwal/update/{id}', [JadwalController::class, 'updateJadwal'])->name('staff_akademik.jadwal.update');
+    Route::delete('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal'])->name('staff_akademik.jadwal.delete');
     /**
      * END JADWAL MANAGEMENT
      */
@@ -168,7 +174,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
     // START PERPUS
 
-    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('perpustakaan');
+    Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'index'])->name('siswa.perpustakaan');
     Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'show'])->name('dashboard.perpustakaan.detail');
 
 
