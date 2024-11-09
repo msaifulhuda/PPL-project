@@ -20,10 +20,10 @@ class PengurusMiddleware
 
          if (Auth::guard('web-siswa')->check() && session('role_siswa') === 'pengurus') {
             return $next($request);
-             
+
          }else{
             return redirect()->route('login')->withErrors(['email' => 'Akses tidak diizinkan']);
          }
-         
+
      }
 }

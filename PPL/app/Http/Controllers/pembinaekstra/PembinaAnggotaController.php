@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\pengurusekstra;
+namespace App\Http\Controllers\pembinaekstra;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
 
-class AnggotaController extends Controller
+class PembinaAnggotaController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,7 +25,7 @@ class AnggotaController extends Controller
         // Username pengguna yang sedang login
         $loggedInUsername = Auth::check() ? Auth::user()->username : 'Anonymous';
 
-        return view('pengurus_ekstra.anggota.index', [
+        return view('pembina_ekstra.anggota.index', [
             'members' => $members,
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
