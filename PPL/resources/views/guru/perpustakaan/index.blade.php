@@ -1,4 +1,4 @@
-<x-siswa-layout>
+<x-app-guru-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white">
                     <!-- Search and Filter -->
                     <div class="flex items-center justify-between mb-6">
-                        <form action="{{ route('siswa.perpustakaan') }}" method="GET" class="flex w-full gap-4">
+                        <form action="{{ route('perpustakaan') }}" method="GET" class="flex w-full gap-4">
                             @csrf
                             <input 
                                 type="text" 
@@ -66,4 +66,4 @@
             </div>
         </div>
     </div>
-</x-siswa-layout>
+</x-app-guru-layout>
