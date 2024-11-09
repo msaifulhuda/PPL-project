@@ -64,6 +64,9 @@ aria-label="Sidebar">
                         <li>
                             <x-sidebar-dropdown-list-link href="{{route('staff_akademik.mata-pelajaran.index')}}" :active="request()->is('dashboard/master/mata_pelajaran')">Data Mata Pelajaran</x-sidebar-dropdown-list-link>
                         </li>
+                        <li>
+                            <x-sidebar-dropdown-list-link href="{{route('staff_akademik.jadwal')}}" :active="request()->is('dashboard/master/mata_pelajaran')">Data Jadwal</x-sidebar-dropdown-list-link>
+                        </li>
                     </x-sidebar-dropdown-list>
                 </li>
 
