@@ -1,18 +1,44 @@
 @php
+
     $dates = [];
     $borrowersOnThatDate = [];
     $jumlah_peminjam = 0;
-    foreach ($transaksi as $trans) {
-        $datetime = $trans->tgl_awal_peminjaman;
-        $date_only = date('Y-m-d', strtotime($datetime));
 
-        if (in_array($date_only, $dates)) {
-            $index = array_search($date_only, $dates);
-            $borrowersOnThatDate[$index] += 1;
-        } else {
-            $dates[] = $date_only;
-            $borrowersOnThatDate[] = 1;
+    // Mendapatkan tanggal hari ini dan 7 hari yang lalu
+    $today = time(); // Use time() to get the current timestamp
+    $sevenDaysAgo = strtotime('-7 days', $today);
+
+    // Membuat array untuk nama hari dari 7 hari yang lalu hingga hari ini
+    $hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+    for ($i = 0; $i <= 6; $i++) {
+        // Mendapatkan timestamp untuk tanggal yang dimaksud
+        $date = strtotime("+$i days", $sevenDaysAgo);
+
+        // Mendapatkan nama hari dari timestamp
+        $day_name = $hari[date('w', $date)]; // Menggunakan date('w') untuk mendapatkan indeks hari (0-6)
+
+        // Menyimpan nama hari ke dalam array
+        $dates[] = $day_name;
+        $borrowersOnThatDate[] = 0; // Inisialisasi dengan 0 peminjam
+    }
+
+    // Loop untuk menghitung jumlah peminjam berdasarkan tanggal transaksi
+    foreach ($transactionsevendays as $trans) {
+        // Mendapatkan tanggal dari transaksi
+        $datetime = $trans->tgl_awal_peminjaman;
+        $timestamp = strtotime($datetime); // Mengubah string tanggal ke timestamp
+
+        // Mendapatkan nama hari dari tanggal transaksi
+        $day_name = $hari[date('w', $timestamp)]; // Menggunakan 'w' untuk mendapatkan indeks hari (0-6)
+
+        // Jika nama hari transaksi ada dalam array $dates, tambahkan peminjam
+        if (in_array($day_name, $dates)) {
+            $index = array_search($day_name, $dates); // Mencari index dari nama hari di $dates
+            $borrowersOnThatDate[$index] += 1; // Increment jumlah peminjam pada hari tersebut
         }
+
+        // Increment jumlah peminjam total
         $jumlah_peminjam += 1;
     }
 @endphp
@@ -20,11 +46,10 @@
 <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between">
         <div>
-            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ $jumlah_peminjam ?? '0' }}
-            </h5>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">Peminjam Buku Minggu Ini</p>
+            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">Transaction Overview</h5>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">book borrowers in the last 7 days</p>
         </div>
-        <div
+        {{-- <div
             class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
             12%
             <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -32,11 +57,9 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M5 13V1m0 0L1 5m4-4 4 4" />
             </svg>
-        </div>
+        </div> --}}
     </div>
-    <!-- Chart -->
-    <div id="area-chart" style="max-height: 400px; width: 100%;"></div>
-
+    <div class="w-full"> <canvas id="trov-chart" width="100%" height="30vh"></canvas> </div>
     <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
         <div class="flex justify-between items-center pt-5">
             <!-- Button -->
@@ -51,120 +74,74 @@
                 </svg>
             </button> --}}
             <!-- Dropdown menu -->
-            <div id="lastDaysdropdown"
+            {{-- <div id="lastDaysdropdown"
                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li><a href="#"
+                    <li>
+                        <a href="#"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
                     </li>
-                    <li><a href="#"
+                    <li>
+                        <a href="#"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
                     </li>
-                    <li><a href="#"
+                    <li>
+                        <a href="#"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                            7 days</a></li>
-                    <li><a href="#"
+                            7 days</a>
+                    </li>
+                    <li>
+                        <a href="#"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                            30 days</a></li>
-                    <li><a href="#"
+                            30 days</a>
+                    </li>
+                    <li>
+                        <a href="#"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                            90 days</a></li>
+                            90 days</a>
+                    </li>
                 </ul>
-            </div>
-            {{-- <a href="#"
+            </div> --}}
+            <a href="#"
                 class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                Users Report
+                More...
                 <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m1 9 4-4-4-4" />
                 </svg>
-            </a> --}}
+            </a>
         </div>
     </div>
 </div>
-
+@php
+    $maxval = max($borrowersOnThatDate) + 100;
+@endphp
 <script>
-    const options = {
-        chart: {
-            height: "100%",
-            Width: "100%",
-            type: "area",
-            fontFamily: "Inter, sans-serif",
-            dropShadow: {
-                enabled: false,
+    new Chart(document.getElementById("trov-chart"), {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($dates); ?>,
+            datasets: [{
+                data: <?php echo json_encode($borrowersOnThatDate); ?>,
+                label: "Peminjam Buku",
+                borderColor: "#3e95cd",
+                fill: false
+            }],
+        },
+        options: {
+            legend: {
+                display: false
             },
-            toolbar: {
-                show: false,
+            title: {
+                display: true,
+                text: 'Grafik Peminjam Buku Dalam 7 Hari Terakhir'
             },
-        },
-        tooltip: {
-            enabled: true,
-            x: {
-                show: false,
-            },
-        },
-        fill: {
-            type: "gradient",
-            gradient: {
-                opacityFrom: 0.55,
-                opacityTo: 0,
-                shade: "#1C64F2",
-                gradientToColors: ["#1C64F2"],
-            },
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            width: 6,
-        },
-        grid: {
-            show: false,
-            strokeDashArray: 4,
-            padding: {
-                left: 2,
-                right: 2,
-                top: 0
-            },
-        },
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                fill: {
-                    type: "solid" // Disable gradient fill on smaller screens
+            layout: {
+                padding: {
+                    top: 1
                 }
-            }
-        }],
-        series: [{
-            name: "Peminjam di Hari Ini",
-            data: <?php echo json_encode($borrowersOnThatDate); ?>,
-            color: "#1A56DB",
-        }],
-        xaxis: {
-            categories: <?php echo json_encode($dates); ?>,
-            labels: {
-                show: false,
             },
-            axisBorder: {
-                show: false,
-            },
-            axisTicks: {
-                show: false,
-            },
-        },
-        yaxis: {
-            show: false,
-        },
-    };
-
-    if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-        const chart = new ApexCharts(document.getElementById("area-chart"), options);
-        chart.render();
-
-        // Rerender chart on window resize
-        window.addEventListener("resize", () => {
-            chart.updateOptions(getChartOptions());
-        });
-    }
+        }
+    });
 </script>
