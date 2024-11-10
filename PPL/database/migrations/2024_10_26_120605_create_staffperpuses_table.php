@@ -15,10 +15,11 @@ return new class extends Migration
             $table->uuid('id_staff_perpustakaan')->primary();
             $table->string('username');
             $table->string('password');
+            $table->string('nama_staff_perpustakaan')->nullable();
+            $table->string('alamat_staff_perpustakaan')->nullable();
             $table->string('email')->nullable();
             $table->string('google_key_staff_perpustakaan')->nullable();
-            $table->string('foto_staff_perpustakaan')->nullable();
-            $table->string('nomor_wa_staff_perpustakaan')->nullable();
+            $table->string('wa_staff_perpustakaan')->nullable();
             $table->timestamps();
         });
     }

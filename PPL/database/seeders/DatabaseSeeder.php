@@ -59,36 +59,36 @@ class DatabaseSeeder extends Seeder
         session(['siswa2' => $idUser5, 'siswa3' => $idUser6, 'siswa4' => $idUser7, 'siswa5' => $idUser8]);
 
         // Create siswa with role 'siswa'
-        // Siswa::create([
-        //     'id_siswa' => $idUser4,
-        //     'username' => 'siswa',
-        //     'password' => bcrypt('siswa'),
-        //     'role_siswa' => 'siswa',
-        // ]);
-        // Siswa::create([
-        //     'id_siswa' => $idUser9,
-        //     'username' => 'siswa2',
-        //     'password' => bcrypt('siswa2'),
-        //     'role_siswa' => 'siswa',
-        // ]);
-        // Siswa::create([
-        //     'id_siswa' => $idUser10,
-        //     'username' => 'siswa3',
-        //     'password' => bcrypt('siswa3'),
-        //     'role_siswa' => 'siswa',
-        // ]);
-        // Siswa::create([
-        //     'id_siswa' => $idUser11,
-        //     'username' => 'siswa4',
-        //     'password' => bcrypt('siswa4'),
-        //     'role_siswa' => 'siswa',
-        // ]);
-        // Siswa::create([
-        //     'id_siswa' => $idUser12,
-        //     'username' => 'siswa12',
-        //     'password' => bcrypt('siswa12'),
-        //     'role_siswa' => 'siswa',
-        // ]);
+        Siswa::create([
+            'id_siswa' => $idUser4,
+            'username' => 'siswa',
+            'password' => bcrypt('siswa'),
+            'role_siswa' => 'siswa',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser9,
+            'username' => 'siswa2',
+            'password' => bcrypt('siswa2'),
+            'role_siswa' => 'siswa',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser10,
+            'username' => 'siswa3',
+            'password' => bcrypt('siswa3'),
+            'role_siswa' => 'siswa',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser11,
+            'username' => 'siswa4',
+            'password' => bcrypt('siswa4'),
+            'role_siswa' => 'siswa',
+        ]);
+        Siswa::create([
+            'id_siswa' => $idUser12,
+            'username' => 'siswa12',
+            'password' => bcrypt('siswa12'),
+            'role_siswa' => 'siswa',
+        ]);
 
         // Create siswa with role 'pengurus'
         Siswa::create([
