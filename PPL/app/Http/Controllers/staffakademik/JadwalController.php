@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\staffakademik;
 
 use App\Http\Controllers\Controller;
+use App\Imports\JadwalImport; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class JadwalController extends Controller
 {
@@ -289,7 +292,23 @@ class JadwalController extends Controller
         return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil dihapus.');
     }
 
+    public function importPage(){
+        return  view('staff_akademik.jadwalManagemen.importExcel');
+    }
 
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv,xls'
+        ]);
+
+        try {
+            Excel::import(new JadwalImport, $request->file('file'));
+            return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil diimport.');
+        } catch (\Exception $e) {
+            return redirect()->route('staff_akademik.jadwal')->with('error', 'Terjadi kesalahan saat mengimpor jadwal: ' . $e->getMessage());
+        }
+    }
     /**
      * END JADWAL MANAGEMENT
      */
