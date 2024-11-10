@@ -56,5 +56,15 @@ class Staffakademik extends Authenticatable
     protected $primaryKey = 'id_staff_akademik';
 
     protected $table = 'staffakademik';
-    protected $fillable = ['id_staff_akademik','username', 'password', 'email', 'staff_akademik_google_key'];
+    protected $fillable = [
+        'id_staff_akademik',
+        'username',
+        'password',
+        'email',
+        'nama_staff_akademik', 
+        'wa_staff_akademik', 
+        'alamat_staff_akademik', 
+        'staff_akademik_google_key' 
+    ];
+    
 }

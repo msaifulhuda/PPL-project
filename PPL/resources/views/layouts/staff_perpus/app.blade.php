@@ -16,8 +16,29 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" /> --}}
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
+<style>
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/poppins-v15-latin-regular.eot');
+        /* IE9 Compat Modes */
+        src: local(''),
+            url('../fonts/poppins-v15-latin-regular.eot?#iefix') format('embedded-opentype'),
+            /* IE6-IE8 */
+            url('../fonts/poppins-v15-latin-regular.woff2') format('woff2'),
+            /* Super Modern Browsers */
+            url('../fonts/poppins-v15-latin-regular.woff') format('woff'),
+            /* Modern Browsers */
+            url('../fonts/poppins-v15-latin-regular.ttf') format('truetype'),
+            /* Safari, Android, iOS */
+            url('../fonts/poppins-v15-latin-regular.svg#Poppins') format('svg');
+        /* Legacy iOS */
+    }
+</style>
 
 <body class="bg-gray-50 dark:bg-gray-800">
     @include('layouts.staff_perpus.navigation')

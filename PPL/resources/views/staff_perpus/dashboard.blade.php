@@ -1,6 +1,15 @@
 <x-staffperpustakaan-layout>
+    @php
+        $ColorPack = [
+            'bg-blue-300 text-blue-950',
+            'bg-green-300 text-green-950',
+            'bg-red-300 text-red-950',
+            'bg-indigo-300 text-indigo-950',
+            'bg-amber-300 text-amber-950',
+        ];
+    @endphp
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <div class="overview_staffperpustakaan px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
+    <div class="overview_staffperpustakaan font-[Poppins] px-16 py-4 bg-white m-4 drop-shadow-sm rounded-md">
         @include('staff_perpus/komponen/chart_transaction')
 
         <div class="w-full py-6 md:block xl:flex">
@@ -49,29 +58,37 @@
                                 <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
                             </th>
                             <td class="px-6 py-4">
-                                {{ $tp->tgl_awal_peminjaman ?? 'Unknown' }}
+                                {{ date_format(date_create($tp->tgl_awal_peminjaman), 'M d, Y') ?? 'Unknown' }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $tp->tgl_pengembalian ?? 'Tidak ada batas kembali' }}
+                                {{ date_format(date_create($tp->tgl_pengembalian), 'M d, Y') ?? 'Tidak ada batas kembali' }}
                                 {{-- <a href="#">Edit</a> --}}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $tp->judul_buku ?? 'Lorem, ipsum dolor sit amet.' }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-lg text-black">
                                 {{ $tp->nama_kategori ?? 'Tidak Memiliki Kategori' }}
                             </td>
                             @php
                                 if ($tp->status_pengembalian == 0) {
+                                    $BgStatus = $ColorPack[0];
                                     $status = 'Sedang di Pinjam';
                                 } elseif ($tp->status_pengembalian == 1) {
+                                    $BgStatus = $ColorPack[1];
                                     $status = 'Sudah di Kembalikan';
-                                } else {
+                                } elseif ($tp->status_pengembalian == 2) {
+                                    $BgStatus = $ColorPack[2];
                                     $status = 'Buku Hilang';
+                                } else {
+                                    $BgStatus = $ColorPack[2];
+                                    $status = 'Belum Bayar Denda';
                                 }
                             @endphp
                             <td class="px-6 py-4">
-                                {{ $status ?? 'None' }}
+                                <span class="bold py-1 px-4 rounded-full {{ $BgStatus }}">
+                                    {{ $status ?? 'None' }}
+                                </span>
                             </td>
                         </tr>
                     @endforeach

@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white">
                     <!-- Search and Filter -->
                     <div class="flex items-center justify-between mb-6">
-                        <form action="{{ route('perpustakaan') }}" method="GET" class="flex w-full gap-4">
+                        <form action="{{ route('dashboard.perpustakaan') }}" method="GET" class="flex w-full gap-4">
                             @csrf
                             <input 
                                 type="text" 
@@ -50,7 +50,7 @@
                                     </h3>
                                     <p class="text-gray-600 mt-2">Stok: {{ $buku->stok_buku }}</p>
                                 </div>
-                                <a href="{{ route('dashboard.perpustakaan.detail', $buku->id_buku) }}" class="mt-auto bg-blue-500 text-white rounded-full px-4 py-2 text-center">
+                                <a href="{{ route('siswa.dashboard.perpustakaan.detail', $buku->id_buku) }}" class="mt-auto bg-blue-500 text-white rounded-full px-4 py-2 text-center">
                                     Detail
                                 </a>
                             </div>
