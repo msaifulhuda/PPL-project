@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Guru;
 use App\Models\Siswa;
 use App\Http\Requests\StoreGuruRequest;
+use App\Http\Requests\UpdateGuruRequest;
 
 class SuperadminController extends Controller
 {
@@ -98,7 +99,7 @@ class SuperadminController extends Controller
     $guru->save();
     return redirect()->route('superadmin.keloladataguru')->with('success', 'Data guru berhasil ditambahkan.');
 }
-public function update(Request $request, $id_guru)
+public function update(UpdateGuruRequest $request, $id_guru)
 {
     $guru = Guru::findOrFail($id_guru);
     $guru->nama_guru = $request->nama_guru;
