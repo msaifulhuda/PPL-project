@@ -164,7 +164,10 @@ class DatabaseSeeder extends Seeder
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
         $this->call([
-            PerpustakaanSeeder::class,
+            KelasMapelGuruJadwalAjaranSeeder::class,
+        ]);
+        $this->call([
+            EkstrakurikulerPengurusSeeder::class,
         ]);
 
         // Registrasi Ekstrakurikuler

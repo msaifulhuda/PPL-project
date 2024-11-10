@@ -270,10 +270,28 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
 
 
 
+Route::group(['prefix' => 'ekstrakrikuler'], function () {
+    
+    Route::get('/', [EkstrakurikulerController::class, 'dashboardEkstra'])->name('ekstrakurikuler.dashboardEkstra');
+    Route::group(['middleware' => ['siswa']], function() {
 
-
+        Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
+    
+        Route::middleware('auth:web-siswa')->group(function () {
+        Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
+    });
+});
+});
 
 Route::get('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'showForm'])->name('ekstrakurikuler.registrasi');
-Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
+Route::post('/registrasi-ekstrakurikuler/tambah', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.registrasi.store');
+//registrasi
 
-require __DIR__ . '/auth.php';
+// Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'dashboardEkstra'])->name('ekstrakurikuler.dashboardEkstra');
+
+// Route untuk halaman detail ekstrakurikuler
+Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])->name('ekstrakurikuler.detail');
+
+
+require __DIR__.'/auth.php';

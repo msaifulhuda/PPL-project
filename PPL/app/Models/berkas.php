@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class berkas extends Model
 {
     public $timestamps = false;
-    protected $primaryKey = 'id_berkas';
+    protected $primaryKey = 'id';
 
     /**
      * The "booting" function of model
