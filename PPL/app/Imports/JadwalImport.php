@@ -27,6 +27,7 @@ class JadwalImport implements ToCollection
         }
 
         $errors = []; // Array untuk menampung semua error
+        $existingSchedules = []; // Array untuk menyimpan jadwal yang diimpor dari file Excel
 
         foreach ($rows as $row) {
             if (!$headerSkipped) {
@@ -88,11 +89,96 @@ class JadwalImport implements ToCollection
                 }
             }
 
+            // Validasi: Bentrokan waktu untuk guru
+            if ($guru && $hari) {
+                // Cek di tabel kelas_mata_pelajaran
+                $conflictWithExisting = DB::table('kelas_mata_pelajaran')
+                    ->where('guru_id', $guru->id_guru)
+                    ->where('hari_id', $hari->id_hari)
+                    ->where('tahun_ajaran_id', $tahunAjaran->id_tahun_ajaran)
+                    ->where(function ($query) use ($waktuMulai, $waktuSelesai) {
+                        $query->whereBetween('waktu_mulai', [$waktuMulai, $waktuSelesai])
+                            ->orWhereBetween('waktu_selesai', [$waktuMulai, $waktuSelesai])
+                            ->orWhere(function ($query) use ($waktuMulai, $waktuSelesai) {
+                                $query->where('waktu_mulai', '<=', $waktuMulai)
+                                    ->where('waktu_selesai', '>=', $waktuSelesai);
+                            });
+                    })
+                    ->exists();
+
+                if ($conflictWithExisting) {
+                    $rowErrors[] = "Guru '{$namaGuru}' sudah mengajar pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai}.";
+                }
+
+                // Cek di jadwal yang diimpor (existingSchedules)
+                foreach ($existingSchedules as $schedule) {
+                    if (
+                        $schedule['guru_id'] == $guru->id_guru &&
+                        $schedule['hari_id'] == $hari->id_hari &&
+                        (
+                            ($waktuMulai >= $schedule['waktu_mulai'] && $waktuMulai < $schedule['waktu_selesai']) ||
+                            ($waktuSelesai > $schedule['waktu_mulai'] && $waktuSelesai <= $schedule['waktu_selesai']) ||
+                            ($waktuMulai <= $schedule['waktu_mulai'] && $waktuSelesai >= $schedule['waktu_selesai'])
+                        )
+                    ) {
+                        // $rowErrors[] = "Guru '{$namaGuru}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama.";
+                        break;
+                    }
+                }
+            }
+
+            // Validasi: Bentrokan waktu untuk kelas
+            if ($kelas && $hari) {
+                // Cek di tabel kelas_mata_pelajaran
+                $conflictWithClass = DB::table('kelas_mata_pelajaran')
+                    ->where('kelas_id', $kelas->id_kelas)
+                    ->where('hari_id', $hari->id_hari)
+                    ->where('tahun_ajaran_id', $tahunAjaran->id_tahun_ajaran)
+                    ->where(function ($query) use ($waktuMulai, $waktuSelesai) {
+                        $query->whereBetween('waktu_mulai', [$waktuMulai, $waktuSelesai])
+                            ->orWhereBetween('waktu_selesai', [$waktuMulai, $waktuSelesai])
+                            ->orWhere(function ($query) use ($waktuMulai, $waktuSelesai) {
+                                $query->where('waktu_mulai', '<=', $waktuMulai)
+                                    ->where('waktu_selesai', '>=', $waktuSelesai);
+                            });
+                    })
+                    ->exists();
+
+                if ($conflictWithClass) {
+                    $rowErrors[] = "Kelas '{$namaKelas}' sudah memiliki jadwal pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai}.";
+                }
+
+                // Cek di jadwal yang diimpor (existingSchedules)
+                foreach ($existingSchedules as $schedule) {
+                    if (
+                        $schedule['kelas_id'] == $kelas->id_kelas &&
+                        $schedule['hari_id'] == $hari->id_hari &&
+                        (
+                            ($waktuMulai >= $schedule['waktu_mulai'] && $waktuMulai < $schedule['waktu_selesai']) ||
+                            ($waktuSelesai > $schedule['waktu_mulai'] && $waktuSelesai <= $schedule['waktu_selesai']) ||
+                            ($waktuMulai <= $schedule['waktu_mulai'] && $waktuSelesai >= $schedule['waktu_selesai'])
+                        )
+                    ) {
+                        // $rowErrors[] = "Kelas '{$namaKelas}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama.";
+                        break;
+                    }
+                }
+            }
+
             // Jika ada error di baris ini, tambahkan ke array $errors
             if (!empty($rowErrors)) {
                 $errors[] = implode(' ', $rowErrors);
                 continue;
             }
+
+            // Simpan jadwal yang valid ke array existingSchedules
+            $existingSchedules[] = [
+                'guru_id' => $guru->id_guru,
+                'kelas_id' => $kelas->id_kelas,
+                'hari_id' => $hari->id_hari,
+                'waktu_mulai' => $waktuMulai,
+                'waktu_selesai' => $waktuSelesai,
+            ];
 
             // Jika semua validasi lolos, insert data ke tabel kelas_mata_pelajaran
             kelas_mata_pelajaran::create([
