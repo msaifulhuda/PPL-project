@@ -119,7 +119,7 @@
                 <div class="bg-red-500 text-white p-4 rounded mb-4">
                     <strong>Terjadi kesalahan saat mengimpor jadwal:</strong>
                     <ul class="list-disc pl-5">
-                        @foreach (explode(".", session('error-excel')) as $error)
+                        @foreach (explode(";", session('error-excel')) as $error)
                         @if ($loop->last)
                             @break
                         @endif
