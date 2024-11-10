@@ -59,8 +59,9 @@ class Staffperpus extends Authenticatable
         'username',
         'password',
         'email',
+        'nama_staff_perpustakaan',
+        'alamat_staff_perpustakaan',
         'google_key_staff_perpustakaan',
-        'foto_staff_perpustakaan',
-        'nomor_wa_staff_perpustakaan',
+        'wa_staff_perpustakaan',
     ];
 }

@@ -29,7 +29,7 @@ class registrasi_ekstrakurikuler extends Model
      protected $table = 'registrasi_ekstrakurikuler';
 
      protected $fillable = [
-        'id_registrasi',
+         'id_registrasi',
          'id_siswa',
          'id_ekstrakurikuler',
          'riwayat_penyakit',
