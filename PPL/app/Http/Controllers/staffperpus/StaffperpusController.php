@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\staffperpus;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\kategori_buku;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use App\Models\buku;
 
 
@@ -42,8 +44,22 @@ class StaffperpusController extends Controller
         $cat10 = DB::table('kategori_buku')
             ->limit(7)
             ->get();
-
-        return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman, 'transactionsevendays' => $transactionsevendays, 'alltrans' => $all, 'buku' => $book, 'buku10' => $book10, 'cat10' => $cat10]);
+        $totalCategory = DB::table('kategori_buku')
+            ->count();
+        return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman, 'transactionsevendays' => $transactionsevendays, 'alltrans' => $all, 'buku' => $book, 'buku10' => $book10, 'cat10' => $cat10, 'totalCategory' => $totalCategory]);
+    }
+    public function manageCategory()
+    {
+        $Category = DB::table('kategori_buku')
+            ->paginate(10);
+        return view('staff_perpus.kategori_buku', ['arrayCategory' => $Category]);
+    }
+    public function addCategory($nama_kategori)
+    {
+        kategori_buku::create([
+            'id_kategori_buku' => Str::uuid(),
+            'nama_kategori' => $nama_kategori
+        ]);
     }
 
     

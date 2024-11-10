@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email')->nullable();
+            $table->string('nama_staff_akademik')->nullable();
+            $table->string('wa_staff_akademik')->nullable();
+            $table->string('alamat_staff_akademik')->nullable();
             $table->string('staff_akademik_google_key')->nullable();
         });
     }
