@@ -8,7 +8,7 @@
                 {{-- Sidebar Header --}}
                 <ul class="pb-2 space-y-2">
                     <li>
-                        <form action="#" method="GET" class="lg:hidden">
+                        <form action="#" method="GET" class="lg:hidden hidden">
                             <label for="mobile-search" class="sr-only">Search</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

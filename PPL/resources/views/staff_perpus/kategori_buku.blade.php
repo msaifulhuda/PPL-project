@@ -1,5 +1,5 @@
 <x-staffperpustakaan-layout>
-    @include('staff_perpus/modal/addCategory_Modal');
+    @include('staff_perpus/modal/addCategory_Modal')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-16 py-8 bg-white m-4">
         <div class="pb-4 bg-white dark:bg-gray-900">
             <label for="table-search" class="sr-only">Search</label>
@@ -82,8 +82,8 @@
                         </td>
                     </tr>
                 @endforeach
-                {{ $arrayCategory->links() }}
             </tbody>
         </table>
+        {{ $arrayCategory->links() }}
     </div>
 </x-staffperpustakaan-layout>
