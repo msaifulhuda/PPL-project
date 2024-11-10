@@ -56,11 +56,11 @@
                 <!-- Vertical Divider Line -->
                 <span class="h-11 w-px bg-gray-300"></span>
                 
-                <!-- EXPORT EXCEL -->
-                <button  onclick="window.location.href='{{ route('staff_akademik.jadwal') }}'"
+                <!-- Import EXCEL -->
+                <button  onclick="window.location.href='{{ route('staff_akademik.jadwal.import') }}'"
                 class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    Export Excel
+                    Import Excel
                     </span>
                 </button>
             </div>
@@ -112,6 +112,21 @@
                             <li>{{ session('error-update') }}</li>
                         </ul>
                     </div>
+                @endif
+
+                <!-- Pesan error excel -->
+                @if (session('error-excel'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    <strong>Terjadi kesalahan saat mengimpor jadwal:</strong>
+                    <ul class="list-disc pl-5">
+                        @foreach (explode(".", session('error-excel')) as $error)
+                        @if ($loop->last)
+                            @break
+                        @endif
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
 
                 <!-- Pesan Sukses -->
@@ -185,7 +200,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -211,7 +226,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -237,7 +252,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -263,7 +278,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -289,7 +304,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -315,7 +330,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -341,7 +356,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
