@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 use App\Models\Siswa;
+use App\Http\Requests\StoreGuruRequest;
 
 class SuperadminController extends Controller
 {
@@ -78,19 +79,8 @@ class SuperadminController extends Controller
         return view('superadmin.keloladatasiswa.edit_siswa', compact('siswa'));
     }
     
-    public function store(Request $request)
+    public function store(StoreGuruRequest $request)
 {
-    // Validasi data dari form
-    // $request->validate([
-    //     'nama_guru' => 'required|string|max:255',
-    //     'nip' => 'required|string|unique:guru,nip',
-    //     'username' => 'required|string|unique:guru,username',
-    //     'password' => 'required|string|min:8',
-    //     'alamat_guru' => 'nullable|string',
-    //     'nomor_wa_guru' => 'nullable|string',
-    //     'email' => 'required|email|unique:guru,email',
-    //     'foto_guru' => 'nullable|image|max:2048',
-    // ]);
     $guru = new Guru();
     $guru->nama_guru = $request->nama_guru;
     $guru->nip = $request->nip;
@@ -110,14 +100,6 @@ class SuperadminController extends Controller
 }
 public function update(Request $request, $id_guru)
 {
-    // $request->validate([
-    //     'nama_guru' => 'required|string|max:255',
-    //     'nip' => 'required|string|unique:guru,nip,' . $id_guru . ',id_guru',
-    //     'username' => 'required|string|unique:guru,username,' . $id_guru . ',id_guru',
-    //     'email' => 'required|email|unique:guru,email,' . $id_guru . ',id_guru',
-    //     'foto_guru' => 'nullable|image|max:2048',
-    //     'password' => 'nullable|string|min:8',
-    // ]);
     $guru = Guru::findOrFail($id_guru);
     $guru->nama_guru = $request->nama_guru;
     $guru->nip = $request->nip;
