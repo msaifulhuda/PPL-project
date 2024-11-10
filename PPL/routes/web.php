@@ -44,7 +44,7 @@ Route::prefix('/')->group(function () {
 });
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-->name('logout');
+    ->name('logout');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -74,7 +74,7 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     Route::put('guru/update/{id_guru}', [SuperadminController::class, 'update'])->name('guru.update');
     // Untuk Mengedit Data
     Route::get('siswa/editsiswa/{id_siswa}', [SuperadminController::class, 'siswaEdit'])->name('siswa.edit');
-    Route::put('siswa/updatesiswa/{id_siswa}', [SuperadminController::class, 'siswaUpdate'])->name('siswa.update');    
+    Route::put('siswa/updatesiswa/{id_siswa}', [SuperadminController::class, 'siswaUpdate'])->name('siswa.update');
     // Untuk Search Data
     Route::get('/superadmin/keloladataguru/search', [SuperadminController::class, 'searchGuru'])->name('superadmin.searchGuru');
     Route::get('/superadmin/keloladatasiswa/search', [SuperadminController::class, 'searchSiswa'])->name('superadmin.searchSiswa');
@@ -95,13 +95,13 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      * END JADWAL MANAGEMENT
      */
 
-     Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
-     Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
-     Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
-     Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
-     Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
+    Route::get('/kelas', [StaffakademikController::class, 'index'])->name('staffakademik.kelas.index');
+    Route::post('/kelas/store', [StaffakademikController::class, 'store'])->name('staffakademik.kelas.store');
+    Route::post('/kelas/update/{id}', [StaffakademikController::class, 'update'])->name('staffakademik.kelas.update');
+    Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
+    Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
 
-   /**
+    /**
      * START PRESTASI
      */
     Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      * END PRESTASI
      */
 
-     /**
+    /**
      * START MATA PELAJARAN MANAGEMENT
      */
     // Menampilkan daftar mata pelajaran
@@ -148,14 +148,15 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::get('/matpel/master-kelas', [KelasController::class, 'showMasterKelas'])->name('master.kelas');
     Route::get('/matpel/master-matpel', [KelasController::class, 'showMasterMatpel'])->name('master.matpel');
 });
-    /**
-     * END MATA PELAJARAN MANAGEMENT
-     */
+/**
+ * END MATA PELAJARAN MANAGEMENT
+ */
 
-    Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
+Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
 
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
+    Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
 });
 
 
@@ -255,4 +256,4 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
 Route::get('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'showForm'])->name('ekstrakurikuler.registrasi');
 Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
