@@ -78,6 +78,30 @@
                         <x-sidebar-dropdown-list-link href="/dashboard"
                             :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
                     </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}" :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar Kategori</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                        </x-sidebar-dropdown>
+                        <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku Masuk</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku Hilang</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan Transaksi</x-sidebar-dropdown-list-link>
+                            </li>
+                        </x-sidebar-dropdown-list>
+                    </li>
                     </x-sidebar-dropdown-list>
                     </li>
 
