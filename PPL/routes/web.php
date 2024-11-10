@@ -54,8 +54,30 @@ Route::get('/dashboard', function () {
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+// Super Admin
 Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () {
     Route::get('/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
+    Route::get('/keloladataguru', [SuperadminController::class, 'showDataGuru'])->name('superadmin.keloladataguru');
+    Route::get('/keloladatasiswa', [SuperadminController::class, 'showDataSiswa'])->name('superadmin.keloladatasiswa');
+    Route::get('/kelola-akun/data-guru/tambah', [SuperadminController::class, 'create'])->name('data.guru.tambah');
+    Route::get('/kelola-akun/data-siswa/tambah', [SuperadminController::class, 'createSiswa'])->name('data.siswa.tambah');
+    // Untuk Menambah Data
+    Route::post('/kelola-akun/data-guru/store', [SuperadminController::class, 'store'])->name('guru.store');
+    Route::post('/kelola-akun/data-guru', [SuperadminController::class, 'store'])->name('guru.store');
+    Route::post('/kelola-akun/data-siswa/store', [SuperadminController::class, 'storeSiswa'])->name('siswa.store');
+    Route::post('kelola-akun/data-siswa', [SuperadminController::class, 'storeSiswa'])->name('siswa.store');
+    // Untuk Menghapus Data
+    Route::delete('/kelola-akun/data-guru/{id}', [SuperadminController::class, 'destroy'])->name('guru.destroy');
+    Route::delete('/kelola-akun/data-siswa/{id}', [SuperadminController::class, 'siswaDestroy'])->name('siswa.destroy');
+    // Untuk Mengedit Data
+    Route::get('guru/edit/{id_guru}', [SuperadminController::class, 'edit'])->name('guru.edit');
+    Route::put('guru/update/{id_guru}', [SuperadminController::class, 'update'])->name('guru.update');
+    // Untuk Mengedit Data
+    Route::get('siswa/editsiswa/{id_siswa}', [SuperadminController::class, 'siswaEdit'])->name('siswa.edit');
+    Route::put('siswa/updatesiswa/{id_siswa}', [SuperadminController::class, 'siswaUpdate'])->name('siswa.update');    
+    // Untuk Search Data
+    Route::get('/superadmin/keloladataguru/search', [SuperadminController::class, 'searchGuru'])->name('superadmin.searchGuru');
+    Route::get('/superadmin/keloladatasiswa/search', [SuperadminController::class, 'searchSiswa'])->name('superadmin.searchSiswa');
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');

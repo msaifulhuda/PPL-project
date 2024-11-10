@@ -90,12 +90,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // $idUser1 = Str::uuid();
-        // Superadmin::create([
-        //     'id_admin' => $idUser1,
-        //     'username' => 'admin',
-        //     'password' => bcrypt('admin123'),
-        // ]);
+        $idUser1 = Str::uuid();
+        Superadmin::create([
+            'id_admin' => $idUser1,
+            'username' => 'admin',
+            'password' => bcrypt('admin123'),
+        ]);
         $idUser2 = Str::uuid();
         Staffperpus::create([
             'id_staff_perpustakaan' => $idUser2,
