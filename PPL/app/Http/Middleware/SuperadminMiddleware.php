@@ -21,7 +21,7 @@ class SuperadminMiddleware
         if (Auth::guard('web-superadmin')->check()) {
             return $next($request);
         } else {
-            return redirect()->route('login')->withErrors(['username' => 'Akses tidak diizinkan']);
+            return redirect()->route('login')->withErrors(['' => 'Akses tidak diizinkan']);
         }
     }
 }

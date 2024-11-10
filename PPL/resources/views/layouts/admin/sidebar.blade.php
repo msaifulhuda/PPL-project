@@ -57,6 +57,26 @@ aria-label="Sidebar">
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
+                                {{-- Kelola Akun --}}
+                <li>
+                    <x-sidebar-dropdown label="Kelola akun staff" id="keloladata-staff" :active="request()->is('dashboard//kelola-staff*')">
+                        <x-sidebar-icon>
+                            <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd"/>
+                        </x-sidebar-icon>
+                    </x-sidebar-dropdown>
+                    <x-sidebar-dropdown-list id="keloladata-staff" :active="request()->is('dashboard//kelola-staff*')">
+                        <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('superadmin.kelola_staff_akademik') }}" :active="request()->is('superadmin//kelola-staff-akademik')">
+                                Data Staff Akademik
+                            </x-sidebar-dropdown-list-link>
+                        </li>
+                        <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('superadmin.kelola_staff_perpus') }}" :active="request()->is('superadmin//kelola-staff-perpus')">
+                                Data Staff Perpus
+                            </x-sidebar-dropdown-list-link>
+                        </li>
+                    </x-sidebar-dropdown-list>
+                </li>
 
                 {{-- Tes3 --}}
                 <li>
