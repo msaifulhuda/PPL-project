@@ -1,9 +1,9 @@
 <x-guest-layout>
     <section class="bg-gray-200 py-16 scroll-smooth">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">Selamat Datang di <span class="text-blue-600">SMPN 71 Kamal</span></h2>
-            <p class="text-lg text-gray-600 mb-6 p-5">SMPN 71 Kamal adalah lembaga pendidikan yang tidak hanya berfokus pada pencapaian akademik, tetapi juga pada pembentukan karakter siswa yang kuat dan berintegritas. Dengan kurikulum yang didesain khusus untuk mempersiapkan siswa menghadapi tantangan masa depan, kami mengajarkan nilai-nilai moral, etika, dan empati yang menjadi dasar kehidupan bermasyarakat. Di SMPN 71 Kamal, siswa tidak hanya diajak untuk belajar secara intelektual, tetapi juga didorong untuk mengembangkan potensi kreatif dan sosial mereka dalam lingkungan yang penuh dukungan.</p>
-            <p class="text-lg text-gray-600 mb-6 font-bold">Jl. Merpati No. 25, Kelurahan Sukajaya, Kecamatan Kamal, Kabupaten Bangkalan, Jawa Timur, 16913</p>
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Selamat Datang di <span class="text-blue-600">SMPN 2 Kamal</span></h2>
+            <p class="text-lg text-gray-600 mb-6 p-5">SMPN 2 Kamal adalah lembaga pendidikan yang tidak hanya berfokus pada pencapaian akademik, tetapi juga pada pembentukan karakter siswa yang kuat dan berintegritas. Dengan kurikulum yang didesain khusus untuk mempersiapkan siswa menghadapi tantangan masa depan, kami mengajarkan nilai-nilai moral, etika, dan empati yang menjadi dasar kehidupan bermasyarakat. Di SMPN 2 Kamal, siswa tidak hanya diajak untuk belajar secara intelektual, tetapi juga didorong untuk mengembangkan potensi kreatif dan sosial mereka dalam lingkungan yang penuh dukungan.</p>
+            <p class="text-lg text-gray-600 mb-6 font-bold">Jl. Raya Telang No.3, Perumahan Telang Inda, Telang, Kec. Kamal, Kabupaten Bangkalan, Jawa Timur 69162</p>
             <a href="#main-banner" class="inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-md hover:bg-blue-800 transition">Lihat Selengkapnya →</a>
         </div>
     </section>
@@ -12,7 +12,7 @@
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="relative container mx-auto px-4 flex flex-col md:flex-row items-center text-white">
             <div class="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
-                <h1 class="text-4xl font-bold">SMPN 71 Kamal</h1>
+                <h1 class="text-4xl font-bold">SMPN 2 Kamal</h1>
                 <p class="text-lg mt-4 pr-12">Tempat kami membentuk generasi berprestasi dengan dedikasi dan bimbingan dari tenaga pengajar berpengalaman, fasilitas lengkap, dan lingkungan yang mendukung perkembangan siswa.</p>
             </div>
 
@@ -74,7 +74,7 @@
 
                 <div class="bg-white shadow-lg rounded-lg p-8">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Sejarah</h3>
-                    <p class="text-gray-600 text-center text-base">SMPN 71 Kamal didirikan pada tahun 2005 sebagai bagian dari upaya pemerintah untuk meningkatkan akses pendidikan di wilayah Kamal. Sejak awal, kami telah berkomitmen untuk memberikan pendidikan yang berkualitas, dengan fokus pada pengembangan karakter dan kemampuan akademik siswa. Dalam perjalanan kami, kami telah mencapai berbagai prestasi yang membanggakan di tingkat lokal dan nasional, serta terus berinovasi untuk memenuhi tuntutan zaman.</p>
+                    <p class="text-gray-600 text-center text-base">SMPN 2 Kamal didirikan pada tahun 2005 sebagai bagian dari upaya pemerintah untuk meningkatkan akses pendidikan di wilayah Kamal. Sejak awal, kami telah berkomitmen untuk memberikan pendidikan yang berkualitas, dengan fokus pada pengembangan karakter dan kemampuan akademik siswa. Dalam perjalanan kami, kami telah mencapai berbagai prestasi yang membanggakan di tingkat lokal dan nasional, serta terus berinovasi untuk memenuhi tuntutan zaman.</p>
                 </div>
             </div>
         </div>

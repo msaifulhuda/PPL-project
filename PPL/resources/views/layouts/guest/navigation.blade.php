@@ -1,13 +1,17 @@
 <nav class="bg-white shadow">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-4">
-            <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-16">
+            <a href="{{ route('beranda.home') }}">
+                <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-16">
+            </a>
         </div>
 
         <nav class="space-x-8">
-            <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Home</a>
-            <a href="{{ route('beranda') }}" class="text-gray-700 hover:text-blue-600">Tentang Kami</a>
-
+            <a href="{{ route('beranda.home') }}" class="text-gray-700 hover:text-blue-600">Home</a>
+            <a href="{{ route('beranda.home') }}" class="text-gray-700 hover:text-blue-600">Tentang Kami</a>
+            <a href="{{ route('beranda.perpustakaanPublik') }}" class="text-gray-700 hover:text-blue-600">Perpustakaan</a>
+            <a href="{{ route('beranda.home') }}" class="text-gray-700 hover:text-blue-600">Tenaga Pengajar</a>
+            <a href="{{ route('ekstrakurikuler.registrasi') }}" class="text-gray-700 hover:text-blue-600">Ekstrakurikuler</a>
         </nav>
         @if(session()->has('username'))
             <div class="relative">
@@ -24,8 +28,8 @@
                                 <a href="{{ route('siswa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                             @elseif(auth()->guard('web-guru')->check())
                                 <a href="{{ route('guru.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                            @elseif(auth()->guard('staffakademik.dashboard')->check())
-                                <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+                            {{-- @elseif(auth()->guard('staffakademik.dashboard')->check())
+                                <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a> --}}
                             @elseif(auth()->guard('web-staffperpus')->check())
                                 <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                             @elseif(auth()->guard('web-superadmin')->check())

@@ -54,8 +54,4 @@ class PengurusEkstra extends Model
     {
         return $this->hasMany(posting_ekstrakurikuler::class,'id_pengurus', 'id_pengurus_ekstra' );
     }
-    public function registrasiekstra()
-    {
-        return $this->hasMany(registrasi_ekstrakurikuler::class,'id_pengurus', 'id_pengurus_ekstra' );
-    }
 }

@@ -23,6 +23,8 @@ class HistoriInventaris extends Model
     protected $fillable = [
         'id_histori',
         'id_inventaris',
+        'keterangan',
+        'jumlah',
         'histori_keluar',
         'histori_masuk',
     ];

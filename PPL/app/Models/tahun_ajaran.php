@@ -70,4 +70,8 @@ class tahun_ajaran extends Model
     {
         return $this->hasMany(penilaian_ekstrakurikuler::class,'id_tahun_ajaran','id_tahun_ajaran');
     }
+    public function kelassiswa()
+    {
+        return $this->hasMany(KelasSiswa::class,'id_tahun_ajaran','id_tahun_ajaran');
+    }
 }
