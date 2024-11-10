@@ -306,7 +306,7 @@ class JadwalController extends Controller
             Excel::import(new JadwalImport, $request->file('file'));
             return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil diimport.');
         } catch (\Exception $e) {
-            return redirect()->route('staff_akademik.jadwal')->with('error', 'Terjadi kesalahan saat mengimpor jadwal: ' . $e->getMessage());
+            return redirect()->route('staff_akademik.jadwal')->with('error-excel', $e->getMessage());
         }
     }
     /**
