@@ -47,13 +47,13 @@ class JadwalImport implements ToCollection
             // Validasi: Cari ID kelas berdasarkan nama
             $kelas = Kelas::where('nama_kelas', $namaKelas)->first();
             if (!$kelas) {
-                $rowErrors[] = "Kelas dengan nama '{$namaKelas}' tidak ditemukan.";
+                $rowErrors[] = "Kelas dengan nama '{$namaKelas}' tidak ditemukan;";
             }
 
             // Validasi: Cari ID hari berdasarkan nama
             $hari = Hari::where('nama_hari', $namaHari)->first();
             if (!$hari) {
-                $rowErrors[] = "Hari dengan nama '{$namaHari}' tidak ditemukan.";
+                $rowErrors[] = "Hari dengan nama '{$namaHari}' tidak ditemukan;";
             }
 
             // Konversi waktu mulai dan selesai ke format HH:mm
@@ -62,19 +62,19 @@ class JadwalImport implements ToCollection
 
             // Validasi: Pastikan waktu mulai lebih awal dari waktu selesai
             if (strtotime($waktuMulai) >= strtotime($waktuSelesai)) {
-                $rowErrors[] = "Waktu mulai harus lebih awal dari waktu selesai untuk {$namaKelas} pada hari {$namaHari} ({$waktuMulai} - {$waktuSelesai}).";
+                $rowErrors[] = "Waktu mulai harus lebih awal dari waktu selesai untuk {$namaKelas} pada hari {$namaHari} ({$waktuMulai} - {$waktuSelesai});";
             }
 
             // Validasi: Cari ID mata pelajaran berdasarkan nama
             $mataPelajaran = mata_pelajaran::where('nama_matpel', $mataPelajaranNama)->first();
             if (!$mataPelajaran) {
-                $rowErrors[] = "Mata pelajaran dengan nama '{$mataPelajaranNama}' tidak ditemukan.";
+                $rowErrors[] = "Mata pelajaran dengan nama '{$mataPelajaranNama}' tidak ditemukan;";
             }
 
             // Validasi: Cari ID guru berdasarkan nama
             $guru = Guru::where('nama_guru', $namaGuru)->first();
             if (!$guru) {
-                $rowErrors[] = "Guru dengan nama '{$namaGuru}' tidak ditemukan.";
+                $rowErrors[] = "Guru dengan nama '{$namaGuru}' tidak ditemukan;";
             }
 
             // Validasi: Pastikan mata pelajaran dan guru sesuai
@@ -85,7 +85,7 @@ class JadwalImport implements ToCollection
                     ->exists();
 
                 if (!$validGuruMataPelajaran) {
-                    $rowErrors[] = "Guru '{$namaGuru}' tidak mengajar mata pelajaran '{$mataPelajaranNama}'.";
+                    $rowErrors[] = "Guru '{$namaGuru}' tidak mengajar mata pelajaran '{$mataPelajaranNama}';";
                 }
             }
 
@@ -107,7 +107,7 @@ class JadwalImport implements ToCollection
                     ->exists();
 
                 if ($conflictWithExisting) {
-                    $rowErrors[] = "Guru '{$namaGuru}' sudah mengajar pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai}.";
+                    $rowErrors[] = "Guru '{$namaGuru}' sudah mengajar pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai};";
                 }
 
                 // Cek di jadwal yang diimpor (existingSchedules)
@@ -121,7 +121,7 @@ class JadwalImport implements ToCollection
                             ($waktuMulai <= $schedule['waktu_mulai'] && $waktuSelesai >= $schedule['waktu_selesai'])
                         )
                     ) {
-                        // $rowErrors[] = "Guru '{$namaGuru}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama.";
+                        // $rowErrors[] = "Guru '{$namaGuru}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama;";
                         break;
                     }
                 }
@@ -145,7 +145,7 @@ class JadwalImport implements ToCollection
                     ->exists();
 
                 if ($conflictWithClass) {
-                    $rowErrors[] = "Kelas '{$namaKelas}' sudah memiliki jadwal pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai}.";
+                    $rowErrors[] = "Kelas '{$namaKelas}' sudah memiliki jadwal pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai};";
                 }
 
                 // Cek di jadwal yang diimpor (existingSchedules)
@@ -159,7 +159,7 @@ class JadwalImport implements ToCollection
                             ($waktuMulai <= $schedule['waktu_mulai'] && $waktuSelesai >= $schedule['waktu_selesai'])
                         )
                     ) {
-                        // $rowErrors[] = "Kelas '{$namaKelas}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama.";
+                        // $rowErrors[] = "Kelas '{$namaKelas}' memiliki bentrok waktu pada hari {$namaHari} di waktu {$waktuMulai} - {$waktuSelesai} dengan jadwal lain di file yang sama;";
                         break;
                     }
                 }
