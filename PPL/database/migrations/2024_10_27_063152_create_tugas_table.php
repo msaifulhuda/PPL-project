@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id_tugas')->primary();
             $table->string('judul');
             $table->string('deskripsi');
-            $table->uuid('topik_id');
+            $table->uuid('topik_id')->nullable();
             $table->date('deadline');
             $table->uuid('kelas_mata_pelajaran_id');
             $table->timestamps();
