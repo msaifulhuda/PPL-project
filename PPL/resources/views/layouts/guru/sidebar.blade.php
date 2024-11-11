@@ -85,6 +85,9 @@ aria-label="Sidebar">
                             <x-sidebar-dropdown-list-link href="dashboard/ekstrakurikuler/beranda" :active="request()->is('*pembina/ekstrakurikuler/beranda')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}" :active="request()->is('*pembina/ekstrakurikuler/Penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                        </li>
+                        <li>
                             <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}" :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
                         </li>
                         <li>

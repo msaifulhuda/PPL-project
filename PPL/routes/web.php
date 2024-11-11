@@ -12,7 +12,6 @@ use App\Http\Controllers\beranda\BerandaController;
 use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
-use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -25,12 +24,15 @@ use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 // <<<<<<< pengurus-ekstrakurikuler
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
+use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
+use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 
 
 // >>>>>>> main
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+// >>>>>>> main
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 use App\Http\Controllers\staffakademik\JadwalController;
@@ -202,7 +204,9 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      */
     Route::group(['middleware' => 'pengurus'], function () {
         Route::get('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'index'])->name('pengurus_ekstra.dashboard');
+
         // Route::get('siswa/ekstrakurikuler/penilaian', [PenilaianController::class, 'index'])->name('pengurus_ekstra.penilaian');
+
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
 
@@ -247,6 +251,12 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
         Route::get('/pembina-dashboard', [PembinaekstraController::class, 'index'])->name('pembina.dashboard');
         Route::get('/pembina/ekstrakurikuler/anggota', [PembinaAnggotaController::class, 'index'])->name('pembina.anggota');
         Route::get('/pembina/ekstrakurikuler/perlengkapan', [PembinaekstraPerlengkapanController::class, 'index'])->name('pembina.perlengkapan');
+        Route::get('/pembina/ekstrakurikuler/perlengkapan/histori/{id}', [PembinaekstraHistoriPeminjamanController::class, 'index'])->name('pembina.histori');
+
+        Route::get('/pembina/ekstrakurikuler/penilaian', [PenilaianEkstraController::class, 'index'])->name('pembina.penilaian');
+        Route::post('/pembina/ekstrakurikuler/penilaian', [PenilaianEkstraController::class, 'store'])->name('pembina.penilaian.store');
+        Route::put('/pembina/ekstrakurikuler/penilaian/{id}', [PenilaianEkstraController::class, 'update'])->name('pembina.penilaian.update');
+        Route::delete('/pembina/ekstrakurikuler/penilaian/{id}', [PenilaianEkstraController::class, 'destroy'])->name('pembina.penilaian.delete');
     });
 
     /**

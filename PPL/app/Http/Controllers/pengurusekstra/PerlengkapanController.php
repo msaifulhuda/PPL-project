@@ -29,7 +29,6 @@ class PerlengkapanController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'id_ekstrakurikuler' => 'required',
             'nama_barang' => 'required|string|max:255',
