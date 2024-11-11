@@ -31,7 +31,7 @@
 
                           <!-- Main modal -->
                           <div id="tambah" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                              <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                <div class="relative p-4 w-full max-w-2xl max-h-full">
                                   <!-- Modal content -->
                                   <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                       <!-- Modal header -->
@@ -103,13 +103,13 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
                                         <button data-modal-target="edit-{{ $index }}" data-modal-toggle="edit-{{ $index }}" class="text-blue-600 hover:text-blue-900">
-                                            <svg data-modal-target="edit" data-modal-toggle="edit" class="w-[28px] h-[28px] text-blue-600 dark:text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <svg class="w-[28px] h-[28px] text-blue-600 dark:text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
                                             </svg>                                          
                                         </button>
 
                                         <!-- Main modal -->
-                                        <div id="edit-{{ $index }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">">
+                                        <div id="edit-{{ $index }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                             <div class="relative p-4 w-full max-w-2xl max-h-full">
                                                 <!-- Modal content -->
                                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
