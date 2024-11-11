@@ -14,6 +14,7 @@ use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\pengurusekstra\HistoriPeminjaman;
 use App\Http\Controllers\staffakademik\PrestasiController;
+use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -170,6 +171,10 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::get('/matpel/master-guru', [KelasController::class, 'showMasterGuru'])->name('master.guru');
     Route::get('/matpel/master-kelas', [KelasController::class, 'showMasterKelas'])->name('master.kelas');
     Route::get('/matpel/master-matpel', [KelasController::class, 'showMasterMatpel'])->name('master.matpel');
+
+    //lihat jadwal
+    Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
+    Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
