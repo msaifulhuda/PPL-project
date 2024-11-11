@@ -3,23 +3,25 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
+use App\Models\hari;
 use App\Models\User;
+use App\Models\kelas;
 use App\Models\Siswa;
+use App\Models\KelasSiswa;
 use App\Models\Superadmin;
 use App\Models\Staffperpus;
 use Illuminate\Support\Str;
+use App\Models\tahun_ajaran;
 use App\Models\Staffakademik;
+use App\Models\mata_pelajaran;
 use App\Models\PengurusEkstra;
 use App\Models\ekstrakurikuler;
-use App\Models\guru_mata_pelajaran;
-use App\Models\hari;
-use App\Models\kelas;
-use App\Models\KelasSiswa;
-use App\Models\mata_pelajaran;
 use Illuminate\Database\Seeder;
+use App\Models\guru_mata_pelajaran;
+use App\Models\kelas_mata_pelajaran;
 use Database\Seeders\PerpustakaanSeeder;
 use App\Models\registrasi_ekstrakurikuler;
-use App\Models\tahun_ajaran;
+use Database\Seeders\KelasMataPelajaranSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -87,6 +89,13 @@ class DatabaseSeeder extends Seeder
         if (Staffakademik::count() == 0) {
             $this->call([
                 StaffAkademikSeeder::class,
+            ]);
+        }
+
+        // isi kelas mata pelajaran jika belum ada
+        if (kelas_mata_pelajaran::count() == 0) {
+            $this->call([
+                KelasMataPelajaranSeeder::class,
             ]);
         }
 
