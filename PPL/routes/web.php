@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
-use App\Models\PengurusEkstra;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
@@ -207,14 +206,17 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
         // Route::get('siswa/ekstrakurikuler/penilaian', [PenilaianController::class, 'index'])->name('pengurus_ekstra.penilaian');
 
+        // Anggota
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
 
+        // Perlengkapan
         Route::get('/ekstrakurikuler/perlengkapan', [PerlengkapanController::class, 'index'])->name('pengurus_ekstra.perlengkapan');
         Route::post('/ekstrakurikuler/perlengkapan/tambah', [PerlengkapanController::class, 'store'])->name('pengurus_ekstra.perlengkapan.store');
         Route::put('/ekstrakurikuler/perlengkapan/update/{id}', [PerlengkapanController::class, 'update'])->name('pengurus_ekstra.perlengkapan.update');
         Route::delete('/ekstrakurikuler/perlengkapan/delete/{id}', [PerlengkapanController::class, 'destroy'])->name('pengurus_ekstra.perlengkapan.delete');
 
+        // Histori Peminjaman
         Route::get('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjamanController::class, 'index'])->name('pengurus_ekstra.histori');
         Route::post('/ekstrakurikuler/perlengkapan/histori/', [HistoriPeminjamanController::class, 'store'])->name('pengurus_ekstra.histori.store');
         Route::put('/ekstrakurikuler/perlengkapan/histori/{id}', [HistoriPeminjamanController::class, 'update'])->name('pengurus_ekstra.histori.update');
@@ -223,6 +225,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     /**
      * End Pengurus Ekstrakurikuler
      */
+
 
     /**
      * START LMS
@@ -247,17 +250,29 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
 
+
+    /**
+     * Start Pembina Ekstrakurikuler
+     */
     Route::group(['middleware' => 'pembina_ekstra'], function () {
         Route::get('/pembina-dashboard', [PembinaekstraController::class, 'index'])->name('pembina.dashboard');
+
+        // Anggota Ekstrakurikuler
         Route::get('/pembina/ekstrakurikuler/anggota', [PembinaAnggotaController::class, 'index'])->name('pembina.anggota');
+        
+        // Perlengkapan Ekstrakurikuler
         Route::get('/pembina/ekstrakurikuler/perlengkapan', [PembinaekstraPerlengkapanController::class, 'index'])->name('pembina.perlengkapan');
         Route::get('/pembina/ekstrakurikuler/perlengkapan/histori/{id}', [PembinaekstraHistoriPeminjamanController::class, 'index'])->name('pembina.histori');
 
+        // Penilaian Ekstrakurikuler
         Route::get('/pembina/ekstrakurikuler/penilaian', [PenilaianEkstraController::class, 'index'])->name('pembina.penilaian');
-        Route::post('/pembina/ekstrakurikuler/penilaian', [PenilaianEkstraController::class, 'store'])->name('pembina.penilaian.store');
-        Route::put('/pembina/ekstrakurikuler/penilaian/{id}', [PenilaianEkstraController::class, 'update'])->name('pembina.penilaian.update');
-        Route::delete('/pembina/ekstrakurikuler/penilaian/{id}', [PenilaianEkstraController::class, 'destroy'])->name('pembina.penilaian.delete');
+        Route::post('/pembina/ekstrakurikuler/penilaian/{id}', [PenilaianEkstraController::class, 'storeOrUpdate'])->name('pembina.penilaian.storeOrUpdate');
+        Route::get('/pembina/ekstrakurikuler/penilaian/{tahun_ajaran}', [PenilaianEkstraController::class, 'show'])->name('pembina.penilaian.filter');
     });
+    /**
+     * End Pembina Ekstrakurikuler
+     */
+
 
     /**
      * START LMS
