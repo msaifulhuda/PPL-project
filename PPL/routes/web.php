@@ -188,7 +188,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}/edit', [StaffperpusController::class, 'editbuku'])->name('staff_perpus.buku.edit');
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
-    
+
 // >>>>>>>>> Temporary merge branch 2
 });
 
@@ -254,6 +254,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
      */
     Route::get('/dashboard/lms', [GuruLmsController::class, 'index'])->name('guru.dashboard.lms');
     Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])->name('guru.dashboard.lms.materi');
+    Route::get('/dashboard/lms/materi/create', [GuruLmsController::class, 'materiCreate'])->name('guru.dashboard.lms.materi.create');
     Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])->name('guru.dashboard.lms.tugas');
     /**
      * END LMS
@@ -284,12 +285,12 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
 
 
 Route::group(['prefix' => 'ekstrakrikuler'], function () {
-    
+
     Route::get('/', [EkstrakurikulerController::class, 'dashboardEkstra'])->name('ekstrakurikuler.dashboardEkstra');
     Route::group(['middleware' => ['siswa']], function() {
 
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
-    
+
         Route::middleware('auth:web-siswa')->group(function () {
         Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
     });
