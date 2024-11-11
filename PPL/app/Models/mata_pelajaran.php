@@ -17,7 +17,7 @@ class mata_pelajaran extends Model
     protected $primaryKey = 'id_matpel';
     public $incrementing = false;
     protected $keyType = 'string';
-        
+
     protected $fillable = [
         'id_matpel',
         'nama_matpel',

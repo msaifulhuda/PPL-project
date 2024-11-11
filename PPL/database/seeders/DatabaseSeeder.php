@@ -3,23 +3,19 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
-use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Superadmin;
 use App\Models\Staffperpus;
-use Illuminate\Support\Str;
 use App\Models\Staffakademik;
-use App\Models\PengurusEkstra;
-use App\Models\ekstrakurikuler;
 use App\Models\guru_mata_pelajaran;
 use App\Models\hari;
 use App\Models\kelas;
 use App\Models\KelasSiswa;
 use App\Models\mata_pelajaran;
-use Illuminate\Database\Seeder;
-use Database\Seeders\PerpustakaanSeeder;
-use App\Models\registrasi_ekstrakurikuler;
 use App\Models\tahun_ajaran;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -110,11 +106,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         // Generate UUIDs
         // Create siswa with role 'siswa'
-        // $idUser4 = Str::uuid();
-        // $idUser9 = Str::uuid();
-        // $idUser10 = Str::uuid();
-        // $idUser11 = Str::uuid();
-        // $idUser12 = Str::uuid();
+        $idUser4 = Str::uuid();
+        $idUser9 = Str::uuid();
+        $idUser10 = Str::uuid();
+        $idUser11 = Str::uuid();
+        $idUser12 = Str::uuid();
 
         // Create siswa with role 'pengurus'
         // $idUser5 = Str::uuid();
@@ -122,7 +118,7 @@ class DatabaseSeeder extends Seeder
         // $idUser7 = Str::uuid();
         // $idUser8 = Str::uuid();
 
-        // session(['siswa2' => $idUser5, 'siswa3' => $idUser6, 'siswa4' => $idUser7, 'siswa5' => $idUser8]);
+        session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
 
         // Create siswa with role 'siswa'
         Siswa::create([
@@ -168,6 +164,10 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             EkstrakurikulerPengurusSeeder::class,
+        ]);
+
+        $this->call([
+            MateriTugasSeeder::class,
         ]);
 
         // Registrasi Ekstrakurikuler

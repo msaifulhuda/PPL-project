@@ -49,7 +49,7 @@ aria-label="Sidebar">
                             <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms') }}" :active="request()->is('guru/dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('guru/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('guru/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
                             <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}" :active="request()->is('guru/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
