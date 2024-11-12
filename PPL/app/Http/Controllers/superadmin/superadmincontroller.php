@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 use App\Models\Siswa;
+use App\Models\kelas;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
+use App\Models\KelasSiswa;
 
 class SuperadminController extends Controller
 {
@@ -18,12 +20,12 @@ class SuperadminController extends Controller
     }
     public function showDataGuru()
     {
-        $guruData = Guru::paginate(5); 
+        $guruData = Guru::paginate(5);
         return view('superadmin.keloladataguru.data_guru', compact('guruData'));
     }
     public function showDataSiswa()
     {
-        $siswaData = Siswa::paginate(5);
+        $siswaData = Siswa::with('kelas')->orderBy('created_at', 'desc')->paginate(5);
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }
 
@@ -39,8 +41,12 @@ class SuperadminController extends Controller
 
     public function searchSiswa(Request $request)
     {
-        $query = $request->input('searchsiswa');
-        $siswaData = Siswa::where('nisn', 'LIKE', '%' . $query . '%')->paginate(5);
+        $searchQuery = $request->input('searchsiswa');
+        $siswaData = KelasSiswa::with('siswa', 'kelas')
+        ->whereHas('siswa', function ($query) use ($searchQuery) {
+            $query->where('nisn', 'LIKE', '%' . $searchQuery . '%');
+        })
+        ->paginate(5);
 
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }
@@ -49,11 +55,11 @@ class SuperadminController extends Controller
     {
     return view('superadmin.keloladataguru.tambah');
     }
-    
+
     public function createSiswa()
     {
     return view('superadmin.keloladatasiswa.tambah');
-    }    
+    }
 
     public function destroy($id)
     {
@@ -76,10 +82,11 @@ class SuperadminController extends Controller
 
     public function siswaEdit($id)
     {
-        $siswa = Siswa::findOrFail($id); // Ensure it finds the correct student record
-        return view('superadmin.keloladatasiswa.edit_siswa', compact('siswa'));
+        $siswa = KelasSiswa::with('kelas', 'siswa')->where('id_siswa', $id)->firstOrFail(); // Ensure it finds the correct student record
+        $allkelas = kelas::all();
+        return view('superadmin.keloladatasiswa.edit_siswa', compact('siswa', 'allkelas'));
     }
-    
+
     public function store(StoreGuruRequest $request)
 {
     $guru = new Guru();
@@ -166,6 +173,7 @@ public function storeSiswa(Request $request)
     //     'foto_siswa' => 'nullable|image|max:2048',
     //     'password' => 'nullable|string|min:8',
     // ]);
+    // $siswa = KelasSiswa::with('siswa', 'kelas')->where('id_siswa', $id_siswa)->firstOrFail();
     $siswa = Siswa::findOrFail($id_siswa);
     $siswa->nama_siswa = $request->nama_siswa;
     $siswa->nisn = $request->nisn;
@@ -174,7 +182,6 @@ public function storeSiswa(Request $request)
     $siswa->nomor_wa_siswa = $request->nomor_wa_siswa;
     $siswa->email = $request->email;
     $siswa->jenis_kelamin_siswa = $request->jenis_kelamin_siswa;
-    $siswa->kelas_id = $request->class; 
     $siswa->role_siswa = $request->input('role_siswa');
     $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
     if ($request->filled('password')) {
@@ -186,6 +193,11 @@ public function storeSiswa(Request $request)
         $siswa->foto_siswa = $fileName;
     }
     $siswa->save();
+
+    $kelas = KelasSiswa::where('id_siswa', $id_siswa)->firstOrFail();
+    $kelas->id_kelas = $request->class;
+    $kelas->save();
+
     return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil diperbarui.');
 }
 

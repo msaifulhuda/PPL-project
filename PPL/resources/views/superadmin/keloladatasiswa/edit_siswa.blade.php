@@ -10,18 +10,18 @@
                 <nav class="text-sm text-gray-500 mb-4">
                     <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <a href="{{ route('superadmin.keloladatasiswa') }}" class="text-black-500 hover:underline">Kelola Data Siswa</a> > <b>Edit Data Siswa</b>
                 </nav>
-                
+
                 <!-- Title and Description -->
                 <h2 class="text-lg font-semibold text-gray-800">Edit Data Siswa</h2>
                 <p class="text-sm text-gray-600 mb-6">Ini adalah laman untuk mengedit data siswa</p>
-                
-                <form action="{{ route('siswa.update', $siswa->id_siswa) }}" method="post">
+
+                <form action="{{ route('siswa.update', $siswa->siswa->id_siswa) }}" method="post">
                     @csrf
                     @method('PUT')
                     <!-- Username -->
                     <div class="mb-4">
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username :</label>
-                        <input type="text" name="username" id="username" value="{{ old('username', $siswa->username) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                        <input type="text" name="username" id="username" value="{{ old('username', $siswa->siswa->username) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                     </div>
 
                     <!-- Password -->
@@ -33,27 +33,27 @@
                     <!-- Nama Siswa -->
                     <div class="mb-4">
                         <label for="nama_siswa" class="block text-sm font-medium text-gray-700 mb-1">Nama :</label>
-                        <input type="text" name="nama_siswa" id="nama_siswa" value="{{ old('nama_siswa', $siswa->nama_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                        <input type="text" name="nama_siswa" id="nama_siswa" value="{{ old('nama_siswa', $siswa->siswa->nama_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                     </div>
-        
+
                     <div class="mb-4">
                         <label for="jenis_kelamin_siswa" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin :</label>
                         <select id="jenis_kelamin_siswa" name="jenis_kelamin_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-laki" {{ old('jenis_kelamin_siswa', $siswa->siswa->jenis_kelamin_siswa) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin_siswa', $siswa->siswa->jenis_kelamin_siswa) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
-        
+
                     <!-- NISN -->
                     <div class="mb-4">
                         <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NISN :</label>
-                        <input type="text" name="nisn" id="nisn" value="{{ old('nisn', $siswa->nisn) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                        <input type="text" name="nisn" id="nisn" value="{{ old('nisn', $siswa->siswa->nisn) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                     </div>
 
                     <div class="mb-4">
                         <label for="tgl_lahir_siswa" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir :</label>
-                        <input type="date" name="tgl_lahir_siswa" id="tgl_lahir_siswa" value="{{ old('tgl_lahir_siswa', $siswa->tgl_lahir_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                        <input type="date" name="tgl_lahir_siswa" id="tgl_lahir_siswa" value="{{ old('tgl_lahir_siswa', $siswa->siswa->tgl_lahir_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                     </div>
 
                     <!-- Role -->
@@ -61,17 +61,23 @@
                         <label for="role_siswa" class="block text-sm font-medium text-gray-700 mb-1">Role :</label>
                         <select id="role_siswa" name="role_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                             <option value="">Pilih Role</option>
-                            <option value="siswa" {{ old('role_siswa', $siswa->role_siswa) == 'siswa' ? 'selected' : '' }}>Siswa</option>
-                            <option value="pengurus" {{ old('role_siswa', $siswa->role_siswa) == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+                            <option value="siswa" {{ old('role_siswa', $siswa->siswa->role_siswa) == 'siswa' ? 'selected' : '' }}>Siswa</option>
+                            <option value="pengurus" {{ old('role_siswa', $siswa->siswa->role_siswa) == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
                         </select>
                     </div>
-        
+
                     <!-- Kelas -->
                     <div class="mb-4">
                         <label for="class" class="block text-sm font-medium text-gray-700 mb-1">Kelas :</label>
-                        <input type="text" id="nip" name="class" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                        <select id="class" name="class" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                            @foreach ($allkelas as $kelas)
+                                <option value="{{ $kelas->id_kelas }}" {{ ($kelas->id_kelas == $siswa->kelas->id_kelas) ? 'selected' : '' }}>
+                                    {{ $kelas->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-        
+
                     <!-- Foto Upload -->
                     <div class="mb-4">
                         <label for="foto_siswa" class="block text-sm font-medium text-gray-700 mb-1">Foto :</label>
@@ -88,26 +94,26 @@
                             </div>
                             <input type="file" name="foto_siswa" id="foto_siswa" class="hidden">
                         </div>
-                    </div>  
-        
+                    </div>
+
                     <!-- Alamat -->
                     <div class="mb-4">
                         <label for="alamat_guru" class="block text-sm font-medium text-gray-700 mb-1">Alamat :</label>
-                        <input type="text" name="alamat_siswa" id="alamat_siswa" value="{{ old('alamat_siswa', $siswa->alamat_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                        <input type="text" name="alamat_siswa" id="alamat_siswa" value="{{ old('alamat_siswa', $siswa->siswa->alamat_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
                     </div>
-        
+
                      <!-- No. WA -->
                     <div class="mb-4">
                         <label for="nomor_wa_guru" class="block text-sm font-medium text-gray-700 mb-1">No. WA :</label>
-                        <input type="text" name="nomor_wa_siswa" id="nomor_wa_siswa" value="{{ old('nomor_wa_siswa', $siswa->nomor_wa_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                        <input type="text" name="nomor_wa_siswa" id="nomor_wa_siswa" value="{{ old('nomor_wa_siswa', $siswa->siswa->nomor_wa_siswa) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
                     </div>
 
                     <!-- E-Mail -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email :</label>
-                        <input type="email" name="email" id="email" value="{{ old('email', $siswa->email) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                        <input type="email" name="email" id="email" value="{{ old('email', $siswa->siswa->email) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
                     </div>
-        
+
                     <!-- Submit Button -->
                     <div class="flex justify-center">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full mt-4">
@@ -126,15 +132,14 @@
                     setTimeout(() => successMessage.remove(), 500);
                 }
             }
-        
+
             // Auto-hide the notification after 5 seconds
             document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(dismissMessage, 5000);
             });
-        </script>    
+        </script>
     </x-admin-layout>
-    
-    
-    
-    
-    
+
+
+
+
