@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\pembinaekstra;
 
-use App\Models\kelas;
 use App\Models\KelasSiswa;
 use App\Models\tahun_ajaran;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PenilaianEkstrakurikuler;
 use App\Models\registrasi_ekstrakurikuler;
 use App\Models\LaporanPenilaianEkstrakurikuler;
+use App\Models\Siswa;
 
 class PenilaianEkstraController extends Controller
 {
