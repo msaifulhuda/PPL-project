@@ -7,12 +7,13 @@ use Illuminate\Database\Seeder;
 use App\Models\Topik;
 use App\Models\Materi;
 use App\Models\Tugas;
-use App\Models\KelasMataPelajaran;
+use Faker\Factory as Faker;
 
 class TopikTugasMateriSeeder extends Seeder
 {
     public function run()
     {
+        $faker = Faker::create();
         // Retrieve all kelas_mata_pelajaran records
         $kelasMataPelajaranRecords = kelas_mata_pelajaran::all();
 
@@ -23,14 +24,19 @@ class TopikTugasMateriSeeder extends Seeder
                     'mata_pelajaran_id' => $kelas->mata_pelajaran_id,
                     'judul_topik' => "Bab $i",
                     'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
 
                 for ($j = 1; $j <= 2; $j++) {
                     Materi::create([
                         'judul_materi' => "Materi $j untuk Bab $i",
                         'topik_id' => $topik->id_topik,
+                        'deskripsi' => $faker->paragraphs(3, true),
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
                         'tanggal_dibuat' => now()->toDateString(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
                         'status' => 1,
                     ]);
                 }
@@ -39,10 +45,12 @@ class TopikTugasMateriSeeder extends Seeder
                 for ($k = 1; $k <= 2; $k++) {
                     Tugas::create([
                         'judul' => "Tugas $k untuk Bab $i",
-                        'deskripsi' => "Deskripsi untuk Tugas $k di Bab $i",
+                        'deskripsi' => $faker->paragraphs(3, true),
                         'topik_id' => $topik->id_topik,
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
                         'deadline' => now()->addDays(7),
+                        'created_at' => now(),
+                        'updated_at' => now(),
                     ]);
                 }
             }

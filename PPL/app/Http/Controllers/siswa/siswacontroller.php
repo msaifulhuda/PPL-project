@@ -8,9 +8,6 @@ class SiswaController extends Controller
 {
         public function index()
     {
-        // if (auth()->guard('web-siswa')->check()) {
-        //     dd('masuk');
-        // }
         return view('siswa.dashboard');
     }
 }

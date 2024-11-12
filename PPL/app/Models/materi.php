@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,11 +16,14 @@ class materi extends Model
     public $timestamps = false;
     protected $keyType = 'string';
     public $incrementing = false;
+
+
     protected $fillable = [
         'judul_materi',
         'topik_id',
         'kelas_mata_pelajaran_id',
         'tanggal_dibuat',
+        'deskripsi',
         'status',
     ];
         public function topik()

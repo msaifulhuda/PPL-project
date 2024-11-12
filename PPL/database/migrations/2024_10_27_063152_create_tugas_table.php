@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tugas', function (Blueprint $table) {
             $table->uuid('id_tugas')->primary();
             $table->string('judul');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->uuid('topik_id')->nullable();
             $table->date('deadline');
             $table->uuid('kelas_mata_pelajaran_id');
