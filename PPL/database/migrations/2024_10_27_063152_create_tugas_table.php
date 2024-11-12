@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->uuid('topik_id')->nullable();
-            $table->date('deadline');
+            $table->dateTime('deadline');
             $table->uuid('kelas_mata_pelajaran_id');
             $table->timestamps();
             $table->foreign('topik_id')->references('id_topik')->on('topik');
