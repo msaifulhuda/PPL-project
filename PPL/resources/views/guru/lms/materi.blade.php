@@ -33,13 +33,19 @@
 
         {{-- Add button --}}
         <div class="px-3 mt-5 mb-3">
-            <a href="{{ route('guru.dashboard.lms.materi.create') }}" class="px-3 py-2 text-white bg-blue-500 rounded-full">
+            <a href="{{ route('guru.dashboard.lms.materi.create_view') }}" class="px-3 py-2 text-white bg-blue-500 rounded-full">
                 <svg class="inline-block w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
                 </svg>
                 <span class="text-sm">Tambah Materi</span>
             </a>
         </div>
+
+        @if (session('success'))
+            <div class="px-3 py-2 mb-4 text-green-700 bg-green-100 border border-green-400 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
 
         {{-- Main Content --}}
         <div class="flex flex-col justify-between gap-6 px-3 md:flex-row">
@@ -72,10 +78,10 @@
                 <div class="flex flex-col gap-4 content-materi">
                     {{-- Tanggal --}}
                     <div class="materi-date">
-                        <span class="text-lg font-semibold">{{ $date->format('d F Y') }}</span>
+                        <span class="text-lg font-semibold">{{ $date }}</span>
                     </div>
                     @foreach ($materi_baru as $mb)
-                        @if ($mb->created_at == $date)
+                        @if ($mb->created_at->format('d F Y') == $date)
                         {{-- Materi --}}
                         <div class="px-3 py-4 border-2 border-gray-500 md:px-4 rounded-xl card">
                             <div class="flex gap-2 align-items-center">

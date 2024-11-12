@@ -72,7 +72,7 @@ class topik extends Model
     /**
      * Relationship with KelasMataPelajaran model
      */
-    public function kelasMataPelajaran()
+    public function kelas_mata_pelajaran()
     {
         return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
