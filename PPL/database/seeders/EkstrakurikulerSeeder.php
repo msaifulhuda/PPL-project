@@ -8,7 +8,7 @@ use App\Models\PengurusEkstra;
 use App\Models\Ekstrakurikuler;
 use App\Models\HistoriInventaris;
 use App\Models\InventarisEkstrakurikuler;
-use App\Models\prestasi_ektrakurikuler;
+use App\Models\PrestasiEkstrakurikuler;
 use App\Models\registrasi_ekstrakurikuler;
 use App\Models\Siswa;
 use Illuminate\Database\Seeder;
@@ -46,7 +46,7 @@ class EkstrakurikulerSeeder extends Seeder
 
         foreach ($idPengurus as $pengurus){
             PengurusEkstra::create([
-                'id_pengurus' => Str::uuid(),
+                'id_pengurus_ekstra' => Str::uuid(),
                 'id_ekstrakurikuler' => $idEkstra[array_rand($idEkstra)],
                 'id_siswa' => $pengurus,
             ]);
@@ -70,7 +70,7 @@ class EkstrakurikulerSeeder extends Seeder
          * Mengisi prestasi ekstrakurikuler.
          */
         foreach ($idEkstra as $ekstra){
-            prestasi_ektrakurikuler::create([
+            PrestasiEkstrakurikuler::create([
                 'id_prestasi' => Str::uuid(),
                 'id_ekstrakurikuler' => $ekstra,
                 'judul' => collect([
@@ -107,8 +107,8 @@ class EkstrakurikulerSeeder extends Seeder
                 'id_inventaris' => $inventaris,
                 'keterangan' => collect(['Peminjaman', 'Pengembalian', 'Perbaikan'])->random(),
                 'jumlah' => rand(1, 10),
-                'histori_keluar' => rand(0, 1) ? now() : null,
-                'histori_masuk' => rand(0, 1) ? now() : null,
+                'histori_keluar' => now(),
+                'histori_masuk' => now(),
             ]);
             }
         }

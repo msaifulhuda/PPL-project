@@ -62,13 +62,18 @@ class PenilaianEkstraController extends Controller
         foreach ($anggota as $a) {
             $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif)
             {$query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);})
-            ->firstOrFail();
+            ->first();
 
             array_push($anggota_aktif, $siswa);
         }
 
         $laporan = LaporanPenilaianEkstrakurikuler::with('siswa')->where('id_ekstrakurikuler', $id_ekstra)->get();
         $penilaian = PenilaianEkstrakurikuler::whereIn('id_siswa', collect($anggota_aktif)->pluck('id_siswa'))->get();
+
+        if ($siswa == null) {
+            $laporan_anggota = [];
+            return view('pembina_ekstra.penilaian.index', compact('nama_ekstra', 'penilaian', 'tahun_ajaran_aktif', 'id_ekstra', 'tahun_ajaran', 'laporan_anggota'));
+        }
 
         $laporan_anggota = collect($anggota_aktif)->map(function ($item) use ($laporan, $penilaian) {
             $laporanItem = $laporan->firstWhere('id_siswa', $item->id_siswa);

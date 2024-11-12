@@ -83,11 +83,11 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi staff akademik jika belum ada
-        if (Staffakademik::count() == 0) {
-            $this->call([
-                StaffAkademikSeeder::class,
-            ]);
-        }
+        // if (Staffakademik::count() == 0) {
+        //     $this->call([
+        //         StaffAkademikSeeder::class,
+        //     ]);
+        // }
 
         // isi Ekskul jika belum ada
         if (Ekstrakurikuler::count() == 0) {

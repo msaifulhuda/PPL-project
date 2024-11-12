@@ -47,7 +47,7 @@
                             });
                         });
                     </script>
-                    <p class="text-lg font-semibold text-gray-700">Total Anggota: <span class="font-normal">{{ $laporan_anggota->count() }}</span></p>
+                    <p class="text-lg font-semibold text-gray-700">Total Anggota: <span class="font-normal">{{ $laporan_anggota ? $laporan_anggota->count() : count($laporan_anggota) }}</span></p>
                 </div>
                 </div>
             </div>
