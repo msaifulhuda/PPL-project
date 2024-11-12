@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\siswa;
+namespace App\Http\Controllers\siswa\lms;
 
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
 use Illuminate\Http\Request;
 
-class DetailKelasMataPelajaranController extends Controller
+class ForumSiswaController extends Controller
 {
-    public function forum($id)
-    {
+    public function index($id) {
         $kelasMataPelajaran = kelas_mata_pelajaran::with('mataPelajaran', 'guru')
             ->where('id_kelas_mata_pelajaran', $id)
             ->first();

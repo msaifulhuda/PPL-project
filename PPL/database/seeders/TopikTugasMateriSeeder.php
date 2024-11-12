@@ -23,6 +23,8 @@ class TopikTugasMateriSeeder extends Seeder
                     'mata_pelajaran_id' => $kelas->mata_pelajaran_id,
                     'judul_topik' => "Bab $i",
                     'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
 
                 for ($j = 1; $j <= 2; $j++) {
@@ -31,6 +33,8 @@ class TopikTugasMateriSeeder extends Seeder
                         'topik_id' => $topik->id_topik,
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
                         'tanggal_dibuat' => now()->toDateString(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
                         'status' => 1,
                     ]);
                 }
@@ -43,6 +47,8 @@ class TopikTugasMateriSeeder extends Seeder
                         'topik_id' => $topik->id_topik,
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
                         'deadline' => now()->addDays(7),
+                        'created_at' => now(),
+                        'updated_at' => now(),
                     ]);
                 }
             }
