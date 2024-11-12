@@ -20,7 +20,7 @@
                     <!-- Card 1 -->
                     @if ($mataPelajaranList->count() > 0)
                         @foreach ($mataPelajaranList as $kelasMataPelajaran)
-                            <a href="{{route('siswa.dashboard.lms.detail', $kelasMataPelajaran->id_kelas_mata_pelajaran)}}" class="block">
+                            <a href="{{route('siswa.dashboard.lms.forum', $kelasMataPelajaran->id_kelas_mata_pelajaran)}}" class="block">
                                 <div class="flex items-center p-4 border-2 border-gray-300 rounded-2xl  hover:bg-gray-100 transition duration-100">
                                     <div class="p-2 mr-2 rounded-full">
                                         <svg width="40" height="40" viewBox="0 0 42 47" fill="none"

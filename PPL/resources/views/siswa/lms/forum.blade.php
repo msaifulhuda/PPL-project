@@ -5,7 +5,7 @@
             $breadcrumbs = [
                 ['label' => 'Dashboard', 'route' => route('siswa.dashboard')],
                 ['label' => 'LMS', 'route' => route('siswa.dashboard.lms')],
-                ['label' => $mataPelajaran->nama_matpel, 'route' => route('siswa.dashboard.lms.detail', $id)],
+                ['label' => $mataPelajaran->nama_matpel, 'route' => route('siswa.dashboard.lms.forum', $id)],
             ];
         @endphp
 
@@ -16,13 +16,12 @@
         <div class="px-3">
             {{-- Tabs --}}
             <div class="flex gap-2 mb-4 mt-6">
-                <a href="#"
-                    class="px-6 py-2 border border-black font-semibold text-gray-700 hover:bg-gray-100 rounded-lg">Forum</a>
-                <a href=""
-                    class="px-6 py-2 border border-black font-semibold text-gray-700 hover:bg-gray-100 rounded-lg">Tugas
-                    Kelas</a>
-                <a href=""
-                    class="px-6 py-2 border border-black font-semibold text-gray-700 hover:bg-gray-100 rounded-lg">Anggota</a>
+                <x-nav-button-lms route="siswa.dashboard.lms.forum" :id="$id" label="Forum" />
+
+                <x-nav-button-lms route="siswa.dashboard.lms.forum.tugas" :id="$id" label="Tugas" />
+
+                <x-nav-button-lms route="siswa.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
+
             </div>
 
             {{-- Main Content with Sidebar and Material/Tugas --}}
@@ -41,20 +40,23 @@
                     </div>
 
                     {{-- Upcoming Assignments --}}
-                    <div class="p-4  rounded-lg border border-black">
+                    <div class="p-4 rounded-lg border border-black">
                         <h4 class="font-semibold text-gray-800 mb-2">Mendatang</h4>
                         <ul class="text-sm text-gray-600 space-y-3">
-                            <!-- Adjusted space-y-1 to space-y-3 for more spacing -->
-                            <li>
-                                <p class="text-gray-600">Tanggal: Kamis, 07 November 2024</p>
-                                <a href="#" class="text-blue-500 underline">Tugas 1 - Pembuatan UI/UX Desain</a>
-                            </li>
-                            <li>
-                                <p class="text-gray-600">Tanggal: Sabtu, 09 November 2024</p>
-                                <a href="#" class="text-blue-500 underline">Tugas Harian - Analisis tentang UX</a>
-                            </li>
+                            @forelse ($tugasMendatang as $tugas)
+                                <li>
+                                    <p class="text-gray-600">Tanggal:
+                                        {{ Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y') }}</p>
+                                    <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
+                                        class="text-blue-500 underline">
+                                        {{ $tugas->judul }}
+                                    </a>
+                                </li>
+                            @empty
+                                <p class="text-gray-500">Tidak ada tugas mendatang</p>
+                            @endforelse
                         </ul>
-                        <a href="#" class="text-blue-500 text-sm underline mt-2 block">Lihat Semua</a>
+
                     </div>
 
                 </div>

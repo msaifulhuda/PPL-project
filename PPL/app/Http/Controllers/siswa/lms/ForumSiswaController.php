@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Siswa\LMS;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\KelasMataPelajaran;
+use App\Models\tugas;
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -24,7 +26,8 @@ class ForumSiswaController extends Controller
             'mataPelajaran:id_matpel,nama_matpel',
             'guru:id_guru,nama_guru',
             'materi:id_materi,judul_materi,created_at,kelas_mata_pelajaran_id',
-            'tugas:id_tugas,judul,created_at,kelas_mata_pelajaran_id'
+            'tugas:id_tugas,judul,created_at,kelas_mata_pelajaran_id',
+
         ])
             ->select([
                 'id_kelas_mata_pelajaran',
@@ -44,7 +47,7 @@ class ForumSiswaController extends Controller
                 'type' => 'materi',
                 'date' => $item->created_at
             ]))
-            ->merge($kelasMataPelajaran->tugas->map(fn($item)=> (object) [
+            ->merge($kelasMataPelajaran->tugas->map(fn($item) => (object) [
                 'id' => $item->id_tugas,
                 'judul' => $item->judul,
                 'type' => 'tugas',
@@ -52,6 +55,12 @@ class ForumSiswaController extends Controller
             ]))
             ->sortBy('date')
             ->values();
+
+        $tugasMendatang = tugas::where('kelas_mata_pelajaran_id', $kelasMataPelajaran->id_kelas_mata_pelajaran)
+            ->where('deadline', '>', Carbon::now())
+            ->orderBy('deadline', 'asc')
+            ->get();
+
         return view('siswa.lms.forum', [
             'id' => $kelasMataPelajaran->id_kelas_mata_pelajaran,
             'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
@@ -59,7 +68,8 @@ class ForumSiswaController extends Controller
             'waktu_mulai' => $kelasMataPelajaran->waktu_mulai,
             'waktu_selesai' => $kelasMataPelajaran->waktu_selesai,
             'hari' => $kelasMataPelajaran->hari,
-            'materiTugas' => $materiTugas
+            'materiTugas' => $materiTugas,
+            'tugasMendatang' => $tugasMendatang
         ]);
     }
 }

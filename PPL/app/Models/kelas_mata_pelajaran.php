@@ -56,7 +56,7 @@ class kelas_mata_pelajaran extends Model
     }
     public function topik()
     {
-        return $this->hasMany(topik::class );
+        return $this->hasMany(topik::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
     public function tugas()
     {

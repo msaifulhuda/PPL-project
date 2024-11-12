@@ -40,11 +40,11 @@ class topik extends Model
     }
     public function materi()
     {
-        return $this->hasMany(materi::class);
+        return $this->hasMany(materi::class, 'topik_id', 'id_topik');
     }
     public function tugas()
     {
-        return $this->hasMany(tugas::class);
+        return $this->hasMany(tugas::class, 'topik_id', 'id_topik');
     }
     public function ujian()
     {
