@@ -58,10 +58,10 @@
                                 <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
                             </th>
                             <td class="px-6 py-4">
-                                {{ $tp->tgl_awal_peminjaman ?? 'Unknown' }}
+                                {{ date_format(date_create($tp->tgl_awal_peminjaman), 'M d, Y') ?? 'Unknown' }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $tp->tgl_pengembalian ?? 'Tidak ada batas kembali' }}
+                                {{ date_format(date_create($tp->tgl_pengembalian), 'M d, Y') ?? 'Tidak ada batas kembali' }}
                                 {{-- <a href="#">Edit</a> --}}
                             </td>
                             <td class="px-6 py-4">

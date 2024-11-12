@@ -21,39 +21,59 @@
                 <!-- Username -->
                 <div class="mb-4">
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username :</label>
-                    <input type="text" name="username" id="username" value="{{ old('username', $guru->username) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="username" id="username" value="{{ old('username', $guru->username) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('username') border-red-500 @enderror" required>
+                    @error('username')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Password -->
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password :</label>
-                    <input type="password" name="password" id="password" placeholder="Leave blank to keep current password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    <input type="password" name="password" id="password" placeholder="Leave blank to keep current password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('password') border-red-500 @enderror">
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Nama Guru -->
                 <div class="mb-4">
                     <label for="nama_guru" class="block text-sm font-medium text-gray-700 mb-1">Nama :</label>
-                    <input type="text" name="nama_guru" id="nama_guru" value="{{ old('nama_guru', $guru->nama_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="nama_guru" id="nama_guru" value="{{ old('nama_guru', $guru->nama_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('nama_guru') border-red-500 @enderror" required>
+                    @error('nama_guru')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- NIP -->
                 <div class="mb-4">
                     <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP :</label>
-                    <input type="text" name="nip" id="nip" value="{{ old('nip', $guru->nip) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="nip" id="nip" value="{{ old('nip', $guru->nip) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('nip') border-red-500 @enderror" required>
+                    @error('nip')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <!-- Role Guru -->
                 <div class="mb-4">
                     <label for="role_guru" class="block text-sm font-medium text-gray-700 mb-1">Role Guru :</label>
-                    <select name="role_guru" id="role_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <select name="role_guru" id="role_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('role_guru') border-red-500 @enderror" required>
                         <option value="guru" {{ old('role_guru', $guru->role_guru) == 'guru' ? 'selected' : '' }}>Guru</option>
                         <option value="pembina" {{ old('role_guru', $guru->role_guru) == 'pembina' ? 'selected' : '' }}>Pembina</option>
                         <option value="wali_kelas" {{ old('role_guru', $guru->role_guru) == 'wali_kelas' ? 'selected' : '' }}>Wali Kelas</option>
                     </select>
+                    @error('role_guru')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <!-- Alamat -->
                 <div class="mb-4">
                     <label for="alamat_guru" class="block text-sm font-medium text-gray-700 mb-1">Alamat :</label>
-                    <input type="text" name="alamat_guru" id="alamat_guru" value="{{ old('alamat_guru', $guru->alamat_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    <input type="text" name="alamat_guru" id="alamat_guru" value="{{ old('alamat_guru', $guru->alamat_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('alamat_guru') border-red-500 @enderror">
+                    @error('alamat_guru')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Foto Guru Upload -->
@@ -70,20 +90,29 @@
                             <br>
                             <span class="text-gray-500">(Max. file size: 25 MB)</span>
                         </div>
-                        <input type="file" name="foto_guru" id="foto_guru" class="hidden">
+                        <input type="file" name="foto_guru" id="foto_guru" class="hidden @error('foto_guru') border-red-500 @enderror">
                     </div>
+                    @error('foto_guru')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- No. WA -->
                 <div class="mb-4">
                     <label for="nomor_wa_guru" class="block text-sm font-medium text-gray-700 mb-1">No. WA :</label>
-                    <input type="text" name="nomor_wa_guru" id="nomor_wa_guru" value="{{ old('nomor_wa_guru', $guru->nomor_wa_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    <input type="text" name="nomor_wa_guru" id="nomor_wa_guru" value="{{ old('nomor_wa_guru', $guru->nomor_wa_guru) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('nomor_wa_guru') border-red-500 @enderror">
+                    @error('nomor_wa_guru')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- E-Mail -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email :</label>
-                    <input type="email" name="email" id="email" value="{{ old('email', $guru->email) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="email" name="email" id="email" value="{{ old('email', $guru->email) }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('email') border-red-500 @enderror" required>
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Submit Button -->
@@ -104,10 +133,6 @@
                 setTimeout(() => successMessage.remove(), 500);
             }
         }
-
-        // Auto-hide the notification after 5 seconds
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(dismissMessage, 5000);
-        });
+        setTimeout(dismissMessage, 5000);
     </script>
 </x-admin-layout>

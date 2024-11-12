@@ -9,12 +9,11 @@
 
         {{-- HEADER --}}
         <div class="mb-4 col-span-full xl:mb-2">
-            <div
-            class="p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div class="p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <nav class="flex mb-5" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                     <li class="inline-flex items-center">
-                        <a href="#"
+                        <a href="{{ route('staff_akademik.dashboard') }}"
                             class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-500">
                             <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -33,16 +32,17 @@
                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <a href="#"
+                            <a href="{{ route('staff_akademik.jadwal') }}"
                                 class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-primary-500">Kelola Jadwal</a>
                         </div>
                     </li>
                 </ol>
             </nav>
             
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Kelola Jadwal
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+                Kelola Jadwal Kelas
             </h1>
-            <p class="mb-2 text-gray-300 dark:text-gray-200">Ini merupakan halaman kelola Jadwal</p>
+            <p class="mb-2 text-black-300 dark:text-black-200">Ini merupakan halaman kelola Jadwal</p>
             <div class="flex items-center space-x-4">
                 <!-- TAMBAH JADWAL -->
                 <button onclick="window.location.href='{{ route('staff_akademik.jadwal.create') }}'"
@@ -56,11 +56,11 @@
                 <!-- Vertical Divider Line -->
                 <span class="h-11 w-px bg-gray-300"></span>
                 
-                <!-- EXPORT EXCEL -->
-                <button  onclick="window.location.href='{{ route('staff_akademik.jadwal') }}'"
+                <!-- Import EXCEL -->
+                <button  onclick="window.location.href='{{ route('staff_akademik.jadwal.import') }}'"
                 class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    Export Excel
+                    Import Excel
                     </span>
                 </button>
             </div>
@@ -112,6 +112,21 @@
                             <li>{{ session('error-update') }}</li>
                         </ul>
                     </div>
+                @endif
+
+                <!-- Pesan error excel -->
+                @if (session('error-excel'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    <strong>Terjadi kesalahan saat mengimpor jadwal:</strong>
+                    <ul class="list-disc pl-5">
+                        @foreach (explode(";", session('error-excel')) as $error)
+                        @if ($loop->last)
+                            @break
+                        @endif
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
 
                 <!-- Pesan Sukses -->
@@ -185,7 +200,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -211,7 +226,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -237,7 +252,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -263,7 +278,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -289,7 +304,7 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
@@ -315,7 +330,33 @@
                                             </td>
                                             <td class="flex items-center px-6 py-4">
                                                 <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');" style="display: inline;">
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                @foreach ($data as $item)
+                                    @if ($item->nama_kelas == $kls->nama_kelas && $item->nama_hari=="Minggu")
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td class="px-6 py-4">
+                                                {{ $item->nama_hari }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $item->waktu_mulai }} - {{ $item->waktu_selesai }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $item->nama_matpel }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $item->nama_guru }}
+                                            </td>
+                                            <td class="flex items-center px-6 py-4">
+                                                <a href="{{ route('staff_akademik.jadwal.edit', $item->id_kelas_mata_pelajaran) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                <form action="{{ route('staff_akademik.jadwal.delete', $item->id_kelas_mata_pelajaran) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Delete</button>

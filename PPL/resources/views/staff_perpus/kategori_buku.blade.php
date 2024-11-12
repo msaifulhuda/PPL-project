@@ -84,6 +84,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $arrayCategory->links() }}
+        @php $paginator = $arrayCategory @endphp
+        @include('staff_perpus.komponen.pagination')
     </div>
 </x-staffperpustakaan-layout>

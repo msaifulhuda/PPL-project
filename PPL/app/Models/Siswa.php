@@ -38,7 +38,7 @@ class Siswa extends Authenticatable
     ];
     public function pengurusekstra()
     {
-        return $this->hasMany(PengurusEkstra::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(PengurusEkstra::class);
     }
     public function rapor()
     {
@@ -62,7 +62,11 @@ class Siswa extends Authenticatable
     }
     public function penilaianekstra()
     {
-        return $this->hasMany(penilaian_ekstrakurikuler::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(PenilaianEkstrakurikuler::class);
+    }
+    public function laporanekstra()
+    {
+        return $this->hasMany(LaporanPenilaianEkstrakurikuler::class);
     }
     public function prestasi()
     {
@@ -70,12 +74,10 @@ class Siswa extends Authenticatable
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(registrasi_ekstrakurikuler::class);
     }
-
-    public function kelas()
+    public function kelassiswa()    
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
+        return $this->hasMany(KelasSiswa::class);
     }
-
 }
