@@ -74,7 +74,12 @@ class Siswa extends Authenticatable
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
+        return $this->belongsToMany(Kelas::class, 'kelas_siswas', 'id_siswa', 'id_kelas');
+    }
+
+    public function kelasSiswa()
+    {
+        return $this->hasMany(KelasSiswa::class, 'id_siswa', 'id_siswa');
     }
 
 }

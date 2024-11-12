@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
+use App\Models\hari;
 use App\Models\kelas;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\mata_pelajaran;
@@ -36,8 +37,10 @@ class KelasMataPelajaranSeeder extends Seeder
             ['guru_nama' => 'Guru Pendidikan Jasmani', 'mata_pelajaran' => 'Pendidikan Jasmani'],
             ['guru_nama' => 'Guru TIK', 'mata_pelajaran' => 'TIK'],
             ['guru_nama' => 'Guru Prakarya', 'mata_pelajaran' => 'Prakarya'],
-            ['guru_nama' => 'Guru Bahasa Madura', 'mata_pelajaran' => 'Bahasa'],
+            ['guru_nama' => 'Guru Bahasa Madura', 'mata_pelajaran' => 'Bahasa Madura'],
         ];
+
+        $hari = hari::all()->first()->id_hari;
 
         foreach ($kelasList as $kelas) {
             foreach ($assignments as $assignment) {
@@ -49,9 +52,9 @@ class KelasMataPelajaranSeeder extends Seeder
                         'kelas_id' => $kelas->id_kelas,
                         'mata_pelajaran_id' => $matpel->id_matpel,
                         'guru_id' => $guru->id_guru,
-                        'hari_id' => null,
-                        'waktu_mulai' => null,
-                        'waktu_selesai' => null,
+                        'hari_id' => $hari,
+                        'waktu_mulai' => "10:00",
+                        'waktu_selesai' => "12:00",
                         'tahun_ajaran_id' => $tahunAjaran->id_tahun_ajaran,
                     ]);
                 }

@@ -1,4 +1,4 @@
-<x-app-guru-layout>
+<x-siswa-layout>
     <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         <nav class="flex" aria-label="Breadcrumb">
@@ -156,4 +156,4 @@
             </div>
         </div>
     </div>
-</x-app-guru-layout>
+</x-siswa-layout>

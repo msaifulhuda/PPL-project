@@ -19,8 +19,11 @@ use App\Models\ekstrakurikuler;
 use Illuminate\Database\Seeder;
 use App\Models\guru_mata_pelajaran;
 use App\Models\kelas_mata_pelajaran;
+use App\Models\materi;
 use Database\Seeders\PerpustakaanSeeder;
 use App\Models\registrasi_ekstrakurikuler;
+use App\Models\topik;
+use App\Models\tugas;
 use Database\Seeders\KelasMataPelajaranSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -96,6 +99,13 @@ class DatabaseSeeder extends Seeder
         if (kelas_mata_pelajaran::count() == 0) {
             $this->call([
                 KelasMataPelajaranSeeder::class,
+            ]);
+        }
+
+        // isi topik, materi dan tugas jika belum ada
+        if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {
+            $this->call([
+                TopikTugasMateriSeeder::class,
             ]);
         }
 

@@ -23,14 +23,12 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-// <<<<<<< pengurus-ekstrakurikuler
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
-
-
-// >>>>>>> main
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+use App\Http\Controllers\Siswa\CekSiswaMapel;
+use App\Http\Controllers\siswa\DetailKelasMataPelajaranController;
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 use App\Http\Controllers\staffakademik\JadwalController;
@@ -188,15 +186,14 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}/edit', [StaffperpusController::class, 'editbuku'])->name('staff_perpus.buku.edit');
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
-    
-// >>>>>>>>> Temporary merge branch 2
+
 });
 
 
+
+// Route Siswa
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
-
-
     /**
      * Start Pengurus Ekstrakurikuler
      */
@@ -220,12 +217,17 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      * End Pengurus Ekstrakurikuler
      */
 
+
+
     /**
      * START LMS
      */
     Route::get('/dashboard/lms', [SiswaLmsController::class, 'index'])->name('siswa.dashboard.lms');
     Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi');
     Route::get('/dashboard/lms/tugas', [SiswaLmsController::class, 'tugas'])->name('siswa.dashboard.lms.tugas');
+    Route::get('/dashboard/lms/{id}', [DetailKelasMataPelajaranController::class, 'index'])->name('siswa.dashboard.lms.detail');
+
+
 
     // START PERPUS
 
@@ -284,12 +286,12 @@ Route::group(['prefix' => 'pembina_ekstra', 'middleware' => ['pembina_ekstra']],
 
 
 Route::group(['prefix' => 'ekstrakrikuler'], function () {
-    
+
     Route::get('/', [EkstrakurikulerController::class, 'dashboardEkstra'])->name('ekstrakurikuler.dashboardEkstra');
     Route::group(['middleware' => ['siswa']], function() {
 
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
-    
+
         Route::middleware('auth:web-siswa')->group(function () {
         Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
     });
@@ -306,5 +308,7 @@ Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'dashboardEkst
 // Route untuk halaman detail ekstrakurikuler
 Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])->name('ekstrakurikuler.detail');
 
+
+Route::get('/cek_mapel_siswa', [CekSiswaMapel::class, 'cekMapel'])->name('cek_mapel_siswa');
 
 require __DIR__.'/auth.php';
