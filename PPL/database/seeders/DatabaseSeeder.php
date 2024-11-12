@@ -95,6 +95,7 @@ class DatabaseSeeder extends Seeder
             'id_admin' => $idUser1,
             'username' => 'admin',
             'password' => bcrypt('admin123'),
+            'email'=> 'andreeka852@gmail.com',
         ]);
         $idUser2 = Str::uuid();
         Staffperpus::create([
@@ -102,19 +103,20 @@ class DatabaseSeeder extends Seeder
             'username' => '123456789101',
             'password' => bcrypt('Perpus123'),
         ]);
-        // $idUser3 = Str::uuid();
-        // Staffakademik::create([
-        //     'id_staff_akademik' => $idUser3,
-        //     'username' => '123456789999',
-        //     'password' => bcrypt('Akademik123'),
-        // ]);
+        
+        $idUser3 = Str::uuid();
+        Staffakademik::create([
+            'id_staff_akademik' => $idUser3,
+            'username' => 'akademik',
+            'password' => bcrypt('Akademik123'),
+        ]);
         // Generate UUIDs
         // Create siswa with role 'siswa'
-        // $idUser4 = Str::uuid();
-        // $idUser9 = Str::uuid();
-        // $idUser10 = Str::uuid();
-        // $idUser11 = Str::uuid();
-        // $idUser12 = Str::uuid();
+        $idUser4 = Str::uuid();
+        $idUser9 = Str::uuid();
+        $idUser10 = Str::uuid();
+        $idUser11 = Str::uuid();
+        $idUser12 = Str::uuid();
 
         // Create siswa with role 'pengurus'
         // $idUser5 = Str::uuid();
