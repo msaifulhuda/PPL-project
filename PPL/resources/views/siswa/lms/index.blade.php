@@ -22,7 +22,7 @@
                         @foreach ($mataPelajaranList as $kelasMataPelajaran)
                             <a href="{{route('siswa.dashboard.lms.detail', $kelasMataPelajaran->id_kelas_mata_pelajaran)}}" class="block">
                                 <div class="flex items-center p-4 border-2 border-gray-300 rounded-2xl  hover:bg-gray-100 transition duration-100">
-                                    <div class="p-2 mr-4 bg-purple-100 rounded-full">
+                                    <div class="p-2 mr-4  rounded-full">
                                         <svg width="42" height="47" viewBox="0 0 42 47" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
