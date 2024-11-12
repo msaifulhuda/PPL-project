@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email')->nullable();
-            $table->string('admin_google_key')->nullable();
+            $table->string('google_id')->nullable();
+            $table->string('google_token')->nullable();
         });
     }
 

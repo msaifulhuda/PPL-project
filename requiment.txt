@@ -4,6 +4,7 @@
 ##npm install
 ##copy .env.example kemudian ganti nama menjadi .env.example menjadi .env(.env.example->.env),jika benar maka akan ada (.env.example dan .env)
 ##php artisan key:generate
+##composer require laravel/socialite
 
 -----KERJA-----
 ## sudah dibuat pembagian foldernya

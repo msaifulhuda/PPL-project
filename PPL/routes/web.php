@@ -22,6 +22,7 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\GoogleLoginController;
 // <<<<<<< pengurus-ekstrakurikuler
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
@@ -46,6 +47,9 @@ Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
     Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
 });
+Route::get('/auth/redirect', [GoogleLoginController::class, 'redirect'])->name('auth.redirect');
+Route::get('/auth/google/call-back', [GoogleLoginController::class, 'callback']);
+
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
@@ -103,6 +107,10 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
+    //EDIT PROFILE STAFF AKADEMIK
+    Route::get('/profile', [StaffakademikController::class, 'profile'])->name('staff_akademik.profile');
+    Route::post('/profile/update', [StaffakademikController::class, 'update'])->name('staff_akademik.profile.update');
+    //END PROFILE STAFF AKADEMIK
 
     /**
      * START JADWAL MANAGEMENT

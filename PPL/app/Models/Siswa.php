@@ -33,7 +33,8 @@ class Siswa extends Authenticatable
         'username',
         'password',
         'email',
-        'google_key_siswa',
+        'google_id',
+        'google_token',
     ];
     public function pengurusekstra()
     {
