@@ -99,11 +99,11 @@ class DatabaseSeeder extends Seeder
         // }
 
         // isi Ekskul jika belum ada
-        if (Ekstrakurikuler::count() == 0) {
-            $this->call([
-                EkstrakurikulerSeeder::class,
-            ]);
-        }
+        // if (Ekstrakurikuler::count() == 0) {
+        //     $this->call([
+        //         EkstrakurikulerSeeder::class,
+        //     ]);
+        // }
 
         // isi kelas mata pelajaran jika belum ada
         if (kelas_mata_pelajaran::count() == 0) {
@@ -119,19 +119,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $idUser1 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser1,
-            'username' => 'admin',
-            'password' => bcrypt('admin123'),
-            'email'=> 'andreeka852@gmail.com',
-        ]);
-        $idUser2 = Str::uuid();
-        Staffperpus::create([
-            'id_staff_perpustakaan' => $idUser2,
-            'username' => '123456789101',
-            'password' => bcrypt('Perpus123'),
-        ]);
+        // $idUser1 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser1,
+        //     'username' => 'admin',
+        //     'password' => bcrypt('admin123'),
+        //     'email'=> 'andreeka852@gmail.com',
+        // ]);
+        // $idUser2 = Str::uuid();
+        // Staffperpus::create([
+        //     'id_staff_perpustakaan' => $idUser2,
+        //     'username' => '123456789101',
+        //     'password' => bcrypt('Perpus123'),
+        // ]);
 
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
@@ -189,21 +189,21 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $idUser3 = Str::uuid();
-        Staffakademik::create([
-            'id_staff_akademik' => $idUser3,
-            'username' => 'akademik',
-            'password' => bcrypt('Akademik123'),
-        ]);
+        // $idUser3 = Str::uuid();
+        // Staffakademik::create([
+        //     'id_staff_akademik' => $idUser3,
+        //     'username' => 'akademik',
+        //     'password' => bcrypt('Akademik123'),
+        // ]);
 
 
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
 
-        // $this->call([
-        //     EkstrakurikulerPengurusSeeder::class,
-        // ]);
+        $this->call([
+            EkstrakurikulerPengurusSeeder::class,
+        ]);
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
