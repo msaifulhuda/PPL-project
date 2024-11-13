@@ -8,7 +8,6 @@ class SiswaController extends Controller
 {
         public function index()
     {
-        // Logic for the dashboard, e.g., fetching data or statistics for the dashboard view
-        return view('siswa.dashboard'); // Adjust view path as needed
+        return view('siswa.dashboard');
     }
 }
