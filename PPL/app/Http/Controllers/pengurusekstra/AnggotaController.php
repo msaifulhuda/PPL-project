@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers\pengurusekstra;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
+use Illuminate\Http\Request;
+use App\Models\PengurusEkstra;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\registrasi_ekstrakurikuler;
 
 class AnggotaController extends Controller
 {
     public function index(Request $request)
     {
+        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler', 'siswa')->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->get()->first();
         $perPage = 7; // Jumlah item per halaman
         $currentPage = $request->input('page', 1); // Halaman saat ini
 
-        // Query data anggota
-        $query = Siswa::select('nama_siswa as name', 'nisn', 'alamat_siswa as address')
-                        ->where('role_siswa', 'siswa');
+        $siswa = registrasi_ekstrakurikuler::with('siswa')->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)->get();
+        $query = $siswa->pluck('siswa');
 
         $totalItems = $query->count(); // Total jumlah item
         $totalPages = (int) ceil($totalItems / $perPage); // Total halaman
-        $members = $query->skip(($currentPage - 1) * $perPage)->take($perPage)->get();
-
-        // Username pengguna yang sedang login
-        $loggedInUsername = Auth::check() ? Auth::user()->username : 'Anonymous';
+        $members = $query->skip(($currentPage - 1) * $perPage)->take($perPage)->all();
 
         return view('pengurus_ekstra.anggota.index', [
+            'ekstrakurikuler' => $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler,
             'members' => $members,
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
             'totalItems' => $totalItems,
-            'loggedInUsername' => $loggedInUsername,
+            'loggedInUsername' => $pengurusEkstra->siswa->nama_siswa,
             'perPage' => $perPage, // Kirim $perPage ke view
         ]);
     }

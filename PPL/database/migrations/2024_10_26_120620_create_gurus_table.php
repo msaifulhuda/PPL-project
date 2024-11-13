@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nip')->nullable();
             $table->string('nama_guru')->nullable();
             $table->string('email')->nullable();
-            $table->string('google_key_guru')->nullable();
+            $table->string('google_id')->nullable();
+            $table->string('google_token')->nullable();
             $table->string('foto_guru')->nullable();
             $table->string('nomor_wa_guru')->nullable();
             $table->string('username')->default('guru');

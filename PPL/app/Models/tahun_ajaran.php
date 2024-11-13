@@ -64,14 +64,14 @@ class tahun_ajaran extends Model
     }
     public function kelasmatapelajaran()
     {
-        return $this->hasMany(kelas_mata_pelajaran::class,'tahun_ajaran','id_tahun_ajaran');
+        return $this->hasMany(kelas_mata_pelajaran::class);
     }
     public function penilaianekstra()
     {
-        return $this->hasMany(penilaian_ekstrakurikuler::class,'id_tahun_ajaran','id_tahun_ajaran');
+        return $this->hasMany(PenilaianEkstrakurikuler::class);
     }
     public function kelassiswa()
     {
-        return $this->hasMany(KelasSiswa::class,'id_tahun_ajaran','id_tahun_ajaran');
+        return $this->hasMany(KelasSiswa::class);
     }
 }

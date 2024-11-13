@@ -100,8 +100,8 @@
                         <select name="jam_pelajaran" id="jam_pelajaran" class="border-gray-300 rounded-md w-full">
                             <option value="07:00-09:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '07:00-09:00' ? 'selected' : '' }}>07:00-09:00</option>
                             <option value="10:00-12:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '10:00-12:00' ? 'selected' : '' }}>10:00-12:00</option>
-                            <option value="13:00-14:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '13:00-14:00' ? 'selected' : '' }}>13:00-14:00</option>
-                            <option value="14:00-16:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '14:00-16:00' ? 'selected' : '' }}>14:00-16:00</option>
+                            <option value="13:00-15:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '13:00-15:00' ? 'selected' : '' }}>13:00-15:00</option>
+                            <option value="15:01-16:00" {{ $jadwal->waktu_mulai . '-' . $jadwal->waktu_selesai == '15:01-16:00' ? 'selected' : '' }}>15:01-16:00</option>
                         </select>
                     </div>                    
 
