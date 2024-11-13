@@ -15,9 +15,7 @@ use Illuminate\Support\Str;
 use App\Models\tahun_ajaran;
 use App\Models\Staffakademik;
 use App\Models\mata_pelajaran;
-<<<<<<< HEAD
 use App\Models\PengurusEkstra;
-use App\Models\ekstrakurikuler;
 use Illuminate\Database\Seeder;
 use App\Models\guru_mata_pelajaran;
 use App\Models\kelas_mata_pelajaran;
@@ -27,12 +25,9 @@ use App\Models\registrasi_ekstrakurikuler;
 use App\Models\topik;
 use App\Models\tugas;
 use Database\Seeders\KelasMataPelajaranSeeder;
-=======
-use Illuminate\Database\Seeder;
-use App\Models\guru_mata_pelajaran;
-use Database\Seeders\PerpustakaanSeeder;
+
 use Database\Seeders\EkstrakurikulerSeeder;
->>>>>>> 836ae5189c38e96c060669829c37d9122543860d
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -137,7 +132,7 @@ class DatabaseSeeder extends Seeder
             'username' => '123456789101',
             'password' => bcrypt('Perpus123'),
         ]);
-<<<<<<< HEAD
+
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
         //     'id_staff_akademik' => $idUser3,
@@ -192,20 +187,20 @@ class DatabaseSeeder extends Seeder
         //     'role_siswa' => 'siswa',
         // ]);
 
-=======
-        
+
+
         $idUser3 = Str::uuid();
         Staffakademik::create([
             'id_staff_akademik' => $idUser3,
             'username' => 'akademik',
             'password' => bcrypt('Akademik123'),
         ]);
->>>>>>> 836ae5189c38e96c060669829c37d9122543860d
+
 
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
-<<<<<<< HEAD
+
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
@@ -250,7 +245,6 @@ class DatabaseSeeder extends Seeder
         //     'id_pengurus' => $id_pengurus[3],
         //     'id_ekstrakurikuler' => $id_ekstra[3]
         // ]);
-=======
->>>>>>> 836ae5189c38e96c060669829c37d9122543860d
+
     }
 }
