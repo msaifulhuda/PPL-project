@@ -8,7 +8,7 @@
             <div class="text-sm text-gray-500 mb-4">
                 Dashboard > <span class="font-semibold text-gray-700">Anggota</span>
             </div>
-            <h2 class="text-2xl font-semibold text-gray-800">Anggota Ekstrakurikuler</h2>
+            <h2 class="text-2xl font-semibold text-gray-800">Anggota Ekstrakurikuler {{ $ekstrakurikuler }}</h2>
             <div class="mt-2 text-gray-600">
                 <p>Pengurus: <span class="font-semibold text-gray-700">{{ $loggedInUsername }}</span></p>
                 <p>Tahun Ajaran: <span class="font-semibold text-gray-700">2024/2025</span></p>
@@ -35,9 +35,9 @@
                     @foreach ($members as $index => $member)
                     <tr class="hover:bg-gray-50">
                         <td class="p-2 border-b">{{ ($currentPage - 1) * $perPage + $loop->iteration }}</td>
-                        <td class="p-2 border-b">{{ $member->name }}</td>
+                        <td class="p-2 border-b">{{ $member->nama_siswa }}</td>
                         <td class="p-2 border-b">{{ $member->nisn }}</td>
-                        <td class="p-2 border-b">{{ $member->address }}</td>
+                        <td class="p-2 border-b">{{ $member->alamat_siswa }}</td>
                         <td class="p-2 border-b">
                             @php
                                 $lastDigit = is_numeric($member->nisn) ? intval(substr($member->nisn, -1)) : null;
