@@ -27,6 +27,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                
             </main>
 
             @include('layouts.siswa.footer')

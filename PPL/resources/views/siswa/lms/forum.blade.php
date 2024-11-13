@@ -56,6 +56,7 @@
                                 <p class="text-gray-500">Tidak ada tugas mendatang</p>
                             @endforelse
                         </ul>
+                        <p class="text-right text-sm text-blue-500"><a href="">Lihat Semua</a></p>
 
                     </div>
 
