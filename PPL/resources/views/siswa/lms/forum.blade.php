@@ -45,7 +45,7 @@
                         <ul class="text-sm text-gray-600 space-y-3">
                             @forelse ($tugasMendatang as $tugas)
                                 <li>
-                                    <p class="text-gray-600">Tanggal:
+                                    <p class="text-gray-600">Tenggat:
                                         {{ Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y') }}</p>
                                     <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
                                         class="text-blue-500 underline">

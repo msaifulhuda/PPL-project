@@ -31,7 +31,7 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="text-lg font-semibold text-gray-800">{{$kelasMataPelajaran->mataPelajaran->nama_matpel}}</h4>
+                                        <h4 class="text-lg lg:text-xl font-semibold text-gray-800">{{$kelasMataPelajaran->mataPelajaran->nama_matpel}}</h4>
                                         </h4>
                                         <p class="text-sm text-gray-500">{{$kelasMataPelajaran->hari->nama_hari}}, {{$kelasMataPelajaran->waktu_mulai}} - {{$kelasMataPelajaran->waktu_selesai}} WIB</p>
                                         <p class="text-sm text-gray-500">{{ $kelasMataPelajaran->guru->nama_guru}}</p>
