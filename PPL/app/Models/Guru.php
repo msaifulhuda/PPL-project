@@ -15,7 +15,7 @@ class Guru extends Authenticatable
 
     protected $primaryKey = 'id_guru';
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $keyType = 'string';
 
     protected $table = 'guru';

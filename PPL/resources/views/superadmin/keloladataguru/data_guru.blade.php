@@ -15,7 +15,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
-                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <b>Kelola Data Guru</b>
+                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
+                    <a href="{{ route('superadmin.keloladataguru') }}" class="text-black-500 hover:underline"><b>Kelola Data Guru</b></a>
                 </nav>                                   
 
                 <h3 class="text-lg font-semibold mb-4">Kelola Data Guru</h3>
