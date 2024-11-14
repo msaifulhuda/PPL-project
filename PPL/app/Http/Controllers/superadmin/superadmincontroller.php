@@ -72,7 +72,7 @@ class SuperadminController extends Controller
     {
         $siswa = Siswa::findOrFail($id_siswa);
         $siswa->delete();
-        return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data guru berhasil dihapus.');
+        return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil dihapus.');
     }
     public function edit($id)
     {
@@ -129,18 +129,6 @@ public function update(UpdateGuruRequest $request, $id_guru)
 }
 public function storeSiswa(Request $request)
     {
-        // Validate the incoming request data
-        // $request->validate([
-        //     'nisn' => 'required|string|max:20|unique:siswa,nisn',
-        //     'nama_siswa' => 'required|string|max:255',
-        //     'tgl_lahir_siswa' => 'required|date',
-        //     'jenis_kelamin_siswa' => 'required|string|max:10',
-        //     'alamat_siswa' => 'nullable|string|max:255',
-        //     'nomor_wa_siswa' => 'nullable|string|max:15',
-        //     'username' => 'required|string|max:20|unique:siswa,username',
-        //     'password' => 'required|string|min:6',
-        //     'email' => 'required|email|unique:siswa,email',
-        // ]);
         $siswa = new Siswa();
         $siswa->nisn = $request->nisn;
         $siswa->nama_siswa = $request->nama_siswa;
@@ -155,7 +143,7 @@ public function storeSiswa(Request $request)
         $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
         if ($request->hasFile('foto_siswa')) {
             $fileName = time() . '.' . $request->foto_siswa->extension();
-            $request->foto_siswa->move(public_path('public/images/siswa'), $fileName);
+            $request->foto_siswa->move(public_path('images/siswa'), $fileName);
             $siswa->foto_siswa = $fileName;
         }
         $siswa->save();
@@ -164,16 +152,6 @@ public function storeSiswa(Request $request)
 
     public function siswaUpdate(Request $request, $id_siswa)
 {
-    // Validate the form data
-    // $request->validate([
-    //     'nama_siswa' => 'required|string|max:255',
-    //     'nisn' => 'required|string|unique:siswa,nisn,' . $id_siswa . ',id_siswa',
-    //     'username' => 'required|string|unique:siswa,username,' . $id_siswa . ',id_siswa',
-    //     'email' => 'required|email|unique:siswa,email,' . $id_siswa . ',id_siswa',
-    //     'foto_siswa' => 'nullable|image|max:2048',
-    //     'password' => 'nullable|string|min:8',
-    // ]);
-    // $siswa = KelasSiswa::with('siswa', 'kelas')->where('id_siswa', $id_siswa)->firstOrFail();
     $siswa = Siswa::findOrFail($id_siswa);
     $siswa->nama_siswa = $request->nama_siswa;
     $siswa->nisn = $request->nisn;
@@ -189,7 +167,7 @@ public function storeSiswa(Request $request)
     }
     if ($request->hasFile('foto_siswa')) {
         $fileName = time() . '.' . $request->foto_siswa->extension();
-        $request->foto_siswa->move(public_path('images/siswa/'), $fileName);
+        $request->foto_siswa->move(public_path('images/siswa'), $fileName);
         $siswa->foto_siswa = $fileName;
     }
     $siswa->save();

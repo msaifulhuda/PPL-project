@@ -4,8 +4,14 @@
             {{ __('Kelola Data Siswa') }}
         </h2>
     </x-slot>
-
+    
     <div class="py-12">
+        @if(session('success'))
+            <div id="success-message" class="bg-green-500 text-white text-center py-2 px-4 rounded-md shadow-md mb-6">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
@@ -41,11 +47,7 @@
                         @foreach ($siswaData as $siswa)
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="py-3 px-4 text-left">
-                                    @if ($siswa->foto_siswa)
-                                        <img src="{{ asset('images/siswa/' . $siswa->foto_siswa) }}" alt="Foto" class="w-10 h-10 rounded-full">
-                                    @else
-                                        -
-                                    @endif
+                                    <img src="{{ asset('images/siswa/' . $siswa->foto_siswa) }}" alt="Foto" class="w-10 h-10 rounded-full">
                                 </td>
                                 <td class="py-3 px-4">{{ $siswa->nama_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->jenis_kelamin_siswa }}</td>

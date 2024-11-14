@@ -96,9 +96,7 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     Route::get('/kelola-akun/data-siswa/tambah', [SuperadminController::class, 'createSiswa'])->name('data.siswa.tambah');
     // Untuk Menambah Data
     Route::post('/kelola-akun/data-guru/store', [SuperadminController::class, 'store'])->name('guru.store');
-    Route::post('/kelola-akun/data-guru', [SuperadminController::class, 'store'])->name('guru.store');
     Route::post('/kelola-akun/data-siswa/store', [SuperadminController::class, 'storeSiswa'])->name('siswa.store');
-    Route::post('kelola-akun/data-siswa', [SuperadminController::class, 'storeSiswa'])->name('siswa.store');
     // Untuk Menghapus Data
     Route::delete('/kelola-akun/data-guru/{id}', [SuperadminController::class, 'destroy'])->name('guru.destroy');
     Route::delete('/kelola-akun/data-siswa/{id}', [SuperadminController::class, 'siswaDestroy'])->name('siswa.destroy');
