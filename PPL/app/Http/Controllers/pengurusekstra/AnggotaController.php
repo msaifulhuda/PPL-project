@@ -6,41 +6,62 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Models\PengurusEkstra;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 
 class AnggotaController extends Controller
 {
     public function index(Request $request)
     {
-        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler', 'siswa')->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->get()->first();
-        $perPage = 7; // Jumlah item per halaman
-        $currentPage = $request->input('page', 1); // Halaman saat ini
+        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler', 'siswa')
+            ->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)
+            ->first();
 
-        $siswa = registrasi_ekstrakurikuler::with('siswa')->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)->get();
-        $query = $siswa->pluck('siswa');
+        $perPage = 7;
+        $currentPage = $request->input('page', 1);
 
-        $totalItems = $query->count(); // Total jumlah item
-        $totalPages = (int) ceil($totalItems / $perPage); // Total halaman
-        $members = $query->skip(($currentPage - 1) * $perPage)->take($perPage)->all();
+        $siswa = RegistrasiEkstrakurikuler::with('siswa')
+            ->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)
+            ->get();
+
+        $members = $siswa->map(function ($registrasi) {
+            // Mengatur status dari registrasi pada objek siswa
+            $registrasi->siswa->status = $registrasi->status;
+            return $registrasi->siswa;
+        });
+
+        // Paginasi manual
+        $totalItems = $members->count();
+        $totalPages = (int) ceil($totalItems / $perPage);
+        $paginatedMembers = $members->slice(($currentPage - 1) * $perPage, $perPage);
 
         return view('pengurus_ekstra.anggota.index', [
             'ekstrakurikuler' => $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler,
-            'members' => $members,
+            'members' => $paginatedMembers,
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
             'totalItems' => $totalItems,
             'loggedInUsername' => $pengurusEkstra->siswa->nama_siswa,
-            'perPage' => $perPage, // Kirim $perPage ke view
+            'perPage' => $perPage,
         ]);
     }
 
-    // Metode untuk memperbarui status anggota
     public function updateStatus(Request $request, $id)
     {
-        $member = Siswa::findOrFail($id); // Temukan anggota berdasarkan ID
-        $member->status = $request->input('status'); // Perbarui status
-        $member->save(); // Simpan perubahan ke database
+        // Mendapatkan informasi ekstra untuk siswa saat ini
+        $pengurusEkstra = PengurusEkstra::where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->first();
+
+        if (!$pengurusEkstra) {
+            return redirect()->route('pengurus_ekstra.anggota')->withErrors('Ekstrakurikuler tidak ditemukan untuk siswa ini.');
+        }
+
+        // Cari registrasi terkait dalam `RegistrasiEkstrakurikuler` untuk siswa dan ekstrakurikuler tertentu
+        $registration = RegistrasiEkstrakurikuler::where('id_siswa', $id)
+            ->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)
+            ->firstOrFail();
+
+        // Memperbarui status dari permintaan
+        $registration->status = $request->input('status');
+        $registration->save();
 
         return redirect()->route('pengurus_ekstra.anggota')->with('success', 'Status berhasil diperbarui.');
     }

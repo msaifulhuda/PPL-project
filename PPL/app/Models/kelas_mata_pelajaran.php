@@ -6,11 +6,51 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+
 class kelas_mata_pelajaran extends Model
 {
-    use Notifiable, HasUuids;
+    use Notifiable;
 
+    /**
+     * The "booting" function of model
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (! $model->getKey()) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
 
+    /**
+     * Get the value indicating whether the IDs are incrementing.
+     *
+     * @return bool
+     */
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    /**
+     * Get the auto-incrementing key type.
+     *
+     * @return string
+     */
+    public function getKeyType()
+    {
+        return 'string';
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $table = 'kelas_mata_pelajaran';
     protected $primaryKey = 'id_kelas_mata_pelajaran';
     public $timestamps = false;
@@ -48,11 +88,11 @@ class kelas_mata_pelajaran extends Model
     }
     public function materi()
     {
-        return $this->hasMany(Materi::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
+        return $this->hasMany(materi::class);
     }
     public function pertemuan()
     {
-        return $this->hasMany(pertemuan::class );
+        return $this->hasMany(pertemuan::class);
     }
     public function topik()
     {
