@@ -4,9 +4,8 @@ namespace App\Http\Controllers\pembinaekstra;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Siswa;
 use App\Models\Ekstrakurikuler;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 
 class PembinaAnggotaController extends Controller
 {
@@ -25,7 +24,7 @@ class PembinaAnggotaController extends Controller
         $currentPage = $request->input('page', 1);
 
         // Ambil anggota ekstrakurikuler berdasarkan `id_ekstrakurikuler` dari pembina
-        $siswa = registrasi_ekstrakurikuler::with('siswa')
+        $siswa = RegistrasiEkstrakurikuler::with('siswa')
             ->where('id_ekstrakurikuler', $pembinaEkstra->id_ekstrakurikuler)
             ->get();
 

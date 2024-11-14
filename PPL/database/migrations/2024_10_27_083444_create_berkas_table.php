@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('berkas', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id_berkas')->primary();
             $table->uuid('id_registrasi');
-            $table->foreign('id_registrasi')->references('id_registrasi')->on('registrasi_ekstrakurikuler');
+            $table->foreign('id_registrasi')->references('id_registrasi')->on('RegistrasiEkstrakurikuler');
             $table->string('surat_izin_ortu');
             $table->string('surat_riwayat_penyakit');
         });

@@ -73,7 +73,7 @@ class Siswa extends Authenticatable
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class);
+        return $this->hasMany(RegistrasiEkstrakurikuler::class);
     }
     public function kelassiswa()
     {

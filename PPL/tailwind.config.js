@@ -18,8 +18,13 @@ export default {
         },
     },
 
-    plugins: [forms,require('flowbite/plugin')({
-        charts: true,
-    }),
+    plugins: [
+        forms,
+        require('flowbite/plugin')({
+            charts: true,
+            wysiwyg: true,
+            datatables: true,
+        }),
+        require('flowbite-typography')
   ],
 };
