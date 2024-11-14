@@ -56,4 +56,6 @@ class TugasSiswaController extends Controller
     {
         return view('siswa.lms.detail_tugas');
     }
+
+    
 }

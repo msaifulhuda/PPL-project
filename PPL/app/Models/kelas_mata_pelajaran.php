@@ -44,7 +44,7 @@ class kelas_mata_pelajaran extends Model
 
     public function tahunAjaran()
     {
-        return $this->belongsTo(tahun_ajaran::class, 'tahun_ajaran', 'id_tahun_ajaran');
+        return $this->belongsTo(tahun_ajaran::class, 'tahun_ajaran_id', 'id_tahun_ajaran');
     }
     public function materi()
     {
