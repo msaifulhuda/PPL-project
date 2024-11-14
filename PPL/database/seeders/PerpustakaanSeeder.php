@@ -78,6 +78,7 @@ class PerpustakaanSeeder extends Seeder
                 'stok_buku' => rand(1, 20),
                 'rak_buku' => rand(1, 10),
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
+                'harga_buku' => rand(20000, 300000)
             ]);
 
             if ($number >= 80) {
@@ -94,7 +95,7 @@ class PerpustakaanSeeder extends Seeder
                 'tgl_awal_peminjaman' => randomDate($startDate2, $endDate2),
                 'tgl_pengembalian' => $endDate3,
                 'denda' => 0,
-                'status_pengembalian' => rand(0, 1, 2), // 0 : Belum Dikembalikan 1 : Sudah Dikembalikan 2 : Hilang
+                'status_pengembalian' => rand(0, 2), // 0 : Belum Dikembalikan 1 : Sudah Dikembalikan 2 : Hilang
                 'jenis_peminjam' => rand(0, 1), // 0 : False, 1 : True
                 'status_denda' => rand(0, 1), // 0 : False, 1 : True
             ]);
