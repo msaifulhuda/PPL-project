@@ -21,7 +21,7 @@ use App\Models\guru_mata_pelajaran;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\materi;
 use Database\Seeders\PerpustakaanSeeder;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 use App\Models\topik;
 use App\Models\tugas;
 use Database\Seeders\KelasMataPelajaranSeeder;
@@ -217,31 +217,31 @@ class DatabaseSeeder extends Seeder
         // $id_pengurus = [session('id_pengurus1'), session('id_pengurus2'), session('id_pengurus3'), session('id_pengurus4')];
         // $id_ekstra = [session('id_ekstra1'), session('id_ekstra2'), session('id_ekstra3'), session('id_ekstra4')];
 
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser4,
         //     'id_pengurus' => $id_pengurus[0],
         //     'id_ekstrakurikuler' => $id_ekstra[0]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser9,
         //     'id_pengurus' => $id_pengurus[1],
         //     'id_ekstrakurikuler' => $id_ekstra[1]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser10,
         //     'id_pengurus' => $id_pengurus[2],
         //     'id_ekstrakurikuler' => $id_ekstra[2]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser11,
         //     'id_pengurus' => $id_pengurus[3],
         //     'id_ekstrakurikuler' => $id_ekstra[3]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser12,
         //     'id_pengurus' => $id_pengurus[3],

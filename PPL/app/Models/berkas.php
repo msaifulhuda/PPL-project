@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class berkas extends Model
+class Berkas extends Model
 {
     public $timestamps = false;
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_berkas';
 
     /**
      * The "booting" function of model
@@ -59,7 +58,7 @@ class berkas extends Model
     ];
     public function registrasiEkstrakurikuler()
     {
-        return $this->belongsTo(registrasi_ekstrakurikuler::class, 'id_registrasi', 'id_registrasi');
+        return $this->belongsTo(RegistrasiEkstrakurikuler::class, 'id_registrasi', 'id_registrasi');
     }
 
 }
