@@ -57,6 +57,7 @@ class Ekstrakurikuler extends Model
          'nama_ekstrakurikuler',
          'deskripsi',
          'gambar',
+         'status'
      ];
      /**
      * Relationship with PembinaEkstra
@@ -71,30 +72,34 @@ class Ekstrakurikuler extends Model
      */
     public function nilaiekstra()
     {
-        return $this->hasMany(Nilai_ekstra::class );
+        return $this->hasMany(Nilai_ekstra::class);
     }
     public function pengurusekstra()
     {
-        return $this->hasMany(PengurusEkstra::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
+        return $this->hasMany(PengurusEkstra::class);
     }
     public function inventarisekstra()
     {
-        return $this->hasMany(InventarisEkstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
+        return $this->hasMany(InventarisEkstrakurikuler::class);
     }
     public function laporanpenilaianekstra()
     {
-        return $this->hasMany(laporan_penilaian_ekstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler' );
+        return $this->hasMany(LaporanPenilaianEkstrakurikuler::class);
     }
     public function postinganekstra()
     {
-        return $this->hasMany(posting_ekstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
+        return $this->hasMany(posting_ekstrakurikuler::class);
     }
     public function prestasiekstra()
     {
-        return $this->hasMany(prestasi_ektrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler');
+        return $this->hasMany(PrestasiEkstrakurikuler::class);
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class,'id_ekstrakurikuler', 'id_ekstrakurikuler' );
+        return $this->hasMany(registrasi_ekstrakurikuler::class );
+    }
+    public function penilaianekstra()
+    {
+        return $this->hasMany(PenilaianEkstrakurikuler::class);
     }
 }

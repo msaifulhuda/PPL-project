@@ -51,14 +51,18 @@ class materi extends Model
      * @var array
      */
     protected $table = 'materi';
-
     protected $primaryKey = 'id_materi';
+    public $timestamps = false;
+    protected $keyType = 'string';
+    public $incrementing = false;
+
 
     protected $fillable = [
         'judul_materi',
         'topik_id',
         'kelas_mata_pelajaran_id',
         'tanggal_dibuat',
+        'deskripsi',
         'status',
     ];
     public function topik()
@@ -78,4 +82,5 @@ class materi extends Model
     {
         return $this->hasMany(notifikasi_sistem::class, 'id_pengurus', 'id_pengurus_ekstra');
     }
+
 }

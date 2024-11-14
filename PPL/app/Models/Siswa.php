@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,11 +32,12 @@ class Siswa extends Authenticatable
         'username',
         'password',
         'email',
-        'google_key_siswa',
+        'google_id',
+        'google_token',
     ];
     public function pengurusekstra()
     {
-        return $this->hasMany(PengurusEkstra::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(PengurusEkstra::class);
     }
     public function rapor()
     {
@@ -61,7 +61,11 @@ class Siswa extends Authenticatable
     }
     public function penilaianekstra()
     {
-        return $this->hasMany(penilaian_ekstrakurikuler::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(PenilaianEkstrakurikuler::class);
+    }
+    public function laporanekstra()
+    {
+        return $this->hasMany(LaporanPenilaianEkstrakurikuler::class);
     }
     public function prestasi()
     {
@@ -69,12 +73,14 @@ class Siswa extends Authenticatable
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class,'id_siswa', 'id_siswa' );
+        return $this->hasMany(registrasi_ekstrakurikuler::class);
     }
-
+    public function kelassiswa()
+    {
+        return $this->hasMany(KelasSiswa::class);
+    }
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
+        return $this->belongsToMany(Kelas::class, 'kelas_siswas', 'id_siswa', 'id_kelas');
     }
-
 }

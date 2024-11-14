@@ -15,6 +15,8 @@ return new class extends Migration
 
         Schema::create('penilaian_ekstrakurikuler', function (Blueprint $table) {
             $table->uuid('id_penilaian_ekstrakurikuler')->primary();
+            $table->uuid('id_ekstrakurikuler');
+            $table->foreign('id_ekstrakurikuler')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
             $table->uuid('id_siswa');
             $table->foreign('id_siswa')->references('id_siswa')->on('siswa');
             $table->uuid('id_tahun_ajaran');
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->uuid('id_laporan');
             $table->foreign('id_laporan')->references('id_laporan')->on('laporan_penilaian_ekstrakurikuler');
             $table->enum('penilaian', ["A", "B", "C", "D", "E"]);
+            $table->timestamp('tgl_penilaian')->useCurrent()->useCurrentOnUpdate();
         });
 
         Schema::enableForeignKeyConstraints();

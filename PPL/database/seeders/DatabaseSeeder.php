@@ -2,20 +2,32 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ekstrakurikuler;
 use App\Models\Guru;
+use App\Models\hari;
+use App\Models\User;
+use App\Models\kelas;
 use App\Models\Siswa;
+use App\Models\KelasSiswa;
 use App\Models\Superadmin;
 use App\Models\Staffperpus;
-use App\Models\Staffakademik;
-use App\Models\guru_mata_pelajaran;
-use App\Models\hari;
-use App\Models\kelas;
-use App\Models\KelasSiswa;
-use App\Models\mata_pelajaran;
-use App\Models\tahun_ajaran;
-
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\tahun_ajaran;
+use App\Models\Staffakademik;
+use App\Models\mata_pelajaran;
+use App\Models\PengurusEkstra;
+use Illuminate\Database\Seeder;
+use App\Models\guru_mata_pelajaran;
+use App\Models\kelas_mata_pelajaran;
+use App\Models\materi;
+use Database\Seeders\PerpustakaanSeeder;
+use App\Models\registrasi_ekstrakurikuler;
+use App\Models\topik;
+use App\Models\tugas;
+use Database\Seeders\KelasMataPelajaranSeeder;
+
+use Database\Seeders\EkstrakurikulerSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -80,9 +92,30 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi staff akademik jika belum ada
-        if (Staffakademik::count() == 0) {
+        // if (Staffakademik::count() == 0) {
+        //     $this->call([
+        //         StaffAkademikSeeder::class,
+        //     ]);
+        // }
+
+        // isi Ekskul jika belum ada
+        if (Ekstrakurikuler::count() == 0) {
             $this->call([
-                StaffAkademikSeeder::class,
+                EkstrakurikulerSeeder::class,
+            ]);
+        }
+
+        // isi kelas mata pelajaran jika belum ada
+        if (kelas_mata_pelajaran::count() == 0) {
+            $this->call([
+                KelasMataPelajaranSeeder::class,
+            ]);
+        }
+
+        // isi topik, materi dan tugas jika belum ada
+        if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {
+            $this->call([
+                TopikTugasMateriSeeder::class,
             ]);
         }
 
@@ -91,6 +124,7 @@ class DatabaseSeeder extends Seeder
             'id_admin' => $idUser1,
             'username' => 'admin',
             'password' => bcrypt('admin123'),
+            'email'=> 'andreeka852@gmail.com',
         ]);
         $idUser2 = Str::uuid();
         Staffperpus::create([
@@ -98,6 +132,7 @@ class DatabaseSeeder extends Seeder
             'username' => '123456789101',
             'password' => bcrypt('Perpus123'),
         ]);
+
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
         //     'id_staff_akademik' => $idUser3,
@@ -121,38 +156,54 @@ class DatabaseSeeder extends Seeder
         session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
 
         // Create siswa with role 'siswa'
-        Siswa::create([
-            'id_siswa' => $idUser4,
-            'username' => 'siswa',
-            'password' => bcrypt('siswa'),
-            'role_siswa' => 'siswa',
-        ]);
-        Siswa::create([
-            'id_siswa' => $idUser9,
-            'username' => 'siswa2',
-            'password' => bcrypt('siswa2'),
-            'role_siswa' => 'siswa',
-        ]);
-        Siswa::create([
-            'id_siswa' => $idUser10,
-            'username' => 'siswa3',
-            'password' => bcrypt('siswa3'),
-            'role_siswa' => 'siswa',
-        ]);
-        Siswa::create([
-            'id_siswa' => $idUser11,
-            'username' => 'siswa4',
-            'password' => bcrypt('siswa4'),
-            'role_siswa' => 'siswa',
-        ]);
-        Siswa::create([
-            'id_siswa' => $idUser12,
-            'username' => 'siswa12',
-            'password' => bcrypt('siswa12'),
-            'role_siswa' => 'siswa',
+        // Siswa::create([
+        //     'id_siswa' => $idUser4,
+        //     'username' => 'siswa',
+        //     'password' => bcrypt('siswa'),
+        //     'role_siswa' => 'siswa',
+        // ]);
+        // Siswa::create([
+        //     'id_siswa' => $idUser9,
+        //     'username' => 'siswa2',
+        //     'password' => bcrypt('siswa2'),
+        //     'role_siswa' => 'siswa',
+        // ]);
+        // Siswa::create([
+        //     'id_siswa' => $idUser10,
+        //     'username' => 'siswa3',
+        //     'password' => bcrypt('siswa3'),
+        //     'role_siswa' => 'siswa',
+        // ]);
+        // Siswa::create([
+        //     'id_siswa' => $idUser11,
+        //     'username' => 'siswa4',
+        //     'password' => bcrypt('siswa4'),
+        //     'role_siswa' => 'siswa',
+        // ]);
+        // Siswa::create([
+        //     'id_siswa' => $idUser12,
+        //     'username' => 'siswa12',
+        //     'password' => bcrypt('siswa12'),
+        //     'role_siswa' => 'siswa',
+        // ]);
+
+
+
+        $idUser3 = Str::uuid();
+        Staffakademik::create([
+            'id_staff_akademik' => $idUser3,
+            'username' => 'akademik',
+            'password' => bcrypt('Akademik123'),
         ]);
 
 
+        // $this->call([
+        //     KelasMapelGuruJadwalAjaranSeeder::class,
+        // ]);
+
+        // $this->call([
+        //     EkstrakurikulerPengurusSeeder::class,
+        // ]);
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
@@ -204,5 +255,6 @@ class DatabaseSeeder extends Seeder
         //     'id_pengurus' => $id_pengurus[3],
         //     'id_ekstrakurikuler' => $id_ekstra[3]
         // ]);
+
     }
 }

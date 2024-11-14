@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -15,17 +16,16 @@ class kelas_mata_pelajaran extends Model
      *
      * @return void
      */
-    protected static function boot()
-    {
+    protected static function boot() {
         parent::boot();
         static::creating(function ($model) {
-            if (! $model->getKey()) {
+            if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-    /**
+     /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -53,6 +53,9 @@ class kelas_mata_pelajaran extends Model
     protected $table = 'kelas_mata_pelajaran';
     protected $primaryKey = 'id_kelas_mata_pelajaran';
     public $timestamps = false;
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
         'id_kelas_mata_pelajaran',
         'kelas_id',
@@ -84,7 +87,7 @@ class kelas_mata_pelajaran extends Model
     }
     public function materi()
     {
-        return $this->hasMany(materi::class);
+        return $this->hasMany(materi::class );
     }
     public function pertemuan()
     {
@@ -92,11 +95,11 @@ class kelas_mata_pelajaran extends Model
     }
     public function topik()
     {
-        return $this->hasMany(topik::class);
+        return $this->hasMany(topik::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
     public function tugas()
     {
-        return $this->hasMany(tugas::class);
+        return $this->hasMany(Tugas::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
     public function ujian()
     {

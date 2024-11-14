@@ -11,25 +11,30 @@ class PerlengkapanController extends Controller
 {
     public function index()
     {
-        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler')->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->firstOrFail();
+        // dd(PengurusEkstra::with('ekstrakurikuler'));
+        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler')->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)->get()->first();
+        // dd($pengurusEkstra);
+        if ($pengurusEkstra != null) {
+            $nama_ekstrakurikuler = $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler;
+            $id_ekstra = $pengurusEkstra->ekstrakurikuler->id_ekstrakurikuler;
+            $perlengkapan_ekstras = Perlengkapan::where('id_ekstrakurikuler', $id_ekstra)->paginate(10);
+            return view('pengurus_ekstra.perlengkapan.index', compact([
+                'perlengkapan_ekstras',
+                'nama_ekstrakurikuler',
+                'id_ekstra'
+            ]));
 
-        // if ($pengurusEkstra->isEmpty()) {
-        //     return redirect()->route('siswa.ekstrakurikuler');
-        // }
-
-        $nama_ekstrakurikuler = $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler;
-        $id_ekstra = $pengurusEkstra->ekstrakurikuler->id_ekstrakurikuler;
-        $perlengkapan_ekstras = Perlengkapan::where('id_ekstrakurikuler', $id_ekstra)->paginate(10);
-        return view('pengurus_ekstra.perlengkapan.index', compact([
-            'perlengkapan_ekstras',
-            'nama_ekstrakurikuler',
-            'id_ekstra'
-        ]));
+        } else {
+            return view('pengurus_ekstra.perlengkapan.index', [
+                'perlengkapan_ekstras' => [],
+                'nama_ekstrakurikuler' => '',
+                'id_ekstra' => ''
+            ]);
+        }
     }
 
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'id_ekstrakurikuler' => 'required',
             'nama_barang' => 'required|string|max:255',

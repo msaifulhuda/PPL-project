@@ -29,7 +29,6 @@
         <!-- Title and Subtitle -->
         <h2 class="text-lg font-semibold text-gray-800 mb-1">Hey, Hello 👋</h2>
         <p class="text-gray-600 mb-4 text-xs">Masukkan informasi yang Anda untuk login</p>
-
         <!-- Login Heading -->
         <h3 class="text-base font-semibold text-gray-700 mb-3">Login</h3>
 
@@ -72,10 +71,10 @@
         </div>
 
         <!-- Sign in with Google -->
-        <button class="w-full py-2 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100">
+        <a href="{{ route('auth.redirect') }}" class="w-full py-2 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100">
           <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo" class="h-3 w-3 mr-2">
           <span class="text-gray-700 font-semibold text-xs">Sign in with Google</span>
-        </button>
+        </a >
       </div>
     </div>
   </div>

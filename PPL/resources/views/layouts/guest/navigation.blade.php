@@ -28,12 +28,6 @@
                                 <a href="{{ route('siswa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                             @elseif(auth()->guard('web-guru')->check())
                                 <a href="{{ route('guru.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                            {{-- @elseif(auth()->guard('staffakademik.dashboard')->check())
-                                <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a> --}}
-                            @elseif(auth()->guard('web-staffperpus')->check())
-                                <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                            @elseif(auth()->guard('web-superadmin')->check())
-                                <a href="{{ route('dashboard-guru') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
 
                             @endif
                         </li>

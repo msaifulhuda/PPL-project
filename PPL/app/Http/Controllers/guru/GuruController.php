@@ -9,7 +9,8 @@ class GuruController extends Controller
 {
     public function index()
     {
-        // Logic for the dashboard, e.g., fetching data or statistics for the dashboard view
-        return view('guru.dashboard'); // Adjust view path as needed
+        // $currentGuard = auth()->getDefaultDriver();
+        // dd($currentGuard);
+        return view('guru.dashboard');
     }
 }
