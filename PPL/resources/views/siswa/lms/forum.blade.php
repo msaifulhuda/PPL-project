@@ -56,7 +56,7 @@
                                 <p class="text-gray-500">Tidak ada tugas mendatang</p>
                             @endforelse
                         </ul>
-                        <p class="text-right text-sm text-blue-500"><a href="">Lihat Semua</a></p>
+                        <p class="text-right mt-4 text-sm text-blue-500"><a href="{{route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $id)}}">Lihat Semua</a></p>
 
                     </div>
 

@@ -12,7 +12,7 @@
         <x-breadcrumb :breadcrumbs="$breadcrumbs" />
 
         {{-- Main Content --}}
-        <div class="flex flex-col gap-6 mt-4 md:flex-row">
+        <div class="flex flex-col gap-4 mt-4 md:flex-row">
             <!-- Left Side - Upcoming Tasks -->
             <div class="flex-1 lg:max-w-[40%]">
                 <div class="p-4 bg-white">
@@ -37,9 +37,9 @@
                             @else
                                 <p class="text-sm text-gray-500">Tidak ada tugas</p>
                             @endif
+                            <p class="text-left mt-3 text-sm text-blue-500"><a href="{{route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $mapel->id_kelas_mata_pelajaran)}}">Lihat Semua</a></p>
                         </div>
                     @endforeach
-
                 </div>
             </div>
 

@@ -13,7 +13,10 @@ class DashboardSiswaController extends Controller
         $id_siswa = auth()->guard('web-siswa')->user()->id_siswa;
         $kelas = KelasSiswa::with('kelas')->where('id_siswa', $id_siswa)->firstOrFail()->kelas;
         $mataPelajaranList = kelas_mata_pelajaran::where('kelas_id', $kelas->id_kelas)
-            ->with(['mataPelajaran', 'guru'])
+            ->with(['mataPelajaran', 'guru', 'hari'])
+            ->whereHas('tahunAjaran', function ($query) {
+                $query->where('aktif', 1);
+            })
             ->get();
         return view('siswa.lms.index', [
             'mataPelajaranList' => $mataPelajaranList

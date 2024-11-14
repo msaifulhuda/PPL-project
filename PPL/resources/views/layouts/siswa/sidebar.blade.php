@@ -64,7 +64,12 @@
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tugas') }}"
-                            :active="request()->is('siswa/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
+                            :active="request()->routeIs([
+                                'siswa/dashboard/lms/tugas',
+                                'siswa.dashboard.lms.tracking.tugas.ditugaskan',
+                                'siswa.dashboard.lms.tracking.tugas.belum_diserahkan',
+                                'siswa.dashboard.lms.tracking.tugas.diserahkan'
+                            ])">Tugas</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
