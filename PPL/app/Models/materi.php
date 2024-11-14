@@ -52,10 +52,8 @@ class materi extends Model
      */
     protected $table = 'materi';
     protected $primaryKey = 'id_materi';
-    public $timestamps = false;
     protected $keyType = 'string';
     public $incrementing = false;
-
 
     protected $fillable = [
         'judul_materi',
@@ -70,7 +68,7 @@ class materi extends Model
         return $this->belongsTo(Topik::class, 'topik_id', 'id_topik');
     }
 
-    public function kelas_mata_pelajaran()
+    public function kelasMataPelajaran()
     {
         return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
@@ -82,5 +80,4 @@ class materi extends Model
     {
         return $this->hasMany(notifikasi_sistem::class, 'id_pengurus', 'id_pengurus_ekstra');
     }
-
 }

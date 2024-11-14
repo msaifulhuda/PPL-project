@@ -16,16 +16,17 @@ class kelas_mata_pelajaran extends Model
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -71,7 +72,7 @@ class kelas_mata_pelajaran extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
     }
 
-    public function mata_pelajaran()
+    public function mataPelajaran()
     {
         return $this->belongsTo(mata_pelajaran::class, 'mata_pelajaran_id', 'id_matpel');
     }
@@ -81,13 +82,13 @@ class kelas_mata_pelajaran extends Model
         return $this->belongsTo(Guru::class, 'guru_id', 'id_guru');
     }
 
-    public function tahun_ajaran()
+    public function tahunAjaran()
     {
         return $this->belongsTo(tahun_ajaran::class, 'tahun_ajaran_id', 'id_tahun_ajaran');
     }
     public function materi()
     {
-        return $this->hasMany(materi::class );
+        return $this->hasMany(materi::class);
     }
     public function pertemuan()
     {

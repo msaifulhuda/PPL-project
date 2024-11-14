@@ -1,35 +1,15 @@
 <x-app-guru-layout>
     <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
-        <nav class="flex" aria-label="Breadcrumb">
-            <ol class="flex px-3 space-x-2 text-sm">
-                <li class="flex">
-                    <a href="{{ route('guru.dashboard') }}" class="text-gray-400 hover:text-gray-700">
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <div class="flex justify-center py-1">
-                    <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                    </svg>
-                </div>
-                <li class="flex">
-                    <a href="{{ route('guru.dashboard.lms') }}" class="text-gray-400 hover:text-gray-700">
-                        <span>LMS</span>
-                    </a>
-                </li>
-                <div class="flex justify-center py-1">
-                    <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                    </svg>
-                </div>
-                <li class="flex">
-                    <p class="font-semibold text-gray-700">
-                        <span>Materi</span>
-                    </p>
-                </li>
-            </ol>
-        </nav>
+        @php
+            $breadcrumbs = [
+                ['label' => 'Dashboard', 'route' => route('guru.dashboard')],
+                ['label' => 'LMS', 'route' => route('guru.dashboard.lms')],
+                ['label' => 'Materi'],
+            ];
+        @endphp
+
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" />
 
         {{-- Add button --}}
         <div class="px-3 mt-5 mb-3">
@@ -42,9 +22,21 @@
         </div>
 
         @if (session('success'))
-            <div class="px-3 py-2 mb-4 text-green-700 bg-green-100 border border-green-400 rounded">
-                {{ session('success') }}
+        <div id="alert-3" class="flex items-center p-4 my-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="text-sm font-medium ms-3">
+              {{ session('success') }}
             </div>
+            <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+              <span class="sr-only">Close</span>
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+            </button>
+          </div>
         @endif
 
         {{-- Main Content --}}
@@ -56,7 +48,7 @@
                 @foreach ($kelas_mata_pelajaran as $item)
                     {{-- Content --}}
                     <div class="p-4 border-2 border-gray-500 rounded-xl card">
-                        <h4 class="mb-3 text-xl font-semibold">{{ $item->mata_pelajaran->nama_matpel . ' ' . $item->kelas->nama_kelas }}</h4>
+                        <h4 class="mb-3 text-xl font-semibold">{{ $item->mataPelajaran->nama_matpel . ' ' . $item->kelas->nama_kelas }}</h4>
                         <ul class="space-y-2 text-sm">
                             @foreach ($materi as $m)
                                 @if ($m->kelas_mata_pelajaran_id == $item->id_kelas_mata_pelajaran)
@@ -81,9 +73,9 @@
                         <span class="text-lg font-semibold">{{ $date }}</span>
                     </div>
                     @foreach ($materi_baru as $mb)
-                        @if ($mb->created_at->format('d F Y') == $date)
+                        @if ($mb->updated_at->format('d F Y') == $date)
                         {{-- Materi --}}
-                        <div class="px-3 py-4 border-2 border-gray-500 md:px-4 rounded-xl card">
+                        <div class="px-3 py-4 border-2 border-gray-500 md:px-4 rounded-xl card {{ $mb->status == 0 ? 'bg-gray-200' : '' }}">
                             <div class="flex gap-2 align-items-center">
                                 <div class="flex flex-col justify-center">
                                     <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -92,8 +84,12 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <a href="{{ route('guru.dashboard.lms.materi.detail', ['id' => $mb->id_materi]) }}" class="text-base font-semibold text-gray-900 underline">Materi Baru: {{ $mb->judul_materi }}</a>
-                                    <span class="text-sm">{{ $mb->kelas_mata_pelajaran->mata_pelajaran->nama_matpel }}</span>
+                                    @if ($mb->status == 0)
+                                        <a href="{{ route('guru.dashboard.lms.materi.create', ['id' => $mb->kelas_mata_pelajaran_id]) }}" class="text-base font-semibold text-gray-900 underline">Materi Baru: {{ $mb->judul_materi }}</a>
+                                    @else
+                                        <a href="{{ route('guru.dashboard.lms.materi.detail', ['id' => $mb->id_materi]) }}" class="text-base font-semibold text-gray-900 underline">Materi Baru: {{ $mb->judul_materi }}</a>
+                                    @endif
+                                    <span class="text-sm">{{ $mb->kelasMataPelajaran->mataPelajaran->nama_matpel }} {{ $mb->kelasMataPelajaran->kelas->nama_kelas }}</span>
                                 </div>
                             </div>
                         </div>

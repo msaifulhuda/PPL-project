@@ -7,26 +7,24 @@
                 ['label' => 'Dashboard', 'route' => route('guru.dashboard')],
                 ['label' => 'LMS', 'route' => route('guru.dashboard.lms')],
                 ['label' => 'Materi', 'route' => route('guru.dashboard.lms.materi')],
-                ['label' => 'Tambah Materi', 'route' => route('guru.dashboard.lms.materi.create_view')],
-                ['label' => $kelas],
+                ['label' => $materi->judul_materi, 'route' => route('guru.dashboard.lms.materi.detail', $materi->id_materi)],
+                ['label' => "Edit Materi"],
             ];
         @endphp
         <x-breadcrumb :breadcrumbs="$breadcrumbs" />
 
         {{-- Main Content --}}
         <div class="px-3 mt-8">
-            <form action="{{ route('guru.dashboard.lms.materi.store', $kelas_mata_pelajaran->id_kelas_mata_pelajaran) }}" method="POST" class="flex gap-6" enctype="multipart/form-data">
+            <form action="{{ route('guru.dashboard.lms.materi.update', $materi->id_materi) }}" method="POST" class="flex gap-6" enctype="multipart/form-data">
+                @method('put')
                 @csrf
                 <input type="hidden" name="id_kelas_mata_pelajaran" value="{{ $kelas_mata_pelajaran->id_kelas_mata_pelajaran }}">
-                @if ($materi_old)
-                    <input type="hidden" name="id_materi" value="{{ $materi_old->id_materi }}">
-                @endif
 
                 <div class="w-3/4 border rounded-lg">
                     <div class="flex flex-col gap-6 p-6">
                         <div class="flex flex-col gap-3">
                             <label for="judul_materi" class="text-gray-700">Judul Materi</label>
-                            <input type="text" name="judul_materi" id="judul_materi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" value="{{ $materi_old ? $materi_old->judul_materi : old('judul_materi') }}">
+                            <input type="text" name="judul_materi" id="judul_materi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" value="{{ old('judul_materi') ?? $materi->judul_materi }}">
                             @error('judul_materi')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -34,7 +32,7 @@
 
                         <div class="flex flex-col gap-3">
                             <label for="deskripsi" class="text-gray-700">Deskripsi Materi (Optional)</label>
-                            <textarea name="deskripsi" id="deskripsi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" rows="6">{{ $materi_old ? $materi_old->deskripsi : old('deskripsi') }}</textarea>
+                            <textarea name="deskripsi" id="deskripsi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" rows="6">{{ old('deskripsi') ?? $materi->deskripsi }}</textarea>
                         </div>
 
                         <div class="flex flex-col gap-3">
@@ -58,11 +56,10 @@
                             <label for="topik_id" class="text-gray-700">Topik</label>
                             <select name="topik_id" id="topik_id" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300">
                                 <option selected disabled>Pilih Topik</option>
+                                @php
+                                    $selected = old('topik_id') ?? $materi->topik_id;
+                                @endphp
                                 @foreach ($topik as $item)
-                                    @php
-                                        $selected = $materi_old ? $materi_old->topik_id : old('topik_id');
-                                        echo $selected;
-                                    @endphp
                                     <option value="{{ $item->id_topik }}" {{ $selected == $item->id_topik ? 'selected' : '' }}>{{ $item->judul_topik }}</option>
                                 @endforeach
                             </select>
@@ -71,9 +68,9 @@
                         <div class="flex flex-wrap justify-end">
                             <a href="" class="px-6 py-2 mr-3 text-white bg-gray-600 rounded-md hover:bg-gray-700">Tambah Topik</a>
 
-                            <button type="button" id="post" name="post" class="px-6 py-2 font-thin text-gray-400 bg-gray-300 cursor-default rounded-l-md">Posting</button>
+                            <button type="button" id="update" name="update" class="px-6 py-2 font-thin text-gray-400 bg-gray-300 cursor-default rounded-l-md">Simpan</button>
                             <button type="button" class="flex px-2 pt-2 text-sm bg-blue-500 rounded-r-md" id="topik-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-3">
-                                <span class="sr-only">Open dropdown topik</span>
+                                <span class="sr-only">Open topik</span>
                                 <svg class="w-6 h-6 text-slate-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
                                 </svg>
@@ -86,13 +83,7 @@
                 <div class="z-10 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdown-3">
                     <ul class="py-1" role="none">
                         <li>
-                            <button type="submit" name="post" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Posting</button>
-                        </li>
-                        <li>
-                            <button type="submit" name="draft" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Draft</button>
-                        </li>
-                        <li>
-                            <div class="border-t border-gray-100"></div>
+                            <button type="submit" name="update" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Simpan</button>
                         </li>
                         <li>
                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="z-10 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">Hapus</button>
@@ -116,19 +107,13 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
                             <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah kamu yakin ingin menghapus?</h3>
-                            @if ($materi_old)
-                                <form action="{{ route('guru.dashboard.lms.materi.destroy', ['id' => $materi_old->id_materi]) }}" method="post" class="inline-flex">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" name="delete" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                        Hapus
-                                    </button>
-                                </form>
-                            @else
-                                <a href="{{ route('guru.dashboard.lms.materi.create_view') }}" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            <form action="{{ route('guru.dashboard.lms.materi.destroy', ['id' => $materi->id_materi]) }}" method="post" class="inline-flex">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" name="delete" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     Hapus
-                                </a>
-                            @endif
+                                </button>
+                            </form>
                             <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Batal</button>
                         </div>
                     </div>
@@ -216,11 +201,9 @@
                 </div>
             `);
         }
-        @if (isset($file_materi_old))
-            @foreach ($file_materi_old as $item)
-                previewFileOld('{{ $item->file_path }}', '#filePreview');
-            @endforeach
-        @endif
+        @foreach ($file_materi_old as $item)
+            previewFileOld('{{ $item->file_path }}', '#filePreview');
+        @endforeach
 
 
         $('#file_materi').on('change', function () {
@@ -241,10 +224,8 @@
             }
         }
         const judulInput = $('#judul_materi');
-        const postButton = $('button#post');
-
+        const postButton = $('button#update');
         cekJudul(judulInput, postButton);
-
         judulInput.on('input', function () {
             cekJudul(judulInput, postButton);
         });
