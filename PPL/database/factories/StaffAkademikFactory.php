@@ -21,7 +21,7 @@ class StaffAkademikFactory extends Factory
             'username' => $this->faker->userName(),
             'password' => bcrypt('password'),
             'email' => $this->faker->unique()->safeEmail(),
-            'staff_akademik_google_key' => null,
+            // 'staff_akademik_google_key' => null,
         ];
     }
 }

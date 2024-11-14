@@ -3,15 +3,17 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
+use App\Models\Siswa;
+use App\Models\Berkas;
 use Illuminate\Support\Str;
 use App\Models\PengurusEkstra;
 use App\Models\Ekstrakurikuler;
-use App\Models\HistoriInventaris;
-use App\Models\InventarisEkstrakurikuler;
-use App\Models\PrestasiEkstrakurikuler;
-use App\Models\registrasi_ekstrakurikuler;
-use App\Models\Siswa;
 use Illuminate\Database\Seeder;
+use App\Models\HistoriInventaris;
+use App\Models\PrestasiEkstrakurikuler;
+use App\Models\InventarisEkstrakurikuler;
+use App\Models\LaporanPenilaianEkstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 
 class EkstrakurikulerSeeder extends Seeder
 {
@@ -27,7 +29,7 @@ class EkstrakurikulerSeeder extends Seeder
         /**
          * Mengisi ekstrakurikuler.
          */
-        foreach ($nama_ekstra as $index => $ekstra){
+        foreach ($nama_ekstra as $ekstra){
             Ekstrakurikuler::create([
                 'id_ekstrakurikuler' => Str::uuid(),
                 'guru_id' => $guruIds[array_rand($guruIds)],
@@ -57,7 +59,7 @@ class EkstrakurikulerSeeder extends Seeder
          */
         $idSiswa = Siswa::where('role_siswa', 'siswa')->pluck('id_siswa')->toArray();
         foreach ($idSiswa as $siswa){
-            registrasi_ekstrakurikuler::create([
+            RegistrasiEkstrakurikuler::create([
                 'id_registrasi' => Str::uuid(),
                 'id_siswa' => $siswa,
                 'id_ekstrakurikuler' => $idEkstra[array_rand($idEkstra)],
@@ -65,6 +67,35 @@ class EkstrakurikulerSeeder extends Seeder
                 'alasan' => '-',
             ]);
         }
+
+        /**
+         * Mengisi berkas.
+         */
+        $idRegistrasi = RegistrasiEkstrakurikuler::pluck('id_registrasi')->toArray();
+        foreach ($idRegistrasi as $registrasi){
+            Berkas::create([
+                'id_berkas' => Str::uuid(),
+                'id_registrasi' => $registrasi,
+                'surat_izin_ortu' => collect(['berkas1.pdf', 'berkas2.pdf', 'berkas3.pdf'])->random(),
+                'surat_riwayat_penyakit' => collect(['berkas1.pdf', 'berkas2.pdf', 'berkas3.pdf'])->random()
+            ]);
+        }
+
+        /**
+         * Mengisi laporan penilaian ekstrakurikuler.
+         */
+        foreach ($idEkstra as $index => $ekstra){
+            $idAnggota = RegistrasiEkstrakurikuler::whereIn('id_siswa', $idSiswa)->where('status', 'diterima')->where('id_ekstrakurikuler', $ekstra)->pluck('id_siswa')->toArray();
+            foreach ($idAnggota as $anggota){
+                LaporanPenilaianEkstrakurikuler::create([
+                    'id_laporan' => Str::uuid(),
+                    'id_siswa' => $anggota,
+                    'id_ekstrakurikuler' => $ekstra,
+                    'isi_laporan' => 'Deskripsi laporan penilaian ekstrakurikuler ' . $nama_ekstra[$index],
+                ]);
+            }
+        }
+
 
         /**
          * Mengisi prestasi ekstrakurikuler.
@@ -101,7 +132,7 @@ class EkstrakurikulerSeeder extends Seeder
         $idInventaris = InventarisEkstrakurikuler::pluck('id_inventaris')->toArray();
 
         foreach ($idInventaris as $inventaris) {
-            for ($j = 0; $j < 10; $j++) {
+            for ($j = 0; $j < 3; $j++) {
             HistoriInventaris::create([
                 'id_histori' => Str::uuid(),
                 'id_inventaris' => $inventaris,

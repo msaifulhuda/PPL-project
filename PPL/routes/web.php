@@ -1,45 +1,47 @@
 <?php
 
-use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
+use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\siswa\SiswaLmsController;
 use App\Http\Controllers\beranda\BerandaController;
+use App\Http\Controllers\guru\lms\ForumGuruController;
 use App\Http\Controllers\StaffAkademik\KelasController;
+use App\Http\Controllers\siswa\lms\ForumSiswaController;
+use App\Http\Controllers\siswa\lms\TugasSiswaController;
+use App\Http\Controllers\staffakademik\JadwalController;
+use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
-use App\Http\Controllers\pengurusekstra\AnggotaController;
-use App\Http\Controllers\staffakademik\PrestasiController;
-use App\Http\Controllers\staffakademik\LihatJadwalController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+use App\Http\Controllers\guru\lms\DashboardGuruController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
+use App\Http\Controllers\staffakademik\PrestasiController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\siswa\lms\DashboardSiswaController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
+use App\Http\Controllers\staffakademik\LihatJadwalController;
+use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\GoogleLoginController;
-use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
-use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
+use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
-use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
-use App\Http\Controllers\siswa\lms\DashboardSiswaController;
-use App\Http\Controllers\siswa\lms\ForumSiswaController;
-use App\Http\Controllers\siswa\lms\MateriSiswaController;
-use App\Http\Controllers\siswa\lms\TugasSiswaController;
 
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
-use App\Http\Controllers\staffakademik\JadwalController;
-
-use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 // Route::get('/', function () {
 //     return view('beranda.home');
 // })->name('beranda.home');
@@ -185,6 +187,8 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     //lihat jadwal
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
+    
+
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
@@ -244,14 +248,21 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     /**
      * START LMS
      */
-    Route::get('/dashboard/lms', [DashboardSiswaController::class, 'index'])->name('siswa.dashboard.lms'); // route dashoard lms
-    Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi'); // route halaman khusus materi
-    Route::get('/dashboard/lms/tugas', [TugasSiswaController::class, 'index'])->name('siswa.dashboard.lms.tugas'); // route halaman khusus tugas
-    Route::get('/dashboard/lms/forum/{id}', [ForumSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum'); // route halaman khusus forum
-    Route::get('/dashboard/lms/tugas/{id}', [TugasSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.tugas');
-    Route::get('/dashboard/lms/materi/{id}', [MateriSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.materi');
+    Route::get('/dashboard/lms', [DashboardSiswaController::class, 'index'])->name('siswa.dashboard.lms');
+    Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi');
+    Route::get('/dashboard/lms/tugas', [TugasSiswaController::class, 'index'])->name('siswa.dashboard.lms.tugas');
+    Route::get('/dashboard/lms/forum/{id}', [ForumSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum');
     Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
     Route::get('/dashboard/lms/forum/{id}/anggota', [AnggotaSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum.anggota');
+    Route::get('/dashboard/lms/materi/{id}', [MateriSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.materi');
+    Route::get('/dashboard/lms/tugas/{id}', [TugasSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.tugas');
+    Route::get('/dashboard/lms/tugas/tracking/ditugaskan/{id}', [DaftarTugasSiswaController::class, 'ditugaskan'])->name('siswa.dashboard.lms.tracking.tugas.ditugaskan');
+    Route::get('/dashboard/lms/tugas/tracking/belum_diserahkan/{id}', [DaftarTugasSiswaController::class, 'ditugaskan'])->name('siswa.dashboard.lms.tracking.tugas.belum_diserahkan');
+    Route::get('/dashboard/lms/tugas/tracking/diserahkan/{id}', [DaftarTugasSiswaController::class, 'ditugaskan'])->name('siswa.dashboard.lms.tracking.tugas.diserahkan');
+    /**
+     * END LMS
+     */
+
 
 
 
@@ -298,7 +309,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     /**
      * START LMS
      */
-    Route::get('/dashboard/lms', [GuruLmsController::class, 'index'])->name('guru.dashboard.lms');
+    Route::get('/dashboard/lms', [DashboardGuruController::class, 'index'])->name('guru.dashboard.lms');
     Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])->name('guru.dashboard.lms.materi');
     Route::get('/dashboard/lms/materi/create', [GuruLmsController::class, 'materiCreateView'])->name('guru.dashboard.lms.materi.create_view');
     Route::get('/dashboard/lms/materi/create/{id}', [GuruLmsController::class, 'materiCreate'])->name('guru.dashboard.lms.materi.create');
@@ -308,6 +319,9 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/lms/materi/edit/{id}', [GuruLmsController::class, 'materiEdit'])->name('guru.dashboard.lms.materi.edit');
     Route::put('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiUpdate'])->name('guru.dashboard.lms.materi.update');
     Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])->name('guru.dashboard.lms.tugas');
+    Route::get('/dashboard/lms/forum/{id}', [ForumGuruController::class, 'index'])->name('siswa.dashboard.lms.forum');
+    Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
+    Route::get('/dashboard/lms/forum/{id}/anggota', [AnggotaSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum.anggota');
     /**
      * END LMS
      */

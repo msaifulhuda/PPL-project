@@ -15,13 +15,14 @@
             {{-- Materi Pelajaran --}}
             <div class="flex flex-col gap-4 mt-6 ">
                 <h2 class="mb-2 text-3xl font-semibold text-gray-800">Mata Pelajaran</h2>
-
-                <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                <div class="flex flex-wrap gap-4">
                     <!-- Card 1 -->
                     @if ($mataPelajaranList->count() > 0)
                         @foreach ($mataPelajaranList as $kelasMataPelajaran)
-                            <a href="{{route('siswa.dashboard.lms.forum', $kelasMataPelajaran->id_kelas_mata_pelajaran)}}" class="block">
-                                <div class="flex items-center p-4 border-2 border-gray-300 rounded-2xl  hover:bg-gray-100 transition duration-100">
+                            <a href="{{ route('siswa.dashboard.lms.forum', $kelasMataPelajaran->id_kelas_mata_pelajaran) }}"
+                                class="block">
+                                <div
+                                    class="flex items-center p-4 border-2 border-gray-300 rounded-2xl  hover:bg-gray-100 transition duration-100">
                                     <div class="p-2 mr-2 rounded-full">
                                         <svg width="40" height="40" viewBox="0 0 42 47" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -31,10 +32,13 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="text-lg font-semibold text-gray-800">{{$kelasMataPelajaran->mataPelajaran->nama_matpel}}</h4>
+                                        <h4 class="text-lg lg:text-xl font-semibold text-gray-800">
+                                            {{ $kelasMataPelajaran->mataPelajaran->nama_matpel }}</h4>
                                         </h4>
-                                        <p class="text-sm text-gray-500">{{$kelasMataPelajaran->hari->nama_hari}}, {{$kelasMataPelajaran->waktu_mulai}} - {{$kelasMataPelajaran->waktu_selesai}} WIB</p>
-                                        <p class="text-sm text-gray-500">{{ $kelasMataPelajaran->guru->nama_guru}}</p>
+                                        <p class="text-sm text-gray-500">{{ $kelasMataPelajaran->hari->nama_hari }},
+                                            {{ $kelasMataPelajaran->waktu_mulai }} -
+                                            {{ $kelasMataPelajaran->waktu_selesai }} WIB</p>
+                                        <p class="text-sm text-gray-500">{{ $kelasMataPelajaran->guru->nama_guru }}</p>
                                     </div>
                                 </div>
                             </a>

@@ -72,8 +72,9 @@ aria-label="Sidebar">
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
-
+                
                 {{-- Ekstrakurikuler --}}
+                @if (auth()->guard('web-guru')->user()->role_guru == 'pembina')
                 <li>
                     <x-sidebar-dropdown label="Ekstrakurikuler" id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
                         <x-sidebar-icon>
@@ -82,7 +83,7 @@ aria-label="Sidebar">
                     </x-sidebar-dropdown>
                     <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
                         <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/ekstrakurikuler/beranda" :active="request()->is('*pembina/ekstrakurikuler/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('pembina.dashboard') }}" :active="request()->is('*pembina/ekstrakurikuler/beranda')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
                             <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}" :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
@@ -95,6 +96,7 @@ aria-label="Sidebar">
                         </li>
                     </x-sidebar-dropdown-list>
                 </li>
+                @endif
 
                 {{-- Ujian --}}
                 <li>

@@ -59,7 +59,7 @@
 
                 {{-- Profile Username --}}
                 <div class="hidden lg:flex">
-                    <span class="text-gray-500">Abdul Rahem Faqih</span>
+                    <span class="text-gray-500">{{ auth()->guard('web-guru')->user()->nama_guru }}</span>
                 </div>
 
                 {{-- Profile Menu --}}
@@ -78,10 +78,10 @@
                         id="dropdown-2">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900" role="none">
-                                Neil Sims
+                                {{ auth()->guard('web-guru')->user()->username }}
                             </p>
                             <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                neil.sims@flowbite.com
+                                {{ auth()->guard('web-guru')->user()->email }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
@@ -90,22 +90,15 @@
                                     role="menuitem">Dashboard</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Earnings</a>
-                            </li>
-                            <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        class="w-full text-left px-4 py-2 text-sm text-gray-700  hover:bg-red-500 hover:text-white"
                                         role="menuitem">Sign out</button>
                                 </form>
                             </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
