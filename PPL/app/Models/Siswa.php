@@ -13,7 +13,7 @@ class Siswa extends Authenticatable
     use Notifiable, HasUuids, HasFactory;
     protected $primaryKey = 'id_siswa';
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $keyType = 'string';
 
 

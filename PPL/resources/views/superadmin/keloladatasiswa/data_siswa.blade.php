@@ -36,7 +36,7 @@
                             <th class="py-3 px-4 text-left">Nama Siswa</th>
                             <th class="py-3 px-4 text-left">Jenis Kelamin</th>
                             <th class="py-3 px-4 text-left">NISN</th>
-                            <th class="py-3 px-4 text-left">Kelas</th>
+                            {{-- <th class="py-3 px-4 text-left">Kelas</th> --}}
                             <th class="py-3 px-4 text-left">Alamat</th>
                             <th class="py-3 px-4 text-left">Telephone</th>
                             <th class="py-3 px-4 text-left">E-Mail</th>
@@ -52,16 +52,16 @@
                                 <td class="py-3 px-4">{{ $siswa->nama_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->jenis_kelamin_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->nisn }}</td>
-                                <td class="py-3 px-4">
+                                {{-- <td class="py-3 px-4">
                                     @foreach ($siswa->kelas as $kelas)
                                         {{ $kelas->nama_kelas }}@if (!$loop->last), @endif
                                     @endforeach
-                                </td>
+                                </td> --}}
                                 <td class="py-3 px-4">{{ $siswa->alamat_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->nomor_wa_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->email }}</td>
                                 <td class="py-3 px-4 flex space-x-2">
-                                    <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">Edit</a>
+                                    <a href="{{ route('siswa.edit', ['id_siswa' => $siswa->id_siswa]) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">Edit</a>
                                     <form action="{{ route('siswa.destroy', $siswa->id_siswa) }}" method="POST" onsubmit="return confirmDelete(event)" class="inline">
                                         @csrf
                                         @method('DELETE')

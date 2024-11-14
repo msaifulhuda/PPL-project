@@ -41,12 +41,8 @@ class SuperadminController extends Controller
 
     public function searchSiswa(Request $request)
     {
-        $searchQuery = $request->input('searchsiswa');
-        $siswaData = KelasSiswa::with('siswa', 'kelas')
-        ->whereHas('siswa', function ($query) use ($searchQuery) {
-            $query->where('nisn', 'LIKE', '%' . $searchQuery . '%');
-        })
-        ->paginate(5);
+        $squery = $request->input('search');
+        $siswaData = Siswa::where('nisn', 'LIKE', '%' . $squery . '%')->paginate(5);
 
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }
@@ -80,11 +76,10 @@ class SuperadminController extends Controller
         return view('superadmin.keloladataguru.edit_guru', compact('guru'));
     }
 
-    public function siswaEdit($id)
+    public function siswaEdit($id_siswa)
     {
-        $siswa = KelasSiswa::with('kelas', 'siswa')->where('id_siswa', $id)->firstOrFail(); // Ensure it finds the correct student record
-        $allkelas = kelas::all();
-        return view('superadmin.keloladatasiswa.edit_siswa', compact('siswa', 'allkelas'));
+        $siswa = Siswa::findOrFail($id_siswa);
+        return view('superadmin.keloladatasiswa.edit_siswa', compact('siswa'));
     }
 
     public function store(StoreGuruRequest $request)
@@ -149,9 +144,9 @@ public function storeSiswa(Request $request)
         $siswa->save();
         return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil ditambahkan!');
     }
-
     public function siswaUpdate(Request $request, $id_siswa)
 {
+    // Temukan siswa berdasarkan id_siswa
     $siswa = Siswa::findOrFail($id_siswa);
     $siswa->nama_siswa = $request->nama_siswa;
     $siswa->nisn = $request->nisn;
@@ -162,21 +157,40 @@ public function storeSiswa(Request $request)
     $siswa->jenis_kelamin_siswa = $request->jenis_kelamin_siswa;
     $siswa->role_siswa = $request->input('role_siswa');
     $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
+    
+    // Update password jika diisi
     if ($request->filled('password')) {
         $siswa->password = bcrypt($request->password);
     }
+
+    // Cek dan hapus foto lama sebelum mengunggah foto baru
     if ($request->hasFile('foto_siswa')) {
+        // Cek apakah siswa sudah memiliki foto sebelumnya
+        if ($siswa->foto_siswa && file_exists(public_path('images/siswa/' . $siswa->foto_siswa))) {
+            // Hapus foto lama
+            unlink(public_path('images/siswa/' . $siswa->foto_siswa));
+        }
+
+        // Simpan foto baru
         $fileName = time() . '.' . $request->foto_siswa->extension();
         $request->foto_siswa->move(public_path('images/siswa'), $fileName);
         $siswa->foto_siswa = $fileName;
     }
+
+    // Simpan data siswa
     $siswa->save();
 
-    $kelas = KelasSiswa::where('id_siswa', $id_siswa)->firstOrFail();
-    $kelas->id_kelas = $request->class;
-    $kelas->save();
+    // Periksa apakah 'class' (id_kelas) ada di request
+    if ($request->has('class')) {
+        $kelas = KelasSiswa::where('id_siswa', $id_siswa)->firstOrFail();
+        // Update id_kelas hanya jika ada nilai baru
+        $kelas->id_kelas = $request->class;
+        $kelas->save();
+    }
 
+    // Redirect dengan pesan sukses
     return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil diperbarui.');
 }
+
 
 }

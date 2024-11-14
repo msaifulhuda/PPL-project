@@ -72,6 +72,17 @@
                     <input type="text" name="alamat_siswa" id="alamat_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
                 </div>
 
+                <!-- Kelas -->
+                {{-- <div class="mb-4">
+                    <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">Kelas :</label>
+                    <select name="id_kelas" class="form-control">
+                        <option value="">Select Class</option>
+                        @foreach ($kelasList as $kelas)
+                            <option value="{{ $kelas->id_kelas }}">{{ $kelas->nama_kelas }}</option>
+                        @endforeach
+                    </select>                    
+                </div> --}}
+
                 <!-- Foto Siswa Upload -->
                 <div class="mb-4">
                     <label for="foto_siswa" class="block text-sm font-medium text-gray-700 mb-1">Foto :</label>
