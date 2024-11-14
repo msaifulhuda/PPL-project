@@ -27,7 +27,7 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
-    @include('layouts.navigation')
+    @include('layouts.admin.navigation')
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
         @include('layouts.admin.sidebar')
         <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
