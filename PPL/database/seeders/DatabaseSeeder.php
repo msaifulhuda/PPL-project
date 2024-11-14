@@ -21,7 +21,7 @@ use App\Models\guru_mata_pelajaran;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\materi;
 use Database\Seeders\PerpustakaanSeeder;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 use App\Models\topik;
 use App\Models\tugas;
 use Database\Seeders\KelasMataPelajaranSeeder;
@@ -99,11 +99,11 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi Ekskul jika belum ada
-        if (Ekstrakurikuler::count() == 0) {
-            $this->call([
-                EkstrakurikulerSeeder::class,
-            ]);
-        }
+        // if (Ekstrakurikuler::count() == 0) {
+        //     $this->call([
+        //         EkstrakurikulerSeeder::class,
+        //     ]);
+        // }
 
         // isi kelas mata pelajaran jika belum ada
         if (kelas_mata_pelajaran::count() == 0) {
@@ -145,11 +145,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         // Generate UUIDs
         // Create siswa with role 'siswa'
-        // $idUser4 = Str::uuid();
-        // $idUser9 = Str::uuid();
-        // $idUser10 = Str::uuid();
-        // $idUser11 = Str::uuid();
-        // $idUser12 = Str::uuid();
+        $idUser4 = Str::uuid();
+        $idUser9 = Str::uuid();
+        $idUser10 = Str::uuid();
+        $idUser11 = Str::uuid();
+        $idUser12 = Str::uuid();
 
         // Create siswa with role 'pengurus'
         // $idUser5 = Str::uuid();
@@ -157,7 +157,7 @@ class DatabaseSeeder extends Seeder
         // $idUser7 = Str::uuid();
         // $idUser8 = Str::uuid();
 
-        // session(['siswa2' => $idUser5, 'siswa3' => $idUser6, 'siswa4' => $idUser7, 'siswa5' => $idUser8]);
+        session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
 
         // Create siswa with role 'siswa'
         // Siswa::create([
@@ -212,36 +212,46 @@ class DatabaseSeeder extends Seeder
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
+        $this->call([
+            KelasMapelGuruJadwalAjaranSeeder::class,
+        ]);
+        // $this->call([
+        //     EkstrakurikulerPengurusSeeder::class,
+        // ]);
+
+        // $this->call([
+        //     MateriTugasSeeder::class,
+        // ]);
 
         // Registrasi Ekstrakurikuler
         // $id_pengurus = [session('id_pengurus1'), session('id_pengurus2'), session('id_pengurus3'), session('id_pengurus4')];
         // $id_ekstra = [session('id_ekstra1'), session('id_ekstra2'), session('id_ekstra3'), session('id_ekstra4')];
 
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser4,
         //     'id_pengurus' => $id_pengurus[0],
         //     'id_ekstrakurikuler' => $id_ekstra[0]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser9,
         //     'id_pengurus' => $id_pengurus[1],
         //     'id_ekstrakurikuler' => $id_ekstra[1]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser10,
         //     'id_pengurus' => $id_pengurus[2],
         //     'id_ekstrakurikuler' => $id_ekstra[2]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser11,
         //     'id_pengurus' => $id_pengurus[3],
         //     'id_ekstrakurikuler' => $id_ekstra[3]
         // ]);
-        // registrasi_ekstrakurikuler::create([
+        // RegistrasiEkstrakurikuler::create([
         //     'id_registrasi' => Str::uuid(),
         //     'id_siswa' => $idUser12,
         //     'id_pengurus' => $id_pengurus[3],

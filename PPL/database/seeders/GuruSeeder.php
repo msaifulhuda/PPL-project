@@ -32,7 +32,5 @@ class GuruSeeder extends Seeder
         foreach ($gurus as $guru) {
             Guru::create($guru);
         }
-
-
     }
 }

@@ -6,8 +6,7 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Models\PengurusEkstra;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 
 class AnggotaController extends Controller
 {
@@ -20,7 +19,7 @@ class AnggotaController extends Controller
         $perPage = 7;
         $currentPage = $request->input('page', 1);
 
-        $siswa = registrasi_ekstrakurikuler::with('siswa')
+        $siswa = RegistrasiEkstrakurikuler::with('siswa')
             ->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)
             ->get();
 
@@ -55,8 +54,8 @@ class AnggotaController extends Controller
             return redirect()->route('pengurus_ekstra.anggota')->withErrors('Ekstrakurikuler tidak ditemukan untuk siswa ini.');
         }
 
-        // Cari registrasi terkait dalam `registrasi_ekstrakurikuler` untuk siswa dan ekstrakurikuler tertentu
-        $registration = registrasi_ekstrakurikuler::where('id_siswa', $id)
+        // Cari registrasi terkait dalam `RegistrasiEkstrakurikuler` untuk siswa dan ekstrakurikuler tertentu
+        $registration = RegistrasiEkstrakurikuler::where('id_siswa', $id)
             ->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)
             ->firstOrFail();
 
