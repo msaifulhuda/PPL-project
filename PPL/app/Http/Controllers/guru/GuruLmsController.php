@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 
 class GuruLmsController extends Controller
 {
-    public function index()
-    {
-        return view('guru.lms.index');
-    }
+
 
     public function materi()
     {

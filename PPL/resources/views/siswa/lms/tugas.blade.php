@@ -37,7 +37,7 @@
                             @else
                                 <p class="text-sm text-gray-500">Tidak ada tugas</p>
                             @endif
-                            <p class="text-left mt-3 text-sm text-blue-500"><a href="">Lihat Semua</a></p>
+                            <p class="text-left mt-3 text-sm text-blue-500"><a href="{{route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $mapel->id_kelas_mata_pelajaran)}}">Lihat Semua</a></p>
                         </div>
                     @endforeach
                 </div>

@@ -92,18 +92,18 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi staff akademik jika belum ada
-        // if (Staffakademik::count() == 0) {
-        //     $this->call([
-        //         StaffAkademikSeeder::class,
-        //     ]);
-        // }
+        if (Staffakademik::count() == 0) {
+            $this->call([
+                StaffAkademikSeeder::class,
+            ]);
+        }
 
         // isi Ekskul jika belum ada
-        // if (Ekstrakurikuler::count() == 0) {
-        //     $this->call([
-        //         EkstrakurikulerSeeder::class,
-        //     ]);
-        // }
+        if (Ekstrakurikuler::count() == 0) {
+            $this->call([
+                EkstrakurikulerSeeder::class,
+            ]);
+        }
 
         // isi kelas mata pelajaran jika belum ada
         if (kelas_mata_pelajaran::count() == 0) {
@@ -118,6 +118,10 @@ class DatabaseSeeder extends Seeder
                 TopikTugasMateriSeeder::class,
             ]);
         }
+
+        // $this->call([
+        //     EkstrakurikulerPengurusSeeder::class,
+        // ]);
 
         // $idUser1 = Str::uuid();
         // Superadmin::create([
@@ -201,9 +205,7 @@ class DatabaseSeeder extends Seeder
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
 
-        $this->call([
-            EkstrakurikulerPengurusSeeder::class,
-        ]);
+
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
