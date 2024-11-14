@@ -175,6 +175,8 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     //lihat jadwal
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
+    
+
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
