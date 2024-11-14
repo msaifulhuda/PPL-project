@@ -35,7 +35,6 @@ class TopikTugasMateriSeeder extends Seeder
                         'topik_id' => $topik->id_topik,
                         'deskripsi' => $faker->paragraphs(3, true),
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
-                        'tanggal_dibuat' => now()->toDateString(),
                         'created_at' => now(),
                         'updated_at' => now(),
                         'status' => 1,

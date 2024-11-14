@@ -207,6 +207,8 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}/edit', [StaffperpusController::class, 'editbuku'])->name('staff_perpus.buku.edit');
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
+
+    // >>>>>>>>> Temporary merge branch 2
 });
 
 
@@ -309,6 +311,13 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
      */
     Route::get('/dashboard/lms', [DashboardGuruController::class, 'index'])->name('guru.dashboard.lms');
     Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])->name('guru.dashboard.lms.materi');
+    Route::get('/dashboard/lms/materi/create', [GuruLmsController::class, 'materiCreateView'])->name('guru.dashboard.lms.materi.create_view');
+    Route::get('/dashboard/lms/materi/create/{id}', [GuruLmsController::class, 'materiCreate'])->name('guru.dashboard.lms.materi.create');
+    Route::get('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiDetail'])->name('guru.dashboard.lms.materi.detail');
+    Route::post('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiStore'])->name('guru.dashboard.lms.materi.store');
+    Route::delete('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiDestroy'])->name('guru.dashboard.lms.materi.destroy');
+    Route::get('/dashboard/lms/materi/edit/{id}', [GuruLmsController::class, 'materiEdit'])->name('guru.dashboard.lms.materi.edit');
+    Route::put('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiUpdate'])->name('guru.dashboard.lms.materi.update');
     Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])->name('guru.dashboard.lms.tugas');
     Route::get('/dashboard/lms/forum/{id}', [ForumGuruController::class, 'index'])->name('siswa.dashboard.lms.forum');
     Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');

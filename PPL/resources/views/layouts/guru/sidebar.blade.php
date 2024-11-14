@@ -39,7 +39,7 @@ aria-label="Sidebar">
 
                 {{-- LMS --}}
                 <li>
-                    <x-sidebar-dropdown label="LMS" id="lms" :active="request()->is('guru/dashboard/lms*')">
+                    <x-sidebar-dropdown label="LMS" id="lms" :active="request()->is('guru/dashboard/lms')">
                         <x-sidebar-icon>
                             <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd"/>
                         </x-sidebar-icon>
@@ -49,7 +49,7 @@ aria-label="Sidebar">
                             <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms') }}" :active="request()->is('guru/dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('guru/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}" :active="request()->is('guru/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
                             <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}" :active="request()->is('guru/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
