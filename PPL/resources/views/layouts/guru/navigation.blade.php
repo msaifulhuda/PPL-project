@@ -22,7 +22,7 @@
 
                 {{-- Logo --}}
                 <a href="https://flowbite-admin-dashboard.vercel.app/" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-12">
+                    <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-14">
                 </a>
 
                 {{-- Search Input --}}

@@ -19,11 +19,12 @@ class TopikTugasMateriSeeder extends Seeder
 
         foreach ($kelasMataPelajaranRecords as $kelas) {
             $namaMataPelajaran = $kelas->mataPelajaran->nama_matpel;
+            $namaKelas = $kelas->kelas->nama_kelas;
             // For each kelas_mata_pelajaran, create 3 topik entries
             for ($i = 1; $i <= 3; $i++) {
                 $topik = Topik::create([
                     'mata_pelajaran_id' => $kelas->mata_pelajaran_id,
-                    'judul_topik' => "Bab $i",
+                    'judul_topik' => "Bab $i $namaMataPelajaran - $namaKelas",
                     'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -31,7 +32,7 @@ class TopikTugasMateriSeeder extends Seeder
 
                 for ($j = 1; $j <= 2; $j++) {
                     Materi::create([
-                        'judul_materi' => "Materi $j untuk Bab $i  - $namaMataPelajaran",
+                        'judul_materi' => "Materi $j untuk Bab $i  - $namaMataPelajaran - $namaKelas",
                         'topik_id' => $topik->id_topik,
                         'deskripsi' => $faker->paragraphs(3, true),
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,
@@ -45,7 +46,7 @@ class TopikTugasMateriSeeder extends Seeder
                 // For each topik, create 2 tugas entries
                 for ($k = 1; $k <= 2; $k++) {
                     Tugas::create([
-                        'judul' => "Tugas $k untuk Bab $i - $namaMataPelajaran",
+                        'judul' => "Tugas $k untuk Bab $i - $namaMataPelajaran - $namaKelas",
                         'deskripsi' => $faker->paragraphs(3, true),
                         'topik_id' => $topik->id_topik,
                         'kelas_mata_pelajaran_id' => $kelas->id_kelas_mata_pelajaran,

@@ -2,6 +2,12 @@
 <nav class="flex" aria-label="Breadcrumb">
     <ol class="flex px-3 space-x-2">
         @foreach ($breadcrumbs as $breadcrumb)
+            @if ($loop->last)
+                <li class="flex">
+                    <span class="text-gray-800">{{ $breadcrumb['label'] }}</span>
+                </li>
+                @break
+            @endif
             <li class="flex">
                 <a href="{{ $breadcrumb['route'] }}" class="text-gray-400 hover:text-gray-700">
                     <span>{{ $breadcrumb['label'] }}</span>
