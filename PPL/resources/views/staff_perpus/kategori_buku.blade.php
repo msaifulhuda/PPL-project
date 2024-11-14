@@ -1,5 +1,6 @@
 <x-staffperpustakaan-layout>
     @include('staff_perpus/modal/addCategory_Modal')
+    @include('staff_perpus/modal/deleteCategory_Modal')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-16 py-8 bg-white m-4">
         <div class="pb-4 bg-white dark:bg-gray-900">
             <label for="table-search" class="sr-only">Search</label>
@@ -16,7 +17,7 @@
                     placeholder="Search for items">
             </div>
         </div>
-        <a type="button" href="#"
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
             class="text-white bg-red-700 hover:bg-red-800 mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 24 24">
@@ -24,7 +25,7 @@
                     d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
             </svg>
             Hapus
-        </a>
+        </button>
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" type="button" href="#"
             class="text-white bg-green-700 hover:bg-green-800 mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -59,9 +60,10 @@
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="w-4 p-4">
                             <div class="flex items-center">
-                                <input id="checkbox-table-search-1" type="checkbox"
+                                <input type="checkbox" class="category-checkbox" data-id="{{ $AC->id_kategori_buku }}"
+                                    id="checkbox-{{ $AC->id_kategori_buku }}"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                <label for="checkbox-{{ $AC->id_kategori_buku }}" class="sr-only">checkbox</label>
                             </div>
                         </td>
                         <th scope="row"
@@ -84,7 +86,10 @@
                 @endforeach
             </tbody>
         </table>
-        @php $paginator = $arrayCategory @endphp
-        @include('staff_perpus.komponen.pagination')
+        {{-- @php $paginator = $arrayCategory @endphp
+        @include('staff_perpus.komponen.pagination') --}}
+        <div class="mt-6">
+            {{ $arrayCategory }}
+        </div>
     </div>
 </x-staffperpustakaan-layout>

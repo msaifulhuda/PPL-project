@@ -38,12 +38,18 @@ class PerpustakaanSeeder extends Seeder
             'nama_jenis_buku' => 'Non-Paket'
         ]);
 
-        $collection = collect([0, 1, 2]);
-        $nunggak = collect([0, 1]);
-
-        $kategori = collect(['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi']);
-        foreach (range(0, 84) as $number) {
+        $kategori = ['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi'];
+        foreach (range(0, count($kategori)) as $kategoriIndex) {
             $kategori_id = Str::uuid();
+            kategori_buku::create([
+                'id_kategori_buku' => $kategori_id,
+                'nama_kategori' => $kategori[$kategoriIndex]
+            ]);
+            $ArrayCategory[] = [$kategori_id, $kategori[$kategoriIndex]];
+        }
+        $ArrayCategory = collect($ArrayCategory);
+
+        foreach (range(0, 84) as $number) {
             $buku_id = Str::uuid();
             $transaksi_peminjaman_id = Str::uuid();
 
@@ -56,24 +62,23 @@ class PerpustakaanSeeder extends Seeder
             // date backbook
             $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
 
-            kategori_buku::create([
-                'id_kategori_buku' => $kategori_id,
-                'nama_kategori' => $kategori->random()
-            ]);
+            $kategori_id =  $ArrayCategory->random()[0];
+            $kategori_name =  $ArrayCategory->random()[1];
 
             buku::create([
                 'id_buku' => $buku_id,
                 'id_kategori_buku' => $kategori_id,
                 'id_jenis_buku' => $jenis_buku_id,
-                'author_buku' => 'Pembuat' . $kategori->random(),
+                'author_buku' => 'Pembuat' . $kategori_id,
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
                 'foto_buku' => 'images/Perpustakaan/Dummies/Narutos.jpg',
                 'tahun_terbit' => 2024,
                 'bahasa_buku' => 'Chinese',
-                'stok_buku' => 10,
-                'rak_buku' => 1,
+                'stok_buku' => rand(1, 20),
+                'rak_buku' => rand(1, 10),
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
+                'harga' => rand(20000, 300000)
             ]);
 
             if ($number >= 80) {
@@ -90,9 +95,9 @@ class PerpustakaanSeeder extends Seeder
                 'tgl_awal_peminjaman' => randomDate($startDate2, $endDate2),
                 'tgl_pengembalian' => $endDate3,
                 'denda' => 0,
-                'status_pengembalian' => $collection->random(),
-                'jenis_peminjam' => 0,
-                'status_denda' => $nunggak->random(),
+                'status_pengembalian' => rand(0, 1, 2), // 0 : Belum Dikembalikan 1 : Sudah Dikembalikan 2 : Hilang
+                'jenis_peminjam' => rand(0, 1), // 0 : False, 1 : True
+                'status_denda' => rand(0, 1), // 0 : False, 1 : True
             ]);
         };
     }

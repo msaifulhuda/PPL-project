@@ -9,18 +9,22 @@ use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\siswa\SiswaLmsController;
 use App\Http\Controllers\beranda\BerandaController;
 use App\Http\Controllers\guru\lms\ForumGuruController;
+use App\Http\Controllers\guru\lms\TugasGuruController;
+use App\Http\Controllers\guru\lms\MateriGuruController;
+use App\Http\Controllers\guru\lms\NilaiKelasController;
 use App\Http\Controllers\StaffAkademik\KelasController;
+
+use App\Http\Controllers\guru\lms\AnggotaGuruController;
+use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
 use App\Http\Controllers\siswa\lms\TugasSiswaController;
 use App\Http\Controllers\staffakademik\JadwalController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
-
 use App\Http\Controllers\guru\lms\DashboardGuruController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\siswa\lms\DashboardSiswaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
@@ -34,18 +38,16 @@ use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
+
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
-use App\Http\Controllers\guru\lms\AnggotaGuruController ;
-use App\Http\Controllers\guru\lms\MateriGuruController;
-use App\Http\Controllers\guru\lms\NilaiKelasController;
-use App\Http\Controllers\guru\lms\TugasGuruController;
+
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
-
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
+
+use App\Http\Controllers\staffperpus\CategoryController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
 // Route::get('/', function () {
 //     return view('beranda.home');
 // })->name('beranda.home');
@@ -191,8 +193,6 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     //lihat jadwal
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
-    
-
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
@@ -200,10 +200,19 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
 
 Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
 
-Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
-    Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
-    Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
 
+
+
+// P E R P U S T A K A A N
+
+Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
+    //INDEX
+    Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
+
+    //KATEGORI
+    Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
+    Route::post('/abcategory', [CategoryController::class, 'addCategory'])->name('bookcategories.create');
+    Route::post('/dbcategories', [CategoryController::class, 'deleteCategory'])->name('bookcategories.delete');
     // CRUD Buku
     Route::get('/buku', [StaffperpusController::class, 'daftarbuku'])->name('staff_perpus.buku.daftarbuku');
     Route::get('/buku/create', [StaffperpusController::class, 'createbuku'])->name('staff_perpus.buku.create');
@@ -211,8 +220,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}/edit', [StaffperpusController::class, 'editbuku'])->name('staff_perpus.buku.edit');
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
-
-    // >>>>>>>>> Temporary merge branch 2
 });
 
 
