@@ -35,7 +35,11 @@ use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-
+use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
+use App\Http\Controllers\guru\lms\AnggotaGuruController ;
+use App\Http\Controllers\guru\lms\MateriGuruController;
+use App\Http\Controllers\guru\lms\NilaiKelasController;
+use App\Http\Controllers\guru\lms\TugasGuruController;
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
 
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
@@ -319,9 +323,13 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/lms/materi/edit/{id}', [GuruLmsController::class, 'materiEdit'])->name('guru.dashboard.lms.materi.edit');
     Route::put('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiUpdate'])->name('guru.dashboard.lms.materi.update');
     Route::get('/dashboard/lms/tugas', [GuruLmsController::class, 'tugas'])->name('guru.dashboard.lms.tugas');
-    Route::get('/dashboard/lms/forum/{id}', [ForumGuruController::class, 'index'])->name('siswa.dashboard.lms.forum');
-    Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
-    Route::get('/dashboard/lms/forum/{id}/anggota', [AnggotaSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum.anggota');
+    Route::get('/dashboard/lms/forum/{id}', [ForumGuruController::class, 'index'])->name('guru.dashboard.lms.forum');
+    Route::get('/dashboard/lms/forum/tugas/{id}', [TugasGuruController::class, 'forumTugas'])->name('guru.dashboard.lms.forum.tugas');
+    Route::get('/dashboard/lms/forum/anggota/{id}', [AnggotaGuruController::class, 'index'])->name('guru.dashboard.lms.forum.anggota');
+    Route::get('/dashboard/lms/nilai_kelas/{id}', [NilaiKelasController::class, 'index'])->name('guru.dashboard.lms.forum.nilai_kelas');
+    Route::get('/dashboard/lms/materi/{id}', [MateriGuruController::class, 'detail'])->name('guru.dashboard.lms.detail.materi');
+    Route::get('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'detail'])->name('guru.dashboard.lms.detail.tugas');
+
     /**
      * END LMS
      */

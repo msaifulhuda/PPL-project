@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\siswa\lms;
 
+use Carbon\Carbon;
 use App\Models\KelasSiswa;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
@@ -10,24 +11,29 @@ class TugasSiswaController extends Controller
 {
     public function index()
     {
-        $id_siswa = auth()->guard('web-siswa')->user()->id_siswa;
-        $kelas = KelasSiswa::with('kelas')->where('id_siswa', $id_siswa)->firstOrFail()->kelas;
+        $idSiswa =  auth()->guard('web-siswa')->user()->id_siswa;
 
-        // Mata pelajaran dengan tugas untuk bagian kiri (Tugas Mendatang)
+
+        $kelas = KelasSiswa::with('kelas')->where('id_siswa', $idSiswa)->firstOrFail()->kelas;
+
+
         $mataPelajaranList = kelas_mata_pelajaran::where('kelas_id', $kelas->id_kelas)
-            ->with(['mataPelajaran', 'tugas' => function ($query) {
-                $query->orderBy('deadline', 'asc');
-            }])
+            ->with([
+                'mataPelajaran',
+                'tugas' => function ($query) {
+                    $query->orderBy('deadline', 'asc');
+                }
+            ])
             ->get();
 
-        // Semua tugas untuk bagian kanan (Tugas Terbaru)
-        $allTasks = collect([]);
-        foreach ($mataPelajaranList as $mapel) {
-            $allTasks = $allTasks->concat($mapel->tugas);
-        }
+
+        $allTasks = $mataPelajaranList->flatMap(function ($mapel) {
+            return $mapel->tugas;
+        });
+
 
         $allTasks = $allTasks->sortBy('created_at')->groupBy(function ($task) {
-            return \Carbon\Carbon::parse($task->created_at)->format('Y-m-d');
+            return Carbon::parse($task->created_at)->format('Y-m-d');
         });
 
         return view('siswa.lms.tugas', [
@@ -35,6 +41,7 @@ class TugasSiswaController extends Controller
             'allTasks' => $allTasks
         ]);
     }
+
 
 
 
@@ -57,5 +64,5 @@ class TugasSiswaController extends Controller
         return view('siswa.lms.detail_tugas');
     }
 
-    
+
 }
