@@ -39,7 +39,7 @@ class PerpustakaanSeeder extends Seeder
         ]);
 
         $kategori = ['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi'];
-        foreach (range(0, count($kategori)) as $kategoriIndex) {
+        foreach (range(0, count($kategori) - 1) as $kategoriIndex) {
             $kategori_id = Str::uuid();
             kategori_buku::create([
                 'id_kategori_buku' => $kategori_id,
@@ -78,12 +78,11 @@ class PerpustakaanSeeder extends Seeder
                 'stok_buku' => rand(1, 20),
                 'rak_buku' => rand(1, 10),
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
-                'harga' => rand(20000, 300000)
             ]);
 
             if ($number >= 80) {
                 $startDate2 = now();
-                $endDate2 = Carbon::now()->subDays(7)->toDateString();;
+                $endDate2 = Carbon::now()->subDays(7)->toDateString();
                 // date backbook
                 $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
             }
