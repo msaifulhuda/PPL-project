@@ -20,17 +20,17 @@ class SuperadminController extends Controller
     }
     public function showDataGuru()
     {
-        $guruData = Guru::paginate(5);
+        $guruData = Guru::orderBy('created_at', 'desc') 
+                        ->paginate(5);
         return view('superadmin.keloladataguru.data_guru', compact('guruData'));
-    }
+    }    
+
     public function showDataSiswa()
     {
         $siswaData = Siswa::with('kelas')->orderBy('created_at', 'desc')->paginate(5);
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }
 
-
-    // In SuperadminController
     public function searchGuru(Request $request)
     {
         $query = $request->input('search');
