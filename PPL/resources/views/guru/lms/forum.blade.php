@@ -1,5 +1,5 @@
 <x-app-guru-layout>
-    <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
+    <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         @php
             $breadcrumbs = [
@@ -70,7 +70,7 @@
                                 @php
                                     $route =
                                         $item->type === 'materi'
-                                            ? route('guru.dashboard.lms.detail.materi', $item->id)
+                                            ? route('guru.dashboard.lms.materi.detail', $item->id)
                                             : route('guru.dashboard.lms.detail.tugas', $item->id);
                                     $titlePrefix = $item->type === 'materi' ? 'Materi Baru: ' : 'Tugas Baru: ';
                                 @endphp
