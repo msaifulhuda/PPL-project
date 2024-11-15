@@ -67,15 +67,39 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $guruData->links() }}
-                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-600">
+                            Showing <b>{{ $guruData->firstItem() }}</b> to <b>{{ $guruData->lastItem() }}</b> of <b>{{ $guruData->total() }}</b> results
+                        </p>
+                    </div>
+                    <div class="flex justify-end">
+                        @if ($guruData->currentPage() > 1)
+                            <a href="{{ $guruData->previousPageUrl() }}" class="px-4 py-2 border rounded-l-lg bg-gray-200 hover:bg-gray-300">Previous</a>
+                        @endif
+                        @if ($guruData->currentPage() > 2)
+                            <a href="{{ $guruData->url(1) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">1</a>
+                            @if ($guruData->currentPage() > 3)
+                                <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            @endif
+                        @endif
+                        @for ($i = max(1, $guruData->currentPage() - 1); $i <= min($guruData->lastPage(), $guruData->currentPage() + 1); $i++)
+                            <a href="{{ $guruData->url($i) }}" class="px-4 py-2 border {{ $i === $guruData->currentPage() ? 'bg-blue-500 text-white font-bold' : 'bg-gray-200 hover:bg-gray-300' }}">
+                                {{ $i }}
+                            </a>
+                        @endfor
+                        @if ($guruData->currentPage() < $guruData->lastPage() - 2)
+                            <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            <a href="{{ $guruData->url($guruData->lastPage()) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">{{ $guruData->lastPage() }}</a>
+                        @endif
+                        @if ($guruData->currentPage() < $guruData->lastPage())
+                            <a href="{{ $guruData->nextPageUrl() }}" class="px-4 py-2 border rounded-r-lg bg-gray-200 hover:bg-gray-300">Next</a>
+                        @endif
+                    </div>
+                </div>                           
             </div>
         </div>
     </div>
-
     <script>
         function confirmDelete(event) {
             event.preventDefault();
@@ -84,8 +108,6 @@
                 event.target.submit();
             }
         }
-
-        // Hide success message smoothly
         document.addEventListener("DOMContentLoaded", function () {
             const successMessage = document.getElementById('success-message');
             if (successMessage) {

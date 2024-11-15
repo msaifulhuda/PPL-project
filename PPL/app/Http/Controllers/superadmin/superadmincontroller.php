@@ -27,7 +27,8 @@ class SuperadminController extends Controller
 
     public function showDataSiswa()
     {
-        $siswaData = Siswa::with('kelas')->orderBy('created_at', 'desc')->paginate(5);
+        $siswaData = Siswa::orderBy('created_at', 'desc')
+                        ->paginate(5);
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }
 
@@ -41,8 +42,8 @@ class SuperadminController extends Controller
 
     public function searchSiswa(Request $request)
     {
-        $squery = $request->input('search');
-        $siswaData = Siswa::where('nisn', 'LIKE', '%' . $squery . '%')->paginate(5);
+        $query = $request->input('search');
+        $siswaData = Siswa::where('nisn', 'LIKE', '%' . $query . '%')->paginate(5);
 
         return view('superadmin.keloladatasiswa.data_siswa', compact('siswaData'));
     }

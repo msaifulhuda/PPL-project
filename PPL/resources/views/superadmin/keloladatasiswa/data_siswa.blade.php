@@ -15,15 +15,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
-                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <b>Kelola Data Siswa</b>
-                </nav>
+                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
+                    <a href="{{ route('superadmin.keloladatasiswa') }}" class="text-black-500 hover:underline"><b>Kelola Data Siswa</b></a>
+                </nav>    
                 <h3 class="text-lg font-semibold mb-4">Kelola Data Siswa</h3>
                 <div class="mb-4 flex justify-between items-center">
                     <div>
                         <a href="{{ route('data.siswa.tambah') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Tambah Data</a>
                     </div>
                     <form action="{{ route('superadmin.searchSiswa') }}" method="GET" class="flex space-x-2">
-                        <input type="text" name="searchsiswa" placeholder="Cari NISN" value="{{ request('search') }}"
+                        <input type="text" name="search" placeholder="Cari NISN" value="{{ request('search') }}"
                                class="border border-gray-300 rounded-md px-4 py-2 focus:border-blue-500 focus:outline-none">
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Cari</button>
                     </form>
@@ -72,11 +73,36 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $siswaData->links() }}
-                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-600">
+                            Showing <b>{{ $siswaData->firstItem() }}</b> to <b>{{ $siswaData->lastItem() }}</b> of <b>{{ $siswaData->total() }}</b> results
+                        </p>
+                    </div>
+                    <div class="flex justify-end">
+                        @if ($siswaData->currentPage() > 1)
+                            <a href="{{ $siswaData->previousPageUrl() }}" class="px-4 py-2 border rounded-l-lg bg-gray-200 hover:bg-gray-300">Previous</a>
+                        @endif
+                        @if ($siswaData->currentPage() > 2)
+                            <a href="{{ $siswaData->url(1) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">1</a>
+                            @if ($siswaData->currentPage() > 3)
+                                <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            @endif
+                        @endif
+                        @for ($i = max(1, $siswaData->currentPage() - 1); $i <= min($siswaData->lastPage(), $siswaData->currentPage() + 1); $i++)
+                            <a href="{{ $siswaData->url($i) }}" class="px-4 py-2 border {{ $i === $siswaData->currentPage() ? 'bg-blue-500 text-white font-bold' : 'bg-gray-200 hover:bg-gray-300' }}">
+                                {{ $i }}
+                            </a>
+                        @endfor
+                        @if ($siswaData->currentPage() < $siswaData->lastPage() - 2)
+                            <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            <a href="{{ $siswaData->url($siswaData->lastPage()) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">{{ $siswaData->lastPage() }}</a>
+                        @endif
+                        @if ($siswaData->currentPage() < $siswaData->lastPage())
+                            <a href="{{ $siswaData->nextPageUrl() }}" class="px-4 py-2 border rounded-r-lg bg-gray-200 hover:bg-gray-300">Next</a>
+                        @endif
+                    </div>
+                </div>   
             </div>
         </div>
     </div>
