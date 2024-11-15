@@ -96,7 +96,7 @@ class Ekstrakurikuler extends Model
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class );
+        return $this->hasMany(RegistrasiEkstrakurikuler::class );
     }
     public function penilaianekstra()
     {

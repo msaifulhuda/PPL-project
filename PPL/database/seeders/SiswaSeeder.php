@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Siswa;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SiswaSeeder extends Seeder
@@ -13,6 +12,6 @@ class SiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        Siswa::factory()->count(100)->create();
+        Siswa::factory()->count(300)->create();
     }
 }

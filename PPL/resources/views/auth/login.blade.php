@@ -29,7 +29,6 @@
         <!-- Title and Subtitle -->
         <h2 class="text-lg font-semibold text-gray-800 mb-1">Hey, Hello 👋</h2>
         <p class="text-gray-600 mb-4 text-xs">Masukkan informasi yang Anda untuk login</p>
-
         <!-- Login Heading -->
         <h3 class="text-base font-semibold text-gray-700 mb-3">Login</h3>
 

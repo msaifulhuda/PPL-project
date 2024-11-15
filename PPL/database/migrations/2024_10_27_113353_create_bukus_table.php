@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('stok_buku');
             $table->integer('rak_buku');
             $table->dateTime('tgl_ditambahkan');
+            $table->integer('harga_buku');
         });
     }
 

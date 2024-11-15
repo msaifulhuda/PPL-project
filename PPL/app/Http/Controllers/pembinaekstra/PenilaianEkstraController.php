@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Ekstrakurikuler;
 use App\Http\Controllers\Controller;
 use App\Models\PenilaianEkstrakurikuler;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 use App\Models\LaporanPenilaianEkstrakurikuler;
-use App\Models\Siswa;
 
 class PenilaianEkstraController extends Controller
 {
@@ -22,7 +21,7 @@ class PenilaianEkstraController extends Controller
         $ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail();
         $nama_ekstra = $ekstra->nama_ekstrakurikuler;
         $id_ekstra = $ekstra->id_ekstrakurikuler;
-        $anggota = registrasi_ekstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
+        $anggota = RegistrasiEkstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
@@ -56,7 +55,7 @@ class PenilaianEkstraController extends Controller
         $ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail();
         $nama_ekstra = $ekstra->nama_ekstrakurikuler;
         $id_ekstra = $ekstra->id_ekstrakurikuler;
-        $anggota = registrasi_ekstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
+        $anggota = RegistrasiEkstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
@@ -99,7 +98,6 @@ class PenilaianEkstraController extends Controller
         
         $tahun_ajaran = tahun_ajaran::where('aktif', '1')->firstOrFail()->id_tahun_ajaran;
         $id_ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail()->id_ekstrakurikuler;
-        $id_tahun_ajaran = tahun_ajaran::where('aktif', '1')->firstOrFail()->id_tahun_ajaran;
         
         // Mencari data penilaian ekstrakurikuler berdasarkan id_siswa dan id_tahun_ajaran
         $penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->first();
@@ -118,7 +116,7 @@ class PenilaianEkstraController extends Controller
             $penilaian = PenilaianEkstrakurikuler::create([
                 'id_siswa' => $id_siswa,
                 'id_ekstrakurikuler' => $id_ekstra,
-                'id_tahun_ajaran' => $id_tahun_ajaran,
+                'id_tahun_ajaran' => $tahun_ajaran->id_tahun_ajaran,
                 'id_laporan' => $request->id_laporan,
                 'penilaian' => $request->penilaian,
             ]);

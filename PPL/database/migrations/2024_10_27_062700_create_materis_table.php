@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('materi', function (Blueprint $table) {
             $table->uuid('id_materi')->primary();
             $table->string('judul_materi');
-            $table->uuid('topik_id');
+            $table->text('deskripsi')->nullable();
+            $table->uuid('topik_id')->nullable();
             $table->uuid('kelas_mata_pelajaran_id');
-            $table->string('tanggal_dibuat');
             $table->boolean('status');
             $table->timestamps();
             $table->foreign('topik_id')->references('id_topik')->on('topik');
