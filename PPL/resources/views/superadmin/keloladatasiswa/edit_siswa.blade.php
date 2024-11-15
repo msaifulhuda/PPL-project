@@ -15,7 +15,7 @@
             <h2 class="text-lg font-semibold text-gray-800">Edit Data Siswa</h2>
             <p class="text-sm text-gray-600 mb-6">Ini adalah laman untuk mengedit data siswa</p>
 
-            <form action="{{ route('siswa.update', ['id_siswa' => $siswa->id_siswa]) }}" method="POST">
+            <form action="{{ route('siswa.update', $siswa->id_siswa) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <!-- Username -->

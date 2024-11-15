@@ -162,16 +162,7 @@ public function storeSiswa(Request $request)
     if ($request->filled('password')) {
         $siswa->password = bcrypt($request->password);
     }
-
-    // Cek dan hapus foto lama sebelum mengunggah foto baru
     if ($request->hasFile('foto_siswa')) {
-        // Cek apakah siswa sudah memiliki foto sebelumnya
-        if ($siswa->foto_siswa && file_exists(public_path('images/siswa/' . $siswa->foto_siswa))) {
-            // Hapus foto lama
-            unlink(public_path('images/siswa/' . $siswa->foto_siswa));
-        }
-
-        // Simpan foto baru
         $fileName = time() . '.' . $request->foto_siswa->extension();
         $request->foto_siswa->move(public_path('images/siswa'), $fileName);
         $siswa->foto_siswa = $fileName;
@@ -179,14 +170,6 @@ public function storeSiswa(Request $request)
 
     // Simpan data siswa
     $siswa->save();
-
-    // Periksa apakah 'class' (id_kelas) ada di request
-    if ($request->has('class')) {
-        $kelas = KelasSiswa::where('id_siswa', $id_siswa)->firstOrFail();
-        // Update id_kelas hanya jika ada nilai baru
-        $kelas->id_kelas = $request->class;
-        $kelas->save();
-    }
 
     // Redirect dengan pesan sukses
     return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil diperbarui.');
