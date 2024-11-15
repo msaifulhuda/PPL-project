@@ -5,11 +5,12 @@ namespace App\Http\Controllers\staffperpus;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\kategori_buku;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\buku;
+use App\Models\kategori_buku;
+use App\Models\transaksi_peminjaman;
 
 
 class StaffperpusController extends Controller
@@ -266,5 +267,25 @@ public function destroybuku($id)
 
     return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil dihapus!');
 }
+
+
+public function back(Request $request)
+{
+    // Mengambil nilai query dari request
+    $query = $request->input('query');
+
+    // Mengambil transaksi dengan filter status_pengembalian != 1
+    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
+        ->when($query, function ($queryBuilder) use ($query) {
+            // Jika ada query, tambahkan filter untuk kode_peminjam
+            return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
+        })
+        ->orderBy('tgl_pengembalian', 'asc')
+        ->simplePaginate(10);
+
+    // Mengembalikan hasil ke view
+    return view('staff_perpus.pengembalian.index', compact('transactions', 'query'));
+}
+
 
 }

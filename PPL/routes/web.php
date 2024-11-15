@@ -23,7 +23,7 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\GoogleLoginController;
-// <<<<<<< pengurus-ekstrakurikuler
+ 
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -31,9 +31,9 @@ use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 
 
-// >>>>>>> main
+ 
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-// >>>>>>> main
+ 
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 use App\Http\Controllers\staffakademik\JadwalController;
@@ -194,6 +194,7 @@ Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->nam
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
     Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
+    Route::get('/pengembalian', [StaffperpusController::class, 'back'])->name('staff_perpus.pengembalian');
 
     // CRUD Buku
     Route::get('/buku', [StaffperpusController::class, 'daftarbuku'])->name('staff_perpus.buku.daftarbuku');
@@ -203,7 +204,8 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
 
-// >>>>>>>>> Temporary merge branch 2
+    //Transaction
+    Route::get('/pengembalian/{id}', [StaffperpusController::class, 'index'])->name('pengembalian.index');
 });
 
 
