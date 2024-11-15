@@ -25,7 +25,7 @@
             {{-- Main Content with Sidebar and Material/Tugas --}}
             <div class="flex flex-col md:flex-row gap-4">
                 {{-- Left Sidebar --}}
-                <div class="flex flex-col gap-4 w-full md:w-1/3">
+                <div class="flex flex-col gap-4 w-full">
                     {{-- Instructor Info --}}
                     <div class="p-4 bg-gray-100 rounded-lg  border border-black">
                         <div class="flex items-center gap-2">
@@ -45,7 +45,7 @@
                                 <li>
                                     <p class="text-gray-600">Tenggat:
                                         {{ Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y') }}</p>
-                                    <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
+                                    <a href="{{ route('guru.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
                                         class="text-blue-500 underline">
                                         {{ $tugas->judul }}
                                     </a>
@@ -61,7 +61,7 @@
                 </div>
 
                 {{-- Right Sidebar/Main Content --}}
-                <div class="flex flex-col gap-4 w-full md:w-2/3">
+                <div class="flex flex-col gap-4 w-full">
                     {{-- List of Materi & Tugas --}}
                     <div class="space-y-4">
                         {{-- Sample Item --}}
@@ -112,8 +112,8 @@
                                 </a>
                             @endforeach
                         @else
-                        @endif
 
+                        @endif
                     </div>
                 </div>
             </div>

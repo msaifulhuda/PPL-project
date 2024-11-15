@@ -39,7 +39,7 @@
                         </x-sidebar-link>
                     </li>
                     <li>
-                        <x-sidebar-link href="{{ route('staff_perpus.manageCategory') }}" :active="request()->is('staff_perpus/manageCategory')">
+                        <x-sidebar-link href="{{ route('staff_perpus.managecategories') }}" :active="request()->is('staff_perpus/manageCategory')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
@@ -90,28 +90,34 @@
                             :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}" :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}"
+                            :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar Kategori</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar
+                            Kategori</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms"
+                            :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
-                            <li>
-                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku Masuk</x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku Hilang</x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan Transaksi</x-sidebar-dropdown-list-link>
-                            </li>
-                        </x-sidebar-dropdown-list>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
+                            Masuk</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
+                            Hilang</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
+                            Transaksi</x-sidebar-dropdown-list-link>
+                    </li>
+                    </x-sidebar-dropdown-list>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
