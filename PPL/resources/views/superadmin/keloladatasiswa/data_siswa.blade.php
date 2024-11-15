@@ -4,8 +4,14 @@
             {{ __('Kelola Data Siswa') }}
         </h2>
     </x-slot>
-
+    
     <div class="py-12">
+        @if(session('success'))
+            <div id="success-message" class="bg-green-500 text-white text-center py-2 px-4 rounded-md shadow-md mb-6">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
@@ -30,7 +36,7 @@
                             <th class="py-3 px-4 text-left">Nama Siswa</th>
                             <th class="py-3 px-4 text-left">Jenis Kelamin</th>
                             <th class="py-3 px-4 text-left">NISN</th>
-                            <th class="py-3 px-4 text-left">Kelas</th>
+                            {{-- <th class="py-3 px-4 text-left">Kelas</th> --}}
                             <th class="py-3 px-4 text-left">Alamat</th>
                             <th class="py-3 px-4 text-left">Telephone</th>
                             <th class="py-3 px-4 text-left">E-Mail</th>
@@ -41,25 +47,21 @@
                         @foreach ($siswaData as $siswa)
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="py-3 px-4 text-left">
-                                    @if ($siswa->foto_siswa)
-                                        <img src="{{ asset('images/siswa/' . $siswa->foto_siswa) }}" alt="Foto" class="w-10 h-10 rounded-full">
-                                    @else
-                                        -
-                                    @endif
+                                    <img src="{{ asset('images/siswa/' . $siswa->foto_siswa) }}" alt="Foto" class="w-10 h-10 rounded-full">
                                 </td>
                                 <td class="py-3 px-4">{{ $siswa->nama_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->jenis_kelamin_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->nisn }}</td>
-                                <td class="py-3 px-4">
+                                {{-- <td class="py-3 px-4">
                                     @foreach ($siswa->kelas as $kelas)
                                         {{ $kelas->nama_kelas }}@if (!$loop->last), @endif
                                     @endforeach
-                                </td>
+                                </td> --}}
                                 <td class="py-3 px-4">{{ $siswa->alamat_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->nomor_wa_siswa }}</td>
                                 <td class="py-3 px-4">{{ $siswa->email }}</td>
                                 <td class="py-3 px-4 flex space-x-2">
-                                    <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">Edit</a>
+                                    <a href="{{ route('siswa.edit', ['id_siswa' => $siswa->id_siswa]) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">Edit</a>
                                     <form action="{{ route('siswa.destroy', $siswa->id_siswa) }}" method="POST" onsubmit="return confirmDelete(event)" class="inline">
                                         @csrf
                                         @method('DELETE')

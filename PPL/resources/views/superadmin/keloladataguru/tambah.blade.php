@@ -8,8 +8,10 @@
     <div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
         <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
             <nav class="text-sm text-gray-500 mb-4">
-                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <a href="{{ route('superadmin.keloladataguru') }}" class="text-black-500 hover:underline">Kelola Data Guru</a> > <b>Tambah Data Guru</b>
-            </nav>
+                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
+                <a href="{{ route('superadmin.keloladataguru') }}" class="text-black-500 hover:underline">Kelola Data Guru</a> >
+                <a href="#" class="text-black-500 hover:underline"><b>Tambah Data Guru</b></a>
+            </nav> 
 
             <h2 class="text-lg font-semibold text-gray-800">Tambah Data Guru</h2>
             <p class="text-sm text-gray-600 mb-6">Ini adalah halaman untuk menambah data guru</p>
