@@ -99,11 +99,11 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi Ekskul jika belum ada
-        // if (Ekstrakurikuler::count() == 0) {
-        //     $this->call([
-        //         EkstrakurikulerSeeder::class,
-        //     ]);
-        // }
+        if (Ekstrakurikuler::count() == 0) {
+            $this->call([
+                EkstrakurikulerSeeder::class,
+            ]);
+        }
 
         // isi kelas mata pelajaran jika belum ada
         if (kelas_mata_pelajaran::count() == 0) {
@@ -221,17 +221,10 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
-<<<<<<< HEAD
         // ]);
         // $this->call([
         //     KelasMapelGuruJadwalAjaranSeeder::class,
         // ]);
-=======
-        // ]);
-        $this->call([
-            KelasMapelGuruJadwalAjaranSeeder::class,
-        ]);
->>>>>>> e09aabe806176ac873dc81533a2467589625894e
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
