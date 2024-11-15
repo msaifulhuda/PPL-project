@@ -123,29 +123,29 @@ class DatabaseSeeder extends Seeder
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
 
-        $idUser1 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser1,
-            'username' => 'admin',
-            'password' => bcrypt('admin123'),
-            'email' => 'andreeka852@gmail.com',
-        ]);
-        $idUser2 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser2,
-            'username' => 'Superadmin',
-            'password' => bcrypt('admin123'),
-            'email' => 'adisahrul383@gmail.com',
-        ]);
-        $idStaffPerpus = Str::uuid();
-        Staffperpus::create([
-            'id_staff_perpustakaan' => $idStaffPerpus,
-            'username' => '123456789101',
-            'password' => bcrypt('Perpus123'),
-        ]);
-        $this->call([
-            PerpustakaanSeeder::class,
-        ]);
+        // $idUser1 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser1,
+        //     'username' => 'admin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'andreeka852@gmail.com',
+        // ]);
+        // $idUser2 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser2,
+        //     'username' => 'Superadmin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'adisahrul383@gmail.com',
+        // ]);
+        // $idStaffPerpus = Str::uuid();
+        // Staffperpus::create([
+        //     'id_staff_perpustakaan' => $idStaffPerpus,
+        //     'username' => '123456789101',
+        //     'password' => bcrypt('Perpus123'),
+        // ]);
+        // $this->call([
+        //     PerpustakaanSeeder::class,
+        // ]);
 
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
@@ -155,11 +155,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         // Generate UUIDs
         // Create siswa with role 'siswa'
-        $idUser4 = Str::uuid();
-        $idUser9 = Str::uuid();
-        $idUser10 = Str::uuid();
-        $idUser11 = Str::uuid();
-        $idUser12 = Str::uuid();
+        // $idUser4 = Str::uuid();
+        // $idUser9 = Str::uuid();
+        // $idUser10 = Str::uuid();
+        // $idUser11 = Str::uuid();
+        // $idUser12 = Str::uuid();
 
         // Create siswa with role 'pengurus'
         // $idUser5 = Str::uuid();
@@ -167,7 +167,7 @@ class DatabaseSeeder extends Seeder
         // $idUser7 = Str::uuid();
         // $idUser8 = Str::uuid();
 
-        session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
+        // session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
 
         // Create siswa with role 'siswa'
         // Siswa::create([
@@ -221,10 +221,17 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
-        // ]);        
+<<<<<<< HEAD
+        // ]);
+        // $this->call([
+        //     KelasMapelGuruJadwalAjaranSeeder::class,
+        // ]);
+=======
+        // ]);
         $this->call([
             KelasMapelGuruJadwalAjaranSeeder::class,
         ]);
+>>>>>>> e09aabe806176ac873dc81533a2467589625894e
         // $this->call([
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
