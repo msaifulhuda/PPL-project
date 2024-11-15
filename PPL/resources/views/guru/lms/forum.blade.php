@@ -1,11 +1,11 @@
 <x-app-guru-layout>
-    <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
+    <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         @php
             $breadcrumbs = [
                 ['label' => 'Dashboard', 'route' => route('guru.dashboard')],
                 ['label' => 'LMS', 'route' => route('guru.dashboard.lms')],
-                ['label' => $mataPelajaran->nama_matpel . " " . $kelas->nama_kelas],
+                ['label' => $mataPelajaran->nama_matpel . ' ' . $kelas->nama_kelas],
             ];
         @endphp
 
@@ -15,7 +15,7 @@
         {{-- Main Content --}}
         <div class="px-3">
             {{-- Tabs --}}
-            <div class="flex gap-2 mb-4 mt-6">
+            <div class="flex gap-2 mb-4 mt-6 overflow-x-auto whitespace-nowrap">
                 <x-nav-button-lms route="guru.dashboard.lms.forum" :id="$id" label="Forum" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.tugas" :id="$id" label="Tugas" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
@@ -25,7 +25,7 @@
             {{-- Main Content with Sidebar and Material/Tugas --}}
             <div class="flex flex-col md:flex-row gap-4">
                 {{-- Left Sidebar --}}
-                <div class="flex flex-col gap-4 w-full">
+                <div class="flex flex-col gap-4 w-full basis-1/2">
                     {{-- Instructor Info --}}
                     <div class="p-4 bg-gray-100 rounded-lg  border border-black">
                         <div class="flex items-center gap-2">
@@ -54,7 +54,9 @@
                                 <p class="text-gray-500">Tidak ada tugas mendatang</p>
                             @endforelse
                         </ul>
-                        <p class="text-right mt-4 text-sm text-blue-500"><a href="{{route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $id)}}">Lihat Semua</a></p>
+                        <p class="text-right mt-4 text-sm text-blue-500"><a
+                                href="{{ route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $id) }}">Lihat Semua</a>
+                        </p>
 
                     </div>
 
@@ -70,7 +72,7 @@
                                 @php
                                     $route =
                                         $item->type === 'materi'
-                                            ? route('guru.dashboard.lms.detail.materi', $item->id)
+                                            ? route('guru.dashboard.lms.materi.detail', $item->id)
                                             : route('guru.dashboard.lms.detail.tugas', $item->id);
                                     $titlePrefix = $item->type === 'materi' ? 'Materi Baru: ' : 'Tugas Baru: ';
                                 @endphp
@@ -112,7 +114,6 @@
                                 </a>
                             @endforeach
                         @else
-
                         @endif
                     </div>
                 </div>

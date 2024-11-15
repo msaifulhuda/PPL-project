@@ -1,5 +1,5 @@
 <x-app-guru-layout>
-    <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
+    <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         @php
             $breadcrumbs = [
@@ -19,7 +19,11 @@
                 <x-nav-button-lms route="guru.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.nilai_kelas" :id="$id" label="Nilai" />
             </div>
-
+            @if (session()->has('success'))
+                <x-alert-notification :color="'blue'">
+                    {{ session('success') }}
+                </x-alert-notification>
+            @endif
             {{-- Tombol Buat --}}
             <div class="flex items-center justify-between mt-8 mb-4 max-w-3xl mx-auto">
                 <h2 class="text-lg font-semibold">Daftar Bab</h2>
@@ -30,27 +34,98 @@
                     <div id="dropdown-menu"
                         class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
                         <a href="" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-
                             Tugas
                         </a>
                         <a href="" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-
                             Materi
                         </a>
                         <hr class="border-gray-200">
-                        <a href="" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-
+                        <button class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 w-full"
+                            onclick="openModal()">
                             Topik
-                        </a>
+                        </button>
                     </div>
                 </div>
-
             </div>
+
             {{-- Main Content --}}
             <div class="flex flex-col items-center">
                 @foreach ($listTopik as $topik)
                     <div class="w-full max-w-3xl">
-                        <h2 class="mt-6 text-lg font-semibold">{{ $topik->judul_topik }}</h2>
+                        {{-- Topic Title --}}
+                        <div class="flex justify-between items-center mt-6">
+                            <h2 class="text-lg font-semibold">{{ $topik->judul_topik }}</h2>
+                            <div class="relative" x-data="{ open: false }">
+                                <button @click="open = !open"
+                                    class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                                    <svg width="24" height="24" fill="currentColor">
+                                        <circle cx="12" cy="5" r="2"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                        <circle cx="12" cy="19" r="2"></circle>
+                                    </svg>
+                                </button>
+                                <div x-show="open" @click.away="open = false"
+                                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                                    <div class="py-1">
+                                        <button type="button"
+                                            @click="$dispatch('open-modal', 'edit-topic-{{ $topik->id_topik }}')"
+                                            class="w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100">
+                                            Edit Topik
+                                        </button>
+                                        <form action="{{ route('guru.dashboard.lms.topik.destroy', $topik->id_topik) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus topik ini?')"
+                                            class="block w-full">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100">
+                                                Hapus Topik
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Modal for each topic -->
+                        <div x-data="{ showModal: false }" x-show="showModal"
+                            x-on:open-modal.window="showModal = ($event.detail === 'edit-topic-{{ $topik->id_topik }}')"
+                            x-on:keydown.escape.window="showModal = false" class="fixed inset-0 z-50"
+                            style="display: none;">
+                            <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+                            <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+                                <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto"
+                                    @click.away="showModal = false">
+                                    <form action="{{ route('guru.dashboard.lms.topik.update', $topik->id_topik) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="px-6 py-4 border-b">
+                                            <h3 class="text-lg font-medium text-gray-900">Edit Topik</h3>
+                                        </div>
+                                        <div class="px-6 py-4">
+                                            <div class="relative">
+                                                <input type="text" name="topic" value="{{ $topik->judul_topik }}"
+                                                    maxlength="200"
+                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="px-6 py-4 border-t flex justify-end space-x-2">
+                                            <button type="button" @click="showModal = false"
+                                                class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                                                Batal
+                                            </button>
+                                            <button type="submit"
+                                                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">
+                                                Simpan
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                         @forelse ($topik->tugas as $tugas)
                             <a href="{{ route('guru.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
@@ -75,7 +150,7 @@
                                 </div>
                             </a>
                         @empty
-                            <p class="text-gray-500">Tidak ada tugas untuk topik ini.</p>
+                            <p class="text-gray-500 text-center font-semibold py-4">Tidak ada tugas untuk topik ini.</p>
                         @endforelse
                     </div>
                 @endforeach
@@ -83,11 +158,91 @@
         </div>
     </div>
 
-    {{-- Script untuk Dropdown --}}
+    <!-- Modal tambah topik -->
+    <div id="topicModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black bg-opacity-50" onclick="closeModal()"></div>
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto" onclick="event.stopPropagation()">
+                <form action="{{ route('guru.dashboard.lms.topik.store', $id) }}" method="POST">
+                    @csrf
+                    <div class="px-6 py-4 border-b">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            Tambahkan topik
+                        </h3>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="relative">
+                            <input type="hidden" name="mata_pelajaran_id" value="{{ $mataPelajaran->id_matpel }}">
+                            <input type="hidden" name="kelas_mata_pelajaran_id" value="{{ $id }}">
+                            <input type="text" name="topic" id="topicInput" maxlength="200"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Topik" oninput="updateCharCount(this)" required>
+                        </div>
+                        <div class="text-right text-sm text-gray-500 mt-1">
+                            <span id="charCount">0</span>/200
+                        </div>
+                        @error('topic')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="px-6 py-4 border-t flex justify-end space-x-2">
+                        <button type="button" onclick="closeModal()"
+                            class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">
+                            Tambahkan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Scripts --}}
     <script>
+        // Dropdown Toggle
         function toggleDropdown() {
             const dropdown = document.getElementById('dropdown-menu');
             dropdown.classList.toggle('hidden');
         }
+
+        // Add Topic Modal
+        function openModal() {
+            document.getElementById('topicModal').classList.remove('hidden');
+            document.getElementById('topicInput').focus();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('topicModal');
+            const input = document.getElementById('topicInput');
+            const charCount = document.getElementById('charCount');
+
+            modal.classList.add('hidden');
+            input.value = '';
+            charCount.textContent = '0';
+        }
+
+        function updateCharCount(input) {
+            document.getElementById('charCount').textContent = input.value.length;
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdown-menu');
+            const dropdownButton = document.querySelector('[onclick="toggleDropdown()"]');
+
+            if (!dropdown.contains(event.target) && !dropdownButton.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </x-app-guru-layout>
