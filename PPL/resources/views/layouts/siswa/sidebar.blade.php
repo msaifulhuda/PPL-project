@@ -113,9 +113,9 @@
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.anggota') }}"
                             :active="request()->is('siswa/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
                     </li>
-                    {{-- <li>
-                                <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.penilaian') }}" :active="request()->is('siswa/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
-                            </li> --}}
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.penilaian') }}" :active="request()->is('siswa/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                    </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.perlengkapan') }}"
                             :active="request()->is('siswa/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
