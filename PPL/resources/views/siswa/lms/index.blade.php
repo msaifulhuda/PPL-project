@@ -1,5 +1,5 @@
 <x-siswa-layout>
-    <div class="p-2 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
+    <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         @php
             $breadcrumbs = [
