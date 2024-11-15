@@ -11,7 +11,7 @@
                 <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
                 <a href="{{ route('superadmin.keloladatasiswa') }}" class="text-black-500 hover:underline">Kelola Data Siswa</a> >
                 <a href="#" class="text-black-500 hover:underline"><b>Tambah Data Siswa</b></a>
-            </nav> 
+            </nav>
 
             <h2 class="text-lg font-semibold text-gray-800">Tambah Data Siswa</h2>
             <p class="text-sm text-gray-600 mb-6">Ini adalah halaman untuk menambah data siswa</p>
@@ -21,69 +21,82 @@
                 <!-- Username -->
                 <div class="mb-4">
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username :</label>
-                    <input type="text" name="username" id="username" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="username" id="username" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('username')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Password -->
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password :</label>
-                    <input type="password" name="password" id="password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="password" name="password" id="password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('password')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Nama Siswa -->
                 <div class="mb-4">
                     <label for="nama_siswa" class="block text-sm font-medium text-gray-700 mb-1">Nama Siswa :</label>
-                    <input type="text" name="nama_siswa" id="nama_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="nama_siswa" id="nama_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('nama_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Jenis Kelamin -->
                 <div class="mb-4">
                     <label for="jenis_kelamin_siswa" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin :</label>
-                    <select id="jenis_kelamin_siswa" name="jenis_kelamin_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <select id="jenis_kelamin_siswa" name="jenis_kelamin_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="Laki-laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
                     </select>
+                    @error('jenis_kelamin_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- NISN -->
                 <div class="mb-4">
                     <label for="nisn" class="block text-sm font-medium text-gray-700 mb-1">NISN :</label>
-                    <input type="text" name="nisn" id="nisn" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="text" name="nisn" id="nisn" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('nisn')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Tanggal Lahir -->
                 <div class="mb-4">
                     <label for="tgl_lahir_siswa" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir :</label>
-                    <input type="date" name="tgl_lahir_siswa" id="tgl_lahir_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="date" name="tgl_lahir_siswa" id="tgl_lahir_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('tgl_lahir_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Role Siswa -->
                 <div class="mb-4">
                     <label for="role_siswa" class="block text-sm font-medium text-gray-700 mb-1">Role Siswa :</label>
-                    <select id="role_siswa" name="role_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <select id="role_siswa" name="role_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
                         <option value="">Pilih Role</option>
                         <option value="siswa">Siswa</option>
                         <option value="pengurus">Pengurus</option>
                     </select>
+                    @error('role_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Alamat Siswa -->
                 <div class="mb-4">
                     <label for="alamat_siswa" class="block text-sm font-medium text-gray-700 mb-1">Alamat :</label>
                     <input type="text" name="alamat_siswa" id="alamat_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    @error('alamat_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
-
-                <!-- Kelas -->
-                {{-- <div class="mb-4">
-                    <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">Kelas :</label>
-                    <select name="id_kelas" class="form-control">
-                        <option value="">Select Class</option>
-                        @foreach ($kelasList as $kelas)
-                            <option value="{{ $kelas->id_kelas }}">{{ $kelas->nama_kelas }}</option>
-                        @endforeach
-                    </select>                    
-                </div> --}}
 
                 <!-- Foto Siswa Upload -->
                 <div class="mb-4">
@@ -101,18 +114,27 @@
                         </div>
                         <input type="file" name="foto_siswa" id="foto_siswa" class="hidden">
                     </div>
+                    @error('foto_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- No. WA -->
                 <div class="mb-4">
                     <label for="nomor_wa_siswa" class="block text-sm font-medium text-gray-700 mb-1">No. WA :</label>
-                    <input type="text" name="nomor_wa_siswa" id="nomor_wa_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    <input type="text" name="nomor_wa_siswa" id="nomor_wa_siswa" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('nomor_wa_siswa')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- E-Mail -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email :</label>
-                    <input type="email" name="email" id="email" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="email" name="email" id="email" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
+                    @error('email')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Submit -->

@@ -4,6 +4,7 @@
             {{ __('Edit Data Siswa') }}
         </h2>
     </x-slot>
+
     <div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
         <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
             <!-- Breadcrumb -->
@@ -113,6 +114,7 @@
             </form>
         </div>
     </div>
+
     <script>
         function dismissMessage() {
             const successMessage = document.getElementById('success-message');

@@ -9,6 +9,8 @@ use App\Models\Siswa;
 use App\Models\kelas;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
+use App\Http\Requests\StoreSiswaRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\KelasSiswa;
 
 class SuperadminController extends Controller
@@ -123,31 +125,32 @@ public function update(UpdateGuruRequest $request, $id_guru)
     $guru->save();
     return redirect()->route('superadmin.keloladataguru')->with('success', 'Data guru berhasil diperbarui.');
 }
-public function storeSiswa(Request $request)
-    {
-        $siswa = new Siswa();
-        $siswa->nisn = $request->nisn;
-        $siswa->nama_siswa = $request->nama_siswa;
-        $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
-        $siswa->jenis_kelamin_siswa = $request->jenis_kelamin_siswa;
-        $siswa->alamat_siswa = $request->alamat_siswa;
-        $siswa->password = bcrypt($request->password);
-        $siswa->nomor_wa_siswa = $request->nomor_wa_siswa;
-        $siswa->username = $request->username;
-        $siswa->email = $request->email;
-        $siswa->role_siswa = $request->input('role_siswa');
-        $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
-        if ($request->hasFile('foto_siswa')) {
-            $fileName = time() . '.' . $request->foto_siswa->extension();
-            $request->foto_siswa->move(public_path('images/siswa'), $fileName);
-            $siswa->foto_siswa = $fileName;
-        }
-        $siswa->save();
-        return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil ditambahkan!');
-    }
-    public function siswaUpdate(Request $request, $id_siswa)
+public function storeSiswa(StoreSiswaRequest $request)
 {
-    // Temukan siswa berdasarkan id_siswa
+    $siswa = new Siswa();
+    $siswa->nisn = $request->nisn;
+    $siswa->nama_siswa = $request->nama_siswa;
+    $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
+    $siswa->jenis_kelamin_siswa = $request->jenis_kelamin_siswa;
+    $siswa->alamat_siswa = $request->alamat_siswa;
+    $siswa->password = bcrypt($request->password);
+    $siswa->nomor_wa_siswa = $request->nomor_wa_siswa;
+    $siswa->username = $request->username;
+    $siswa->email = $request->email;
+    $siswa->role_siswa = $request->input('role_siswa');
+    
+    if ($request->hasFile('foto_siswa')) {
+        $fileName = time() . '.' . $request->foto_siswa->extension();
+        $request->foto_siswa->move(public_path('images/siswa'), $fileName);
+        $siswa->foto_siswa = $fileName;
+    }
+    $siswa->save();
+
+    return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil ditambahkan!');
+}
+
+public function siswaUpdate(UpdateSiswaRequest $request, $id_siswa)
+{
     $siswa = Siswa::findOrFail($id_siswa);
     $siswa->nama_siswa = $request->nama_siswa;
     $siswa->nisn = $request->nisn;
@@ -159,22 +162,21 @@ public function storeSiswa(Request $request)
     $siswa->role_siswa = $request->input('role_siswa');
     $siswa->tgl_lahir_siswa = $request->tgl_lahir_siswa;
     
-    // Update password jika diisi
     if ($request->filled('password')) {
         $siswa->password = bcrypt($request->password);
     }
+    
     if ($request->hasFile('foto_siswa')) {
         $fileName = time() . '.' . $request->foto_siswa->extension();
         $request->foto_siswa->move(public_path('images/siswa'), $fileName);
         $siswa->foto_siswa = $fileName;
     }
 
-    // Simpan data siswa
     $siswa->save();
 
-    // Redirect dengan pesan sukses
     return redirect()->route('superadmin.keloladatasiswa')->with('success', 'Data siswa berhasil diperbarui.');
 }
+
 
 
 }
