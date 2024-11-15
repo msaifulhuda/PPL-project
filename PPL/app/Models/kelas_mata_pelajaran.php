@@ -88,7 +88,7 @@ class kelas_mata_pelajaran extends Model
     }
     public function materi()
     {
-        return $this->hasMany(materi::class);
+        return $this->hasMany(materi::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
     public function pertemuan()
     {

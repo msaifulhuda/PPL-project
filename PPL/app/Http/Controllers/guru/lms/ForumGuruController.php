@@ -18,7 +18,6 @@ class ForumGuruController extends Controller
             'materi:id_materi,judul_materi,created_at,kelas_mata_pelajaran_id',
             'tugas:id_tugas,judul,created_at,kelas_mata_pelajaran_id',
             'kelas:id_kelas,nama_kelas',
-
         ])
             ->select([
                 'id_kelas_mata_pelajaran',
