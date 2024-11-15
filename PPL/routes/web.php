@@ -45,7 +45,7 @@ use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
-
+use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 // Route::get('/', function () {
@@ -236,6 +236,11 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
         // Anggota
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
+
+        // Penilaian Ekstrakurikuler
+        Route::get('ekstrakurikuler/penilaian', [PenilaianEkstraPengurusController::class, 'index'])->name('pengurus_ekstra.penilaian');
+        Route::post('ekstrakurikuler/penilaian/{id}', [PenilaianEkstraPengurusController::class, 'storeOrUpdate'])->name('pengurus_ekstra.penilaian.storeOrUpdate');
+        Route::put('ekstrakurikuler/penilaian/laporan/{id_laporan}', [PenilaianEkstraPengurusController::class, 'updateLaporan'])->name('pengurus_ekstra.laporan.update');
 
         // Perlengkapan
         Route::get('/ekstrakurikuler/perlengkapan', [PerlengkapanController::class, 'index'])->name('pengurus_ekstra.perlengkapan');

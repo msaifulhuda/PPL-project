@@ -4,18 +4,21 @@
             {{ __('Edit Data Siswa') }}
         </h2>
     </x-slot>
+
     <div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
         <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
             <!-- Breadcrumb -->
             <nav class="text-sm text-gray-500 mb-4">
-                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <a href="{{ route('superadmin.keloladatasiswa') }}" class="text-black-500 hover:underline">Kelola Data Siswa</a> > <b>Edit Data Siswa</b>
-            </nav>
+                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
+                <a href="{{ route('superadmin.keloladatasiswa') }}" class="text-black-500 hover:underline">Kelola Data Siswa</a> >
+                <a href="#" class="text-black-500 hover:underline"><b>Edit Data Siswa</b></a>
+            </nav> 
 
             <!-- Title and Description -->
             <h2 class="text-lg font-semibold text-gray-800">Edit Data Siswa</h2>
             <p class="text-sm text-gray-600 mb-6">Ini adalah laman untuk mengedit data siswa</p>
 
-            <form action="{{ route('siswa.update', ['id_siswa' => $siswa->id_siswa]) }}" method="POST">
+            <form action="{{ route('siswa.update', $siswa->id_siswa) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <!-- Username -->
@@ -111,6 +114,7 @@
             </form>
         </div>
     </div>
+
     <script>
         function dismissMessage() {
             const successMessage = document.getElementById('success-message');
