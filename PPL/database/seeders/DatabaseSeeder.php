@@ -98,12 +98,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // isi Ekskul jika belum ada
-        if (Ekstrakurikuler::count() == 0) {
-            $this->call([
-                EkstrakurikulerSeeder::class,
-            ]);
-        }
+        // // isi Ekskul jika belum ada
+        // if (Ekstrakurikuler::count() == 0) {
+        //     $this->call([
+        //         EkstrakurikulerSeeder::class,
+        //     ]);
+        // }
 
         // isi kelas mata pelajaran jika belum ada
         if (kelas_mata_pelajaran::count() == 0) {
@@ -137,15 +137,15 @@ class DatabaseSeeder extends Seeder
         //     'password' => bcrypt('admin123'),
         //     'email' => 'adisahrul383@gmail.com',
         // ]);
-        // $idStaffPerpus = Str::uuid();
-        // Staffperpus::create([
-        //     'id_staff_perpustakaan' => $idStaffPerpus,
-        //     'username' => '123456789101',
-        //     'password' => bcrypt('Perpus123'),
-        // ]);
-        // $this->call([
-        //     PerpustakaanSeeder::class,
-        // ]);
+        $idStaffPerpus = Str::uuid();
+        Staffperpus::create([
+            'id_staff_perpustakaan' => $idStaffPerpus,
+            'username' => '123456789101',
+            'password' => bcrypt('Perpus123'),
+        ]);
+        $this->call([
+            PerpustakaanSeeder::class,
+        ]);
 
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
