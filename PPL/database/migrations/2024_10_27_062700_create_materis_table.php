@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid('kelas_mata_pelajaran_id');
             $table->boolean('status');
             $table->timestamps();
-            $table->foreign('topik_id')->references('id_topik')->on('topik');
+            $table->foreign('topik_id')->references('id_topik')->on('topik')->onDelete('set null');
             $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_mata_pelajaran')->on('kelas_mata_pelajaran');
         });
     }

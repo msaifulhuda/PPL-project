@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\KelasSiswa;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
+use App\Models\materi;
+use App\Models\tugas;
 
 class TugasSiswaController extends Controller
 {
@@ -51,11 +53,25 @@ class TugasSiswaController extends Controller
         $kelasMataPelajaran = kelas_mata_pelajaran::with([
             'mataPelajaran:id_matpel,nama_matpel',
             'topik.tugas',
+            'topik.materi'
         ])->findOrFail($id);
+
+        $tugasTanpaTopik = tugas::where('kelas_mata_pelajaran_id', $id)
+            ->whereNull('topik_id')
+            ->get();
+
+        $materiTanpaTopik = materi::where('kelas_mata_pelajaran_id', $id)
+            ->whereNull('topik_id')
+            ->get();
+
+
+    
         return view('siswa.lms.forum_tugas', [
             'id' => $kelasMataPelajaran->id_kelas_mata_pelajaran,
             'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
-            'listTopik' => $kelasMataPelajaran->topik
+            'listTopik' => $kelasMataPelajaran->topik,
+            'tugasTanpaTopik' => $tugasTanpaTopik,
+            'materiTanpaTopik' => $materiTanpaTopik
         ]);
     }
 
