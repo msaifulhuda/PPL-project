@@ -83,8 +83,21 @@ class TugasGuruController extends Controller
         ]);
     }
 
+    public function create($id)
+    {
+        $kelasMataPelajaran = kelas_mata_pelajaran::with([
+            'mataPelajaran:id_matpel,nama_matpel',
+            'kelas:id_kelas,nama_kelas',
+        ])->findOrFail($id);
+        return view('guru.lms.tugas.create', [
+            'id' => $id,
+            'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
+            'kelas' => $kelasMataPelajaran->kelas,
+        ]);
+    }
+
     public function detail($id)
     {
-        return view('guru.lms.detail_tugas', ['id' => $id]);
+        return view('guru.lms.tugas.detail', ['id' => $id]);
     }
 }
