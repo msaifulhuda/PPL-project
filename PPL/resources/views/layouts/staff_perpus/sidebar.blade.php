@@ -57,7 +57,7 @@
                                     clip-rule="evenodd" />
                                 <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z" />
                             </x-sidebar-icon>
-                            <span class="ml-3" sidebar-toggle-item>Pengembalian</span>
+                            <span class="ml-3" sidebar-toggle-item>Transaksi</span>
                         </x-sidebar-link>
                     </li>
 

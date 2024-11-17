@@ -12,9 +12,13 @@
     <div class="container mx-auto p-6">
         <!-- Search bar -->
         <form method="GET" action="{{ route('staff_perpus.pengembalian') }}" class="mb-6">
-            <input type="text" name="query" value="{{ request()->input('query') }}"
+            <input class="basis-2/4 rounded-lg" type="text" name="query" value="{{ request()->input('query') }}"
                 placeholder="Cari nama peminjam..." 
                 class="border border-gray-300 rounded-lg p-2 w-full">
+            <!-- Tombol Tambah Transaksi -->
+            <div class=" basis- 1/4 text-right">
+                <a href="{{ route('staff_perpus.transaksi.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition duration-300">Tambah Transaksi</a>
+            </div>
         </form>
 
         <!-- Transactions Table -->
