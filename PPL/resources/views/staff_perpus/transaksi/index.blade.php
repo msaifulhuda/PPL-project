@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <div class="container mx-auto p-6">
         <!-- Search bar -->
-        <form method="GET" action="{{ route('staff_perpus.pengembalian') }}" class="mb-6">
+        <form method="GET" action="{{ route('staff_perpus.transaksi.daftartransaksi') }}" class="mb-6">
             <input class="basis-2/4 rounded-lg" type="text" name="query" value="{{ request()->input('query') }}"
                 placeholder="Cari nama peminjam..." 
                 class="border border-gray-300 rounded-lg p-2 w-full">

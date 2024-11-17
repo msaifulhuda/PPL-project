@@ -329,10 +329,4 @@ public function show($id)
 
     return view('staff_perpus.buku.detail', compact('buku'));
 }
-    public function show($id)
-    {
-        $buku = Buku::with('kategoriBuku', 'jenisBuku')->findOrFail($id);
-
-        return view('staff_perpus.buku.detail', compact('buku'));
-    }
 }

@@ -1,7 +1,7 @@
 <x-staffperpustakaan-layout>
     <div class="container mx-auto max-w-lg p-6 bg-white shadow-md rounded-lg">
         <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Tambah Transaksi Peminjaman Buku</h1>
-        <a href="{{ route('staff_perpus.pengembalian') }}"  class="text-blue-500 hover:text-blue-700 flex items-center mt-12">
+        <a href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"  class="text-blue-500 hover:text-blue-700 flex items-center mt-12">
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>

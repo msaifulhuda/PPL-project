@@ -215,7 +215,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     //INDEX
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
     Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
-    Route::get('/pengembalian', [StaffperpusController::class, 'back'])->name('staff_perpus.pengembalian');
 
     //KATEGORI
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
@@ -232,7 +231,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}', [StaffperpusController::class, 'show'])->name('staff_perpus.buku.detail');
 
 
-
+    // TRANSAKSI
     Route::get('/transaksi', [TransaksiPeminjamanController::class, 'index'])->name('staff_perpus.transaksi.daftartransaksi');
     Route::get('/transaksi/create', [TransaksiPeminjamanController::class, 'create'])->name('staff_perpus.transaksi.create');
     Route::post('/staff_perpus/transaksi', [TransaksiPeminjamanController::class, 'store'])->name('staff_perpus.transaksi.store');
@@ -240,7 +239,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
     
-// >>>>>>>>> Temporary merge branch 2
 });
 
 

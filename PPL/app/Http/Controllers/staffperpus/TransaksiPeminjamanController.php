@@ -17,20 +17,39 @@ class TransaksiPeminjamanController extends Controller
 {
 
     public function index(Request $request)
-    {   
-        // $transaksi = transaksi_peminjaman::with('buku')->orderBy('tgl_awal_peminjaman', 'desc')->get(); // Memuat relasi buku
-        // return view('staff_perpus.transaksi.daftartransaksi', compact('transaksi'));
+{
+    // Mengambil nilai query dari request
+    $query = $request->input('query');
 
-        $query = transaksi_peminjaman::with('buku')->orderBy('tgl_awal_peminjaman', 'desc');
+    // Mengambil transaksi dengan filter status_pengembalian != 1
+    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
+        ->when($query, function ($queryBuilder) use ($query) {
+            // Jika ada query, tambahkan filter untuk kode_peminjam
+            return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
+        })
+        ->orderBy('tgl_pengembalian', 'asc')
+        ->simplePaginate(10);
 
-    if ($request->has('search') && !empty($request->search)) {
-        $query->where('kode_peminjam', 'LIKE', '%' . $request->search . '%');
-    }
+    // Mengembalikan hasil ke view
+    return view('staff_perpus.transaksi.daftartransaksi', compact('transactions', 'query'));
+}
 
-    $transaksi = $query->get();
 
-    return view('staff_perpus.transaksi.daftartransaksi', compact('transaksi'));
-    }
+    // public function index(Request $request)
+    // {   
+    //     // $transaksi = transaksi_peminjaman::with('buku')->orderBy('tgl_awal_peminjaman', 'desc')->get(); // Memuat relasi buku
+    //     // return view('staff_perpus.transaksi.daftartransaksi', compact('transaksi'));
+
+    //     $query = transaksi_peminjaman::with('buku')->orderBy('tgl_awal_peminjaman', 'desc');
+
+    // if ($request->has('search') && !empty($request->search)) {
+    //     $query->where('kode_peminjam', 'LIKE', '%' . $request->search . '%');
+    // }
+
+    // $transaksi = $query->get();
+
+    // return view('staff_perpus.transaksi.daftartransaksi', compact('transaksi'));
+    // }
     // Menampilkan form transaksi peminjaman
     public function create()
 {

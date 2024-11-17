@@ -39,6 +39,28 @@
                         </x-sidebar-link>
                     </li>
                     <li>
+                        <x-sidebar-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}" :active="request()->is('staff_perpus/transaksi')">
+                            <x-sidebar-icon>
+                                <path fill-rule="evenodd"
+                                    d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
+                                    clip-rule="evenodd" />
+                                <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z" />
+                            </x-sidebar-icon>
+                            <span class="ml-3" sidebar-toggle-item>Transaksi</span>
+                        </x-sidebar-link>
+                    </li>
+                    <li>
+                        <x-sidebar-link href="{{ route('staff_perpus.buku.daftarbuku') }}" :active="request()->is('dashboard/perpustakaan/buku')">
+                            <x-sidebar-icon>
+                                <path fill-rule="evenodd"
+                                    d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
+                                    clip-rule="evenodd" />
+                                <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z" />
+                            </x-sidebar-icon>
+                            <span class="ml-3" sidebar-toggle-item>Kelola Buku</span>
+                        </x-sidebar-link>
+                    </li>
+                    <li>
                         <x-sidebar-link href="{{ route('staff_perpus.managecategories') }}" :active="request()->is('staff_perpus/manageCategory')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
@@ -50,88 +72,57 @@
                         </x-sidebar-link>
                     </li>
                     <li>
-                        <x-sidebar-link href="{{ route('staff_perpus.pengembalian') }}" :active="request()->is('staff_perpus/pengembalian')">
-                            <x-sidebar-icon>
-                                <path fill-rule="evenodd"
-                                    d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
-                                    clip-rule="evenodd" />
-                                <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z" />
-                            </x-sidebar-icon>
-                            <span class="ml-3" sidebar-toggle-item>Transaksi</span>
-                        </x-sidebar-link>
-                    </li>
-
-                    {{-- LMS --}}
-                    {{-- <li>
-                        <x-sidebar-dropdown label="LMS" id="lms" :active="request()->is('siswa/dashboard/lms*')">
-                            <x-sidebar-icon>
-                                <path fill-rule="evenodd"
-                                    d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z"
-                                    clip-rule="evenodd" />
-                            </x-sidebar-icon>
-                        </x-sidebar-dropdown>
-                        <x-sidebar-dropdown-list id="lms" :active="request()->is('siswa/dashboard/lms*')">
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms') }}"
-                            :active="request()->is('siswa/dashboard/lms')">Beranda</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.materi') }}"
-                            :active="request()->is('siswa/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tugas') }}"
-                            :active="request()->is('siswa/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
-                    </li>
-                    </x-sidebar-dropdown-list>
-                    </li> --}}
-
-                    {{-- Perpustakaan --}}
-                    <li>
-                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
+                        <x-sidebar-dropdown label="Laporan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan/laporan*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
-                                    clip-rule="evenodd" />+
+                                    clip-rule="evenodd" />
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
-                    <li>
-                        <x-sidebar-dropdown-list-link href="/dashboard"
-                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}"
-                            :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar
-                            Kategori</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"
-                            :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
-                        </x-sidebar-dropdown>
-                        <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
-                    <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
-                            Masuk</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
-                            Hilang</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
-                            Transaksi</x-sidebar-dropdown-list-link>
-                    </li>
-                    </x-sidebar-dropdown-list>
-                    </li>
-                    </x-sidebar-dropdown-list>
-                    </li>
+                            <li>
+                            <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
+                                Masuk</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
+                                    Hilang</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
+                                    Transaksi</x-sidebar-dropdown-list-link>
+                            </li>
+                        <!-- <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}"
+                                :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
+                        </li> -->
+                        <!-- <li>
+                            <x-sidebar-dropdown-list-link href="/dashboard"
+                                :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                        </li> -->
+                        <!-- <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"  :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
+                        </li> -->
+                        <!-- <li>
+                            <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                            </x-sidebar-dropdown>
+                            <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                            <li>
+                            <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
+                                Masuk</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
+                                    Hilang</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
+                                    Transaksi</x-sidebar-dropdown-list-link>
+                            </li>
+                            </x-sidebar-dropdown-list>
+                        </li> -->
+                        </x-sidebar-dropdown-list>
+                        </li>
                 </ul>
 
                 {{-- Sidebar Footer --}}
