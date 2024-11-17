@@ -32,22 +32,28 @@ class PerpustakaanSeeder extends Seeder
         }
 
         // Generate unique IDs for each jenis_buku
-        jenis_buku::create([
-            'id_jenis_buku' => 1,
-            'nama_jenis_buku' => 'Non-Paket'
-        ]);
+        // jenis_buku::create([
+        //     'id_jenis_buku' => 1,
+        //     'nama_jenis_buku' => 'Non-Paket'
+        // ]);
         
-        jenis_buku::create([
-            'id_jenis_buku' => 2,
-            'nama_jenis_buku' => 'Paket'
-        ]);
+        // jenis_buku::create([
+        //     'id_jenis_buku' => 2,
+        //     'nama_jenis_buku' => 'Paket'
+        // ]);
 
-        $collection = collect([0, 1, 2]);
-        $nunggak = collect([0, 1]);
-
-        $kategori = collect(['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi']);
-        foreach (range(0, 84) as $number) {
+        $kategori = ['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi'];
+        foreach (range(0, count($kategori) - 1) as $kategoriIndex) {
             $kategori_id = Str::uuid();
+            kategori_buku::create([
+                'id_kategori_buku' => $kategori_id,
+                'nama_kategori' => $kategori[$kategoriIndex]
+            ]);
+            $ArrayCategory[] = [$kategori_id, $kategori[$kategoriIndex]];
+        }
+        $ArrayCategory = collect($ArrayCategory);
+
+        foreach (range(0, 84) as $number) {
             $buku_id = Str::uuid();
             $transaksi_peminjaman_id = Str::uuid();
 
@@ -60,30 +66,28 @@ class PerpustakaanSeeder extends Seeder
             // date backbook
             $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
 
-            kategori_buku::create([
-                'id_kategori_buku' => $kategori_id,
-                'nama_kategori' => $kategori->random()
-            ]);
+            $kategori_id =  $ArrayCategory->random()[0];
+            $kategori_name =  $ArrayCategory->random()[1];
 
             buku::create([
                 'id_buku' => $buku_id,
                 'id_kategori_buku' => $kategori_id,
-                'id_jenis_buku' => 1,
-                'author_buku' => 'Pembuat' . $kategori->random(),
+                'id_jenis_buku' => rand(0, 1), // 0 : 'Non-Paket', 1 : 'Paket'
+                'author_buku' => 'Pembuat' . $kategori_id,
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
                 'foto_buku' => 'images/Perpustakaan/Dummies/Narutos.jpg',
                 'tahun_terbit' => 2024,
                 'bahasa_buku' => 'Chinese',
-                'stok_buku' => 10,
-                'rak_buku' => 1,
-                'harga_buku' => 10000,
+                'stok_buku' => rand(1, 20),
+                'rak_buku' => rand(1, 10),
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
+                'harga_buku' => rand(20000, 300000)
             ]);
 
             if ($number >= 80) {
                 $startDate2 = now();
-                $endDate2 = Carbon::now()->subDays(7)->toDateString();;
+                $endDate2 = Carbon::now()->subDays(7)->toDateString();
                 // date backbook
                 $endDate3 = date('Y-m-d H:i:s', strtotime($endDate2 . ' +7 days'));
             }
@@ -95,10 +99,9 @@ class PerpustakaanSeeder extends Seeder
                 'tgl_awal_peminjaman' => randomDate($startDate2, $endDate2),
                 'tgl_pengembalian' => $endDate3,
                 'denda' => 0,
-                'status_pengembalian' => $collection->random(),
-                'jenis_peminjam' => 0,
-                'status_denda' => $nunggak->random(),
-                'stok' => 1,
+                'status_pengembalian' => rand(0, 2), // 0 : Belum Dikembalikan 1 : Sudah Dikembalikan 2 : Hilang
+                'jenis_peminjam' => rand(0, 1), // 0 : False, 1 : True
+                'status_denda' => rand(0, 1), // 0 : False, 1 : True
             ]);
         };
     }

@@ -2,52 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 class tugas extends Model
 {
-    use Notifiable;
+    use Notifiable, HasUuids;
 
-    /**
-     * The "booting" function of model
-     *
-     * @return void
-     */
-    protected static function boot() {
-        static::creating(function ($model) {
-            if ( ! $model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
 
-     /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $table = 'tugas';
+    protected $primaryKey = 'id_tugas';
+    public $timestamps = false;
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'judul',

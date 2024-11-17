@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('nama_staff_perpustakaan')->nullable();
             $table->string('alamat_staff_perpustakaan')->nullable();
             $table->string('email')->nullable();
-            $table->string('google_key_staff_perpustakaan')->nullable();
+            $table->string('google_id')->nullable();
+            $table->string('google_token')->nullable();
             $table->string('wa_staff_perpustakaan')->nullable();
             $table->timestamps();
         });

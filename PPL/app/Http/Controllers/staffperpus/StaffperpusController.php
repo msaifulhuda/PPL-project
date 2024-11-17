@@ -48,27 +48,14 @@ class StaffperpusController extends Controller
             ->count();
         return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman, 'transactionsevendays' => $transactionsevendays, 'alltrans' => $all, 'buku' => $book, 'buku10' => $book10, 'cat10' => $cat10, 'totalCategory' => $totalCategory]);
     }
-    public function manageCategory()
-    {
-        $Category = DB::table('kategori_buku')
-            ->paginate(10);
-        return view('staff_perpus.kategori_buku', ['arrayCategory' => $Category]);
-    }
-    public function addCategory($nama_kategori)
-    {
-        kategori_buku::create([
-            'id_kategori_buku' => Str::uuid(),
-            'nama_kategori' => $nama_kategori
-        ]);
-    }
 
     public function daftarbuku(Request $request)
-    {   
+    {
 
         // Ambil data search dan kategori dari query string
         $search = $request->input('search');
         $kategori_buku = $request->input('kategori_buku');
-        
+
         $query = buku::query();
 
         // Filter berdasarkan pencarian (jika ada)
@@ -93,7 +80,7 @@ class StaffperpusController extends Controller
     {
         $kategoriBuku = DB::table('kategori_buku')->get();
         $jenisBuku = DB::table('jenis_buku')->get(); // Jika juga perlu jenis buku
-    
+
         return view('staff_perpus.buku.create', compact('kategoriBuku', 'jenisBuku'));
     }
 
@@ -193,19 +180,19 @@ class StaffperpusController extends Controller
             'harga_buku' => $request->harga_buku, // Menyimpan harga buku
             'tgl_ditambahkan' => now(),
         ]);
-    
+
         return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil ditambahkan!');
     }    
     
 
-public function editbuku($id)
-{
-    $buku = buku::findOrFail($id);
-    $kategoriBuku = DB::table('kategori_buku')->get();
-    $jenisBuku = DB::table('jenis_buku')->get();
+    public function editbuku($id)
+    {
+        $buku = buku::findOrFail($id);
+        $kategoriBuku = DB::table('kategori_buku')->get();
+        $jenisBuku = DB::table('jenis_buku')->get();
 
-    return view('staff_perpus.buku.edit', compact('buku', 'kategoriBuku', 'jenisBuku'));
-}
+        return view('staff_perpus.buku.edit', compact('buku', 'kategoriBuku', 'jenisBuku'));
+    }
 
 public function updatebuku(Request $request, $id)
 {
@@ -277,13 +264,13 @@ public function updatebuku(Request $request, $id)
     'harga_buku.min' => 'Harga buku tidak boleh kurang dari 0.',
 ]);
 
-    $buku = buku::findOrFail($id);
-    if ($request->hasFile('foto_buku')) {
-        if ($buku->foto_buku) {
-            Storage::delete($buku->foto_buku);
+        $buku = buku::findOrFail($id);
+        if ($request->hasFile('foto_buku')) {
+            if ($buku->foto_buku) {
+                Storage::delete($buku->foto_buku);
+            }
+            $buku->foto_buku = $request->file('foto_buku')->store('public/buku');
         }
-        $buku->foto_buku = $request->file('foto_buku')->store('public/buku');
-    }
 
     $buku->update([
         'judul_buku' => $request->judul_buku,
@@ -298,17 +285,17 @@ public function updatebuku(Request $request, $id)
         'harga_buku' => $request->harga_buku, // Menyimpan harga buku
     ]);
 
-    return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil diperbarui!');
-}
-
-
-public function destroybuku($id)
-{
-    $buku = buku::findOrFail($id);
-    if ($buku->foto_buku) {
-        Storage::delete($buku->foto_buku);
+        return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil diperbarui!');
     }
-    $buku->delete();
+
+
+    public function destroybuku($id)
+    {
+        $buku = buku::findOrFail($id);
+        if ($buku->foto_buku) {
+            Storage::delete($buku->foto_buku);
+        }
+        $buku->delete();
 
     return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil dihapus!');
 }

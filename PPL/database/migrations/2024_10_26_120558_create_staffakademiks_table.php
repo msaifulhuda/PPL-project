@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nama_staff_akademik')->nullable();
             $table->string('wa_staff_akademik')->nullable();
             $table->string('alamat_staff_akademik')->nullable();
-            $table->string('staff_akademik_google_key')->nullable();
+            $table->string('google_id')->nullable();
+            $table->string('google_token')->nullable();
         });
     }
 

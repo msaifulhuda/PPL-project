@@ -16,9 +16,9 @@ return new class extends Migration
             $table->uuid('kelas_id');
             $table->uuid('mata_pelajaran_id');
             $table->uuid('guru_id');
-            $table->uuid('hari_id');
-            $table->string('waktu_mulai');
-            $table->string('waktu_selesai');
+            $table->uuid('hari_id')->nullable();
+            $table->string('waktu_mulai')->nullable();
+            $table->string('waktu_selesai')->nullable();
             $table->uuid('tahun_ajaran_id');
             $table->timestamps();
             $table->foreign('kelas_id')->references('id_kelas')->on('kelas');

@@ -8,8 +8,34 @@
     <div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
         <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
             <nav class="text-sm text-gray-500 mb-4">
-                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <a href="{{ route('superadmin.keloladataguru') }}" class="text-black-500 hover:underline">Kelola Data Guru</a> > <b>Tambah Data Guru</b>
-            </nav>
+                <ol class="flex px-0 space-x-1">
+                    <li class="flex">
+                        <a href="{{ route('superadmin.dashboard') }}" class="text-gray-400 hover:text-gray-700">
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <div class="flex justify-center py-1">
+                        <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <li class="flex">
+                        <a href="{{ route('superadmin.keloladataguru') }}" class="text-gray-400 hover:text-gray-700">
+                            <span>Kelola Data Guru</span>
+                        </a>
+                    </li>
+                    <div class="flex justify-center py-1">
+                        <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <li class="flex">
+                        <a href="#" class="text-gray-400 hover:text-gray-700">
+                            <span>Tambah Data Guru</span>
+                        </a>
+                    </li>
+                </ol>
+            </nav>  
 
             <h2 class="text-lg font-semibold text-gray-800">Tambah Data Guru</h2>
             <p class="text-sm text-gray-600 mb-6">Ini adalah halaman untuk menambah data guru</p>
@@ -20,56 +46,62 @@
                 <!-- Username -->
                 <div class="mb-4">
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username :</label>
-                    <input type="text" name="username" id="username" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('username') }}" required>
+                    <input type="text" name="username" id="username" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('username') }}" >
                     @error('username')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Password -->
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password :</label>
-                    <input type="password" name="password" id="password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <input type="password" name="password" id="password" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
                     @error('password')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Nama Guru -->
                 <div class="mb-4">
                     <label for="nama_guru" class="block text-sm font-medium text-gray-700 mb-1">Nama :</label>
-                    <input type="text" name="nama_guru" id="nama_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nama_guru') }}" required>
+                    <input type="text" name="nama_guru" id="nama_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nama_guru') }}" >
                     @error('nama_guru')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- NIP -->
                 <div class="mb-4">
                     <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP :</label>
-                    <input type="text" name="nip" id="nip" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nip') }}" required>
+                    <input type="text" name="nip" id="nip" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nip') }}" >
                     @error('nip')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Alamat -->
                 <div class="mb-4">
                     <label for="alamat_guru" class="block text-sm font-medium text-gray-700 mb-1">Alamat :</label>
-                    <input type="text" name="alamat_guru" id="alamat_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('alamat_guru') }}" required>
+                    <input type="text" name="alamat_guru" id="alamat_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('alamat_guru') }}" >
                     @error('alamat_guru')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <!-- Role Guru -->
                 <div class="mb-4">
                     <label for="role_guru" class="block text-sm font-medium text-gray-700 mb-1">Role Guru :</label>
-                    <select name="role_guru" id="role_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                    <select name="role_guru" id="role_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" >
                         <option value="">Pilih Role</option>
                         <option value="guru">Guru</option>
                         <option value="pembina">Pembina</option>
                         <option value="wali_kelas">Wali Kelas</option>
                     </select>
+                    @error('role_guru')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
+
                 <!-- Foto Guru Upload -->
                 <div class="mb-4">
                     <label for="foto_guru" class="block text-sm font-medium text-gray-700 mb-1">Foto :</label>
@@ -83,28 +115,28 @@
                             <br>
                             <span class="text-gray-500">(Max. file size: 25 MB)</span>
                         </div>
-                        <input type="file" name="foto_guru" id="foto_guru" class="hidden" required>
+                        <input type="file" name="foto_guru" id="foto_guru" class="hidden" >
                     </div>
                     @error('foto_guru')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- No. WA -->
                 <div class="mb-4">
                     <label for="nomor_wa_guru" class="block text-sm font-medium text-gray-700 mb-1">No. WA :</label>
-                    <input type="text" name="nomor_wa_guru" id="nomor_wa_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nomor_wa_guru') }}" required>
+                    <input type="text" name="nomor_wa_guru" id="nomor_wa_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('nomor_wa_guru') }}" >
                     @error('nomor_wa_guru')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- E-Mail -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email :</label>
-                    <input type="email" name="email" id="email" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('email') }}" required>
+                    <input type="email" name="email" id="email" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" value="{{ old('email') }}" >
                     @error('email')
-                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
