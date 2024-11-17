@@ -211,6 +211,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
     Route::post('/abcategory', [CategoryController::class, 'addCategory'])->name('bookcategories.create');
     Route::post('/dbcategories', [CategoryController::class, 'deleteCategory'])->name('bookcategories.delete');
+    Route::post('/upcategories', [CategoryController::class, 'updateCategory'])->name('bookcategories.update');
     // CRUD Buku
     Route::get('/buku', [StaffperpusController::class, 'daftarbuku'])->name('staff_perpus.buku.daftarbuku');
     Route::get('/buku/create', [StaffperpusController::class, 'createbuku'])->name('staff_perpus.buku.create');
