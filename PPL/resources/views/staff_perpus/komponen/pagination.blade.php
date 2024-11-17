@@ -1,4 +1,4 @@
-@if ($paginator->hasPages())
+@if ($paginator instanceof Illuminate\Pagination\LengthAwarePaginator && $paginator->hasPages())
     <style>
         @font-face {
             font-family: 'Poppins';
@@ -43,19 +43,13 @@
                 <a href="{{ $paginator->onFirstPage() ? '' : $paginator->previousPageUrl() }}" id="prev-btn"
                     class="px-4 bg-[#D9D9D9] text-black font-semibold h-[4rem] font-['Poppins'] mx-[0.3rem] py-2 {{ $paginator->onFirstPage() ? 'hidden' : '' }}">
                     Previous
-                    {{-- <span class="sr-only">Previous</span>
-                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 1 1 5l4 4" />
-                    </svg> --}}
                 </a>
             </li>
             @foreach (range(1, $paginator->lastPage()) as $pages)
                 @if ($paginator->currentPage() == $pages)
                     <li>
                         <a aria-current="page"
-                            class="px-4 bg-[#D9D9D9] text-black font-semibold h-[4rem] font-['Poppins'] mx-[0.3rem] py-2 visiblePageNum">
+                            class="px-4 bg-[#D9D9D9] text-[#4285F4] font-semibold h-[4rem] font-['Poppins'] mx-[0.3rem] py-2 visiblePageNum">
                             {{ $pages }}</a>
                     </li>
                 @else
@@ -70,12 +64,6 @@
             <li>
                 <a href="{{ $paginator->onLastPage() ? '' : $paginator->nextPageUrl() }}"
                     class="px-4 bg-[#D9D9D9] text-black font-semibold h-[4rem] font-['Poppins'] mx-[0.3rem] py-2 {{ $paginator->onLastPage() ? 'hidden' : '' }}">
-                    {{-- <span class="sr-only">Next</span> --}}
-                    {{-- <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 9 4-4-4-4" />
-                    </svg> --}}
                     Next
                 </a>
             </li>

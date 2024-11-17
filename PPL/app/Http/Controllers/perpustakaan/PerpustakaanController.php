@@ -7,6 +7,8 @@ use App\Models\kategori_buku;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use function PHPUnit\Framework\isEmpty;
+
 class PerpustakaanController extends Controller
 {
     public function indexGuru(Request $request)
@@ -19,7 +21,7 @@ class PerpustakaanController extends Controller
         $query = buku::query();
 
         // Filter berdasarkan pencarian (jika ada)
-        if ($search) {
+        if (!isEmpty($search)) {
             $query->where('judul_buku', 'LIKE', '%' . $search . '%');
         }
 
@@ -29,7 +31,7 @@ class PerpustakaanController extends Controller
         }
 
         // Dapatkan hasil dengan simple paginasi
-        $pages = $query->simplePaginate(12); // Menggunakan simplePaginate
+        $pages = $query->Paginate(12); // Menggunakan simplePaginate
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
@@ -50,7 +52,7 @@ class PerpustakaanController extends Controller
         $query = buku::query();
 
         // Filter berdasarkan pencarian (jika ada)
-        if ($search) {
+        if (!isEmpty($search)) {
             $query->where('judul_buku', 'LIKE', '%' . $search . '%');
         }
 
@@ -60,11 +62,10 @@ class PerpustakaanController extends Controller
         }
 
         // Dapatkan hasil dengan simple paginasi
-        $pages = $query->simplePaginate(12); // Menggunakan simplePaginate
+        $pages = $query->Paginate(12); // Menggunakan simplePaginate
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
         return view('siswa.perpustakaan.index', compact('pages', 'categories'));
     }
-
 }
