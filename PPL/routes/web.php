@@ -37,7 +37,7 @@ use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 use App\Http\Controllers\staffakademik\JadwalController;
-
+use App\Http\Controllers\staffakademik\RaporController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 // Route::get('/', function () {
 //     return view('beranda.home');
@@ -184,6 +184,11 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     //lihat jadwal
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
+
+    // Rapor
+    Route::get('/rapor', [RaporController::class, 'index'])->name('staff_akademik.rapor.index');
+    Route::get('/rapor/siswa/{id}', [RaporController::class, 'showDetail'])->name('staff_akademik.rapor.detail');
+    Route::get('/rapor/siswa/{id}/download', [RaporController::class, 'downloadPdf'])->name('staff_akademik.rapor.download');
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
@@ -325,9 +330,7 @@ Route::group(['prefix' => 'ekstrakrikuler'], function () {
 
     Route::get('/', [EkstrakurikulerController::class, 'dashboardEkstra'])->name('ekstrakurikuler.dashboardEkstra');
     Route::group(['middleware' => ['siswa']], function() {
-
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
-
         Route::middleware('auth:web-siswa')->group(function () {
         Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
     });
