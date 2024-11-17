@@ -26,6 +26,7 @@ use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\siswa\lms\DashboardSiswaController;
+use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
@@ -227,9 +228,18 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/buku/{id}/edit', [StaffperpusController::class, 'editbuku'])->name('staff_perpus.buku.edit');
     Route::put('/buku/{id}', [StaffperpusController::class, 'updatebuku'])->name('staff_perpus.buku.update');
     Route::delete('/buku/{id}', [StaffperpusController::class, 'destroybuku'])->name('staff_perpus.buku.destroy');
+    Route::get('/buku/{id}', [StaffperpusController::class, 'show'])->name('staff_perpus.buku.detail');
 
-    //Transaction
-    Route::get('/pengembalian/{id}', [StaffperpusController::class, 'index'])->name('pengembalian.index');
+
+
+    Route::get('/transaksi', [TransaksiPeminjamanController::class, 'index'])->name('staff_perpus.transaksi.daftartransaksi');
+    Route::get('/transaksi/create', [TransaksiPeminjamanController::class, 'create'])->name('staff_perpus.transaksi.create');
+    Route::post('/staff_perpus/transaksi', [TransaksiPeminjamanController::class, 'store'])->name('staff_perpus.transaksi.store');
+    Route::get('/staff_perpus/transaksi/{id}/edit', [TransaksiPeminjamanController::class, 'edit'])->name('staff_perpus.transaksi.edit');
+    Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
+    Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
+    
+// >>>>>>>>> Temporary merge branch 2
 });
 
 
