@@ -5,10 +5,16 @@
         </h2>
     </x-slot>
     
-    <!-- Centering the form on the screen -->
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
-        <div class="w-full max-w-xs">
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="{{ route('superadmin.kelola_staff_perpus.update') }}" method="POST">
+    <div class="flex items-center justify-center min-h-screen bg-gray-50 py-12">
+        <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
+                <a href="{{ route('superadmin.kelola_staff_akademik') }}" class="text-black-500 hover:underline">Kelola Data Staff Perpustakaan</a> >
+                <a href="#" class="text-black-500 hover:underline"><b>Edit Data Guru</b></a>
+            </nav>
+            <h2 class="text-lg font-semibold text-gray-800">Edit Data Staff Perpustakaan</h2>
+            <p class="text-sm text-gray-600 mb-6">Ini adalah halaman untuk mengedit Data akun Staff Perpustakaan</p>
+            <form  action="{{ route('superadmin.kelola_staff_perpus.update') }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
