@@ -35,8 +35,8 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\GoogleLoginController;
- 
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\staffperpus\CategoryController; 
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -50,9 +50,9 @@ use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
  
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
-use App\Http\Controllers\staffakademik\JadwalController;
 
-use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
+
+
 // Route::get('/', function () {
 //     return view('beranda.home');
 // })->name('beranda.home');
