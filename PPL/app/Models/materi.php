@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+
 class materi extends Model
 {
     use Notifiable;
@@ -14,15 +15,17 @@ class materi extends Model
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
+        parent::boot();
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -48,14 +51,19 @@ class materi extends Model
      * @var array
      */
     protected $table = 'materi';
+    protected $primaryKey = 'id_materi';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
         'judul_materi',
         'topik_id',
         'kelas_mata_pelajaran_id',
         'tanggal_dibuat',
+        'deskripsi',
         'status',
     ];
-        public function topik()
+    public function topik()
     {
         return $this->belongsTo(Topik::class, 'topik_id', 'id_topik');
     }
@@ -66,11 +74,10 @@ class materi extends Model
     }
     public function filemateri()
     {
-        return $this->hasMany(file_materi::class,'id_pengurus', 'id_pengurus_ekstra' );
+        return $this->hasMany(file_materi::class, 'id_pengurus', 'id_pengurus_ekstra');
     }
     public function notifikasisistem()
     {
-        return $this->hasMany(notifikasi_sistem::class,'id_pengurus', 'id_pengurus_ekstra' );
+        return $this->hasMany(notifikasi_sistem::class, 'id_pengurus', 'id_pengurus_ekstra');
     }
-    
 }

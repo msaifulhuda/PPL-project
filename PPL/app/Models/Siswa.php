@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +13,7 @@ class Siswa extends Authenticatable
     use Notifiable, HasUuids, HasFactory;
     protected $primaryKey = 'id_siswa';
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $keyType = 'string';
 
 
@@ -74,10 +73,14 @@ class Siswa extends Authenticatable
     }
     public function registrasiekstra()
     {
-        return $this->hasMany(registrasi_ekstrakurikuler::class);
+        return $this->hasMany(RegistrasiEkstrakurikuler::class);
     }
     public function kelassiswa()
     {
         return $this->hasMany(KelasSiswa::class);
+    }
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'kelas_siswas', 'id_siswa', 'id_kelas');
     }
 }

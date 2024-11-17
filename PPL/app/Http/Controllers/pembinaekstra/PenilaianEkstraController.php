@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Ekstrakurikuler;
 use App\Http\Controllers\Controller;
 use App\Models\PenilaianEkstrakurikuler;
-use App\Models\registrasi_ekstrakurikuler;
+use App\Models\RegistrasiEkstrakurikuler;
 use App\Models\LaporanPenilaianEkstrakurikuler;
-use App\Models\Siswa;
 
 class PenilaianEkstraController extends Controller
 {
@@ -22,7 +21,7 @@ class PenilaianEkstraController extends Controller
         $ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail();
         $nama_ekstra = $ekstra->nama_ekstrakurikuler;
         $id_ekstra = $ekstra->id_ekstrakurikuler;
-        $anggota = registrasi_ekstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
+        $anggota = RegistrasiEkstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
@@ -56,19 +55,24 @@ class PenilaianEkstraController extends Controller
         $ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail();
         $nama_ekstra = $ekstra->nama_ekstrakurikuler;
         $id_ekstra = $ekstra->id_ekstrakurikuler;
-        $anggota = registrasi_ekstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
+        $anggota = RegistrasiEkstrakurikuler::with('siswa')->where('status', 'diterima')->where('id_ekstrakurikuler', $id_ekstra)->get(); //array
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
             $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif)
             {$query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);})
-            ->firstOrFail();
+            ->first();
 
             array_push($anggota_aktif, $siswa);
         }
 
         $laporan = LaporanPenilaianEkstrakurikuler::with('siswa')->where('id_ekstrakurikuler', $id_ekstra)->get();
         $penilaian = PenilaianEkstrakurikuler::whereIn('id_siswa', collect($anggota_aktif)->pluck('id_siswa'))->get();
+
+        if ($siswa == null) {
+            $laporan_anggota = [];
+            return view('pembina_ekstra.penilaian.index', compact('nama_ekstra', 'penilaian', 'tahun_ajaran_aktif', 'id_ekstra', 'tahun_ajaran', 'laporan_anggota'));
+        }
 
         $laporan_anggota = collect($anggota_aktif)->map(function ($item) use ($laporan, $penilaian) {
             $laporanItem = $laporan->firstWhere('id_siswa', $item->id_siswa);
@@ -94,7 +98,6 @@ class PenilaianEkstraController extends Controller
         
         $tahun_ajaran = tahun_ajaran::where('aktif', '1')->firstOrFail()->id_tahun_ajaran;
         $id_ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail()->id_ekstrakurikuler;
-        $id_tahun_ajaran = tahun_ajaran::where('aktif', '1')->firstOrFail()->id_tahun_ajaran;
         
         // Mencari data penilaian ekstrakurikuler berdasarkan id_siswa dan id_tahun_ajaran
         $penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->first();
@@ -113,13 +116,13 @@ class PenilaianEkstraController extends Controller
             $penilaian = PenilaianEkstrakurikuler::create([
                 'id_siswa' => $id_siswa,
                 'id_ekstrakurikuler' => $id_ekstra,
-                'id_tahun_ajaran' => $id_tahun_ajaran,
+                'id_tahun_ajaran' => $tahun_ajaran,
                 'id_laporan' => $request->id_laporan,
                 'penilaian' => $request->penilaian,
             ]);
         }
 
-        $tgl_penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->firstOrFail()->tgl_penilaian;
+        $tgl_penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->first()->tgl_penilaian;
         return response()->json(['success' => true, 'tgl_penilaian' => $tgl_penilaian]);
     }
 }

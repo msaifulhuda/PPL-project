@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-class registrasi_ekstrakurikuler extends Model
+class RegistrasiEkstrakurikuler extends Model
 {
     use HasUuids,Notifiable;
 
@@ -56,7 +56,7 @@ class registrasi_ekstrakurikuler extends Model
      }
      public function berkas()
      {
-         return $this->hasMany(berkas::class,'id_registrasi', 'id_registrasi' );
+         return $this->hasMany(Berkas::class);
      }
      
 }

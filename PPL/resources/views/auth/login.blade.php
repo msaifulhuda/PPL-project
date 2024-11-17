@@ -29,13 +29,14 @@
         <!-- Title and Subtitle -->
         <h2 class="text-lg font-semibold text-gray-800 mb-1">Hey, Hello 👋</h2>
         <p class="text-gray-600 mb-4 text-xs">Masukkan informasi yang Anda untuk login</p>
-
         <!-- Login Heading -->
         <h3 class="text-base font-semibold text-gray-700 mb-3">Login</h3>
 
         <!-- Login Form -->
         <form class="w-full" method="POST" action="{{ route('login') }}">
           @csrf
+
+          <input type="hidden" name="redirect" value="{{ request()->query('redirect') }}">
           <div class="mb-3">
             <label class="block text-gray-700 text-xs mb-1" for="username">Username</label>
             <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">

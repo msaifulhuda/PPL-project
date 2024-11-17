@@ -1,11 +1,11 @@
 <x-staffperpustakaan-layout>
     @php
         $ColorPack = [
-            'bg-blue-300 text-blue-950',
-            'bg-green-300 text-green-950',
-            'bg-red-300 text-red-950',
-            'bg-indigo-300 text-indigo-950',
-            'bg-amber-300 text-amber-950',
+            'lg:bg-blue-300 text-blue-950',
+            'lg:bg-green-300 text-green-950',
+            'lg:bg-red-300 text-red-950',
+            'lg:bg-indigo-300 text-indigo-950',
+            'lg:bg-amber-300 text-amber-950',
         ];
     @endphp
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>

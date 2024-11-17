@@ -106,8 +106,8 @@
                                     <select name="jadwal[0][jam_pelajaran]" class="border-gray-300 rounded">
                                         <option value="07:00-09:00">07:00-09:00</option>
                                         <option value="10:00-12:00">10:00-12:00</option>
-                                        <option value="13:00-14:00">13:00-14:00</option>
-                                        <option value="14:00-16:00">14:00-16:00</option>
+                                        <option value="13:00-15:00">13:00-15:00</option>
+                                        <option value="15:01-16:00">15:01-16:00</option>
                                     </select>
                                 </td>
                                 <!-- Pilihan Guru dan Mata Pelajaran -->
@@ -162,8 +162,8 @@
                     <select name="jadwal[${rowCount}][jam_pelajaran]" class="border-gray-300 rounded">
                         <option value="07:00-09:00">07:00-09:00</option>
                         <option value="10:00-12:00">10:00-12:00</option>
-                        <option value="13:00-14:00">13:00-14:00</option>
-                        <option value="14:00-16:00">14:00-16:00</option>
+                        <option value="13:00-15:00">13:00-15:00</option>
+                        <option value="15:01-16:00">15:01-16:00</option>
                     </select>
                 </td>
                 <td>

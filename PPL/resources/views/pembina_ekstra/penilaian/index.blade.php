@@ -47,7 +47,7 @@
                             });
                         });
                     </script>
-                    <p class="text-lg font-semibold text-gray-700">Total Anggota: <span class="font-normal">{{ $laporan_anggota->count() }}</span></p>
+                    <p class="text-lg font-semibold text-gray-700">Total Anggota: <span class="font-normal">{{ $laporan_anggota ? $laporan_anggota->count() : count($laporan_anggota) }}</span></p>
                 </div>
                 </div>
             </div>
@@ -98,36 +98,6 @@
                                             </select>
                                         </td>
                                         <input type="hidden" value="{{ $item->laporan ? $item->laporan->id_laporan : '' }}" id="id_laporan-{{ $loop->iteration }}">
-                                        <script>
-                                            $(document).ready(function() {
-                                                $('.penilaian-dropdown').each(function() {
-                                                    $(this).on('change', function() {
-
-                                                        var id_siswa = $(this).data('id');
-                                                        var value = $(this).val();
-                                                        var id_laporan = $('#id_laporan-{{ $loop->iteration }}').val();
-                                        
-                                                        $.ajax({
-                                                            url: '/guru/pembina/ekstrakurikuler/penilaian/' + id_siswa,
-                                                            type: 'POST',
-                                                            data: {
-                                                                penilaian: value,
-                                                                id_siswa: id_siswa,
-                                                                id_laporan: id_laporan,
-                                                            },
-                                                            headers: {
-                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                                            },
-                                                            success: function(data) {
-                                                                if (data.success) {
-                                                                    $('#tgl-penilaian-{{ $loop->iteration }}').text(data.tgl_penilaian);
-                                                                }
-                                                            }
-                                                        });
-                                                    });
-                                                });
-                                            });
-                                        </script>
                                         <td class="px-1 py-4 whitespace-nowrap text-sm text-gray-500" id="tgl-penilaian-{{ $loop->iteration }}">{{ ($item->penilaian) ? $item->penilaian->tgl_penilaian : '-' }}</td>
                                     </tr>
                                 @empty
@@ -143,4 +113,36 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.penilaian-dropdown').each(function(index) {
+                $(this).data('iteration', index + 1);
+                $(this).on('change', function() {
+
+                    var id_siswa = $(this).data('id');
+                    var value = $(this).val();
+                    var iteration = $(this).data('iteration');
+                    var id_laporan = $('#id_laporan-' + iteration).val();
+    
+                    $.ajax({
+                        url: '/guru/pembina/ekstrakurikuler/penilaian/' + id_siswa,
+                        type: 'POST',
+                        data: {
+                            penilaian: value,
+                            id_siswa: id_siswa,
+                            id_laporan: id_laporan,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                $('#tgl-penilaian-' + iteration).text(data.tgl_penilaian);
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </x-app-guru-layout>
