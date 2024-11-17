@@ -72,11 +72,11 @@ class kelas extends Model
      */
     public function kelasmatapelajaran()
     {
-        return $this->hasMany(Kelas_mata_pelajaran::class);
+        return $this->hasMany(Kelas_mata_pelajaran::class, 'kelas_id', 'id_kelas');
     }
     public function kelas_siswa()
     {
-        return $this->hasMany(KelasSiswa::class );
+        return $this->hasMany(KelasSiswa::class, 'id_kelas', 'id_kelas');
     }
     public function siswa()
     {

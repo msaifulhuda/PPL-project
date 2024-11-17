@@ -19,6 +19,7 @@ class SiswaMiddleware
         if (Auth::guard('web-siswa')->check()) {
             return $next($request);
         } else {
+            session(['url.intended' => $request->url()]);
             return redirect()->route('login')->withErrors(['username' => 'Akses tidak diizinkan']);
         }
     }

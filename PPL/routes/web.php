@@ -46,6 +46,9 @@ use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
+use App\Http\Controllers\staffakademik;
+use App\Http\Controllers\guru;
+use App\Http\Controllers\siswa;
 use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 // Route::get('/', function () {
@@ -191,6 +194,15 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     //lihat jadwal
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
+
+    // Absensi
+    Route::get('/absensi', [staffakademik\AbsensiController::class, 'index'])->name('akademik.absensi.index');
+    Route::get('/absensi/{id}/pertemuan', [staffakademik\AbsensiController::class, 'details'])->name('akademik.absensi.details');
+    Route::get('/absensi/{id}/pertemuan/{pertemuan}', [staffakademik\AbsensiController::class, 'pertemuanDetails'])->name('akademik.absensi.pertemuan.details');
+    Route::post('/absensi/{id}/generate', [staffakademik\AbsensiController::class, 'generatePresenceData'])->name('akademik.absensi.generate');
+    Route::delete('/absensi/{id}/reset', [staffakademik\AbsensiController::class, 'resetPertemuan'])->name('akademik.absensi.reset');
+    Route::put('/absensi/update-status', [staffakademik\AbsensiController::class, 'updateStatus'])->name('akademik.absensi.updateStatus');
+
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
@@ -283,6 +295,11 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
 
     //END PERPUS
+
+    // Absensi
+    Route::get('/absensi', [siswa\AbsensiController::class, 'index'])->name('siswa.absensi.index');
+    Route::get('/absensi/{id}/pertemuan', [siswa\AbsensiController::class, 'details'])->name('siswa.absensi.details');
+    Route::get('/absensi/scan/{pertemuan_id}', [siswa\AbsensiController::class, 'scanQrCode'])->name('siswa.absensi.scan');
 });
 
 
@@ -351,6 +368,16 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
 
     //END PERPUS
+
+    // START ABSENSI
+
+    Route::get('/absensi', [guru\AbsensiController::class, 'index'])->name('guru.absensi.index');
+    Route::get('/absensi/{id}/pertemuan', [guru\AbsensiController::class, 'details'])->name('guru.absensi.details');
+    Route::get('/absensi/{id}/pertemuan/{pertemuan}', [guru\AbsensiController::class, 'pertemuanDetails'])->name('guru.absensi.pertemuan.details');
+    Route::put('/absensi/update-status', [guru\AbsensiController::class, 'updateStatus'])->name('guru.absensi.updateStatus');
+    Route::post('/guru/absensi/update-status', [guru\AbsensiController::class, 'updateStatusQr'])->name('guru.absensi.update-status');
+
+    // END ABSENSI
 
 });
 
