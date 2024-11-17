@@ -31,11 +31,15 @@ class PerpustakaanSeeder extends Seeder
             return date("Y-m-d H:i:s", $randomTimestamp);
         }
 
-        $jenis_buku_id = Str::uuid();
-
+        // Generate unique IDs for each jenis_buku
         jenis_buku::create([
-            'id_jenis_buku' => $jenis_buku_id,
+            'id_jenis_buku' => 1,
             'nama_jenis_buku' => 'Non-Paket'
+        ]);
+        
+        jenis_buku::create([
+            'id_jenis_buku' => 2,
+            'nama_jenis_buku' => 'Paket'
         ]);
 
         $collection = collect([0, 1, 2]);
@@ -64,7 +68,7 @@ class PerpustakaanSeeder extends Seeder
             buku::create([
                 'id_buku' => $buku_id,
                 'id_kategori_buku' => $kategori_id,
-                'id_jenis_buku' => $jenis_buku_id,
+                'id_jenis_buku' => 1,
                 'author_buku' => 'Pembuat' . $kategori->random(),
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
@@ -73,6 +77,7 @@ class PerpustakaanSeeder extends Seeder
                 'bahasa_buku' => 'Chinese',
                 'stok_buku' => 10,
                 'rak_buku' => 1,
+                'harga_buku' => 10000,
                 'tgl_ditambahkan' => randomDate($startDate, $endDate),
             ]);
 
@@ -93,6 +98,7 @@ class PerpustakaanSeeder extends Seeder
                 'status_pengembalian' => $collection->random(),
                 'jenis_peminjam' => 0,
                 'status_denda' => $nunggak->random(),
+                'stok' => 1,
             ]);
         };
     }

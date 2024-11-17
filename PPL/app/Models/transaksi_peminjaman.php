@@ -64,13 +64,15 @@ class transaksi_peminjaman extends Model
         'status_pengembalian',
         'jenis_peminjam',
         'status_denda',
+        'stok',
     ];
     public $timestamps = false;
     protected $primaryKey = 'id_transaksi_peminjaman';
+    
     public function buku()
     {
         return $this->belongsTo(Buku::class, 'id_buku', 'id_buku');
     }
-
+    
     // If you have a Peminjam model, define that relationship here
 }

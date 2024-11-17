@@ -96,9 +96,9 @@
                         <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar Kategori</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"  :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
@@ -112,7 +112,7 @@
                                 <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan Transaksi</x-sidebar-dropdown-list-link>
                             </li>
                         </x-sidebar-dropdown-list>
-                    </li>
+                    </li> --}}
                     </x-sidebar-dropdown-list>
                     </li>
 
