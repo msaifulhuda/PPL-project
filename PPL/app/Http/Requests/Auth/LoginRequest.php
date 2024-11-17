@@ -45,6 +45,7 @@ class LoginRequest extends FormRequest
 
     }
 
+
     /**
      * Get the custom messages for validator errors.
      *
