@@ -36,6 +36,8 @@ use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\staffakademik\JadwalController;
 
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
+
+use App\Http\Controllers\Ekstrakurikuler\KelolaInformasiController;
 // Route::get('/', function () {
 //     return view('beranda.home');
 // })->name('beranda.home');
@@ -278,7 +280,7 @@ Route::group(['prefix' => 'ekstrakrikuler'], function () {
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
     
         Route::middleware('auth:web-siswa')->group(function () {
-        Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
+            Route::get('/registrasi-ekstra', [EkstrakurikulerController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
     });
 });
 });
@@ -293,5 +295,12 @@ Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'dashboardEkst
 // Route untuk halaman detail ekstrakurikuler
 Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])->name('ekstrakurikuler.detail');
 
+//start kelola informasi ekstra
+
+// Rute untuk menampilkan form
+// Route::get('/kelola-informasi/create', [KelolaInformasiController::class, 'create'])->name('kelolaInformasi.create');
+
+// Rute untuk menyimpan informasi
+// Route::post('/kelola-informasi', [KelolaInformasiController::class, 'store'])->name('kelolaInformasi.store');
 
 require __DIR__.'/auth.php';
