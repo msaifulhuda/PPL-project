@@ -32,15 +32,15 @@ class PerpustakaanSeeder extends Seeder
         }
 
         // Generate unique IDs for each jenis_buku
-        // jenis_buku::create([
-        //     'id_jenis_buku' => 1,
-        //     'nama_jenis_buku' => 'Non-Paket'
-        // ]);
+        jenis_buku::create([
+            'id_jenis_buku' => 1,
+            'nama_jenis_buku' => 'Non-Paket'
+        ]);
         
-        // jenis_buku::create([
-        //     'id_jenis_buku' => 2,
-        //     'nama_jenis_buku' => 'Paket'
-        // ]);
+        jenis_buku::create([
+            'id_jenis_buku' => 2,
+            'nama_jenis_buku' => 'Paket'
+        ]);
 
         $kategori = ['Komik', 'Novel', 'Ensiklopedia', 'Kamus', 'Artikel', 'Jurnal', 'Biografi'];
         foreach (range(0, count($kategori) - 1) as $kategoriIndex) {
@@ -72,7 +72,7 @@ class PerpustakaanSeeder extends Seeder
             buku::create([
                 'id_buku' => $buku_id,
                 'id_kategori_buku' => $kategori_id,
-                'id_jenis_buku' => rand(0, 1), // 0 : 'Non-Paket', 1 : 'Paket'
+                'id_jenis_buku' => 1,
                 'author_buku' => 'Pembuat' . $kategori_id,
                 'publisher_buku' => 'JAGGS',
                 'judul_buku' => 'Tutorial Membuat Lorem Ipsum.',
@@ -102,6 +102,7 @@ class PerpustakaanSeeder extends Seeder
                 'status_pengembalian' => rand(0, 2), // 0 : Belum Dikembalikan 1 : Sudah Dikembalikan 2 : Hilang
                 'jenis_peminjam' => rand(0, 1), // 0 : False, 1 : True
                 'status_denda' => rand(0, 1), // 0 : False, 1 : True
+                'stok' => 1,
             ]);
         };
     }

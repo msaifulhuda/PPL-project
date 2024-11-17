@@ -183,7 +183,7 @@ class StaffperpusController extends Controller
 
         return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil ditambahkan!');
     }    
-    
+
 
     public function editbuku($id)
     {
