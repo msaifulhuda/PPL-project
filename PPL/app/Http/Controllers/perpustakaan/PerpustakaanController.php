@@ -28,20 +28,14 @@ class PerpustakaanController extends Controller
             $query->where('id_kategori_buku', '=', $kategori_buku);
         }
 
-        // Dapatkan hasil dengan paginasi
-        $pages = $query->paginate(12);
+        // Dapatkan hasil dengan simple paginasi
+        $pages = $query->simplePaginate(12); // Menggunakan simplePaginate
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
         return view('guru.perpustakaan.index', compact('pages', 'categories'));
     }
 
-    public function showGuru($id)
-    {
-        $buku = buku::findOrFail($id);
-        $kategori = $buku->kategori_buku;
-        return view('guru.perpustakaan.detail', compact('buku', 'kategori'));
-    }
 
 
 
@@ -65,18 +59,12 @@ class PerpustakaanController extends Controller
             $query->where('id_kategori_buku', '=', $kategori_buku);
         }
 
-        // Dapatkan hasil dengan paginasi
-        $pages = $query->paginate(12);
+        // Dapatkan hasil dengan simple paginasi
+        $pages = $query->simplePaginate(12); // Menggunakan simplePaginate
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
         return view('siswa.perpustakaan.index', compact('pages', 'categories'));
     }
 
-    public function showSiswa($id)
-    {
-        $buku = buku::findOrFail($id);
-        $kategori = $buku->kategori_buku;
-        return view('siswa.perpustakaan.detail', compact('buku', 'kategori'));
-    }
 }

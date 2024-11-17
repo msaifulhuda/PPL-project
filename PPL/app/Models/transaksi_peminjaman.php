@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -73,6 +74,9 @@ class transaksi_peminjaman extends Model
     {
         return $this->belongsTo(Buku::class, 'id_buku', 'id_buku');
     }
-    
+    public function isOverdue()
+    {
+        return Carbon::parse($this->tgl_pengembalian)->isPast();
+    }
     // If you have a Peminjam model, define that relationship here
 }

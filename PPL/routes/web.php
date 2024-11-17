@@ -34,21 +34,28 @@ use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\staffperpus\CategoryController; 
+use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
+use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+
+
+ 
+use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+ 
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
+
+
 use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
 
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\guru\lms\TopikLmsController;
-use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
-use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
-use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
-use App\Http\Controllers\staffperpus\CategoryController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 // Route::get('/', function () {
 //     return view('beranda.home');
 // })->name('beranda.home');
@@ -207,6 +214,8 @@ Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->nam
 Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], function () {
     //INDEX
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
+    Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
+    Route::get('/pengembalian', [StaffperpusController::class, 'back'])->name('staff_perpus.pengembalian');
 
     //KATEGORI
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
