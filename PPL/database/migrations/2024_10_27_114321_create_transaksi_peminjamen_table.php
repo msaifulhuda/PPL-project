@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('status_pengembalian');
             $table->integer('jenis_peminjam');
             $table->integer('status_denda');
+            $table->integer('stok')->default(1);
         });
     }
 

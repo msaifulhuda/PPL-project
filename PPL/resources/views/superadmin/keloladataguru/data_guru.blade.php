@@ -15,8 +15,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
-                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard </a> >
-                    <a href="{{ route('superadmin.keloladataguru') }}" class="text-black-500 hover:underline"><b>Kelola Data Guru</b></a>
+                    <ol class="flex px-0 space-x-1">
+                        <li class="flex">
+                            <a href="{{ route('superadmin.dashboard') }}" class="text-gray-400 hover:text-gray-700">
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <div class="flex justify-center py-1">
+                            <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <li class="flex">
+                            <a href="{{ route('superadmin.keloladataguru') }}" class="text-gray-400 hover:text-gray-700">
+                                <span>Kelola Data Guru</span>
+                            </a>
+                        </li>
+                    </ol>
                 </nav>                                   
 
                 <h3 class="text-lg font-semibold mb-4">Kelola Data Guru</h3>

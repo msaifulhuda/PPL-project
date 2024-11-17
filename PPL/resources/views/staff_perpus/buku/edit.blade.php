@@ -1,16 +1,26 @@
 <x-staffperpustakaan-layout>
     <div class="container mx-auto max-w-lg p-6 bg-white shadow-md rounded-lg">
         <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Edit Buku</h1>
-        
+        <div>
+            <a href="{{ route('staff_perpus.buku.daftarbuku') }}" class="text-blue-500 hover:text-blue-700 flex items-center mt-12">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Kembali
+            </a>
+        </div>
         <form action="{{ route('staff_perpus.buku.update', $buku->id_buku) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             @method('PUT')
             
             <!-- Foto Buku -->
             <div>
-                @if($buku->foto_buku)
-                    <img src="{{ Storage::url($buku->foto_buku) }}" alt="Gambar Buku" class="mt-3 mx-auto w-24 h-36 rounded-md shadow">
-                @endif
+                <div class="mb-6">
+                    <img src="{{ asset($buku->foto_buku) }}"  alt="Gambar Buku" class="w-32 h-32 mx-auto rounded shadow-md">
+                </div>
+                {{-- @if($buku->foto_buku)
+                    <img src="{{ asset($buku->foto_buku) }}"  alt="Gambar Buku" class="mt-3 mx-auto w-24 h-36 rounded-md shadow">
+                @endif --}}
                 <label class="block text-gray-700 font-semibold mb-2">Foto Buku</label>
                 <input type="file" name="foto_buku" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200">
                 @error('foto_buku')

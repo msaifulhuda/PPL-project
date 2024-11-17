@@ -65,6 +65,7 @@ class buku extends Model
         'bahasa_buku',
         'stok_buku',
         'rak_buku',
+        'harga_buku',
         'tgl_ditambahkan',
         'harga_buku'
     ];
