@@ -68,8 +68,8 @@ class StaffperpusController extends Controller
             $query->where('id_kategori_buku', '=', $kategori_buku);
         }
 
-        // Dapatkan hasil dengan paginasi
-        $buku = $query->orderBy('tgl_ditambahkan', 'desc')->paginate(12);
+        // Dapatkan hasil
+        $buku = $query->orderBy('tgl_ditambahkan', 'desc')->get();
         $kategoriBuku = kategori_buku::all();
 
         return view('staff_perpus.buku.daftarbuku', compact('buku', 'kategoriBuku'));
@@ -90,17 +90,18 @@ class StaffperpusController extends Controller
         $request->validate([
             'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'judul_buku' => [
-        'required',
-        'string',
-        'max:255',
-        function ($attribute, $value, $fail) use ($request) {
-            if (buku::where('judul_buku', $value)
-                ->where('id_buku', '!=', $request) // Mengecualikan buku yang sedang diedit
-                ->exists()) {
-                $fail('Judul buku yang sama sudah ada di database.');
-            }
-        },
-        ],
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (buku::where('judul_buku', $value)
+                        ->where('id_buku', '!=', $request) // Mengecualikan buku yang sedang diedit
+                        ->exists()
+                    ) {
+                        $fail('Judul buku yang sama sudah ada di database.');
+                    }
+                },
+            ],
             'author_buku' => 'required|string|max:255',
             'rak_buku' => 'required|integer|min:0',
             'id_kategori_buku' => 'required|exists:kategori_buku,id_kategori_buku',
@@ -113,55 +114,55 @@ class StaffperpusController extends Controller
         ], [
             'foto_buku.required' => 'Foto buku harus diisi.',
             'foto_buku.image' => 'File foto buku harus berupa gambar.',
-        'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
-        'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
-        
-        'judul_buku.required' => 'Judul buku harus diisi.',
-        'judul_buku.string' => 'Judul buku harus berupa teks.',
-        'judul_buku.max' => 'Judul buku tidak boleh lebih dari 255 karakter.',
-        
-        'author_buku.required' => 'Penulis buku harus diisi.',
-        'author_buku.string' => 'Penulis buku harus berupa teks.',
-        'author_buku.max' => 'Nama penulis buku tidak boleh lebih dari 255 karakter.',
-        
-        'rak_buku.required' => 'Rak buku harus diisi.',
-        'rak_buku.integer' => 'Rak buku harus berupa angka.',
-        'rak_buku.min' => 'Rak buku tidak boleh kurang dari 0.',
-        
-        'id_kategori_buku.required' => 'Kategori buku harus dipilih.',
-        'id_kategori_buku.exists' => 'Kategori buku yang dipilih tidak valid.',
-        
-        'id_jenis_buku.required' => 'Jenis buku harus dipilih.',
-        'id_jenis_buku.exists' => 'Jenis buku yang dipilih tidak valid.',
-        
-        'stok_buku.required' => 'Stok buku harus diisi.',
-        'stok_buku.integer' => 'Stok buku harus berupa angka.',
-        'stok_buku.min' => 'Stok buku tidak boleh kurang dari 0.',
-        
-        'tahun_terbit.required' => 'Tahun terbit buku harus diisi.',
-        'tahun_terbit.string' => 'Tahun terbit buku harus berupa teks.',
-        'tahun_terbit.max' => 'Tahun terbit buku tidak boleh lebih dari 4 karakter.',
-        
-        'bahasa_buku.required' => 'Bahasa buku harus diisi.',
-        'bahasa_buku.string' => 'Bahasa buku harus berupa teks.',
-        'bahasa_buku.max' => 'Bahasa buku tidak boleh lebih dari 255 karakter.',
-        
-        'publisher_buku.required' => 'Penerbit buku harus diisi.',
-        'publisher_buku.string' => 'Penerbit buku harus berupa teks.',
-        'publisher_buku.max' => 'Penerbit buku tidak boleh lebih dari 255 karakter.',
-        
-        'harga_buku.required' => 'Harga buku harus diisi.',
-        'harga_buku.numeric' => 'Harga buku harus berupa angka.',
-        'harga_buku.min' => 'Harga buku tidak boleh kurang dari 0.',
-    ]);
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
+
+            'judul_buku.required' => 'Judul buku harus diisi.',
+            'judul_buku.string' => 'Judul buku harus berupa teks.',
+            'judul_buku.max' => 'Judul buku tidak boleh lebih dari 255 karakter.',
+
+            'author_buku.required' => 'Penulis buku harus diisi.',
+            'author_buku.string' => 'Penulis buku harus berupa teks.',
+            'author_buku.max' => 'Nama penulis buku tidak boleh lebih dari 255 karakter.',
+
+            'rak_buku.required' => 'Rak buku harus diisi.',
+            'rak_buku.integer' => 'Rak buku harus berupa angka.',
+            'rak_buku.min' => 'Rak buku tidak boleh kurang dari 0.',
+
+            'id_kategori_buku.required' => 'Kategori buku harus dipilih.',
+            'id_kategori_buku.exists' => 'Kategori buku yang dipilih tidak valid.',
+
+            'id_jenis_buku.required' => 'Jenis buku harus dipilih.',
+            'id_jenis_buku.exists' => 'Jenis buku yang dipilih tidak valid.',
+
+            'stok_buku.required' => 'Stok buku harus diisi.',
+            'stok_buku.integer' => 'Stok buku harus berupa angka.',
+            'stok_buku.min' => 'Stok buku tidak boleh kurang dari 0.',
+
+            'tahun_terbit.required' => 'Tahun terbit buku harus diisi.',
+            'tahun_terbit.string' => 'Tahun terbit buku harus berupa teks.',
+            'tahun_terbit.max' => 'Tahun terbit buku tidak boleh lebih dari 4 karakter.',
+
+            'bahasa_buku.required' => 'Bahasa buku harus diisi.',
+            'bahasa_buku.string' => 'Bahasa buku harus berupa teks.',
+            'bahasa_buku.max' => 'Bahasa buku tidak boleh lebih dari 255 karakter.',
+
+            'publisher_buku.required' => 'Penerbit buku harus diisi.',
+            'publisher_buku.string' => 'Penerbit buku harus berupa teks.',
+            'publisher_buku.max' => 'Penerbit buku tidak boleh lebih dari 255 karakter.',
+
+            'harga_buku.required' => 'Harga buku harus diisi.',
+            'harga_buku.numeric' => 'Harga buku harus berupa angka.',
+            'harga_buku.min' => 'Harga buku tidak boleh kurang dari 0.',
+        ]);
 
         if ($request->hasFile('foto_buku')) {
             // Ambil file dari request
             $file = $request->file('foto_buku');
-            
+
             // Buat nama file baru dengan menambahkan timestamp
             $filename = time() . '_' . $file->getClientOriginalName();
-            
+
             // Simpan file menggunakan Storage ke folder public/images/Perpustakaan
             Storage::disk('public')->put('images/Perpustakaan/' . $filename, file_get_contents($file));
         }
@@ -182,7 +183,7 @@ class StaffperpusController extends Controller
         ]);
 
         return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil ditambahkan!');
-    }    
+    }
 
 
     public function editbuku($id)
@@ -194,75 +195,76 @@ class StaffperpusController extends Controller
         return view('staff_perpus.buku.edit', compact('buku', 'kategoriBuku', 'jenisBuku'));
     }
 
-public function updatebuku(Request $request, $id)
-{
-    $request->validate([
-        'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'judul_buku' => [
-        'required',
-        'string',
-        'max:255',
-        function ($attribute, $value, $fail) use ($id) {
-            if (buku::where('judul_buku', $value)
-                ->where('id_buku', '!=', $id) // Mengecualikan buku yang sedang diedit
-                ->exists()) {
-                $fail('Judul buku yang sama sudah ada di database.');
-            }
-        },
-        ],
-        'author_buku' => 'required|string|max:255',
-        'rak_buku' => 'required|integer|min:0',
-        'id_kategori_buku' => 'required|exists:kategori_buku,id_kategori_buku',
-        'id_jenis_buku' => 'required|exists:jenis_buku,id_jenis_buku',
-        'stok_buku' => 'required|integer|min:0',
-        'tahun_terbit' => 'required|string|max:4',
-        'bahasa_buku' => 'required|string|max:255',
-        'publisher_buku' => 'required|string|max:255',
-        'harga_buku' => 'required|numeric|min:0', // Validasi harga buku
-    ], [
-        'foto_buku.required' => 'Foto buku harus diisi.',
-        'foto_buku.image' => 'File foto buku harus berupa gambar.',
-    'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
-    'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
-    
-    'judul_buku.required' => 'Judul buku harus diisi.',
-    'judul_buku.string' => 'Judul buku harus berupa teks.',
-    'judul_buku.max' => 'Judul buku tidak boleh lebih dari 255 karakter.',
-    
-    'author_buku.required' => 'Penulis buku harus diisi.',
-    'author_buku.string' => 'Penulis buku harus berupa teks.',
-    'author_buku.max' => 'Nama penulis buku tidak boleh lebih dari 255 karakter.',
-    
-    'rak_buku.required' => 'Rak buku harus diisi.',
-    'rak_buku.integer' => 'Rak buku harus berupa angka.',
-    'rak_buku.min' => 'Rak buku tidak boleh kurang dari 0.',
-    
-    'id_kategori_buku.required' => 'Kategori buku harus dipilih.',
-    'id_kategori_buku.exists' => 'Kategori buku yang dipilih tidak valid.',
-    
-    'id_jenis_buku.required' => 'Jenis buku harus dipilih.',
-    'id_jenis_buku.exists' => 'Jenis buku yang dipilih tidak valid.',
-    
-    'stok_buku.required' => 'Stok buku harus diisi.',
-    'stok_buku.integer' => 'Stok buku harus berupa angka.',
-    'stok_buku.min' => 'Stok buku tidak boleh kurang dari 0.',
-    
-    'tahun_terbit.required' => 'Tahun terbit buku harus diisi.',
-    'tahun_terbit.string' => 'Tahun terbit buku harus berupa teks.',
-    'tahun_terbit.max' => 'Tahun terbit buku tidak boleh lebih dari 4 karakter.',
-    
-    'bahasa_buku.required' => 'Bahasa buku harus diisi.',
-    'bahasa_buku.string' => 'Bahasa buku harus berupa teks.',
-    'bahasa_buku.max' => 'Bahasa buku tidak boleh lebih dari 255 karakter.',
-    
-    'publisher_buku.required' => 'Penerbit buku harus diisi.',
-    'publisher_buku.string' => 'Penerbit buku harus berupa teks.',
-    'publisher_buku.max' => 'Penerbit buku tidak boleh lebih dari 255 karakter.',
-    
-    'harga_buku.required' => 'Harga buku harus diisi.',
-    'harga_buku.numeric' => 'Harga buku harus berupa angka.',
-    'harga_buku.min' => 'Harga buku tidak boleh kurang dari 0.',
-]);
+    public function updatebuku(Request $request, $id)
+    {
+        $request->validate([
+            'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'judul_buku' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) use ($id) {
+                    if (buku::where('judul_buku', $value)
+                        ->where('id_buku', '!=', $id) // Mengecualikan buku yang sedang diedit
+                        ->exists()
+                    ) {
+                        $fail('Judul buku yang sama sudah ada di database.');
+                    }
+                },
+            ],
+            'author_buku' => 'required|string|max:255',
+            'rak_buku' => 'required|integer|min:0',
+            'id_kategori_buku' => 'required|exists:kategori_buku,id_kategori_buku',
+            'id_jenis_buku' => 'required|exists:jenis_buku,id_jenis_buku',
+            'stok_buku' => 'required|integer|min:0',
+            'tahun_terbit' => 'required|string|max:4',
+            'bahasa_buku' => 'required|string|max:255',
+            'publisher_buku' => 'required|string|max:255',
+            'harga_buku' => 'required|numeric|min:0', // Validasi harga buku
+        ], [
+            'foto_buku.required' => 'Foto buku harus diisi.',
+            'foto_buku.image' => 'File foto buku harus berupa gambar.',
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
+
+            'judul_buku.required' => 'Judul buku harus diisi.',
+            'judul_buku.string' => 'Judul buku harus berupa teks.',
+            'judul_buku.max' => 'Judul buku tidak boleh lebih dari 255 karakter.',
+
+            'author_buku.required' => 'Penulis buku harus diisi.',
+            'author_buku.string' => 'Penulis buku harus berupa teks.',
+            'author_buku.max' => 'Nama penulis buku tidak boleh lebih dari 255 karakter.',
+
+            'rak_buku.required' => 'Rak buku harus diisi.',
+            'rak_buku.integer' => 'Rak buku harus berupa angka.',
+            'rak_buku.min' => 'Rak buku tidak boleh kurang dari 0.',
+
+            'id_kategori_buku.required' => 'Kategori buku harus dipilih.',
+            'id_kategori_buku.exists' => 'Kategori buku yang dipilih tidak valid.',
+
+            'id_jenis_buku.required' => 'Jenis buku harus dipilih.',
+            'id_jenis_buku.exists' => 'Jenis buku yang dipilih tidak valid.',
+
+            'stok_buku.required' => 'Stok buku harus diisi.',
+            'stok_buku.integer' => 'Stok buku harus berupa angka.',
+            'stok_buku.min' => 'Stok buku tidak boleh kurang dari 0.',
+
+            'tahun_terbit.required' => 'Tahun terbit buku harus diisi.',
+            'tahun_terbit.string' => 'Tahun terbit buku harus berupa teks.',
+            'tahun_terbit.max' => 'Tahun terbit buku tidak boleh lebih dari 4 karakter.',
+
+            'bahasa_buku.required' => 'Bahasa buku harus diisi.',
+            'bahasa_buku.string' => 'Bahasa buku harus berupa teks.',
+            'bahasa_buku.max' => 'Bahasa buku tidak boleh lebih dari 255 karakter.',
+
+            'publisher_buku.required' => 'Penerbit buku harus diisi.',
+            'publisher_buku.string' => 'Penerbit buku harus berupa teks.',
+            'publisher_buku.max' => 'Penerbit buku tidak boleh lebih dari 255 karakter.',
+
+            'harga_buku.required' => 'Harga buku harus diisi.',
+            'harga_buku.numeric' => 'Harga buku harus berupa angka.',
+            'harga_buku.min' => 'Harga buku tidak boleh kurang dari 0.',
+        ]);
 
         $buku = buku::findOrFail($id);
         if ($request->hasFile('foto_buku')) {
@@ -272,18 +274,18 @@ public function updatebuku(Request $request, $id)
             $buku->foto_buku = $request->file('foto_buku')->store('public/buku');
         }
 
-    $buku->update([
-        'judul_buku' => $request->judul_buku,
-        'author_buku' => $request->author_buku,
-        'rak_buku' => $request->rak_buku,
-        'id_kategori_buku' => $request->id_kategori_buku,
-        'id_jenis_buku' => $request->id_jenis_buku,
-        'stok_buku' => $request->stok_buku,
-        'tahun_terbit' => $request->tahun_terbit,
-        'bahasa_buku' => $request->bahasa_buku,
-        'publisher_buku' => $request->publisher_buku,
-        'harga_buku' => $request->harga_buku, // Menyimpan harga buku
-    ]);
+        $buku->update([
+            'judul_buku' => $request->judul_buku,
+            'author_buku' => $request->author_buku,
+            'rak_buku' => $request->rak_buku,
+            'id_kategori_buku' => $request->id_kategori_buku,
+            'id_jenis_buku' => $request->id_jenis_buku,
+            'stok_buku' => $request->stok_buku,
+            'tahun_terbit' => $request->tahun_terbit,
+            'bahasa_buku' => $request->bahasa_buku,
+            'publisher_buku' => $request->publisher_buku,
+            'harga_buku' => $request->harga_buku, // Menyimpan harga buku
+        ]);
 
         return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil diperbarui!');
     }
@@ -297,14 +299,13 @@ public function updatebuku(Request $request, $id)
         }
         $buku->delete();
 
-    return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil dihapus!');
-}
+        return redirect()->route('staff_perpus.buku.daftarbuku')->with('success', 'Buku berhasil dihapus!');
+    }
 
-public function show($id)
-{
-    $buku = Buku::with('kategoriBuku', 'jenisBuku')->findOrFail($id);
+    public function show($id)
+    {
+        $buku = Buku::with('kategoriBuku', 'jenisBuku')->findOrFail($id);
 
-    return view('staff_perpus.buku.detail', compact('buku'));
-}
-
+        return view('staff_perpus.buku.detail', compact('buku'));
+    }
 }
