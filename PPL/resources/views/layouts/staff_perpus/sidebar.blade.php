@@ -85,41 +85,42 @@
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
-                        <li>
-                            <x-sidebar-dropdown-list-link href="/dashboard"
-                                :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}"
-                                :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar
-                                Kategori</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"  :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
-                            </x-sidebar-dropdown>
-                            <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
-                            <li>
-                            <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
-                                Masuk</x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
-                                    Hilang</x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
-                                    Transaksi</x-sidebar-dropdown-list-link>
-                            </li>
-                            </x-sidebar-dropdown-list>
-                        </li>
-                        </x-sidebar-dropdown-list>
-                        </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="/dashboard"
+                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.buku.daftarbuku') }}"
+                            :active="request()->is('dashboard/perpustakaan/buku')">Daftar Buku</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/daftarkategori')">Daftar
+                            Kategori</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.transaksi.daftartransaksi') }}"
+                            :active="request()->is('dashboard/perpustakaan/transaksi')">Transaksi</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown label="Laporan" id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                        </x-sidebar-dropdown>
+                        <x-sidebar-dropdown-list id="laporan" :active="request()->is('dashboard/perpustakaan/laporan*')">
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
+                            Masuk</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
+                            Hilang</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
+                            Transaksi</x-sidebar-dropdown-list-link>
+                    </li>
+                    </x-sidebar-dropdown-list>
+                    </li>
+                    </x-sidebar-dropdown-list>
+                    </li>
                 </ul>
 
                 {{-- Sidebar Footer --}}
@@ -132,17 +133,19 @@
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Kembali ke Beranda</span>
                     </x-sidebar-link>
-                    <x-sidebar-link href="#">
-                        <x-sidebar-icon>
-                            <path d="M14 19V5h4a1 1 0 0 1 1 1v11h1a1 1 0 0 1 0 2h-6Z" />
-                            <path fill-rule="evenodd"
-                                d="M12 4.571a1 1 0 0 0-1.275-.961l-5 1.428A1 1 0 0 0 5 6v11H4a1 1 0 0 0 0 2h1.86l4.865 1.39A1 1 0 0 0 12 19.43V4.57ZM10 11a1 1 0 0 1 1 1v.5a1 1 0 0 1-2 0V12a1 1 0 0 1 1-1Z"
-                                clip-rule="evenodd" />
-                        </x-sidebar-icon>
-                        <span class="ml-3" sidebar-toggle-item>Log Out</span>
-
-                    </x-sidebar-link>
-                    
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('POST')
+                        <x-sidebar-link href="javascript:void(0)" onclick="this.closest('form').submit();">
+                            <x-sidebar-icon>
+                                <path d="M14 19V5h4a1 1 0 0 1 1 1v11h1a1 1 0 0 1 0 2h-6Z" />
+                                <path fill-rule="evenodd"
+                                    d="M12 4.571a1 1 0 0 0-1.275-.961l-5 1.428A1 1 0 0 0 5 6v11H4a1 1 0 0 0 0 2h1.86l4.865 1.39A1 1 0 0 0 12 19.43V4.57ZM10 11a1 1 0 0 1 1 1v.5a1 1 0 0 1-2 0V12a1 1 0 0 1 1-1Z"
+                                    clip-rule="evenodd" />
+                            </x-sidebar-icon>
+                            <span class="ml-3" sidebar-toggle-item>Log Out</span>
+                        </x-sidebar-link>
+                    </form>
                 </div>
             </div>
         </div>
