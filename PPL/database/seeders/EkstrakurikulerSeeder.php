@@ -20,7 +20,7 @@ class EkstrakurikulerSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         $guruIds = Guru::where('role_guru', 'pembina')->pluck('id_guru')->toArray();
         $nama_ekstra = ['Pramuka', 'PMR', 'Paskibra', 'Tahfidz', 'Basket', 'Volly', 'Futsal'];
 
@@ -74,8 +74,8 @@ class EkstrakurikulerSeeder extends Seeder
                 'id_prestasi' => Str::uuid(),
                 'id_ekstrakurikuler' => $ekstra,
                 'judul' => collect([
-                    'Juara 1 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)], 
-                    'Juara 2 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)], 
+                    'Juara 1 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)],
+                    'Juara 2 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)],
                     'Juara 3 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)]
                 ])->random(),
                 'deskripsi' => collect(['Deskripsi prestasi 1', 'Deskripsi prestasi 2', 'Deskripsi prestasi 3'])->random(),
