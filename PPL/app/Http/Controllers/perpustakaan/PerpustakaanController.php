@@ -21,7 +21,7 @@ class PerpustakaanController extends Controller
         $query = buku::query();
 
         // Filter berdasarkan pencarian (jika ada)
-        if (!isEmpty($search)) {
+        if (!empty($search)) {
             $query->where('judul_buku', 'LIKE', '%' . $search . '%');
         }
 
@@ -31,11 +31,17 @@ class PerpustakaanController extends Controller
         }
 
         // Dapatkan hasil dengan simple paginasi
-        $pages = $query->Paginate(12); // Menggunakan simplePaginate
-        $categories = kategori_buku::all();
+        $pages = $query->paginate(12);
 
         // Kirim data buku ke view perpustakaan.index
-        return view('guru.perpustakaan.index', compact('pages', 'categories'));
+        // Append the search and kategori_buku filters to the pagination links
+        $pages->appends(['search' => $search, 'kategori_buku' => $kategori_buku]);
+
+        // Dapatkan daftar kategori buku
+        $categories = kategori_buku::all();
+
+        // Kirim data ke view
+        return view('guru.perpustakaan.index', compact('pages', 'categories', 'search', 'kategori_buku'));
     }
 
 
@@ -52,7 +58,7 @@ class PerpustakaanController extends Controller
         $query = buku::query();
 
         // Filter berdasarkan pencarian (jika ada)
-        if (!isEmpty($search)) {
+        if (!empty($search)) {  // Use empty() instead of isEmpty()
             $query->where('judul_buku', 'LIKE', '%' . $search . '%');
         }
 
@@ -62,10 +68,16 @@ class PerpustakaanController extends Controller
         }
 
         // Dapatkan hasil dengan simple paginasi
-        $pages = $query->Paginate(12); // Menggunakan simplePaginate
+        $pages = $query->paginate(12);
+
+        // Kirim data buku ke view perpustakaan.index
+        // Append the search and kategori_buku filters to the pagination links
+        $pages->appends(['search' => $search, 'kategori_buku' => $kategori_buku]);
+
+        // Dapatkan daftar kategori buku
         $categories = kategori_buku::all();
 
         // Kirim data buku ke view perpustakaan.index
-        return view('siswa.perpustakaan.index', compact('pages', 'categories'));
+        return view('siswa.perpustakaan.index', compact('pages', 'categories', 'search', 'kategori_buku'));
     }
 }
