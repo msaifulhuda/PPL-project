@@ -5,10 +5,17 @@
         </h2>
     </x-slot>
 
-    <!-- Tambahkan div ini untuk membuat form di tengah layar -->
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
-        <div class="w-full max-w-xs">
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="{{route('superadmin.kelola_staff_perpus.store')}}" method="POST">
+    <div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
+        <div class="max-w-6xl w-full p-8 bg-white rounded-lg shadow-md border-2 border-black">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> >
+                <a href="{{ route('superadmin.kelola_staff_perpus') }}" class="text-black-500 hover:underline">Kelola Staff Perpustakaan</a> >
+                <a href="#" class="text-black-500 hover:underline"><b>Tambah Akun Staff Perpustakaan</b></a>
+            </nav>
+
+            <h2 class="text-lg font-semibold text-gray-800">Tambah Akun Staff Perpustakaan</h2>
+            <p class="text-sm text-gray-600 mb-6">Ini adalah halaman untuk menambah data Staff Perpustakaan</p>
+            <form  action="{{route('superadmin.kelola_staff_perpus.store')}}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label for="username" class="block text-gray-700">Username</label>
