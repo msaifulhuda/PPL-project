@@ -30,6 +30,7 @@ class AuthenticatedSessionController extends Controller
         $redirect = $request->input('redirect'); 
 
         $credentials = $request->only('username', 'password');
+        
         if ($this->attemptLogin('web-superadmin', $credentials)) {
             return $this->handleAdminLogin($request);
         } elseif ($this->attemptLogin('web-siswa', $credentials)) {
@@ -52,7 +53,7 @@ class AuthenticatedSessionController extends Controller
     private function attemptLogin($guard, $credentials): bool
     {
          // Debug guard dan kredensial untuk memastikan validasi
-        //  dd($guard, $credentials);
+         
         return auth()->guard($guard)->attempt($credentials);
     }
 

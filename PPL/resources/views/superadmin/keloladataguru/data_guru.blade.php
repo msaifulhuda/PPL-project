@@ -15,7 +15,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <nav class="text-sm text-gray-500 mb-4">
-                    <a href="{{ route('superadmin.dashboard') }}" class="text-black-500 hover:underline">Dashboard</a> > Kelola Akun > <b>Kelola Data Guru</b>
+                    <ol class="flex px-0 space-x-1">
+                        <li class="flex">
+                            <a href="{{ route('superadmin.dashboard') }}" class="text-gray-400 hover:text-gray-700">
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <div class="flex justify-center py-1">
+                            <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <li class="flex">
+                            <a href="{{ route('superadmin.keloladataguru') }}" class="text-gray-400 hover:text-gray-700">
+                                <span>Kelola Data Guru</span>
+                            </a>
+                        </li>
+                    </ol>
                 </nav>                                   
 
                 <h3 class="text-lg font-semibold mb-4">Kelola Data Guru</h3>
@@ -66,15 +82,39 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $guruData->links() }}
-                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-600">
+                            Showing <b>{{ $guruData->firstItem() }}</b> to <b>{{ $guruData->lastItem() }}</b> of <b>{{ $guruData->total() }}</b> results
+                        </p>
+                    </div>
+                    <div class="flex justify-end">
+                        @if ($guruData->currentPage() > 1)
+                            <a href="{{ $guruData->previousPageUrl() }}" class="px-4 py-2 border rounded-l-lg bg-gray-200 hover:bg-gray-300">Previous</a>
+                        @endif
+                        @if ($guruData->currentPage() > 2)
+                            <a href="{{ $guruData->url(1) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">1</a>
+                            @if ($guruData->currentPage() > 3)
+                                <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            @endif
+                        @endif
+                        @for ($i = max(1, $guruData->currentPage() - 1); $i <= min($guruData->lastPage(), $guruData->currentPage() + 1); $i++)
+                            <a href="{{ $guruData->url($i) }}" class="px-4 py-2 border {{ $i === $guruData->currentPage() ? 'bg-blue-500 text-white font-bold' : 'bg-gray-200 hover:bg-gray-300' }}">
+                                {{ $i }}
+                            </a>
+                        @endfor
+                        @if ($guruData->currentPage() < $guruData->lastPage() - 2)
+                            <span class="px-4 py-2 border bg-gray-200 text-gray-500">...</span>
+                            <a href="{{ $guruData->url($guruData->lastPage()) }}" class="px-4 py-2 border bg-gray-200 hover:bg-gray-300">{{ $guruData->lastPage() }}</a>
+                        @endif
+                        @if ($guruData->currentPage() < $guruData->lastPage())
+                            <a href="{{ $guruData->nextPageUrl() }}" class="px-4 py-2 border rounded-r-lg bg-gray-200 hover:bg-gray-300">Next</a>
+                        @endif
+                    </div>
+                </div>                           
             </div>
         </div>
     </div>
-
     <script>
         function confirmDelete(event) {
             event.preventDefault();
@@ -83,8 +123,6 @@
                 event.target.submit();
             }
         }
-
-        // Hide success message smoothly
         document.addEventListener("DOMContentLoaded", function () {
             const successMessage = document.getElementById('success-message');
             if (successMessage) {

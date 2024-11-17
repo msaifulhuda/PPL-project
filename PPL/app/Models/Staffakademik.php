@@ -64,7 +64,8 @@ class Staffakademik extends Authenticatable
         'nama_staff_akademik', 
         'wa_staff_akademik', 
         'alamat_staff_akademik', 
-        'staff_akademik_google_key' 
+        'google_id',
+        'google_token',
     ];
     
 }

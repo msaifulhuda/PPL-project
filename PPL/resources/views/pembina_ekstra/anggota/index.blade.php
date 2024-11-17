@@ -1,4 +1,4 @@
-<x-siswa-layout>
+<x-app-guru-layout>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -12,7 +12,7 @@
             <div class="mt-2 text-gray-600">
                 <p>Pembina: <span class="font-semibold text-gray-700">{{ $loggedInUsername }}</span></p>
                 <p>Tahun Ajaran: <span class="font-semibold text-gray-700">2024/2025</span></p>
-                <p>Total Anggota: <span class="font-semibold text-gray-700">{{ $totalItems ?? '404NOTFOUND' }}</span></p>
+                <p>Total Anggota: <span class="font-semibold text-gray-700">{{ $totalItems }}</span></p>
             </div>
         </div>
 
@@ -38,12 +38,7 @@
                         <td class="p-2 border-b">{{ $member->name }}</td>
                         <td class="p-2 border-b">{{ $member->nisn }}</td>
                         <td class="p-2 border-b">{{ $member->address }}</td>
-                        <td class="p-2 border-b">
-                            @php
-                                $lastDigit = is_numeric($member->nisn) ? intval(substr($member->nisn, -1)) : null;
-                            @endphp
-                            {{ $lastDigit !== null ? ($lastDigit % 2 == 1 ? 'Diterima' : 'Tidak Diterima') : 'N/A' }}
-                        </td>
+                        <td class="p-2 border-b">{{ $member->status }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -67,4 +62,4 @@
             </div>
         </div>
     </div>
-</x-siswa-layout>
+</x-app-guru-layout>

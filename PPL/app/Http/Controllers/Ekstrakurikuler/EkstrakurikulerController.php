@@ -8,7 +8,7 @@ use App\Models\ekstrakurikuler;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Berkas; // Model untuk tabel berkas
-use App\Models\registrasi_ekstrakurikuler; // Model untuk tabel registrasi_ekstrakurikuler
+use App\Models\RegistrasiEkstrakurikuler; // Model untuk tabel RegistrasiEkstrakurikuler
 use Illuminate\Support\Facades\DB; 
 class EkstrakurikulerController extends Controller
 {
@@ -46,10 +46,10 @@ class EkstrakurikulerController extends Controller
         $fileSuratIzin = $request->file('surat_izin_orang_tua')->store('berkas/public');
         $fileSuratKeterangan = $request->file('surat_keterangan_dokter')->store('berkas/public');
 
-        // Simpan data ke tabel registrasi_ekstrakurikuler untuk setiap ekstrakurikuler yang dipilih
+        // Simpan data ke tabel RegistrasiEkstrakurikuler untuk setiap ekstrakurikuler yang dipilih
         foreach ($request->input('pilih_ekskul') as $idEkstrakurikuler) {
             echo($idEkstrakurikuler);
-            registrasi_ekstrakurikuler::create([
+            RegistrasiEkstrakurikuler::create([
                 'id_siswa' => Auth::guard('web-siswa')->user()->id_siswa,
                 'id_ekstrakurikuler' => $idEkstrakurikuler,
                 'riwayat_penyakit' => $request->input('riwayat_penyakit'),
@@ -60,7 +60,7 @@ class EkstrakurikulerController extends Controller
             ]);
         }
 
-        $id_regis =  registrasi_ekstrakurikuler::first()->id_registrasi;
+        $id_regis =  RegistrasiEkstrakurikuler::first()->id_registrasi;
         // Simpan data ke tabel berkas
         Berkas::create([
             'id_registrasi' => $id_regis,

@@ -14,13 +14,16 @@ class KelasSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 10 classes
-        for ($i = 1; $i <= 10; $i++) {
-            $idKelas = Str::uuid();
-            kelas::create([
-                'id_kelas' => $idKelas,
-                'nama_kelas' => 'Kelas ' . $i,
-            ]);
+        $kelas = ['A', 'B', 'C'];
+        for ($i = 7; $i <= 9; $i++) {
+            foreach ($kelas as $kelasItem) {
+                $idKelas = Str::uuid();
+                kelas::create([
+                    'id_kelas' => $idKelas,
+                    'nama_kelas' => $i . $kelasItem,
+                ]);
+            }
         }
     }
+    
 }

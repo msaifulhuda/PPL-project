@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\siswa;
 
-use App\Http\Controllers\Controller;
+use App\Models\KelasSiswa;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\kelas_mata_pelajaran;
 
 class SiswaLmsController extends Controller
 {
-    public function index()
-    {
-        return view('siswa.lms.index');
-    }
+    
+
+
 
     public function materi()
     {
