@@ -1,31 +1,4 @@
 <x-staffperpustakaan-layout>
-    <style>
-        .page-btn {
-            width: 2rem;
-            height: 2rem;
-            background-color: #D9D9D9;
-            color: rgb(0, 0, 0);
-            font-family: "Poppins";
-            font-weight: 800;
-            line-height: 24px;
-            margin: 0 0.3rem 0 0.3rem;
-        }
-
-        .active {
-            color: #4285F4;
-
-        }
-
-        .invisible {
-            display: none;
-        }
-
-        #page-numbers {
-            @media (max-width: 640px) {
-                display: none;
-            }
-        }
-    </style>
     @include('staff_perpus/modal/addCategory_Modal')
     @include('staff_perpus/modal/deleteCategory_Modal')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-16 py-8 bg-white m-4">

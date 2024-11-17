@@ -39,6 +39,32 @@
             url('../fonts/poppins-v15-latin-regular.svg#Poppins') format('svg');
         /* Legacy iOS */
     }
+
+    .page-btn {
+        width: 2rem;
+        height: 2rem;
+        background-color: #D9D9D9;
+        color: rgb(0, 0, 0);
+        font-family: "Poppins";
+        font-weight: 800;
+        line-height: 24px;
+        margin: 0 0.3rem 0 0.3rem;
+    }
+
+    .active {
+        color: #4285F4;
+
+    }
+
+    .invisible {
+        display: none;
+    }
+
+    #page-numbers {
+        @media (max-width: 640px) {
+            display: none;
+        }
+    }
 </style>
 
 <body class="bg-gray-50 dark:bg-gray-800">
