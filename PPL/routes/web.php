@@ -56,7 +56,6 @@ use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
 
 use App\Http\Controllers\guru\lms\TopikLmsController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
-
 use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\guru;
 use App\Http\Controllers\siswa;
@@ -264,6 +263,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     /**
      * Start Pengurus Ekstrakurikuler
      */
+
     Route::group(['middleware' => 'pengurus'], function () {
         Route::get('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'index'])->name('pengurus_ekstra.dashboard');
 
@@ -324,6 +324,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/absensi', [siswa\AbsensiController::class, 'index'])->name('siswa.absensi.index');
     Route::get('/absensi/{id}/pertemuan', [siswa\AbsensiController::class, 'details'])->name('siswa.absensi.details');
     Route::get('/absensi/scan/{pertemuan_id}', [siswa\AbsensiController::class, 'scanQrCode'])->name('siswa.absensi.scan');
+    Route::get('/notifikasi', [siswa\NotifikasiController::class, 'index'])->name('siswa.notifikasi');
 });
 
 

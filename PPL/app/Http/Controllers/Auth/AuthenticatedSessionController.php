@@ -73,11 +73,12 @@ class AuthenticatedSessionController extends Controller
             } else {
                 return redirect()->intended($intendedUrl);
             }
+        } elseif ($user->role_siswa === 'pengurus') {
+            return redirect()->intended($intendedUrl);
         }
         elseif ($user->role_siswa === 'pengurus') {
             return redirect()->intended($intendedUrl);
         }
-        
         return back()->withErrors([
             'username' => 'Role tidak dikenali.'
         ])->onlyInput('username');
