@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $redirect = $request->input('redirect'); 
 
         $credentials = $request->only('username', 'password');
-        
+
         if ($this->attemptLogin('web-superadmin', $credentials)) {
             return $this->handleAdminLogin($request);
         } elseif ($this->attemptLogin('web-siswa', $credentials)) {
@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
     private function attemptLogin($guard, $credentials): bool
     {
          // Debug guard dan kredensial untuk memastikan validasi
-         
+
         return auth()->guard($guard)->attempt($credentials);
     }
 
@@ -65,15 +65,19 @@ class AuthenticatedSessionController extends Controller
         $request->session()->put('username', $user->username);
         $request->session()->put('role_siswa', $user->role_siswa);
 
+        $intendedUrl = session('url.intended', route('siswa.dashboard'));
+
         if ($user->role_siswa === 'siswa') {
             if ($redirect != null) {
                 return redirect()->route($redirect);
             } else {
-                return redirect()->route('siswa.dashboard');
+                return redirect()->intended($intendedUrl);
             }
+        } elseif ($user->role_siswa === 'pengurus') {
+            return redirect()->intended($intendedUrl);
         }
         elseif ($user->role_siswa === 'pengurus') {
-            return redirect()->route('siswa.dashboard');
+            return redirect()->intended($intendedUrl);
         }
         return back()->withErrors([
             'username' => 'Role tidak dikenali.'
