@@ -24,7 +24,7 @@ export default {
             charts: true,
             wysiwyg: true,
             datatables: true,
-        }),
-        require('flowbite-typography')
+        })
+        // require('flowbite-typography')
   ],
 };
