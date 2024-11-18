@@ -18,6 +18,9 @@ class TopikLmsController extends Controller
             'kelas_mata_pelajaran_id' => $request->kelas_mata_pelajaran_id,
             'mata_pelajaran_id' => $request->mata_pelajaran_id,
         ]);
+        if ($request->has('dari_tugas')) {
+            return redirect()->route('guru.dashboard.lms.tugas.create', $id)->with('success', 'Topik berhasil ditambahkan');
+        }
         return redirect()->route('guru.dashboard.lms.forum.tugas', $id)->with('success', 'Topik berhasil ditambahkan');
     }
 

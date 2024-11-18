@@ -15,6 +15,7 @@ class Nilai_ekstra extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -50,11 +51,16 @@ class Nilai_ekstra extends Model
     protected $table = 'nilai_ekstra';
     protected $fillable = [
         'ekstrakurikuler_id',
+        'nilai_rata_rata_ekstra',
         'pesan',
     ];
     public function ekstrakurikuler()
     {
         return $this->belongsTo(ekstrakurikuler ::class, 'ekstrakurikuler_id', 'id_ekstrakurikuler');
+    }
+    public function rapor()
+    {
+        return $this->belongsTo(rapor::class, 'rapor_id', 'id_rapor');
     }
 
 }
