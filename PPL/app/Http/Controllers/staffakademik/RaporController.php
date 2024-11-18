@@ -15,7 +15,6 @@ class RaporController extends Controller
 {
     private function getSiswaData($id)
     {
-        // Data siswa dan kelas
         $siswa = DB::table('siswa')
             ->join('kelas_siswas', 'siswa.id_siswa', '=', 'kelas_siswas.id_siswa')
             ->join('kelas', 'kelas_siswas.id_kelas', '=', 'kelas.id_kelas')
@@ -23,7 +22,6 @@ class RaporController extends Controller
             ->select('siswa.nama_siswa', 'siswa.id_siswa', 'kelas.nama_kelas', 'siswa.nisn')
             ->first();
 
-        // Data nilai mata pelajaran
         $nilaiMatpel = DB::table('nilai_matpel')
             ->join('mata_pelajaran', 'nilai_matpel.matpel_id', '=', 'mata_pelajaran.id_matpel')
             ->whereIn('nilai_matpel.rapor_id', function ($query) use ($id) {
@@ -34,7 +32,6 @@ class RaporController extends Controller
             ->select('mata_pelajaran.nama_matpel', 'nilai_matpel.nilai_rata_rata_matpel', 'nilai_matpel.pesan')
             ->get();
 
-        // Data nilai ekstrakurikuler
         $nilaiEkstra = DB::table('nilai_ekstra')
             ->join('ekstrakurikuler', 'nilai_ekstra.ekstrakurikuler_id', '=', 'ekstrakurikuler.id_ekstrakurikuler')
             ->whereIn('nilai_ekstra.rapor_id', function ($query) use ($id) {
@@ -45,7 +42,6 @@ class RaporController extends Controller
             ->select('ekstrakurikuler.nama_ekstrakurikuler', 'nilai_ekstra.nilai_rata_rata_ekstra')
             ->get();
 
-        // Tahun ajaran
         $tahunAjaran = DB::table('tahun_ajaran')->where('aktif', 1)->first();
 
         // Ambil data bobot grade
