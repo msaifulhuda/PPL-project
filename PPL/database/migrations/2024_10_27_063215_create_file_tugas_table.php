@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id_file_tugas')->primary();
             $table->uuid('tugas_id');
             $table->string('file_path');
+            $table->string('original_name');
             $table->string('file_type');
             $table->string('upload_at');
             $table->timestamps();

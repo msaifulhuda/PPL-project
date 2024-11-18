@@ -10,11 +10,20 @@
         @endphp
 
         <x-breadcrumb :breadcrumbs="$breadcrumbs" />
-          @if (session()->has('success'))
-                <x-alert-notification :color="'blue'">
-                    {{ session('success') }}
-                </x-alert-notification>
-            @endif
+        @if (session()->has('success'))
+            <x-alert-notification :color="'blue'">
+                {{ session('success') }}
+            </x-alert-notification>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('guru.dashboard.lms.tugas.store', $id) }}" method="POST" enctype="multipart/form-data"
             class="mt-6">
@@ -26,8 +35,8 @@
                 <div class="md:col-span-2 space-y-6">
                     <!-- Judul -->
                     <div>
-                        <label for="judul" class="block text-sm font-medium text-gray-700">Judul Materi</label>
-                        <input type="text" name="judul" id="judul"
+                        <label for="judul" class="block text-sm font-medium text-gray-700">Judul Tugas</label>
+                        <input type="text" name="judul_tugas" id="judul"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             required>
                     </div>
@@ -42,7 +51,7 @@
 
                     <!-- File Upload -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">File Materi</label>
+                        <label class="block text-sm font-medium text-gray-700">File Tugas</label>
                         <div
                             class="mt-1 flex justify-center px-4 py-4 md:px-6 md:pt-5 md:pb-6 border-2 border-gray-300 border-dashed rounded-md">
                             <div class="space-y-1 text-center">
@@ -84,7 +93,7 @@
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col gap-y-3">
-                        <button type="button"  onclick="openModal()"
+                        <button type="button" onclick="openModal()"
                             class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Tambah Topik
                         </button>
@@ -145,52 +154,93 @@
             let selectedFiles = [];
             const fileInput = document.getElementById('files');
             const fileList = document.getElementById('file-list');
+            const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
 
             fileInput.addEventListener('change', function(e) {
-                const newFiles = Array.from(this.files);
-                selectedFiles = [...selectedFiles, ...
-                    newFiles
-                ]; // Gabungkan file baru dengan file sebelumnya
+                const newFiles = Array.from(this.files).filter(file => {
+                    if (file.size > maxFileSize) {
+                        alert(`File ${file.name} terlalu besar. Maksimal ukuran file adalah 10MB.`);
+                        return false;
+                    }
+
+                    const validTypes = ['application/pdf', 'application/msword',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/vnd.ms-powerpoint',
+                        'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                    ];
+                    if (!validTypes.includes(file.type)) {
+                        alert(
+                            `File ${file.name} tidak didukung. Format yang didukung: PDF, DOC, DOCX, PPT, PPTX.`
+                        );
+                        return false;
+                    }
+                    return true;
+                });
+
+                selectedFiles = [...selectedFiles, ...newFiles];
                 updateFileList();
             });
 
             function updateFileList() {
-                fileList.innerHTML = ''; // Bersihkan daftar file sebelumnya
+                fileList.innerHTML = '';
                 selectedFiles.forEach((file, index) => {
                     const fileItem = `
-                        <div class="flex gap-4 items-center justify-between underline">
-                            <div class="flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                                <span class="text-sm text-gray-600">${file.name}</span>
-                            </div>
-                            <button type="button" onclick="removeFile(${index})" class="text-red-500 hover:text-red-700">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    `;
+                <div class="flex gap-4 items-center justify-between underline">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span class="text-sm text-gray-600">${file.name}</span>
+                    </div>
+                    <button type="button" onclick="removeFile(${index})" class="text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
                     fileList.insertAdjacentHTML('beforeend', fileItem);
                 });
             }
 
             window.removeFile = function(index) {
-                selectedFiles.splice(index, 1); // Hapus file dari array
-                updateFileList(); // Perbarui tampilan
+                selectedFiles.splice(index, 1);
+                updateFileList();
             };
 
-            // Tangani pengiriman form
             const form = document.querySelector('form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+                const requiredFields = ['judul_tugas', 'tenggat'];
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    const input = this.querySelector(`[name="${field}"]`);
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('border-red-500');
+                    } else {
+                        input.classList.remove('border-red-500');
+                    }
+                });
+
+                if (!isValid) {
+                    alert('Mohon lengkapi semua field yang wajib diisi');
+                    return;
+                }
+
                 const formData = new FormData(this);
 
-                // Tambahkan semua file dari selectedFiles ke FormData
-                selectedFiles.forEach((file) => {
-                    formData.append('files[]', file);
-                });
+                // Clear existing files and append selected files
+                const existingFiles = formData.getAll('files[]');
+                existingFiles.forEach(() => formData.delete('files[]'));
+                selectedFiles.forEach(file => formData.append('files[]', file));
+
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Memproses...';
 
                 fetch(this.action, {
                         method: 'POST',
@@ -199,13 +249,19 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                         }
                     })
-                    .then((response) => response.json())
-                    .then((data) => {
+                    .then(response => response.json())
+                    .then(data => {
                         if (data.success) {
-                            window.location.href = data.redirect || '/dashboard';
+                            window.location.href = data.redirect;
+                        } else {
+                            throw new Error(data.message || 'Terjadi kesalahan');
                         }
                     })
-                    .catch((error) => console.error('Error:', error));
+                    .catch(error => {
+                        alert(error.message || 'Terjadi kesalahan saat mengirim data');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    });
             });
         });
 
@@ -230,6 +286,5 @@
         function updateCharCount(input) {
             document.getElementById('charCount').textContent = input.value.length;
         }
-
     </script>
 </x-app-guru-layout>

@@ -14,7 +14,7 @@ class tugas extends Model
 
     protected $table = 'tugas';
     protected $primaryKey = 'id_tugas';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $keyType = 'string';
     public $incrementing = false;
 
@@ -47,6 +47,9 @@ class tugas extends Model
     }
     public function filetugas()
     {
-        return $this->hasMany(file_tugas::class);
+        return $this->hasMany(file_tugas::class, 'tugas_id', 'id_tugas');
     }
+    protected $casts = [
+        'deadline' => 'datetime',
+    ];
 }

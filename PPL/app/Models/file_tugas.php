@@ -56,9 +56,10 @@ class file_tugas extends Model
         'file_path',
         'file_type',
         'upload_at',
+        'original_name'
     ];
-    
-    
+
+
     public function tugas()
 {
     return $this->belongsTo(Tugas::class, 'tugas_id', 'id_tugas');
