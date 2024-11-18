@@ -116,13 +116,13 @@ class PenilaianEkstraController extends Controller
             $penilaian = PenilaianEkstrakurikuler::create([
                 'id_siswa' => $id_siswa,
                 'id_ekstrakurikuler' => $id_ekstra,
-                'id_tahun_ajaran' => $tahun_ajaran->id_tahun_ajaran,
+                'id_tahun_ajaran' => $tahun_ajaran,
                 'id_laporan' => $request->id_laporan,
                 'penilaian' => $request->penilaian,
             ]);
         }
 
-        $tgl_penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->firstOrFail()->tgl_penilaian;
+        $tgl_penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->first()->tgl_penilaian;
         return response()->json(['success' => true, 'tgl_penilaian' => $tgl_penilaian]);
     }
 }

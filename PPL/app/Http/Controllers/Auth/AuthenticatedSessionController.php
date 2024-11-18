@@ -27,13 +27,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $redirect = $request->input('redirect'); 
 
         $credentials = $request->only('username', 'password');
 
         if ($this->attemptLogin('web-superadmin', $credentials)) {
             return $this->handleAdminLogin($request);
         } elseif ($this->attemptLogin('web-siswa', $credentials)) {
-            return $this->handleSiswaLogin($request);
+            if ($redirect) {
+                return $this->handleSiswaLogin($request, $redirect);
+            } else {
+                return $this->handleSiswaLogin($request);
+            }
         }elseif ($this->attemptLogin('web-guru', $credentials)) {
             return $this->handleGuruLogin($request);
         }elseif ($this->attemptLogin('web-staffakademik', $credentials)) {
@@ -52,7 +57,7 @@ class AuthenticatedSessionController extends Controller
         return auth()->guard($guard)->attempt($credentials);
     }
 
-    private function handleSiswaLogin($request): RedirectResponse
+    private function handleSiswaLogin($request, $redirect = null): RedirectResponse
     {
 
         $request->session()->regenerate();
@@ -63,7 +68,11 @@ class AuthenticatedSessionController extends Controller
         $intendedUrl = session('url.intended', route('siswa.dashboard'));
 
         if ($user->role_siswa === 'siswa') {
-            return redirect()->intended($intendedUrl);
+            if ($redirect != null) {
+                return redirect()->route($redirect);
+            } else {
+                return redirect()->intended($intendedUrl);
+            }
         } elseif ($user->role_siswa === 'pengurus') {
             return redirect()->intended($intendedUrl);
         }

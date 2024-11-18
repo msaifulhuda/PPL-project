@@ -26,7 +26,7 @@ class RegistrasiEkstrakurikuler extends Model
      */
 
 
-     protected $table = 'RegistrasiEkstrakurikuler';
+     protected $table = 'registrasi_ekstrakurikuler';
 
      protected $fillable = [
          'id_registrasi',

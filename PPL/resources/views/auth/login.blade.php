@@ -35,6 +35,8 @@
         <!-- Login Form -->
         <form class="w-full" method="POST" action="{{ route('login') }}">
           @csrf
+
+          <input type="hidden" name="redirect" value="{{ request()->query('redirect') }}">
           <div class="mb-3">
             <label class="block text-gray-700 text-xs mb-1" for="username">Username</label>
             <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
