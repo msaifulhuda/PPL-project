@@ -40,12 +40,18 @@
                     @csrf
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label for="first_week_date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pertemuan Pertama:</label>
-                            <input type="date" id="first_week_date" name="first_week_date" class="w-full border border-gray-300 rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                            <label for="first_week_date" class="inline-block text-sm font-medium text-gray-700 mb-1">Tanggal Pertemuan Pertama:</label>
+                            @if ($errors->has('first_week_date'))
+                                <span class="text-red-500 text-sm">{{ $errors->first('first_week_date') }}</span>
+                            @endif
+                            <input type="date" id="first_week_date" name="first_week_date" class="w-full border border-gray-300 rounded-md p-2.5 focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
-                            <label for="total_meetings" class="block text-sm font-medium text-gray-700 mb-1">Total Pertemuan:</label>
-                            <input type="number" id="total_meetings" name="total_meetings" class="w-full border border-gray-300 rounded-md p-2.5 focus:outline-none focus:border-blue-500" required>
+                            <label for="total_meetings" class="inline-block text-sm font-medium text-gray-700 mb-1">Total Pertemuan:</label>
+                            @if ($errors->has('total_meetings'))
+                                <span class="text-red-500 text-sm">{{ $errors->first('total_meetings') }}</span>
+                            @endif
+                            <input type="number" id="total_meetings" name="total_meetings" class="w-full border border-gray-300 rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder="Masukkan Total Pertemuan">
                         </div>
                     </div>
                     @if ($detail->pertemuan->isEmpty())
