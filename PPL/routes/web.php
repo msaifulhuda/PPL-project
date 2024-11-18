@@ -59,8 +59,6 @@ use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\guru;
 use App\Http\Controllers\siswa;
-use App\Http\Controllers\staffperpus\CategoryController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\staffakademik\RaporController;
 
 Route::prefix('/')->group(function () {
