@@ -45,7 +45,7 @@ class Siswa extends Authenticatable
     }
     public function absensisiswa()
     {
-        return $this->hasMany(absensi_siswa::class);
+        return $this->hasMany(absensi_siswa::class, 'siswa_id', 'id_siswa');
     }
     public function notifikasisistem()
     {
@@ -77,7 +77,7 @@ class Siswa extends Authenticatable
     }
     public function kelassiswa()
     {
-        return $this->hasMany(KelasSiswa::class);
+        return $this->hasMany(KelasSiswa::class, 'id_siswa', 'id_siswa');
     }
     public function kelas()
     {

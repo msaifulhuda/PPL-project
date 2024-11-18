@@ -18,6 +18,7 @@
     {{-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" /> --}}
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 </head>
 <style>
     @font-face {
@@ -37,6 +38,32 @@
             /* Safari, Android, iOS */
             url('../fonts/poppins-v15-latin-regular.svg#Poppins') format('svg');
         /* Legacy iOS */
+    }
+
+    .page-btn {
+        width: 2rem;
+        height: 2rem;
+        background-color: #D9D9D9;
+        color: rgb(0, 0, 0);
+        font-family: "Poppins";
+        font-weight: 800;
+        line-height: 24px;
+        margin: 0 0.3rem 0 0.3rem;
+    }
+
+    .active {
+        color: #4285F4;
+
+    }
+
+    .invisible {
+        display: none;
+    }
+
+    #page-numbers {
+        @media (max-width: 640px) {
+            display: none;
+        }
     }
 </style>
 

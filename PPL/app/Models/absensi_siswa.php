@@ -55,7 +55,7 @@ class absensi_siswa extends Model
         'siswa_id',
         'pertemuan_id',
         'status_absensi',
-    ];    
+    ];
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id_siswa');

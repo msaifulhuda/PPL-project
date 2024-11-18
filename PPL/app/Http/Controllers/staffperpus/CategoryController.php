@@ -16,7 +16,9 @@ class CategoryController extends Controller
     public function manageCategory()
     {
         $Category = DB::table('kategori_buku')
-            ->paginate(10);
+            // ->orderBy('nama_kategori')
+            ->get();
+        // ->paginate(7);
         return view('staff_perpus.kategori_buku', ['arrayCategory' => $Category]);
     }
     public function addCategory(Request $request)
@@ -45,5 +47,26 @@ class CategoryController extends Controller
         } else {
             return redirect()->route('staff_perpus.managecategories')->with('failed', 'Cannot Delete Categories!');
         }
+    }
+    public function updateCategory(Request $request)
+    {
+        // Validate input
+        $valid = $request->validate([
+            'name' => 'required|string|max:255|unique:kategori_buku,nama_kategori',
+        ]);
+
+        // Find the category to update
+        $category = kategori_buku::find($request->input('target'));
+        if ($category) {
+            // Update the category name
+            $category->nama_kategori = $request->input('name');
+            $category->save();
+
+            // Redirect with success message
+            return redirect()->route('staff_perpus.managecategories')->with('success', 'Category updated successfully!');
+        }
+
+        // If category not found, return an error message
+        return redirect()->route('staff_perpus.managecategories')->with('failed', 'Category update failed!');
     }
 }

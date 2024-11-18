@@ -123,13 +123,13 @@ class DatabaseSeeder extends Seeder
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
 
-        // $idUser1 = Str::uuid();
-        // Superadmin::create([
-        //     'id_admin' => $idUser1,
-        //     'username' => 'admin',
-        //     'password' => bcrypt('admin123'),
-        //     'email' => 'andreeka852@gmail.com',
-        // ]);
+        $idUser1 = Str::uuid();
+        Superadmin::create([
+            'id_admin' => $idUser1,
+            'username' => 'admin',
+            'password' => bcrypt('admin123'),
+            'email' => 'andreeka852@gmail.com',
+        ]);
         // $idUser2 = Str::uuid();
         // Superadmin::create([
         //     'id_admin' => $idUser2,
@@ -170,12 +170,12 @@ class DatabaseSeeder extends Seeder
         // session(key: ['siswa2' => $idUser4, 'siswa3' => $idUser9, 'siswa4' => $idUser10, 'siswa5' => $idUser11]);
 
         // Create siswa with role 'siswa'
-        // Siswa::create([
-        //     'id_siswa' => $idUser4,
-        //     'username' => 'siswa',
-        //     'password' => bcrypt('siswa'),
-        //     'role_siswa' => 'siswa',
-        // ]);
+        Siswa::create([
+            'id_siswa' => Str::uuid(),
+            'username' => 'siswa',
+            'password' => bcrypt('siswa'),
+            'role_siswa' => 'siswa',
+        ]);
         // Siswa::create([
         //     'id_siswa' => $idUser9,
         //     'username' => 'siswa2',
