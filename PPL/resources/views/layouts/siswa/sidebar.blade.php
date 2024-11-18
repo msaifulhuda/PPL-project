@@ -94,8 +94,7 @@
                     </li>
 
                     {{-- Ekstrakurikuler --}}
-
-
+                    @if (auth()->guard('web-siswa')->user()->role_siswa == 'pengurus')
                     <li>
                         <x-sidebar-dropdown label="Ekstrakurikuler" id="ekstrakurikuler" :active="request()->is('siswa/ekstrakurikuler*')">
                             <x-sidebar-icon>
@@ -122,6 +121,7 @@
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
+                    @endif
 
 
 
@@ -148,7 +148,7 @@
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Notifikasi</span>
                     </x-sidebar-link>
-                    <x-sidebar-link href="#">
+                    <x-sidebar-link href="{{ route('siswa.absensi.index') }}">
                         <x-sidebar-icon>
                             <path fill-rule="evenodd"
                                 d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
