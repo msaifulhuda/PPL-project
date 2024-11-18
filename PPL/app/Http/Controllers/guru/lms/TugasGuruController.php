@@ -7,7 +7,9 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\materi;
+use App\Models\topik;
 use App\Models\tugas;
+use Illuminate\Http\Request;
 
 class TugasGuruController extends Controller
 {
@@ -89,15 +91,23 @@ class TugasGuruController extends Controller
             'mataPelajaran:id_matpel,nama_matpel',
             'kelas:id_kelas,nama_kelas',
         ])->findOrFail($id);
+        $topiks = topik::where('kelas_mata_pelajaran_id', $id)->get();
         return view('guru.lms.tugas.create', [
             'id' => $id,
             'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
             'kelas' => $kelasMataPelajaran->kelas,
+            'topiks' => $topiks
         ]);
     }
+
+
 
     public function detail($id)
     {
         return view('guru.lms.tugas.detail', ['id' => $id]);
+    }
+
+    public function store(Request $request, $id) {
+        dd($request->all());
     }
 }
