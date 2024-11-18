@@ -37,7 +37,7 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\staffperpus\CategoryController; 
+use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -46,9 +46,9 @@ use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 
 
- 
+
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
- 
+
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 
@@ -59,15 +59,12 @@ use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\guru;
 use App\Http\Controllers\siswa;
-use App\Http\Controllers\staffperpus\CategoryController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
-// Route::get('/', function () {
-//     return view('beranda.home');
-// })->name('beranda.home');
+use App\Http\Controllers\staffakademik\RaporController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
     Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
+    Route::get('/tenagaPengajarPublik', [BerandaController::class, 'tenagaPengajarPublik'])->name('beranda.tenagaPengajarPublik');
 });
 Route::get('/auth/redirect', [GoogleLoginController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/call-back', [GoogleLoginController::class, 'callback']);
@@ -205,6 +202,11 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::get('/jadwal-kelas', [LihatJadwalController::class, 'kelas_index'])->name('lihat.jadwal.kelas');
     Route::get('/jadwal-guru', [LihatJadwalController::class, 'guru_index'])->name('lihat.jadwal.guru');
 
+    // Rapor
+    Route::get('/rapor', [RaporController::class, 'index'])->name('staff_akademik.rapor.index');
+    Route::get('/rapor/siswa/{id}', [RaporController::class, 'showDetail'])->name('staff_akademik.rapor.detail');
+    Route::get('/rapor/siswa/{id}/download', [RaporController::class, 'downloadPdf'])->name('staff_akademik.rapor.download');
+
     // Absensi
     Route::get('/absensi', [staffakademik\AbsensiController::class, 'index'])->name('akademik.absensi.index');
     Route::get('/absensi/{id}/pertemuan', [staffakademik\AbsensiController::class, 'details'])->name('akademik.absensi.details');
@@ -252,7 +254,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/staff_perpus/transaksi/{id}/edit', [TransaksiPeminjamanController::class, 'edit'])->name('staff_perpus.transaksi.edit');
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
-    
+
 });
 
 
@@ -429,7 +431,6 @@ Route::group(['prefix' => 'ekstrakrikuler'], function () {
     Route::group(['middleware' => ['siswa']], function () {
 
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
-
         Route::middleware('auth:web-siswa')->group(function () {
             Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
         });
