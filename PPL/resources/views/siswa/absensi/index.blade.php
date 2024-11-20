@@ -9,13 +9,13 @@
                 ];
             @endphp
 
-            <div class="flex justify-between items-center pt-2">
+            <div class="flex justify-between items-center pt-4">
                 <x-breadcrumb :breadcrumbs="$breadcrumbs" />
             </div>
 
-            <div>
+            <div class="mt-4">
                 @foreach ($data->groupBy('kelas.nama_kelas') as $kelasName => $items)
-                    <div class="py-2 text-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <div class="pb-2 text-gray-700 border-b border-gray-200 dark:border-gray-600">
                         <h3 class="font-semibold text-lg">Jadwal Kelas {{ $kelasName }}</h3>
                     </div>
 
@@ -59,3 +59,17 @@
         </div>
     </div>
 </x-siswa-layout>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+        });
+    @endif
+
+</script>

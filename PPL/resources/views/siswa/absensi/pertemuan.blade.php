@@ -46,25 +46,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($detail->pertemuan as $pertemuan)
+                            @forelse ($detail->pertemuan as $pertemuan)
                                 <tr class="odd:bg-white border-t-2 dark:bg-gray-800 dark:border-gray-700 even:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="px-16 py-4 font-semibold text-gray-500">{{ $loop->iteration }}</td>
                                     <td class="px-6 py-4 font-semibold text-gray-500">{{ \Carbon\Carbon::parse($pertemuan->tanggal_pertemuan)->translatedFormat('d F Y') }}</td>
                                     <td class="px-6 py-4 font-semibold text-gray-500">
-                                        @php
-                                            $status = $pertemuan->absensiSiswa->first()->status_absensi;
-                                            $badgeColor = match($status) {
-                                                'Hadir' => 'bg-green-100 text-green-800 rounded-lg',
-                                                'Alpa' => 'bg-red-100 text-red-800 rounded-lg',
-                                                'Sakit' => 'bg-yellow-100 text-yellow-800 rounded-lg',
-                                                'Izin' => 'bg-purple-100 text-purple-800 rounded-lg',
-                                                default => 'bg-gray-100 text-gray-800 rounded-lg',
-                                            };
-                                        @endphp
-                                        <span class="px-2.5 py-0.5 rounded text-xs font-medium {{ $badgeColor }}">{{ $status }}</span>
+                                        @if ($pertemuan->absensiSiswa->isNotEmpty())
+                                            @php
+                                                $status = $pertemuan->absensiSiswa->first()->status_absensi;
+                                                $badgeColor = match($status) {
+                                                    'Hadir' => 'bg-green-100 text-green-800 rounded-lg',
+                                                    'Alpa' => 'bg-red-100 text-red-800 rounded-lg',
+                                                    'Sakit' => 'bg-yellow-100 text-yellow-800 rounded-lg',
+                                                    'Izin' => 'bg-purple-100 text-purple-800 rounded-lg',
+                                                    default => 'bg-gray-100 text-gray-800 rounded-lg',
+                                                };
+                                            @endphp
+                                            <span class="px-2.5 py-0.5 rounded text-xs font-medium {{ $badgeColor }}">{{ $status }}</span>
+                                        @else
+                                            <span class="px-2.5 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">Belum Ada Data</span>
+                                        @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="py-4 text-center text-gray-500">Tidak Ada Data Absensi</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -87,8 +95,16 @@
     @if(session('success'))
         Swal.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'Sukses',
             text: '{{ session('success') }}',
+        });
+    @endif
+
+    @if(session('info'))
+        Swal.fire({
+            icon: 'info',
+            title: 'Informasi',
+            text: '{{ session('info') }}',
         });
     @endif
 </script>

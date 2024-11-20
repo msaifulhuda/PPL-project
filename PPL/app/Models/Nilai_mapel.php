@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-class Bobot_grade extends Model
+
+class Nilai_mapel extends Model
 {
-    public $timestamps = false;
-    protected $primaryKey = 'id_bobot_grade';
+    use Notifiable;
 
     /**
      * The "booting" function of model
@@ -16,7 +16,7 @@ class Bobot_grade extends Model
      * @return void
      */
     protected static function boot() {
-        parent::boot(); // Pastikan memanggil parent::boot()
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -49,13 +49,21 @@ class Bobot_grade extends Model
      *
      * @var array
      */
-
-
-    protected $table = 'bobot_grades';
+    protected $table = 'nilai_matpel';
     protected $fillable = [
-        'grade',
-        'maksimal',
-        'minimal',
+        'id_nilai_matpel',
+        'matpel_id',
+        'nilai_rata_rata_matpel',
+        'pesan',
     ];
 
+    public function mataPelajaran()
+    {
+        return $this->belongsTo(mata_pelajaran::class, 'matpel_id', 'id_matpel');
+    }
+    public function rapor()
+    {
+        return $this->belongsTo(rapor::class, 'rapor_id', 'id_rapor');
+    }
 }
+
