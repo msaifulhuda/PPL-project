@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifikasi_sistem', function (Blueprint $table) {
-            $table->id('id_notifikasi_sistem');
+            $table->uuid('id_notifikasi_sistem')->primary();
             $table->uuid('materi_id');
             $table->uuid('siswa_id');
-            $table->string('status');
-            $table->date('tanggal_dibuat');
-            $table->date('tanggal_dilihat');
+            $table->boolean('status');
+            $table->date('tanggal_dilihat')->nullable();
             $table->foreign('materi_id')->references('id_materi')->on('materi');
             $table->foreign('siswa_id')->references('id_siswa')->on('siswa');
             $table->timestamps();

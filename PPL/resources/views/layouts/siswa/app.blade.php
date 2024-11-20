@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
+    {{-- Website Icon --}}
+    <link rel="icon" href="{{ asset('images/SST-Icon-Black.png') }}" type="image/x-icon" />
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js'])
 </head>
@@ -26,7 +30,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
-                
+
             </main>
 
             @include('layouts.siswa.footer')

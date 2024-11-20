@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\notifikasi_sistem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $redirect = $request->input('redirect'); 
+        $redirect = $request->input('redirect');
 
         $credentials = $request->only('username', 'password');
 
@@ -39,11 +40,11 @@ class AuthenticatedSessionController extends Controller
             } else {
                 return $this->handleSiswaLogin($request);
             }
-        }elseif ($this->attemptLogin('web-guru', $credentials)) {
+        } elseif ($this->attemptLogin('web-guru', $credentials)) {
             return $this->handleGuruLogin($request);
-        }elseif ($this->attemptLogin('web-staffakademik', $credentials)) {
+        } elseif ($this->attemptLogin('web-staffakademik', $credentials)) {
             return $this->handleStaffakademikLogin($request);
-        }elseif ($this->attemptLogin('web-staffperpus', $credentials)) {
+        } elseif ($this->attemptLogin('web-staffperpus', $credentials)) {
             return $this->handleStaffperpusLogin($request);
         }
         return back()->withErrors([
@@ -52,7 +53,7 @@ class AuthenticatedSessionController extends Controller
     }
     private function attemptLogin($guard, $credentials): bool
     {
-         // Debug guard dan kredensial untuk memastikan validasi
+        // Debug guard dan kredensial untuk memastikan validasi
 
         return auth()->guard($guard)->attempt($credentials);
     }
@@ -71,12 +72,13 @@ class AuthenticatedSessionController extends Controller
             if ($redirect != null) {
                 return redirect()->route($redirect);
             } else {
+                $notifikasi_count = notifikasi_sistem::where('siswa_id', $user->id_siswa)->where('status', 0)->count();
+                $request->session()->put('notifikasi_count', $notifikasi_count);
                 return redirect()->intended($intendedUrl);
             }
         } elseif ($user->role_siswa === 'pengurus') {
             return redirect()->intended($intendedUrl);
-        }
-        elseif ($user->role_siswa === 'pengurus') {
+        } elseif ($user->role_siswa === 'pengurus') {
             return redirect()->intended($intendedUrl);
         }
         return back()->withErrors([
@@ -144,5 +146,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');}
+        return redirect('/');
+    }
 }
