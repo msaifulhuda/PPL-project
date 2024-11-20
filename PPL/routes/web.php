@@ -36,8 +36,8 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\staffperpus\CategoryController; 
+// use App\Http\Controllers\staffperpus\StaffperpusController;
+// use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -46,9 +46,9 @@ use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 
 
- 
+
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
- 
+
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
 
@@ -212,7 +212,6 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::post('/absensi/{id}/generate', [staffakademik\AbsensiController::class, 'generatePresenceData'])->name('akademik.absensi.generate');
     Route::delete('/absensi/{id}/reset', [staffakademik\AbsensiController::class, 'resetPertemuan'])->name('akademik.absensi.reset');
     Route::put('/absensi/update-status', [staffakademik\AbsensiController::class, 'updateStatus'])->name('akademik.absensi.updateStatus');
-
 });
 /**
  * END MATA PELAJARAN MANAGEMENT
@@ -252,7 +251,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/staff_perpus/transaksi/{id}/edit', [TransaksiPeminjamanController::class, 'edit'])->name('staff_perpus.transaksi.edit');
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
-    
 });
 
 
@@ -297,7 +295,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
     // ========================================================== START ROUTE LMS =================================================================================
     Route::get('/dashboard/lms', [DashboardSiswaController::class, 'index'])->name('siswa.dashboard.lms');
-    Route::get('/dashboard/lms/materi', [SiswaLmsController::class, 'materi'])->name('siswa.dashboard.lms.materi');
+    Route::get('/dashboard/lms/materi', [MateriSiswaController::class, 'index'])->name('siswa.dashboard.lms.materi');
     Route::get('/dashboard/lms/tugas', [TugasSiswaController::class, 'index'])->name('siswa.dashboard.lms.tugas');
     Route::get('/dashboard/lms/forum/{id}', [ForumSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum');
     Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
