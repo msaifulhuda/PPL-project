@@ -17,23 +17,27 @@ class TransaksiPeminjamanController extends Controller
 {
 
     public function index(Request $request)
-{
-    // Mengambil nilai query dari request
-    $query = $request->input('query');
-
-    // Mengambil transaksi dengan filter status_pengembalian != 1
-    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
+    {
+        $query = $request->input('query');
+        // Mengambil transaksi dengan status_pengembalian = 0
+        $transactions = transaksi_peminjaman::where('status_pengembalian', '=', '0')
         ->when($query, function ($queryBuilder) use ($query) {
-            // Jika ada query, tambahkan filter untuk kode_peminjam
             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
         })
-        ->orderBy('tgl_pengembalian', 'asc')
-        ->simplePaginate(10);
+            ->orderBy('tgl_awal_peminjaman', 'desc') // Urutkan dari yang terbaru
+            ->paginate(10) // Tambahkan pagination
+        ->withQueryString(); // Pertahankan query string pada pagination
+    
+        // Mengembalikan data ke view
+        return view('staff_perpus.transaksi.daftartransaksi', compact('transactions'));
+    }
+    
 
-    // Mengembalikan hasil ke view
-    return view('staff_perpus.transaksi.daftartransaksi', compact('transactions', 'query'));
-}
 
+
+    
+    
+    
 
     // public function index(Request $request)
     // {   

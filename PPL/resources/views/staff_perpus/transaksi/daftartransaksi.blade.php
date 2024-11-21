@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)
+                            @forelse ($transactions as $transaction)
                                 @include('staff_perpus/modal/pengembalianBuku_Modal')
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="py-3 px-6">{{ $transaction->kode_peminjam }}</td>
@@ -36,15 +36,10 @@
                                         {{ \Carbon\Carbon::parse($transaction->tgl_pengembalian)->format('d F Y') }}
                                     </td>
                                     <td class="py-3 px-6">
-                                        @if ($transaction->isOverdue())
-                                            <span
-                                                class="inline-block px-3 py-1 bg-red-500 text-white rounded-full text-xs">Telat
-                                                Mengembalikan</span>
-                                        @else
-                                            <span
-                                                class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Belum
-                                                Dikembalikan</span>
-                                        @endif
+                                        <span
+                                        class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">
+                                        Belum Dikembalikan
+                                        </span>
                                     </td>
                                     <td>
                                         <button
@@ -62,7 +57,13 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-red-500">
+                                        Tidak ada transaksi yang ditemukan
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
