@@ -235,17 +235,28 @@ public function store(Request $request)
             // Validasi input
             $request->validate([
                 'status_pengembalian' => 'required|in:0,1,2',
+                'jumlah_dikembalikan' => 'required|integer|min:1|max:' . transaksi_peminjaman::find($id)->stok,
             ]);
 
-            // Cari transaksi berdasarkan ID
+            // Ambil transaksi berdasarkan ID
             $transaction = transaksi_peminjaman::findOrFail($id);
 
-            // Update status_pengembalian
-            $transaction->status_pengembalian = $request->status_pengembalian;
+            // Kurangi stok dalam transaksi
+            $jumlah_dikembalikan = $request->input('jumlah_dikembalikan');
+            $transaction->stok -= $jumlah_dikembalikan;
+
+            // Simpan perubahan transaksi
+            $transaction->status_pengembalian = $request->input('status_pengembalian');
             $transaction->save();
 
+            // Tambahkan stok buku di tabel buku
+            $buku = buku::findOrFail($transaction->id_buku);
+            $buku->stok_buku += $jumlah_dikembalikan;
+            $buku->save();
+
             // Redirect dengan pesan sukses
-            return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Status dan stok berhasil diperbarui.');
         }
+
     
 }

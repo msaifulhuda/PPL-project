@@ -36,6 +36,12 @@
                                 <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>Telat</option>
                             </select>
                         </li>
+                        <li class=" pb-3 justify-between">
+                            <h3>Jumlah buku yang dipinjam: {{ $transaction->stok }}</h3>
+                            <input type="number" name="jumlah_dikembalikan" class="form-input border-gray-300 rounded-lg w-1/2"
+                                placeholder="Masukkan jumlah" min="1" max="{{ $transaction->stok }}" required>
+                            <span class="text-sm ml-2">/ {{ $transaction->stok }}</span>
+                        </li>
                     </ul>
 
                     <button type="submit"
