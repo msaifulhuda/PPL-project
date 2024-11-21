@@ -78,6 +78,6 @@ class materi extends Model
     }
     public function notifikasisistem()
     {
-        return $this->hasMany(notifikasi_sistem::class, 'id_pengurus', 'id_pengurus_ekstra');
+        return $this->hasMany(notifikasi_sistem::class, 'materi_id', 'id_materi');
     }
 }

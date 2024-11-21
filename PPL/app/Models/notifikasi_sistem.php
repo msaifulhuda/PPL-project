@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+
 class notifikasi_sistem extends Model
 {
     use Notifiable;
@@ -14,15 +15,17 @@ class notifikasi_sistem extends Model
      *
      * @return void
      */
-    protected static function boot() {
+    protected static function boot()
+    {
+        parent::boot();
         static::creating(function ($model) {
-            if ( ! $model->getKey()) {
+            if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-     /**
+    /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -48,7 +51,9 @@ class notifikasi_sistem extends Model
      * @var array
      */
     protected $table = 'notifikasi_sistem';
-
+    protected $primaryKey = 'id_notifikasi_sistem';
+    protected $keyType = 'string';
+    public $incrementing = false;
     protected $fillable = [
         'materi_id',
         'siswa_id',

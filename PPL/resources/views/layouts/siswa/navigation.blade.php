@@ -22,7 +22,7 @@
 
                 {{-- Logo --}}
                 <a href="https://flowbite-admin-dashboard.vercel.app/" class="flex ml-2 md:mr-24">
-                     <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-14">
+                    <x-application-logo class="h-12 ml-5" />
                 </a>
 
                 {{-- Search Input --}}
@@ -93,7 +93,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
-                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white"
+                                        class="w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-red-500 hover:text-white"
                                         role="menuitem">Sign out</button>
                                 </form>
                             </li>

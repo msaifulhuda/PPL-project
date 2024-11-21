@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Topik;
 use App\Models\Materi;
 use App\Models\Tugas;
+use App\Models\notifikasi_sistem;
 use Faker\Factory as Faker;
 
 class TopikTugasMateriSeeder extends Seeder
@@ -31,7 +32,7 @@ class TopikTugasMateriSeeder extends Seeder
                 ]);
 
                 for ($j = 1; $j <= 2; $j++) {
-                    Materi::create([
+                    $materi = Materi::create([
                         'judul_materi' => "Materi $j untuk Bab $i  - $namaMataPelajaran - $namaKelas",
                         'topik_id' => $topik->id_topik,
                         'deskripsi' => $faker->paragraphs(3, true),
@@ -40,6 +41,17 @@ class TopikTugasMateriSeeder extends Seeder
                         'updated_at' => now(),
                         'status' => 1,
                     ]);
+
+                    // Retrieve all siswa records associated with the kelas
+                    $siswaRecords = $kelas->kelas->siswa;
+
+                    foreach ($siswaRecords as $siswa) {
+                        notifikasi_sistem::create([
+                            'materi_id' => $materi->id_materi,
+                            'siswa_id' => $siswa->id_siswa,
+                            'status' => 0,
+                        ]);
+                    }
                 }
 
                 // For each topik, create 2 tugas entries
