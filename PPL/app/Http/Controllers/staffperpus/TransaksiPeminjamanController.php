@@ -192,7 +192,7 @@ public function store(Request $request)
     $buku->decrement('stok_buku', $request->jumlah);
 
     return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Transaksi peminjaman berhasil ditambahkan');
-}
+    }
 
 
         // Metode untuk menampilkan form edit transaksi
@@ -232,31 +232,25 @@ public function store(Request $request)
         
         public function updateStatus(Request $request, $id)
         {
-            // Validasi input
-            $request->validate([
-                'status_pengembalian' => 'required|in:0,1,2',
-                'jumlah_dikembalikan' => 'required|integer|min:1|max:' . transaksi_peminjaman::find($id)->stok,
-            ]);
-
-            // Ambil transaksi berdasarkan ID
             $transaction = transaksi_peminjaman::findOrFail($id);
+            $jumlahDikembalikan = $request->input('jumlah_dikembalikan');
+            $statusPengembalian = $request->input('status_pengembalian');
 
-            // Kurangi stok dalam transaksi
-            $jumlah_dikembalikan = $request->input('jumlah_dikembalikan');
-            $transaction->stok -= $jumlah_dikembalikan;
+            if ($jumlahDikembalikan > $transaction->stok) {
+                return redirect()->back()->withErrors(['error' => 'Jumlah dikembalikan tidak boleh lebih besar dari stok.']);
+            }
 
-            // Simpan perubahan transaksi
-            $transaction->status_pengembalian = $request->input('status_pengembalian');
-            $transaction->save();
+            if ($statusPengembalian == 1) {
+                $transaction->stok -= $jumlahDikembalikan;
+                $transaction->save();
 
-            // Tambahkan stok buku di tabel buku
-            $buku = buku::findOrFail($transaction->id_buku);
-            $buku->stok_buku += $jumlah_dikembalikan;
-            $buku->save();
+                // Update stok buku
+                $buku = buku::findOrFail($transaction->buku_id); // Asumsikan ada buku_id di transaksi
+                $buku->stok_buku += $jumlahDikembalikan;
+                $buku->save();
+            }
 
-            // Redirect dengan pesan sukses
-            return redirect()->back()->with('success', 'Status dan stok berhasil diperbarui.');
+            return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Status transaksi berhasil diperbarui.');
         }
-
     
 }
