@@ -228,5 +228,24 @@ public function store(Request $request)
             return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Transaksi berhasil dihapus.');
         }
 
+
+        
+        public function updateStatus(Request $request, $id)
+        {
+            // Validasi input
+            $request->validate([
+                'status_pengembalian' => 'required|in:0,1,2',
+            ]);
+
+            // Cari transaksi berdasarkan ID
+            $transaction = transaksi_peminjaman::findOrFail($id);
+
+            // Update status_pengembalian
+            $transaction->status_pengembalian = $request->status_pengembalian;
+            $transaction->save();
+
+            // Redirect dengan pesan sukses
+            return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
+        }
     
 }
