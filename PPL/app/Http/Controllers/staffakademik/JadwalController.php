@@ -288,8 +288,13 @@ class JadwalController extends Controller
 
     public function deleteJadwal($id)
     {
-        DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->delete();
-        return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil dihapus.');
+        try {
+            DB::table('kelas_mata_pelajaran')->where('id_kelas_mata_pelajaran', $id)->delete();
+            return redirect()->route('staff_akademik.jadwal')->with('success', 'Jadwal berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('staff_akademik.jadwal')->with('error-delete', 'Jadwal tersebut sedang berlangsung.');
+            
+        }
     }
 
     public function importPage(){

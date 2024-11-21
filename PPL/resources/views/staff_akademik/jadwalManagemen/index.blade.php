@@ -114,6 +114,16 @@
                     </div>
                 @endif
 
+                <!-- Pesan error delete -->
+                @if(session('error-delete'))
+                    <div class="bg-red-500 text-white p-4 rounded mb-4">
+                        <strong>Delete Gagal</strong>
+                        <ul class="list-disc pl-5">
+                            <li>{{ session('error-delete') }}</li>
+                        </ul>
+                    </div>
+                @endif
+
                 <!-- Pesan error excel -->
                 @if (session('error-excel'))
                 <div class="bg-red-500 text-white p-4 rounded mb-4">

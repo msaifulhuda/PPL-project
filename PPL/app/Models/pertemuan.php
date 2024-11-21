@@ -15,6 +15,7 @@ class pertemuan extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,6 +49,7 @@ class pertemuan extends Model
      * @var array
      */
     protected $table = 'pertemuan';
+    protected $primaryKey = 'id_pertemuan';
 
     protected $fillable = [
         'kelas_mata_pelajaran_id',
@@ -64,6 +66,6 @@ class pertemuan extends Model
     }
     public function absensisiswa()
     {
-        return $this->hasMany(absensi_siswa::class );
+        return $this->hasMany(absensi_siswa::class, 'pertemuan_id', 'id_pertemuan');
     }
 }

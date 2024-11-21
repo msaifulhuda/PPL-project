@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('kelas_mata_pelajaran_id');
             $table->date('tanggal_pertemuan');
             $table->string('qr_code');
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Tidak Aktif');
             $table->timestamps();
             $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_mata_pelajaran')->on('kelas_mata_pelajaran');
         });

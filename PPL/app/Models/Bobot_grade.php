@@ -57,5 +57,5 @@ class Bobot_grade extends Model
         'maksimal',
         'minimal',
     ];
-       
+
 }

@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('nilai_ekstra', function (Blueprint $table) {
             $table->uuid('id_nilai_ekstra')->primary();
             $table->uuid('ekstrakurikuler_id');
-            $table->string('pesan');
+            $table->uuid('rapor_id');
+            $table->float('nilai_rata_rata_ekstra');
+            $table->string('pesan')->nullable();
             $table->timestamps();
             $table->foreign('ekstrakurikuler_id')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
+            $table->foreign('rapor_id')->references('id_rapor')->on('rapor');
         });
     }
 

@@ -92,7 +92,7 @@ class kelas_mata_pelajaran extends Model
     }
     public function pertemuan()
     {
-        return $this->hasMany(pertemuan::class);
+        return $this->hasMany(Pertemuan::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran')->orderBy('tanggal_pertemuan');
     }
     public function topik()
     {
