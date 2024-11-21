@@ -22,19 +22,18 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
-                <form action="" method="POST">
+                <form action="{{ route('updateStatus', $transaction->id_transaksi_peminjaman) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <ul
                         class="max-w-[48vw] text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                         <li class="flex pb-3 justify-between">
-                            <span>Underline select</span>
-                            <select class="">
-                                <option selected>Choose a country</option>
-                                <option value="US">Aman</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
+                            <span>{{ $transaction->id_transaksi_peminjaman }}</span>
+                            <select name="status_pengembalian" class="form-select">
+                                <option value="0" {{ $transaction->status_pengembalian == 0 ? 'selected' : '' }}>Aman</option>
+                                <option value="1" {{ $transaction->status_pengembalian == 1 ? 'selected' : '' }}>Hilang</option>
+                                <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>Telat</option>
                             </select>
                         </li>
                     </ul>
@@ -47,10 +46,11 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Save
+                        Konfirmasi
                     </button>
                 </form>
             </div>
+
         </div>
     </div>
 </div>
