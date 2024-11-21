@@ -388,6 +388,8 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/lms/tugas/create/{id}', [TugasGuruController::class, 'create'])->name('guru.dashboard.lms.tugas.create');
     Route::get('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'detail'])->name('guru.dashboard.lms.detail.tugas');
     Route::post('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'store'])->name('guru.dashboard.lms.tugas.store');
+    Route::get('/dashboard/lms/tugas/edit/{id}', [TugasGuruController::class, 'edit'])->name('guru.dashboard.lms.tugas.edit');
+    Route::put('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'update'])->name('guru.dashboard.lms.tugas.update');
 
     // TOPIK
     Route::post('/dashboard/lms/topik/store/{id}', [TopikLmsController::class, "store"])->name('guru.dashboard.lms.topik.store');

@@ -44,7 +44,7 @@ class ForumGuruController extends Controller
                 'type' => 'tugas',
                 'date' => $item->created_at,
             ]))
-            ->sortBy('date')
+            ->sortByDesc('date')
             ->values();
 
         $tugasMendatang = tugas::where('kelas_mata_pelajaran_id', $kelasMataPelajaran->id_kelas_mata_pelajaran)

@@ -62,15 +62,28 @@ class TugasGuruController extends Controller
     {
         $kelasMataPelajaran = kelas_mata_pelajaran::with([
             'mataPelajaran:id_matpel,nama_matpel',
-            'topik.tugas',
-            'topik.materi',
+            'topik' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+                $query->with([
+                    'tugas' => function ($q) {
+                        $q->orderBy('created_at', 'desc');
+                    },
+                    'materi' => function ($q) {
+                        $q->orderBy('created_at', 'desc');
+                    }
+                ]);
+            },
             'kelas:id_kelas,nama_kelas',
         ])->findOrFail($id);
+
         $tugasTanpaTopik = tugas::where('kelas_mata_pelajaran_id', $id)
             ->whereNull('topik_id')
+            ->orderBy('created_at', 'desc')
             ->get();
+
         $materiTanpaTopik = materi::where('kelas_mata_pelajaran_id', $id)
             ->whereNull('topik_id')
+            ->orderBy('created_at', 'desc')
             ->get();
 
 
@@ -147,6 +160,81 @@ class TugasGuruController extends Controller
         }
     }
 
+
+
+
+    public function edit($id)
+    {
+        $tugas = tugas::with([
+            'filetugas',
+            'topik',
+            'kelasMataPelajaran' => function ($query) {
+                $query->with(['mataPelajaran', 'kelas']);
+            }
+        ])->findOrFail($id);
+
+        $topiks = topik::where('kelas_mata_pelajaran_id', $tugas->kelas_mata_pelajaran_id)->get();
+
+        return view('guru.lms.tugas.edit', [
+            'tugas' => $tugas,
+            'mataPelajaran' => $tugas->kelasMataPelajaran->mataPelajaran,
+            'kelas' => $tugas->kelasMataPelajaran->kelas,
+            'topiks' => $topiks
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul_tugas' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'file_tugas.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
+            'tenggat' => 'required|date',
+            'kelas_mata_pelajaran_id' => 'required|exists:kelas_mata_pelajaran,id_kelas_mata_pelajaran'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Find the existing task
+            $tugas = tugas::findOrFail($id);
+
+            // Update task details
+            $tugas->update([
+                'topik_id' => $request->topik_id ?? null,
+                'judul' => $request->judul_tugas,
+                'deskripsi' => $request->deskripsi,
+                'deadline' => Carbon::parse($request->tenggat)->format('Y-m-d H:i:s'),
+                'updated_at' => now(),
+            ]);
+
+            // Handle removed existing files
+            if ($request->filled('removed_files')) {
+                $removedFileIds = explode(',', $request->removed_files);
+                // Delete files from storage and database
+                $removedFiles = file_tugas::whereIn('id_file_tugas', $removedFileIds)->get();
+
+                foreach ($removedFiles as $file) {
+                    // Delete file from storage
+                    Storage::disk('public')->delete($file->file_path);
+                    // Delete file record from database
+                    $file->delete();
+                }
+            }
+
+            // Handle new file uploads
+            if ($request->hasFile('files')) {
+                $this->handleFileUploads($request->file('files'), $tugas->id_tugas);
+            }
+
+            DB::commit();
+            return redirect()->route('guru.dashboard.lms.forum.tugas', $tugas->kelas_mata_pelajaran_id)
+                ->with('success', 'Tugas berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
     private function handleFileUploads($files, $tugas_id)
     {
         foreach ($files as $file) {
@@ -159,6 +247,7 @@ class TugasGuruController extends Controller
                 'tugas_id' => $tugas_id,
                 'file_path' => $path,
                 'file_type' => $fileType,
+                'original_name' => $file->getClientOriginalName(),
                 'upload_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now()

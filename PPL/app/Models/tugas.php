@@ -14,7 +14,6 @@ class tugas extends Model
 
     protected $table = 'tugas';
     protected $primaryKey = 'id_tugas';
-    public $timestamps = true;
     protected $keyType = 'string';
     public $incrementing = false;
 

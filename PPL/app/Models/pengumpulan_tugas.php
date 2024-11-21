@@ -2,52 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+use App\Models\PengumpulanTugasFile;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+
 class pengumpulan_tugas extends Model
 {
-    use Notifiable;
+    use Notifiable, HasUuids;
 
-    /**
-     * The "booting" function of model
-     *
-     * @return void
-     */
-    protected static function boot() {
-        static::creating(function ($model) {
-            if ( ! $model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
-
-     /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $table = 'pengumpulan_tugas';
+    protected $primaryKey = 'id_pengumpulan_tugas';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+
 
     protected $fillable = [
         'tugas_id',
@@ -73,5 +43,10 @@ class pengumpulan_tugas extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id_siswa');
+    }
+
+    public function pengumpulanTugasFile()
+    {
+        return $this->hasMany(PengumpulanTugasFile::class, 'pengumpulan_tugas_id', 'id_pengumpulan_tugas');
     }
 }
