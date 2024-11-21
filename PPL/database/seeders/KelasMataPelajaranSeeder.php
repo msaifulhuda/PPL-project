@@ -26,18 +26,18 @@ class KelasMataPelajaranSeeder extends Seeder
         $kelasList = kelas::all();
 
         $assignments = [
-            ['guru_nama' => 'Guru Matematika', 'mata_pelajaran' => 'Matematika'],
-            ['guru_nama' => 'Guru Bahasa Indonesia', 'mata_pelajaran' => 'Bahasa Indonesia'],
-            ['guru_nama' => 'Guru Bahasa Inggris', 'mata_pelajaran' => 'Bahasa Inggris'],
-            ['guru_nama' => 'Guru IPA', 'mata_pelajaran' => 'IPA'],
-            ['guru_nama' => 'Guru IPS', 'mata_pelajaran' => 'IPS'],
-            ['guru_nama' => 'Guru PKN', 'mata_pelajaran' => 'PKN'],
-            ['guru_nama' => 'Guru Seni Budaya', 'mata_pelajaran' => 'Seni Budaya'],
-            ['guru_nama' => 'Guru Pendidikan Agama', 'mata_pelajaran' => 'Pendidikan Agama'],
-            ['guru_nama' => 'Guru Pendidikan Jasmani', 'mata_pelajaran' => 'Pendidikan Jasmani'],
-            ['guru_nama' => 'Guru TIK', 'mata_pelajaran' => 'TIK'],
-            ['guru_nama' => 'Guru Prakarya', 'mata_pelajaran' => 'Prakarya'],
-            ['guru_nama' => 'Guru Bahasa Madura', 'mata_pelajaran' => 'Bahasa Madura'],
+            ['guru_nama' => 'Agus Santoso', 'mata_pelajaran' => 'Matematika'],
+            ['guru_nama' => 'Siti Aisyah', 'mata_pelajaran' => 'Bahasa Indonesia'],
+            ['guru_nama' => 'Budi Setiawan', 'mata_pelajaran' => 'Bahasa Inggris'],
+            ['guru_nama' => 'Eka Pratama', 'mata_pelajaran' => 'IPA'],
+            ['guru_nama' => 'Dewi Kartika', 'mata_pelajaran' => 'IPS'],
+            ['guru_nama' => 'Rini Marlina', 'mata_pelajaran' => 'PKN'],
+            ['guru_nama' => 'Fajar Hidayat', 'mata_pelajaran' => 'Seni Budaya'],
+            ['guru_nama' => 'Sri Wahyuni', 'mata_pelajaran' => 'Pendidikan Agama'],
+            ['guru_nama' => 'Yoga Aditya', 'mata_pelajaran' => 'Pendidikan Jasmani'],
+            ['guru_nama' => 'Rahmawati Anisa', 'mata_pelajaran' => 'TIK'],
+            ['guru_nama' => 'Andi Prakoso', 'mata_pelajaran' => 'Prakarya'],
+            ['guru_nama' => 'Lina Kusuma', 'mata_pelajaran' => 'Bahasa Madura'],
         ];
 
         $hari = hari::all()->first()->id_hari;
