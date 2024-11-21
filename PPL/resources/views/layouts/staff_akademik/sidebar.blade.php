@@ -151,7 +151,7 @@ aria-label="Sidebar">
                     </x-sidebar-icon>
                     <span class="ml-3" sidebar-toggle-item>Absensi</span>
                 </x-sidebar-link>
-                <x-sidebar-link href="#">
+                <x-sidebar-link href="{{ route('staff_akademik.rapor.index') }}">
                     <x-sidebar-icon>
                         <path fill-rule="evenodd" d="M3 6a2 2 0 0 1 2-2h5.532a2 2 0 0 1 1.536.72l1.9 2.28H3V6Zm0 3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9H3Z" clip-rule="evenodd"/>
                     </x-sidebar-icon>

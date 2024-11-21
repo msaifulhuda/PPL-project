@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 
-class notifikasi_sistem extends Model
+class Nilai_mapel extends Model
 {
     use Notifiable;
 
@@ -15,17 +15,16 @@ class notifikasi_sistem extends Model
      *
      * @return void
      */
-    protected static function boot()
-    {
+    protected static function boot() {
         parent::boot();
         static::creating(function ($model) {
-            if (! $model->getKey()) {
+            if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
     }
 
-    /**
+     /**
      * Get the value indicating whether the IDs are incrementing.
      *
      * @return bool
@@ -50,31 +49,21 @@ class notifikasi_sistem extends Model
      *
      * @var array
      */
-    protected $table = 'notifikasi_sistem';
-    protected $primaryKey = 'id_notifikasi_sistem';
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $table = 'nilai_matpel';
     protected $fillable = [
-        'materi_id',
-        'siswa_id',
-        'status',
-        'tanggal_dibuat',
-        'tanggal_dilihat',
+        'id_nilai_matpel',
+        'matpel_id',
+        'nilai_rata_rata_matpel',
+        'pesan',
     ];
 
-    /**
-     * Relationship with Materi
-     */
-    public function materi()
+    public function mataPelajaran()
     {
-        return $this->belongsTo(Materi::class, 'materi_id', 'id_materi');
+        return $this->belongsTo(mata_pelajaran::class, 'matpel_id', 'id_matpel');
     }
-
-    /**
-     * Relationship with Siswa
-     */
-    public function siswa()
+    public function rapor()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id', 'id_siswa');
+        return $this->belongsTo(rapor::class, 'rapor_id', 'id_rapor');
     }
 }
+

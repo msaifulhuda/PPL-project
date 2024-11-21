@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai_ekstra', function (Blueprint $table) {
-            $table->uuid('id_nilai_ekstra')->primary();
-            $table->uuid('ekstrakurikuler_id');
-            $table->uuid('rapor_id');
-            $table->float('nilai_rata_rata_ekstra');
+        Schema::create('nilai_matpel', function (Blueprint $table) {
+            $table->uuid("id_nilai_matpel")->primary();
+            $table->uuid("matpel_id");
+            $table->uuid("rapor_id");
+            $table->float('nilai_rata_rata_matpel');
             $table->string('pesan')->nullable();
             $table->timestamps();
-            $table->foreign('ekstrakurikuler_id')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
+            $table->foreign('matpel_id')->references('id_matpel')->on('mata_pelajaran');
             $table->foreign('rapor_id')->references('id_rapor')->on('rapor');
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nilai_ekstra');
+        Schema::dropIfExists('nilai_matpel');
     }
 };

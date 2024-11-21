@@ -49,11 +49,28 @@ class AbsensiController extends Controller
         $pertemuan = pertemuan::find($pertemuan_id);
         $kelas_mata_pelajaran_id = $pertemuan->kelas_mata_pelajaran_id;
 
+        $isEnrolled = absensi_siswa::where('siswa_id', $siswaId)
+            ->whereHas('pertemuan', function ($query) use ($kelas_mata_pelajaran_id) {
+                $query->where('kelas_mata_pelajaran_id', $kelas_mata_pelajaran_id);
+            })
+            ->exists();
+
+        if (!$isEnrolled) {
+            return redirect()->route('siswa.absensi.index')
+                ->with('error', 'Anda tidak terdaftar pada kelas mata pelajaran ini.');
+        }
+
         if ($absensi) {
             if ($pertemuan->status != 'Aktif') {
                 return redirect()->route('siswa.absensi.details', [
                     'id' => $kelas_mata_pelajaran_id
                 ])->with('error', 'Status pertemuan sedang tidak aktif');
+            }
+
+            if ($absensi->status_absensi == 'Hadir') {
+                return redirect()->route('siswa.absensi.details', [
+                    'id' => $kelas_mata_pelajaran_id
+                ])->with('info', 'Anda sudah melakukan absensi kehadiran');
             }
 
             $absensi->status_absensi = 'Hadir';
