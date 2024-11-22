@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
+use Illuminate\Support\Facades\Storage;
 
 class TugasGuruController extends Controller
 {
@@ -118,6 +119,7 @@ class TugasGuruController extends Controller
     public function detail($id)
     {
         $tugas = Tugas::with(['filetugas', 'topik', 'kelasMataPelajaran'])->findOrFail($id);
+
         return view('guru.lms.tugas.detail', compact('tugas'));
     }
 
@@ -128,7 +130,7 @@ class TugasGuruController extends Controller
         $request->validate([
             'judul_tugas' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'file_tugas.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
+            'files.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
             'tenggat' => 'required|date',
             'kelas_mata_pelajaran_id' => 'required|exists:kelas_mata_pelajaran,id_kelas_mata_pelajaran'
         ]);
@@ -188,7 +190,7 @@ class TugasGuruController extends Controller
         $request->validate([
             'judul_tugas' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'file_tugas.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
+            'files.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
             'tenggat' => 'required|date',
             'kelas_mata_pelajaran_id' => 'required|exists:kelas_mata_pelajaran,id_kelas_mata_pelajaran'
         ]);
@@ -208,17 +210,33 @@ class TugasGuruController extends Controller
                 'updated_at' => now(),
             ]);
 
-            // Handle removed existing files
-            if ($request->filled('removed_files')) {
-                $removedFileIds = explode(',', $request->removed_files);
-                // Delete files from storage and database
-                $removedFiles = file_tugas::whereIn('id_file_tugas', $removedFileIds)->get();
+            if ($request->has('removed_files')) {
+                $removedFileIds = $request->input('removed_files', []);
+                // dd($removedFileIds);
+                foreach ($removedFileIds as $fileId) {
+                    $file = file_tugas::find($fileId);
+                    if ($file) {
+                        try {
+                            // Dapatkan path lengkap file dari storage
+                            $filePath = 'public/uploads/file_tugas/' . basename($file->file_path);
 
-                foreach ($removedFiles as $file) {
-                    // Delete file from storage
-                    Storage::disk('public')->delete($file->file_path);
-                    // Delete file record from database
-                    $file->delete();
+                            // Hapus file fisik menggunakan Storage facade
+                            if (Storage::exists($filePath)) {
+                                Storage::delete($filePath);
+                            }
+                            // Alternatif: Coba hapus langsung dari disk public
+                            if (Storage::disk('public')->exists('uploads/file_tugas/' . basename($file->file_path))) {
+                                Storage::disk('public')->delete('uploads/file_tugas/' . basename($file->file_path));
+                            }
+
+                            // Hapus record dari database
+                            $file->delete();
+                        } catch (\Exception $e) {
+                            \Log::error('Gagal menghapus file: ' . $e->getMessage());
+                            // Tetap hapus record database
+                            $file->delete();
+                        }
+                    }
                 }
             }
 
@@ -235,6 +253,41 @@ class TugasGuruController extends Controller
             return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+
+    public function destroy($id, Request $request)
+    {
+        $id_kelas_mata_pelajaran = $request->kelas_mata_pelajaran_id;
+        try {
+            DB::beginTransaction();
+            $tugas = tugas::findOrFail($id);
+            $tugas->delete();
+
+            $files = file_tugas::where('tugas_id', $id)->get();
+            foreach ($files as $file) {
+                try {
+                    $filePath = 'public/uploads/file_tugas/' . basename($file->file_path);
+                    if (Storage::exists($filePath)) {
+                        Storage::delete($filePath);
+                    }
+                    if (Storage::disk('public')->exists('uploads/file_tugas/' . basename($file->file_path))) {
+                        Storage::disk('public')->delete('uploads/file_tugas/' . basename($file->file_path));
+                    }
+                    $file->delete();
+                } catch (\Exception $e) {
+                    \Log::error('Failed to delete file: ' . $e->getMessage());
+                    $file->delete();
+                }
+            }
+            DB::commit();
+            return redirect()->route('guru.dashboard.lms.forum.tugas', $id_kelas_mata_pelajaran)->with('success', 'Tugas berhasil dihapus');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+
     private function handleFileUploads($files, $tugas_id)
     {
         foreach ($files as $file) {

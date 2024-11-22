@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('file_type');
             $table->string('upload_at');
             $table->timestamps();
-            $table->foreign('tugas_id')->references('id_tugas')->on('tugas');
+            $table->foreign('tugas_id')->references('id_tugas')->on('tugas')->onDelete('cascade');
         });
     }
 

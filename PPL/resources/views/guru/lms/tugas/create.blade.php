@@ -35,16 +35,10 @@
                 <div class="space-y-6 md:col-span-2">
                     <!-- Judul -->
                     <div>
-<<<<<<< HEAD
                         <label for="judul" class="block text-sm font-medium text-gray-700">Judul Tugas</label>
                         <input type="text" name="judul_tugas" id="judul"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             required>
-=======
-                        <label for="judul" class="block text-sm font-medium text-gray-700">Judul Materi</label>
-                        <input type="text" name="judul" id="judul"
-                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
->>>>>>> 3a7b5c6cecf1d4bccafb141ce03b704c5c7bccb8
                     </div>
 
                     <!-- Deskripsi -->
@@ -212,62 +206,6 @@
                 selectedFiles.splice(index, 1);
                 updateFileList();
             };
-
-            const form = document.querySelector('form');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const requiredFields = ['judul_tugas', 'tenggat'];
-                let isValid = true;
-
-                requiredFields.forEach(field => {
-                    const input = this.querySelector(`[name="${field}"]`);
-                    if (!input.value.trim()) {
-                        isValid = false;
-                        input.classList.add('border-red-500');
-                    } else {
-                        input.classList.remove('border-red-500');
-                    }
-                });
-
-                if (!isValid) {
-                    alert('Mohon lengkapi semua field yang wajib diisi');
-                    return;
-                }
-
-                const formData = new FormData(this);
-
-                // Clear existing files and append selected files
-                const existingFiles = formData.getAll('files[]');
-                existingFiles.forEach(() => formData.delete('files[]'));
-                selectedFiles.forEach(file => formData.append('files[]', file));
-
-                // Show loading state
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = 'Memproses...';
-
-                fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            window.location.href = data.redirect;
-                        } else {
-                            throw new Error(data.message || 'Terjadi kesalahan');
-                        }
-                    })
-                    .catch(error => {
-                        alert(error.message || 'Terjadi kesalahan saat mengirim data');
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalText;
-                    });
-            });
         });
 
 

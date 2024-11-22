@@ -77,10 +77,15 @@
                                 class="flex-1 font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-yellow-400">
                                 Edit Tugas
                             </a>
-                            <a href=""
-                                class=" flex-1 inline-flex justify-center py-2 px-4 border border-black rounded-lg font-semibold hover:bg-red-500">
-                                Hapus Tugas
-                            </a>
+                            <form action="{{ route('guru.dashboard.lms.tugas.destroy', $tugas->id_tugas) }}" method="POST" onclick="return confirm('yakin tugas ini ingin dihapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="kelas_mata_pelajaran_id" value="{{$tugas->kelas_mata_pelajaran_id}}">
+                                <button type="submit"
+                                    class="flex-1 font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-red-500">
+                                    Hapus Tugas
+                                </button>
+                            </form>
                         </div>
                         <a href=""
                             class="font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-blue-500">
@@ -93,33 +98,6 @@
         </div>
     </div>
 
-    <script>
-        function deleteTugas(id) {
-            if (confirm('Apakah Anda yakin ingin menghapus tugas ini?')) {
-                fetch(`/guru/dashboard/lms/tugas/${id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            window.location.href = "{{ route('guru.dashboard.lms') }}";
-                        } else {
-                            alert(data.message);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        }
-    </script>
+
 </x-app-guru-layout>
 
-`
-        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        Memperbarui...
-    `;

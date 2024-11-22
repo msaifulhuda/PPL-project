@@ -391,6 +391,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::post('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'store'])->name('guru.dashboard.lms.tugas.store');
     Route::get('/dashboard/lms/tugas/edit/{id}', [TugasGuruController::class, 'edit'])->name('guru.dashboard.lms.tugas.edit');
     Route::put('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'update'])->name('guru.dashboard.lms.tugas.update');
+    Route::delete('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'destroy'])->name('guru.dashboard.lms.tugas.destroy');
 
     // TOPIK
     Route::post('/dashboard/lms/topik/store/{id}', [TopikLmsController::class, "store"])->name('guru.dashboard.lms.topik.store');
