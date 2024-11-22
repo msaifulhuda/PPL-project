@@ -106,11 +106,11 @@ class DatabaseSeeder extends Seeder
         // }
 
         // isi kelas mata pelajaran jika belum ada
-        if (kelas_mata_pelajaran::count() == 0) {
-            $this->call([
-                KelasMataPelajaranSeeder::class,
-            ]);
-        }
+        // if (kelas_mata_pelajaran::count() == 0) {
+        //     $this->call([
+        //         KelasMataPelajaranSeeder::class,
+        //     ]);
+        // }
 
         // isi topik, materi dan tugas jika belum ada
         if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {

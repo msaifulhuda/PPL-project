@@ -6,7 +6,7 @@
                 <!-- Search bar -->
                 <form method="GET" action="{{ route('staff_perpus.transaksi.daftartransaksi') }}" class="mb-6">
                     <input class="basis-2/4 rounded-lg" type="text" name="query"
-                        value="{{ request()->input('query') }}" placeholder="Cari nama peminjam..."
+                        value="{{ request()->input('query') }}" placeholder="Cari NIP/NISN"
                         class="border border-gray-300 rounded-lg p-2 w-full">
                     <!-- Tombol Tambah Transaksi -->
                     <div class=" basis- 1/4 text-right">
@@ -21,14 +21,14 @@
                     <table class="w-full text-left table-auto">
                         <thead>
                             <tr class="bg-gray-100 text-gray-600 uppercase text-sm">
-                                <th class="py-3 px-6">Nama Peminjam</th>
+                                <th class="py-3 px-6">NIP / NISN</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Status</th>
                                 <th class="py-3 px-6">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)
+                            @forelse ($transactions as $transaction)
                                 @include('staff_perpus/modal/pengembalianBuku_Modal')
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="py-3 px-6">{{ $transaction->kode_peminjam }}</td>
@@ -36,15 +36,10 @@
                                         {{ \Carbon\Carbon::parse($transaction->tgl_pengembalian)->format('d F Y') }}
                                     </td>
                                     <td class="py-3 px-6">
-                                        @if ($transaction->isOverdue())
-                                            <span
-                                                class="inline-block px-3 py-1 bg-red-500 text-white rounded-full text-xs">Telat
-                                                Mengembalikan</span>
-                                        @else
-                                            <span
-                                                class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Belum
-                                                Dikembalikan</span>
-                                        @endif
+                                        <span
+                                        class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">
+                                        Belum Dikembalikan
+                                        </span>
                                     </td>
                                     <td>
                                         <button
@@ -62,9 +57,16 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-red-500">
+                                        Tidak ada transaksi yang ditemukan
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
+            
 </x-staffperpustakaan-layout>

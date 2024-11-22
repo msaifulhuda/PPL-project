@@ -22,20 +22,25 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
-                <form action="" method="POST">
+                <form action="{{ route('updateStatus', $transaction->id_transaksi_peminjaman) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <ul
                         class="max-w-[48vw] text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                         <li class="flex pb-3 justify-between">
-                            <span>Underline select</span>
-                            <select class="">
-                                <option selected>Choose a country</option>
-                                <option value="US">Aman</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
+                            <span>{{ $transaction->id_transaksi_peminjaman }}</span>
+                            <select name="status_pengembalian" class="form-select">
+                                <option value="0" {{ $transaction->status_pengembalian == 0 ? 'selected' : '' }}>Telat</option>
+                                <option value="1" {{ $transaction->status_pengembalian == 1 ? 'selected' : '' }}>Aman</option>
+                                <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>Hilang</option>
                             </select>
+                        </li>
+                        <li class=" pb-3 justify-between">
+                            <h3 class="my-5">Jumlah buku yang dipinjam: {{ $transaction->stok }}</h3>
+                            <input type="number" name="jumlah_dikembalikan" class="form-input border-gray-300 rounded-lg w-3/5"
+                                placeholder="Jumlah buku yang dikembalikan" min="1" max="{{ $transaction->stok }}" required>
+                            <span class="text-sm ml-2">/ {{ $transaction->stok }}</span>
                         </li>
                     </ul>
 
@@ -47,10 +52,11 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Save
+                        Konfirmasi
                     </button>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

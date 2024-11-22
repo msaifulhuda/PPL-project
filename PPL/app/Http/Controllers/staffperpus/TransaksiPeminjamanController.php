@@ -17,23 +17,27 @@ class TransaksiPeminjamanController extends Controller
 {
 
     public function index(Request $request)
-{
-    // Mengambil nilai query dari request
-    $query = $request->input('query');
-
-    // Mengambil transaksi dengan filter status_pengembalian != 1
-    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
+    {
+        $query = $request->input('query');
+        // Mengambil transaksi dengan status_pengembalian = 0
+        $transactions = transaksi_peminjaman::where('stok', '!=', '0')
         ->when($query, function ($queryBuilder) use ($query) {
-            // Jika ada query, tambahkan filter untuk kode_peminjam
             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
         })
-        ->orderBy('tgl_pengembalian', 'asc')
-        ->simplePaginate(10);
+            ->orderBy('tgl_awal_peminjaman', 'desc') // Urutkan dari yang terbaru
+            ->paginate(10) // Tambahkan pagination
+        ->withQueryString(); // Pertahankan query string pada pagination
+    
+        // Mengembalikan data ke view
+        return view('staff_perpus.transaksi.daftartransaksi', compact('transactions'));
+    }
+    
 
-    // Mengembalikan hasil ke view
-    return view('staff_perpus.transaksi.daftartransaksi', compact('transactions', 'query'));
-}
 
+
+    
+    
+    
 
     // public function index(Request $request)
     // {   
@@ -192,7 +196,7 @@ public function store(Request $request)
     $buku->decrement('stok_buku', $request->jumlah);
 
     return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Transaksi peminjaman berhasil ditambahkan');
-}
+    }
 
 
         // Metode untuk menampilkan form edit transaksi
@@ -226,6 +230,45 @@ public function store(Request $request)
             $transaksi->delete();
 
             return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Transaksi berhasil dihapus.');
+        }
+
+
+        
+        public function updateStatus(Request $request, $id)
+        {
+            // Validasi input
+            $request->validate([
+                'status_pengembalian' => 'required|in:0,1,2', // Hanya menerima nilai 0, 1, atau 2
+                'jumlah_dikembalikan' => 'required|integer|min:1',
+            ]);
+
+            // Ambil data transaksi berdasarkan ID
+            $transaction = transaksi_peminjaman::find($id);
+
+            if (!$transaction) {
+                return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
+            }
+
+            // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
+            if ($request->status_pengembalian == 1 && $request->jumlah_dikembalikan <= $transaction->stok) {
+                // Kurangi stok transaksi
+                $transaction->stok -= $request->jumlah_dikembalikan;
+
+                // Update stok buku terkait
+                $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+                if ($book) {
+                    $book->stok_buku += $request->jumlah_dikembalikan;
+                    $book->save();
+                }
+
+                // Update status pengembalian
+                $transaction->status_pengembalian = 1;
+                $transaction->save();
+
+                return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
+            } else {
+                return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
+            }
         }
 
     

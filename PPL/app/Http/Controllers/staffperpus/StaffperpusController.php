@@ -304,29 +304,31 @@ class StaffperpusController extends Controller
     }
 
 
-public function back(Request $request)
-{
-    // Mengambil nilai query dari request
-    $query = $request->input('query');
+    // public function back(Request $request)
+    // {
+    //     // Mengambil nilai query dari request
+    //     $query = $request->input('query');
 
-    // Mengambil transaksi dengan filter status_pengembalian != 1
-    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
-        ->when($query, function ($queryBuilder) use ($query) {
-            // Jika ada query, tambahkan filter untuk kode_peminjam
-            return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
-        })
-        ->orderBy('tgl_pengembalian', 'asc')
-        ->simplePaginate(10);
+    //     // Mengambil transaksi dengan filter status_pengembalian != 1
+    //     $transactions = transaksi_peminjaman::where('stok', '!=', '0') // Filter untuk status_pengembalian
+    //         ->when($query, function ($queryBuilder) use ($query) {
+    //             // Jika ada query, tambahkan filter untuk kode_peminjam
+    //             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
+    //         })
+    //         ->orderBy('tgl_pengembalian', 'asc')
+    //         ->simplePaginate(10);
 
-    // Mengembalikan hasil ke view
-    return view('staff_perpus.pengembalian.index', compact('transactions', 'query'));
-}
+    //     // Mengembalikan hasil ke view
+    //     return view('staff_perpus.pengembalian.index', compact('transactions', 'query'));
+    // }
 
 
-public function show($id)
-{
-    $buku = Buku::with('kategoriBuku', 'jenisBuku')->findOrFail($id);
+    public function show($id)
+    {
+        $buku = Buku::with('kategoriBuku', 'jenisBuku')->findOrFail($id);
 
-    return view('staff_perpus.buku.detail', compact('buku'));
-}
+        return view('staff_perpus.buku.detail', compact('buku'));
+    }
+
+
 }
