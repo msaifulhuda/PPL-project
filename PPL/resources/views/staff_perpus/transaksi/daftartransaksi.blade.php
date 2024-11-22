@@ -6,7 +6,7 @@
                 <!-- Search bar -->
                 <form method="GET" action="{{ route('staff_perpus.transaksi.daftartransaksi') }}" class="mb-6">
                     <input class="basis-2/4 rounded-lg" type="text" name="query"
-                        value="{{ request()->input('query') }}" placeholder="Cari nama peminjam..."
+                        value="{{ request()->input('query') }}" placeholder="Cari NIP/NISN"
                         class="border border-gray-300 rounded-lg p-2 w-full">
                     <!-- Tombol Tambah Transaksi -->
                     <div class=" basis- 1/4 text-right">
@@ -21,7 +21,7 @@
                     <table class="w-full text-left table-auto">
                         <thead>
                             <tr class="bg-gray-100 text-gray-600 uppercase text-sm">
-                                <th class="py-3 px-6">Nama Peminjam</th>
+                                <th class="py-3 px-6">NIP / NISN</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Status</th>
                                 <th class="py-3 px-6">Action</th>
@@ -68,4 +68,5 @@
                     </table>
                 </div>
             </div>
+            
 </x-staffperpustakaan-layout>

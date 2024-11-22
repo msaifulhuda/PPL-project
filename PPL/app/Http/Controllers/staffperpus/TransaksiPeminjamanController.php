@@ -20,7 +20,7 @@ class TransaksiPeminjamanController extends Controller
     {
         $query = $request->input('query');
         // Mengambil transaksi dengan status_pengembalian = 0
-        $transactions = transaksi_peminjaman::where('status_pengembalian', '=', '0')
+        $transactions = transaksi_peminjaman::where('stok', '!=', '0')
         ->when($query, function ($queryBuilder) use ($query) {
             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
         })
@@ -236,25 +236,40 @@ public function store(Request $request)
         
         public function updateStatus(Request $request, $id)
         {
-            $transaction = transaksi_peminjaman::findOrFail($id);
-            $jumlahDikembalikan = $request->input('jumlah_dikembalikan');
-            $statusPengembalian = $request->input('status_pengembalian');
+            // Validasi input
+            $request->validate([
+                'status_pengembalian' => 'required|in:0,1,2', // Hanya menerima nilai 0, 1, atau 2
+                'jumlah_dikembalikan' => 'required|integer|min:1',
+            ]);
 
-            if ($jumlahDikembalikan > $transaction->stok) {
-                return redirect()->back()->withErrors(['error' => 'Jumlah dikembalikan tidak boleh lebih besar dari stok.']);
+            // Ambil data transaksi berdasarkan ID
+            $transaction = transaksi_peminjaman::find($id);
+
+            if (!$transaction) {
+                return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
             }
 
-            if ($statusPengembalian == 1) {
-                $transaction->stok -= $jumlahDikembalikan;
+            // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
+            if ($request->status_pengembalian == 1 && $request->jumlah_dikembalikan <= $transaction->stok) {
+                // Kurangi stok transaksi
+                $transaction->stok -= $request->jumlah_dikembalikan;
+
+                // Update stok buku terkait
+                $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+                if ($book) {
+                    $book->stok_buku += $request->jumlah_dikembalikan;
+                    $book->save();
+                }
+
+                // Update status pengembalian
+                $transaction->status_pengembalian = 1;
                 $transaction->save();
 
-                // Update stok buku
-                $buku = buku::findOrFail($transaction->buku_id); // Asumsikan ada buku_id di transaksi
-                $buku->stok_buku += $jumlahDikembalikan;
-                $buku->save();
+                return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
+            } else {
+                return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
             }
-
-            return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Status transaksi berhasil diperbarui.');
         }
+
     
 }
