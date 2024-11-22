@@ -44,6 +44,13 @@ class PerpustakaanController extends Controller
         return view('guru.perpustakaan.index', compact('pages', 'categories', 'search', 'kategori_buku'));
     }
 
+    public function showGuru($id)
+    {
+        $buku = buku::findOrFail($id);
+        $kategori = $buku->kategori_buku;
+        return view('guru.perpustakaan.detail', compact('buku', 'kategori'));
+    }
+
 
 
 
@@ -79,5 +86,12 @@ class PerpustakaanController extends Controller
 
         // Kirim data buku ke view perpustakaan.index
         return view('siswa.perpustakaan.index', compact('pages', 'categories', 'search', 'kategori_buku'));
+    }
+
+    public function showSiswa($id)
+    {
+        $buku = buku::findOrFail($id);
+        $kategori = $buku->kategori_buku;
+        return view('siswa.perpustakaan.detail', compact('buku', 'kategori'));
     }
 }
