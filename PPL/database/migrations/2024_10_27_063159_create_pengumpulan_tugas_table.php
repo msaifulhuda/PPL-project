@@ -15,7 +15,6 @@ return new class extends Migration
             $table->uuid('id_pengumpulan_tugas')->primary();
             $table->uuid('tugas_id');
             $table->uuid('siswa_id');
-            $table->string('file_path');
             $table->string('tanggal_pengumpulan');
             $table->string('status');
             $table->string('nilai');
@@ -23,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('tugas_id')->references('id_tugas')->on('tugas');
             $table->foreign('siswa_id')->references('id_siswa')->on('siswa');
-            
+
         });
     }
 

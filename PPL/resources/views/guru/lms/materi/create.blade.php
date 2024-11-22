@@ -372,7 +372,7 @@
             });
         }
 
-        fileInput.addEventListener('change', function(e) {
+        fileInput.addEventListener('change', function(e) {  
             const newFiles = Array.from(this.files);
             selectedFiles = [...selectedFiles, ...newFiles]; // Gabungkan file baru dengan file sebelumnya
             updateFileList();

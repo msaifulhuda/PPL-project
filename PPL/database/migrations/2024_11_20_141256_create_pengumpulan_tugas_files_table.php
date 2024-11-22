@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('file_tugas', function (Blueprint $table) {
-            $table->uuid('id_file_tugas')->primary();
-            $table->uuid('tugas_id');
+        Schema::create('pengumpulan_tugas_files', function (Blueprint $table) {
+            $table->uuid('id_pengumpulan_tugas_file')->primary();
+            $table->uuid('pengumpulan_tugas_id');
             $table->string('file_path');
-            $table->string('original_name');
             $table->string('file_type');
-            $table->string('upload_at');
+            $table->string('original_name');
+            $table->foreign('pengumpulan_tugas_id')->references('id_pengumpulan_tugas')->on('pengumpulan_tugas');
             $table->timestamps();
-            $table->foreign('tugas_id')->references('id_tugas')->on('tugas')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('file_tugas');
+        Schema::dropIfExists('pengumpulan_tugas_files');
     }
 };
