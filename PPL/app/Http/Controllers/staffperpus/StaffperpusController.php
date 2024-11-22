@@ -15,6 +15,18 @@ use App\Models\transaksi_peminjaman;
 
 class StaffperpusController extends Controller
 {
+    protected $staff_account;
+
+    public function __construct()
+    {
+        $this->staff_account = DB::table('staffperpus')
+            ->where('username', '=', session('username'))
+            ->first();
+
+        view()->composer('*', function ($view) {
+            $view->with('staff_account',  $this->staff_account);
+        });
+    }
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -47,7 +59,19 @@ class StaffperpusController extends Controller
             ->get();
         $totalCategory = DB::table('kategori_buku')
             ->count();
-        return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman, 'transactionsevendays' => $transactionsevendays, 'alltrans' => $all, 'buku' => $book, 'buku10' => $book10, 'cat10' => $cat10, 'totalCategory' => $totalCategory]);
+        return view('staff_perpus.dashboard', [
+            'transaksi' => $transaksi_peminjaman,
+            'transactionsevendays' => $transactionsevendays,
+            'alltrans' => $all,
+            'buku' => $book,
+            'buku10' => $book10,
+            'cat10' => $cat10,
+            'totalCategory' => $totalCategory
+        ]);
+    }
+    public function profile()
+    {
+        return view('staff_perpus.profile');
     }
 
     public function daftarbuku(Request $request)
@@ -329,6 +353,4 @@ class StaffperpusController extends Controller
 
         return view('staff_perpus.buku.detail', compact('buku'));
     }
-
-
 }
