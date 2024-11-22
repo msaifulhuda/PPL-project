@@ -141,6 +141,8 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::delete('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal'])->name('staff_akademik.jadwal.delete');
     Route::get('/jadwal/import', [JadwalController::class, 'importPage'])->name('staff_akademik.jadwal.import');
     Route::post('/jadwal/import', [JadwalController::class, 'importExcel'])->name('staff_akademik.jadwal.import');
+    Route::get('staff_akademik/jadwal/export', [JadwalController::class, 'exportExcel'])->name('staff_akademik.jadwal.export');
+    Route::get('staff_akademik/jadwal/pdf', [JadwalController::class, 'exportPdf'])->name('staff_akademik.jadwal.pdf');
     /**
      * END JADWAL MANAGEMENT
      */

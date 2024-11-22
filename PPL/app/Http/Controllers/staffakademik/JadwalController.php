@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Exports\JadwalExport;   
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class JadwalController extends Controller
 {
@@ -314,6 +315,47 @@ class JadwalController extends Controller
             return redirect()->route('staff_akademik.jadwal')->with('error-excel', $e->getMessage());
         }
     }
+    public function exportExcel(Request $request)
+    {
+        $kelas_id = $request->query('kelas_id');
+        return Excel::download(new JadwalExport($kelas_id), 'jadwal.xlsx');
+    }
+    
+    public function exportPdf(Request $request)
+    {
+        $kelas_id = $request->query('kelas_id');
+    
+        $query = DB::table('kelas_mata_pelajaran')
+            ->join('kelas', 'kelas_mata_pelajaran.kelas_id', '=', 'kelas.id_kelas')
+            ->join('mata_pelajaran', 'kelas_mata_pelajaran.mata_pelajaran_id', '=', 'mata_pelajaran.id_matpel')
+            ->join('guru', 'kelas_mata_pelajaran.guru_id', '=', 'guru.id_guru')
+            ->join('hari', 'kelas_mata_pelajaran.hari_id', '=', 'hari.id_hari')
+            ->join('tahun_ajaran', 'kelas_mata_pelajaran.tahun_ajaran_id', '=', 'tahun_ajaran.id_tahun_ajaran')
+            ->select(
+                'kelas.nama_kelas',
+                'hari.nama_hari',
+                'kelas_mata_pelajaran.waktu_mulai',
+                'kelas_mata_pelajaran.waktu_selesai',
+                'mata_pelajaran.nama_matpel',
+                'guru.nama_guru'
+            )
+            ->where('tahun_ajaran.aktif', 1)
+            ->orderByRaw('LENGTH(kelas.nama_kelas)')
+            ->orderBy('kelas.nama_kelas')
+            ->orderByRaw("FIELD(hari.nama_hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')")
+            ->orderBy('kelas_mata_pelajaran.waktu_mulai');
+    
+        if ($kelas_id) {
+            $query->where('kelas_mata_pelajaran.kelas_id', $kelas_id);
+        }
+    
+        $data = $query->get();
+    
+        $pdf = Pdf::loadView('staff_akademik.jadwalManagemen.pdf', compact('data'));
+    
+        return $pdf->download('jadwal.pdf');
+    }
+
     /**
      * END JADWAL MANAGEMENT
      */
