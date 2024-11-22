@@ -14,7 +14,7 @@ class topik extends Model
 
     protected $table = 'topik';
     protected $primaryKey = 'id_topik';
-    public $timestamps = false;
+
     protected $keyType = 'string';
     public $incrementing = false;
 

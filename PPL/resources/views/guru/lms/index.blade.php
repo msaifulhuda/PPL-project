@@ -3,7 +3,7 @@
         {{-- Breadcrumb --}}
         @php
             $breadcrumbs = [
-                ['label' => 'Dashboard', 'route' => route('siswa.dashboard')],
+                ['label' => 'Dashboard', 'route' => route('guru.dashboard')],
                 ['label' => 'LMS', 'route' => route('guru.dashboard.lms')],
             ];
         @endphp
