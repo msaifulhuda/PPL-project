@@ -36,8 +36,8 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-// use App\Http\Controllers\staffperpus\StaffperpusController;
-// use App\Http\Controllers\staffperpus\CategoryController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
+use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -231,6 +231,9 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
     Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
 
+    //PROFILE
+    Route::get('/profile', [StaffperpusController::class, 'profile'])->name('staff_perpus.profile');
+
     //KATEGORI
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
     Route::post('/abcategory', [CategoryController::class, 'addCategory'])->name('bookcategories.create');
@@ -253,7 +256,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/staff_perpus/transaksi/{id}/edit', [TransaksiPeminjamanController::class, 'edit'])->name('staff_perpus.transaksi.edit');
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
-
 });
 
 
