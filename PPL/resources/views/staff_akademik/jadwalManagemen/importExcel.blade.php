@@ -49,10 +49,11 @@
                     </li>
                 </ol>
             </nav>
-            
+
             <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Import Jadwal
             </h1>
             <p class="mb-2 text-black-300 dark:text-black-200">Ini merupakan halaman Import Jadwal</p>
+            <a href="{{ asset('files/template_excel.xlsx') }}" class="text-blue-500 hover:underline">Download Template Excel</a>
             <div class="flex items-center space-x-4">
                 <!-- KEMBALI -->
                 <button onclick="window.location.href='{{ route('staff_akademik.jadwal') }}'"
