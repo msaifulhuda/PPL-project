@@ -252,8 +252,8 @@ class TransaksiPeminjamanController extends Controller
         // Validasi input
         $request->validate([
             'status_pengembalian' => 'required|in:0,1,2', // Hanya menerima nilai 0, 1, atau 2
-            'jumlah_dikembalikan' => 'required|integer|min:1',
         ]);
+
 
         // Ambil data transaksi berdasarkan ID
         $transaction = transaksi_peminjaman::find($id);
@@ -263,14 +263,14 @@ class TransaksiPeminjamanController extends Controller
         }
 
         // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
-        if ($request->status_pengembalian == 1 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        if ($request->status_pengembalian == 1) {
             // Kurangi stok transaksi
-            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->stok -= 1;
 
             // Update stok buku terkait
             $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
             if ($book) {
-                $book->stok_buku += $request->jumlah_dikembalikan;
+                $book->stok_buku += 1;
                 $book->save();
             }
 
@@ -279,20 +279,20 @@ class TransaksiPeminjamanController extends Controller
             $transaction->save();
 
             return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
-        } elseif ($request->status_pengembalian == 2 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        } elseif ($request->status_pengembalian == 2) {
             // Jika 'Hilang', kurangi stok transaksi dan tambahkan denda
-            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->stok -= 1;
             $transaction->status_pengembalian = 2;
 
             $book = buku::find($transaction->id_buku);
             // Tambahkan denda berdasarkan harga_buku
-            $transaction->denda += $book->harga_buku * $request->jumlah_dikembalikan;
+            $transaction->denda += $book->harga_buku;
             $transaction->save();
     
             return redirect()->back()->with('success', 'Status buku hilang berhasil diproses. Denda telah diperbarui.');
-        } elseif ($request->status_pengembalian == 0 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        } elseif ($request->status_pengembalian == 0) {
         // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
-        $transaction->stok -= $request->jumlah_dikembalikan;
+        $transaction->stok -= 1;
         $transaction->status_pengembalian = 0;
 
         $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
@@ -304,11 +304,11 @@ class TransaksiPeminjamanController extends Controller
 
         // Tambahkan denda jika telat
         if ($daysLate > 0) {
-            $transaction->denda += 1000 * $daysLate * $request->jumlah_dikembalikan;
+            $transaction->denda += 1000 * $daysLate;
         }
 
         // Update stok buku
-        $book->stok_buku += $request->jumlah_dikembalikan;
+        $book->stok_buku += 1;
         $book->save();
 
         $transaction->save();
