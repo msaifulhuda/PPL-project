@@ -40,14 +40,14 @@
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-gray-800">Prestasi</h3>
                         <p class="text-gray-600 text-sm mt-2">Berbagai pencapaian siswa di bidang akademik dan non-akademik.</p>
-                        <a href="#" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full font-semibold text-sm hover:bg-blue-800 transition">Lihat Selengkapnya →</a>
+                        <a href="{{ route('beranda.prestasiPublik') }}" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full font-semibold text-sm hover:bg-blue-800 transition">Lihat Selengkapnya →</a>
                     </div>
                 </div>
 
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                     <img src="{{ asset('images/beranda/ekstra.jpg') }}" alt="Ekstrakulikuler" class="w-full h-32 object-cover">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800">Ekstrakulikuler</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Ekstrakurikuler</h3>
                         <p class="text-gray-600 text-sm mt-2">Pilihan kegiatan ekstrakurikuler untuk mengembangkan minat dan bakat siswa.</p>
                         <a href="{{ route('ekstrakurikuler.dashboardEkstra') }}" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full font-semibold text-sm hover:bg-blue-800 transition">Lihat Selengkapnya →</a>
                     </div>

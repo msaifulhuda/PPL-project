@@ -66,6 +66,7 @@ Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
     Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
     Route::get('/tenagaPengajarPublik', [BerandaController::class, 'tenagaPengajarPublik'])->name('beranda.tenagaPengajarPublik');
+    Route::get('/prestasiPublik', [BerandaController::class, 'prestasiPublik'])->name('beranda.prestasiPublik');
 });
 Route::get('/auth/redirect', [GoogleLoginController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/call-back', [GoogleLoginController::class, 'callback']);
