@@ -24,4 +24,8 @@ class BerandaController extends Controller
         $staff_perpustakaan = Staffperpus::all();
         return view('beranda.tenagaPengajarPublik', compact('guru', 'staff_akademik', 'staff_perpustakaan'));
     }
+
+    public function prestasiPublik(){
+        return view('beranda.prestasiPublik');
+    }
 }
