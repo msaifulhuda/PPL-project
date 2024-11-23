@@ -13,6 +13,18 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    protected $staff_account;
+
+    public function __construct()
+    {
+        $this->staff_account = DB::table('staffperpus')
+            ->where('username', '=', session('username'))
+            ->first();
+
+        view()->composer('*', function ($view) {
+            $view->with('staff_account',  $this->staff_account);
+        });
+    }
     public function manageCategory()
     {
         $Category = DB::table('kategori_buku')

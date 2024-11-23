@@ -10,7 +10,7 @@ class RegistrasiEkstrakurikuler extends Model
 {
     use HasUuids,Notifiable;
 
-    
+
     protected $primaryKey = 'id_registrasi';
 
     public $incrementing = false;
@@ -26,7 +26,7 @@ class RegistrasiEkstrakurikuler extends Model
      */
 
 
-     protected $table = 'registrasi_ekstrakurikuler';
+     protected $table = 'registrasiekstrakurikuler';
 
      protected $fillable = [
          'id_registrasi',
@@ -38,7 +38,7 @@ class RegistrasiEkstrakurikuler extends Model
          'status',
          'tgl_registrasi',
      ];
- 
+
      /**
       * Relationship with Siswa
       */
@@ -46,7 +46,7 @@ class RegistrasiEkstrakurikuler extends Model
      {
          return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
      }
-  
+
      /**
       * Relationship with Ekstrakurikuler
       */
@@ -58,5 +58,5 @@ class RegistrasiEkstrakurikuler extends Model
      {
          return $this->hasMany(Berkas::class);
      }
-     
+
 }

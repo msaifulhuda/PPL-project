@@ -21,10 +21,8 @@
                 </button>
 
                 {{-- Logo --}}
-                <a href="https://flowbite-admin-dashboard.vercel.app/" class="flex ml-2 md:mr-24">
-                    <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3"
-                        alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">Flowbite</span>
+                <a href="{{ route('beranda.home') }}">
+                    <img src="{{ asset('images/beranda/logo.png') }}" alt="Logo" class="h-16">
                 </a>
 
                 {{-- Search Input --}}
@@ -61,7 +59,7 @@
 
                 {{-- Profile Username --}}
                 <div class="hidden lg:flex">
-                    <span class="text-gray-500">{{ $name ?? 'Staff Superman' }}</span>
+                    <span class="text-gray-500">{{ $staff_account->nama_staff_perpustakaan }}</span>
                 </div>
 
                 {{-- Profile Menu --}}
@@ -80,24 +78,22 @@
                         id="dropdown-2">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900" role="none">
-                                Neil Sims
+                                {{ $staff_account->username ?? 'User_Staff Superman' }}
                             </p>
                             <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                neil.sims@flowbite.com
+                                {{ $staff_account->email ?? 'StaffSuperman@gmail.com' }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <a href="{{ route('staff_perpus.dashboard') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">Dashboard</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Earnings</a>
+                                <a href="{{ route('staff_perpus.profile') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    role="menuitem">Profile</a>
                             </li>
                             <li>
 

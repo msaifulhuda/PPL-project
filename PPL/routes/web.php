@@ -59,12 +59,14 @@ use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\guru;
 use App\Http\Controllers\siswa;
+use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\staffakademik\RaporController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
     Route::get('/perpustakaanPublik', [BerandaController::class, 'perpustakaanPublik'])->name('beranda.perpustakaanPublik');
     Route::get('/tenagaPengajarPublik', [BerandaController::class, 'tenagaPengajarPublik'])->name('beranda.tenagaPengajarPublik');
+    Route::get('/prestasiPublik', [BerandaController::class, 'prestasiPublik'])->name('beranda.prestasiPublik');
 });
 Route::get('/auth/redirect', [GoogleLoginController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/google/call-back', [GoogleLoginController::class, 'callback']);
@@ -141,6 +143,8 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::delete('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal'])->name('staff_akademik.jadwal.delete');
     Route::get('/jadwal/import', [JadwalController::class, 'importPage'])->name('staff_akademik.jadwal.import');
     Route::post('/jadwal/import', [JadwalController::class, 'importExcel'])->name('staff_akademik.jadwal.import');
+    Route::get('staff_akademik/jadwal/export', [JadwalController::class, 'exportExcel'])->name('staff_akademik.jadwal.export');
+    Route::get('staff_akademik/jadwal/pdf', [JadwalController::class, 'exportPdf'])->name('staff_akademik.jadwal.pdf');
     /**
      * END JADWAL MANAGEMENT
      */
@@ -151,16 +155,21 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::delete('/kelas/delete/{id}', [StaffakademikController::class, 'destroy'])->name('staffakademik.kelas.delete');
     Route::get('/staff-akademik/kelas', [StaffakademikController::class, 'cari'])->name('staffakademik.kelas.index');
 
-    /**
+/**
      * START PRESTASI
      */
     Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
     Route::get("/prestasi/create", [PrestasiController::class, "create"])->name("prestasi.create");
     Route::post("/prestasi/store", [PrestasiController::class, "store"])->name("prestasi.store");
     Route::get("/prestasi/pengajuan", [PrestasiController::class, "pengajuan"])->name("prestasi.pengajuan");
+    Route::get("/prestasi/show/{id}", [PrestasiController::class, "show"])->name("prestasi.show");
+    Route::delete('/prestasi/{id}', [PrestasiController::class, 'destroy'])->name('prestasi.destroy');
+    Route::put('/prestasi/{id}', [PrestasiController::class, 'update'])->name('prestasi.update');
+    Route::put('/prestasi/setujui/{id}', [PrestasiController::class, 'setujui'])->name('prestasi.setujui');
+    Route::post('/prestasi/tolak/{id}', [PrestasiController::class, 'tolak'])->name('prestasi.tolak');
     /**
      * END PRESTASI
-     */
+     */
 
     /**
      * START MATA PELAJARAN MANAGEMENT
@@ -231,6 +240,11 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/dashboard', [StaffperpusController::class, 'index'])->name('staff_perpus.dashboard');
     Route::get('/manageCategory', [StaffperpusController::class, 'manageCategory'])->name('staff_perpus.manageCategory');
 
+    //PROFILE
+    Route::get('/profile', [StaffperpusController::class, 'profile'])->name('staff_perpus.profile');
+    Route::post('/chpfile', [StaffperpusController::class, 'editprofile'])->name('staff_perpus.editprofile');
+    Route::post('/pwdefile', [StaffperpusController::class, 'pwdEdit'])->name('staff_perpus.editpwdprofile');
+
     //KATEGORI
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
     Route::post('/abcategory', [CategoryController::class, 'addCategory'])->name('bookcategories.create');
@@ -253,7 +267,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::get('/staff_perpus/transaksi/{id}/edit', [TransaksiPeminjamanController::class, 'edit'])->name('staff_perpus.transaksi.edit');
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
-    Route::put('/staff_perpus/transaksi/{id}/update-status', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
+    Route::put('/staff_perpus/transaksi/daftartransaksi/{id}', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
 });
 
 
@@ -332,7 +346,12 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     // ========================================================== END ROUTE LMS =================================================================================
 
 
-
+    // START PRESTASI
+    Route::get('/dashboard/prestasi', [PrestasiSiswaController::class, 'index'])->name('siswa.prestasi');
+    Route::get('/dashboard/prestasi/create', [PrestasiSiswaController::class, 'create'])->name('siswa.prestasi.create');
+    Route::post('/dashboard/prestasi/store', [PrestasiSiswaController::class, 'store'])->name('siswa.prestasi.store');
+    Route::get('/dashboard/prestasi/show/{id}', [PrestasiSiswaController::class, 'show'])->name('siswa.prestasi.show');
+    // END PRESTASI
 
     // START PERPUS
 

@@ -10,11 +10,24 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\buku;
 use App\Models\kategori_buku;
+use App\Models\Staffperpus;
 use App\Models\transaksi_peminjaman;
 
 
 class StaffperpusController extends Controller
 {
+    protected $staff_account;
+
+    public function __construct()
+    {
+        $this->staff_account = DB::table('staffperpus')
+            ->where('username', '=', session('username'))
+            ->first();
+
+        view()->composer('*', function ($view) {
+            $view->with('staff_account',  $this->staff_account);
+        });
+    }
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -47,8 +60,59 @@ class StaffperpusController extends Controller
             ->get();
         $totalCategory = DB::table('kategori_buku')
             ->count();
-        return view('staff_perpus.dashboard', ['transaksi' => $transaksi_peminjaman, 'transactionsevendays' => $transactionsevendays, 'alltrans' => $all, 'buku' => $book, 'buku10' => $book10, 'cat10' => $cat10, 'totalCategory' => $totalCategory]);
+        return view('staff_perpus.dashboard', [
+            'transaksi' => $transaksi_peminjaman,
+            'transactionsevendays' => $transactionsevendays,
+            'alltrans' => $all,
+            'buku' => $book,
+            'buku10' => $book10,
+            'cat10' => $cat10,
+            'totalCategory' => $totalCategory
+        ]);
     }
+    public function profile()
+    {
+        return view('staff_perpus.profile');
+    }
+    public function editprofile(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'user' => 'required|string|max:18',
+            'email' => 'required|email',
+            'alamat' => 'required|string|max:500',
+            'no_wa' => 'required|regex:/^\+?[0-9]{10,15}$/',
+        ]);
+
+        $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
+        if ($profile) {
+            $profile->update([
+                'nama_staff_perpustakaan' => $validated['nama'],
+                'username' => $validated['user'],
+                'email' => $validated['email'],
+                'alamat_staff_perpustakaan' => $validated['alamat'],
+                'wa_staff_perpustakaan' => $validated['no_wa'],
+            ]);
+            return redirect()->route('staff_perpus.profile')->with('success', 'Profile updated successfully!');
+        }
+        return redirect()->route('staff_perpus.profile')->with('failed', 'Profile failed to update!');
+    }
+    public function pwdEdit(Request $request)
+    {
+        $samepwd = $request->input('npwd') == $request->input('rpwd');
+        $oldpwdpass = password_verify($request->input('opwd'), $this->staff_account->password);
+        if ($samepwd && $oldpwdpass) {
+            $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
+            if ($profile) {
+                $profile->update([
+                    'password' => $request->input('npwd'),
+                ]);
+                return redirect()->route('staff_perpus.profile')->with('success', 'Password updated successfully!');
+            }
+        }
+        return redirect()->route('staff_perpus.profile')->with('failed', 'Password failed to update!');
+    }
+
 
     public function daftarbuku(Request $request)
     {
@@ -304,23 +368,23 @@ class StaffperpusController extends Controller
     }
 
 
-    public function back(Request $request)
-    {
-        // Mengambil nilai query dari request
-        $query = $request->input('query');
+    // public function back(Request $request)
+    // {
+    //     // Mengambil nilai query dari request
+    //     $query = $request->input('query');
 
-        // Mengambil transaksi dengan filter status_pengembalian != 1
-        $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '1') // Filter untuk status_pengembalian
-            ->when($query, function ($queryBuilder) use ($query) {
-                // Jika ada query, tambahkan filter untuk kode_peminjam
-                return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
-            })
-            ->orderBy('tgl_pengembalian', 'asc')
-            ->simplePaginate(10);
+    //     // Mengambil transaksi dengan filter status_pengembalian != 1
+    //     $transactions = transaksi_peminjaman::where('stok', '!=', '0') // Filter untuk status_pengembalian
+    //         ->when($query, function ($queryBuilder) use ($query) {
+    //             // Jika ada query, tambahkan filter untuk kode_peminjam
+    //             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
+    //         })
+    //         ->orderBy('tgl_pengembalian', 'asc')
+    //         ->simplePaginate(10);
 
-        // Mengembalikan hasil ke view
-        return view('staff_perpus.pengembalian.index', compact('transactions', 'query'));
-    }
+    //     // Mengembalikan hasil ke view
+    //     return view('staff_perpus.pengembalian.index', compact('transactions', 'query'));
+    // }
 
 
     public function show($id)
@@ -329,6 +393,4 @@ class StaffperpusController extends Controller
 
         return view('staff_perpus.buku.detail', compact('buku'));
     }
-
-
 }
