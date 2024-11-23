@@ -42,7 +42,7 @@ class tugas extends Model
     }
     public function pengumpulantugas()
     {
-        return $this->hasMany(pengumpulan_tugas::class);
+        return $this->hasMany(pengumpulan_tugas::class, 'tugas_id', 'id_tugas');
     }
     public function filetugas()
     {
