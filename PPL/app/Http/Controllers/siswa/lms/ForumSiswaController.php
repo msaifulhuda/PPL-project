@@ -22,6 +22,8 @@ class ForumSiswaController extends Controller
     public function index($id)
     {
 
+        $idSiswa =  auth()->guard('web-siswa')->user()->id_siswa;
+
         $kelasMataPelajaran = kelas_mata_pelajaran::with([
             'mataPelajaran:id_matpel,nama_matpel',
             'guru:id_guru,nama_guru',
@@ -58,6 +60,9 @@ class ForumSiswaController extends Controller
 
         $tugasMendatang = tugas::where('kelas_mata_pelajaran_id', $kelasMataPelajaran->id_kelas_mata_pelajaran)
             ->where('deadline', '>', Carbon::now())
+            ->whereDoesntHave('pengumpulantugas', function ($query) use ($idSiswa) {
+                $query->where('siswa_id', $idSiswa);
+            })
             ->orderBy('deadline', 'asc')
             ->get();
 

@@ -47,7 +47,7 @@
                     <!-- Attached Files -->
                     @if ($filetugas->count() > 0)
                         <div class="mt-6">
-                            <h3 class="text-lg font-medium text-gray-900">Lampiran Materi</h3>
+                            <h3 class="text-lg font-medium text-gray-900">Lampiran Tugas</h3>
                             <div class="mt-2 space-y-2">
                                 @foreach ($filetugas as $file)
                                     <div class="flex items-center p-3 space-x-3 bg-gray-50 rounded-lg">
@@ -61,7 +61,7 @@
                                             <a href="{{ asset('storage/' . $file->file_path) }}"
                                                 class="text-sm font-medium text-blue-600 hover:text-blue-800"
                                                 target="_blank">
-                                                {{ $file->nama_file }}
+                                                {{ $file->original_name }}
                                             </a>
                                         </div>
                                     </div>
@@ -174,10 +174,7 @@
             fileInput.addEventListener('change', function(e) {
                 const newFiles = Array.from(this.files).filter(file => {
                     if (file.size > maxFileSize) {
-                        alert(File $ {
-                                file.name
-                            }
-                            terlalu besar.Maksimal ukuran file adalah 10 MB.);
+                        alert(`File ${file.name} terlalu besar. Maksimal ukuran file adalah 10MB.`);
                         return false;
                     }
 
@@ -191,11 +188,8 @@
 
                     if (!validTypes.includes(file.type)) {
                         alert(
-                            File $ {
-                                file.name
-                            }
-                            tidak didukung.Format yang didukung: PDF, DOC, DOCX, PPT, PPTX.
-                        );
+                            `File ${file.name} tidak didukung.Format yang didukung: PDF, DOC, DOCX, PPT, PPTX.`);
+
                         return false;
                     }
                     return true;
