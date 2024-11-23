@@ -24,7 +24,7 @@
             <div class="flex flex-col items-center">
                 <div class="w-full max-w-3xl">
                     @foreach ($tugasTanpaTopik as $tugas)
-                        <a href="{{ route('guru.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
+                        <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
                             class="block hover:bg-gray-200">
                             <div class="p-4 mt-4 border rounded-lg border-black">
                                 <div class="flex items-center">

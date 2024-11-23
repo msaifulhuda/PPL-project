@@ -254,8 +254,6 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
     Route::put('/staff_perpus/transaksi/{id}/update-status', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
-
-
 });
 
 
@@ -299,18 +297,32 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
 
     // ========================================================== START ROUTE LMS =================================================================================
+
+    // MATERI
     Route::get('/dashboard/lms', [DashboardSiswaController::class, 'index'])->name('siswa.dashboard.lms');
     Route::get('/dashboard/lms/materi', [MateriSiswaController::class, 'index'])->name('siswa.dashboard.lms.materi');
+
+
+    // TUGAS
     Route::get('/dashboard/lms/tugas', [TugasSiswaController::class, 'index'])->name('siswa.dashboard.lms.tugas');
+    Route::get('/dashboard/lms/tugas/{id}', [TugasSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.tugas');
+
+    // PENGUMPULAN TUGAS
+    Route::post('/dashboard/lms/tugas/{id}', [TugasSiswaController::class, 'submit'])->name('siswa.dashboard.lms.submit.tugas');
+    Route::delete('/dashboard/lms/tugas/batal/{id}', [TugasSiswaController::class, 'batalPengumpulan'])->name('siswa.dashboard.lms.tugas.batal');
+
+
+    // FILE PENGUMPULAN TUGAS SISWA
+    Route::get('/dashboard/lms/tugas/file/{id}', [TugasSiswaController::class, 'deleteFile'])->name('siswa.dashboard.lms.tugas.file.delete');
+
 
 
     // FORUM
     Route::get('/dashboard/lms/forum/{id}', [ForumSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum');
-    Route::get('/dashboard/lms/forum/{id}/tugas', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
-    Route::get('/dashboard/lms/forum/{id}/anggota', [AnggotaSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum.anggota');
-
+    Route::get('/dashboard/lms/forum/tugas/{id}', [TugasSiswaController::class, 'forumTugas'])->name('siswa.dashboard.lms.forum.tugas');
+    Route::get('/dashboard/lms/forum/anggota/{id}', [AnggotaSiswaController::class, 'index'])->name('siswa.dashboard.lms.forum.anggota');
     Route::get('/dashboard/lms/materi/{id}', [MateriSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.materi');
-    Route::get('/dashboard/lms/tugas/{id}', [TugasSiswaController::class, 'detail'])->name('siswa.dashboard.lms.detail.tugas');
+
 
 
     // TRACKING TUGAS
@@ -442,9 +454,9 @@ Route::group(['prefix' => 'ekstrakrikuler'], function () {
     Route::group(['middleware' => ['siswa']], function () {
 
         Route::post('/registrasi-ekstrakurikuler', [EkstrakurikulerController::class, 'submitForm'])->name('ekstrakurikuler.submit');
-        Route::middleware('auth:web-siswa')->group(function () {
-            Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
-        });
+        // Route::middleware('auth:web-siswa')->group(function () {
+        //     Route::get('/registrasi-ekstra', [YourController::class, 'showRegistrasi'])->name('ekstrakurikuler.registrasi');
+        // });
     });
 });
 
