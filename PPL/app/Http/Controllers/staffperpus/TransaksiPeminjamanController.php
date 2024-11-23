@@ -33,6 +33,7 @@ class TransaksiPeminjamanController extends Controller
     {
         $query = $request->input('query');
         // Mengambil transaksi dengan status_pengembalian = 0
+        $transactions = transaksi_peminjaman::with('buku');
         $transactions = transaksi_peminjaman::where('stok', '!=', '0')
             ->when($query, function ($queryBuilder) use ($query) {
                 return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
