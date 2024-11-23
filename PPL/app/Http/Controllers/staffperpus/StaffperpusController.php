@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\buku;
 use App\Models\kategori_buku;
+use App\Models\Staffperpus;
 use App\Models\transaksi_peminjaman;
 
 
@@ -73,6 +74,45 @@ class StaffperpusController extends Controller
     {
         return view('staff_perpus.profile');
     }
+    public function editprofile(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'user' => 'required|string|max:18',
+            'email' => 'required|email',
+            'alamat' => 'required|string|max:500',
+            'no_wa' => 'required|regex:/^\+?[0-9]{10,15}$/',
+        ]);
+
+        $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
+        if ($profile) {
+            $profile->update([
+                'nama_staff_perpustakaan' => $validated['nama'],
+                'username' => $validated['user'],
+                'email' => $validated['email'],
+                'alamat_staff_perpustakaan' => $validated['alamat'],
+                'wa_staff_perpustakaan' => $validated['no_wa'],
+            ]);
+            return redirect()->route('staff_perpus.profile')->with('success', 'Profile updated successfully!');
+        }
+        return redirect()->route('staff_perpus.profile')->with('failed', 'Profile failed to update!');
+    }
+    public function pwdEdit(Request $request)
+    {
+        $samepwd = $request->input('npwd') == $request->input('rpwd');
+        $oldpwdpass = password_verify($request->input('opwd'), $this->staff_account->password);
+        if ($samepwd && $oldpwdpass) {
+            $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
+            if ($profile) {
+                $profile->update([
+                    'password' => $request->input('npwd'),
+                ]);
+                return redirect()->route('staff_perpus.profile')->with('success', 'Password updated successfully!');
+            }
+        }
+        return redirect()->route('staff_perpus.profile')->with('failed', 'Password failed to update!');
+    }
+
 
     public function daftarbuku(Request $request)
     {

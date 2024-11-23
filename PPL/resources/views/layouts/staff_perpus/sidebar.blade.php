@@ -57,7 +57,7 @@
                         </x-sidebar-link>
                     </li>
                     <li>
-                        <x-sidebar-link href="{{ route('staff_perpus.buku.daftarbuku') }}" :active="request()->is('dashboard/perpustakaan/buku')">
+                        <x-sidebar-link href="{{ route('staff_perpus.buku.daftarbuku') }}" :active="request()->is('staff_perpus/buku')">
                             <x-sidebar-icon>
                                 <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -70,7 +70,7 @@
                         </x-sidebar-link>
                     </li>
                     <li>
-                        <x-sidebar-link href="{{ route('staff_perpus.managecategories') }}" :active="request()->is('staff_perpus/manageCategory')">
+                        <x-sidebar-link href="{{ route('staff_perpus.managecategories') }}" :active="request()->is('staff_perpus/mngcategory')">
                             <x-sidebar-icon>
                                 <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -152,7 +152,7 @@
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Kembali ke Beranda</span>
                     </x-sidebar-link>
-                    <x-sidebar-link href="{{ route('staff_perpus.profile') }}">
+                    <x-sidebar-link href="{{ route('staff_perpus.profile') }}" :active="request()->is('staff_perpus/profile')">
                         <x-sidebar-icon>
                             <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"

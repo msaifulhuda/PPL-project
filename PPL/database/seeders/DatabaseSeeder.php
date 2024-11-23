@@ -175,6 +175,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'siswa',
             'password' => bcrypt('siswa'),
             'role_siswa' => 'siswa',
+            'nama_siswa' => 'Siswa',
         ]);
         // Siswa::create([
         //     'id_siswa' => $idUser9,

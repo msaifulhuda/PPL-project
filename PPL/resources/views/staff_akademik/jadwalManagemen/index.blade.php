@@ -86,6 +86,22 @@
                     </form>
                 </div>
 
+                <!-- Export EXCEL -->
+                <button onclick="window.location.href='{{ route('staff_akademik.jadwal.export', ['kelas_id' => request('kelas_id')]) }}'"
+                    class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-yellow-400 to-orange-600 group-hover:from-yellow-400 group-hover:to-orange-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-yellow-200 dark:focus:ring-yellow-800">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    Export Excel
+                    </span>
+                </button>
+                
+                <!-- Export PDF -->
+                <button onclick="window.location.href='{{ route('staff_akademik.jadwal.pdf', ['kelas_id' => request('kelas_id')]) }}'"
+                    class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-yellow-400 to-orange-600 group-hover:from-yellow-400 group-hover:to-orange-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-yellow-200 dark:focus:ring-yellow-800">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    Export PDF
+                    </span>
+                </button>
+
                 <!-- Pesan Bentrok -->
                 @if(session('error'))
                     <div class="bg-red-500 text-white p-4 rounded mb-4">
