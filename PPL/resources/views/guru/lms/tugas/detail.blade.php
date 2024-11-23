@@ -52,7 +52,7 @@
                         <dl class="mt-4 space-y-3">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Topik</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $tugas->topik->judul_topik }}</dd>
+                                <dd class="mt-1 text-sm text-gray-900">{{ $tugas->topik->judul_topik ?? "Tidak ada topik" }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Tenggat</dt>
