@@ -279,6 +279,41 @@ class TransaksiPeminjamanController extends Controller
             $transaction->save();
 
             return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
+        } elseif ($request->status_pengembalian == 2 && $request->jumlah_dikembalikan <= $transaction->stok) {
+            // Jika 'Hilang', kurangi stok transaksi dan tambahkan denda
+            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->status_pengembalian = 2;
+
+            $book = buku::find($transaction->id_buku);
+            // Tambahkan denda berdasarkan harga_buku
+            $transaction->denda += $book->harga_buku * $request->jumlah_dikembalikan;
+            $transaction->save();
+    
+            return redirect()->back()->with('success', 'Status buku hilang berhasil diproses. Denda telah diperbarui.');
+        } elseif ($request->status_pengembalian == 0 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
+        $transaction->stok -= $request->jumlah_dikembalikan;
+        $transaction->status_pengembalian = 0;
+
+        $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+
+        // Hitung selisih hari antara tanggal pengembalian dan hari ini
+        $today = now(); // Mengambil tanggal hari ini
+        $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
+        $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
+
+        // Tambahkan denda jika telat
+        if ($daysLate > 0) {
+            $transaction->denda += 1000 * $daysLate * $request->jumlah_dikembalikan;
+        }
+
+        // Update stok buku
+        $book->stok_buku += $request->jumlah_dikembalikan;
+        $book->save();
+
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
         } else {
             return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
         }
