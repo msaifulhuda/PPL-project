@@ -137,6 +137,15 @@
                             <span class="ml-3" sidebar-toggle-item>Ujian</span>
                         </x-sidebar-link>
                     </li>
+
+                    {{-- Prestasi--}}
+                    <li>
+                        <x-sidebar-link href="{{route('siswa.prestasi')}}">
+                                <i class="fa-solid fa-trophy ml-1"></i>
+
+                            <span class="ml-3" sidebar-toggle-item>Prestasi</span>
+                        </x-sidebar-link>
+                    </li>
                 </ul>
 
                 {{-- Sidebar Footer --}}
