@@ -233,6 +233,8 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
 
     //PROFILE
     Route::get('/profile', [StaffperpusController::class, 'profile'])->name('staff_perpus.profile');
+    Route::post('/chpfile', [StaffperpusController::class, 'editprofile'])->name('staff_perpus.editprofile');
+    Route::post('/pwdefile', [StaffperpusController::class, 'pwdEdit'])->name('staff_perpus.editpwdprofile');
 
     //KATEGORI
     Route::get('/mngcategory', [CategoryController::class, 'manageCategory'])->name('staff_perpus.managecategories');
