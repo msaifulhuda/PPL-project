@@ -113,7 +113,7 @@ class StaffperpusController extends Controller
     public function storebuku(Request $request)
     {
         $request->validate([
-            'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_buku' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'judul_buku' => [
                 'required',
                 'string',
@@ -139,7 +139,7 @@ class StaffperpusController extends Controller
         ], [
             'foto_buku.required' => 'Foto buku harus diisi.',
             'foto_buku.image' => 'File foto buku harus berupa gambar.',
-            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg.',
             'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
 
             'judul_buku.required' => 'Judul buku harus diisi.',
@@ -223,7 +223,7 @@ class StaffperpusController extends Controller
     public function updatebuku(Request $request, $id)
     {
         $request->validate([
-            'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_buku' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'judul_buku' => [
                 'required',
                 'string',
@@ -249,7 +249,7 @@ class StaffperpusController extends Controller
         ], [
             'foto_buku.required' => 'Foto buku harus diisi.',
             'foto_buku.image' => 'File foto buku harus berupa gambar.',
-            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg.',
             'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
 
             'judul_buku.required' => 'Judul buku harus diisi.',
@@ -292,12 +292,23 @@ class StaffperpusController extends Controller
         ]);
 
         $buku = buku::findOrFail($id);
+         // Jika ada file foto baru
         if ($request->hasFile('foto_buku')) {
-            if ($buku->foto_buku) {
-                Storage::delete($buku->foto_buku);
+            // Hapus foto lama jika ada
+            $fotoPath = str_replace('storage/', '', $buku->foto_buku);
+            if ($buku->foto_buku && Storage::disk('public')->exists($fotoPath)) {
+                Storage::disk('public')->delete($fotoPath);
             }
-            $buku->foto_buku = $request->file('foto_buku')->store('public/buku');
+        
+            // Simpan foto baru
+            $file = $request->file('foto_buku');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->put('images/Perpustakaan/' . $filename, file_get_contents($file));
+        
+            // Update path foto di database
+            $buku->foto_buku = 'storage/images/Perpustakaan/' . $filename;
         }
+
 
         $buku->update([
             'judul_buku' => $request->judul_buku,

@@ -123,6 +123,15 @@
                 @enderror
             </div>
 
+            <!-- Harga Buku -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">Harga Buku</label>
+                <input type="number" name="harga_buku" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200" value="{{ old('harga_buku', $buku->harga_buku) }}" min="0" step="0.01">
+                @error('harga_buku')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
             <!-- Tombol Submit -->
             <div class="text-left">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 transition duration-300">Update Buku</button>

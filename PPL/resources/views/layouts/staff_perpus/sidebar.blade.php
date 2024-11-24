@@ -85,6 +85,21 @@
                         </x-sidebar-link>
                     </li>
                     <li>
+                        <x-sidebar-link href="{{ route('staff_perpus.riwayat_transaksi.riwayat_transaksi') }}" :active="request()->is('staff_perpus/manageCategory')">
+                            <x-sidebar-icon>
+                                <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd"
+                                        d="M20 10H4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8ZM9 13v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
+                                        clip-rule="evenodd" />
+                                    <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 1 1 0 4H4a2 2 0 0 1-2-2Z" />
+                                </svg>
+                            </x-sidebar-icon>
+                            <span class="ml-3" sidebar-toggle-item>Riwayat Transaksi</span>
+                        </x-sidebar-link>
+                    </li>
+                    <li>
                         <x-sidebar-dropdown label="Laporan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan/laporan*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"

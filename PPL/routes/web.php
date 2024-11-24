@@ -38,6 +38,7 @@ use App\Http\Controllers\pengurusekstra\PengurusekstraController;
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\staffperpus\CategoryController;
+use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -259,6 +260,9 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
     Route::put('/staff_perpus/transaksi/daftartransaksi/{id}', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
+
+    // Riwayat transaksi
+    Route::get('/riwayat_transaksi', [RiwayatTransaksiController::class, 'index'])->name('staff_perpus.riwayat_transaksi.riwayat_transaksi');
 });
 
 
