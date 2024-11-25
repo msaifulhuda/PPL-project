@@ -20,6 +20,7 @@ use Illuminate\Database\Seeder;
 use App\Models\guru_mata_pelajaran;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\materi;
+use App\Models\pengumpulan_tugas;
 use Database\Seeders\PerpustakaanSeeder;
 use App\Models\RegistrasiEkstrakurikuler;
 use App\Models\topik;
@@ -116,6 +117,13 @@ class DatabaseSeeder extends Seeder
         if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {
             $this->call([
                 TopikTugasMateriSeeder::class,
+            ]);
+        }
+
+        // isi pengumpulan tugas
+        if (pengumpulan_tugas::count() == 0) {
+            $this->call([
+                PengumpulanTugasSiswaSeeder::class,
             ]);
         }
 
