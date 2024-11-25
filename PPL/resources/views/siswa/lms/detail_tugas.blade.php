@@ -160,6 +160,20 @@
                         @endif
                     </div>
                 </div>
+            <!-- Nilai Box -->
+
+            @if ($pengumpulan && $pengumpulan->nilai)
+                <div class="mt-3 p-1 border rounded-lg">
+                    <div class="flex justify-center items-center flex-col">
+                        <p class="text-sm text-gray-700">Nilai</p>
+                        <h1 class="text-2xl font-bold text-gray-900">{{ $pengumpulan->nilai }}</h1>
+                    </div>
+                </div>
+            @else
+                 <div class="mt-3 p-1 border rounded-lg flex justify-between items-center">
+                    <p>Belum dinilai</p>
+                </div>
+            @endif
             </div>
         </div>
     </div>
