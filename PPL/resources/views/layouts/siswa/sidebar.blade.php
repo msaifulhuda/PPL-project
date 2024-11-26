@@ -60,7 +60,7 @@
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.materi') }}"
-                            :active="request()->is('siswa/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tugas') }}"
@@ -141,7 +141,7 @@
                     {{-- Prestasi--}}
                     <li>
                         <x-sidebar-link href="{{route('siswa.prestasi')}}">
-                                <i class="fa-solid fa-trophy ml-1"></i>
+                                <i class="ml-1 fa-solid fa-trophy"></i>
 
                             <span class="ml-3" sidebar-toggle-item>Prestasi</span>
                         </x-sidebar-link>

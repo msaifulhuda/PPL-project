@@ -84,17 +84,12 @@
 
                 <div class="w-full">
                     <div class="mb-4">
-                        <p class="text-sm">{{ $materi->deskripsi }}</p>
+                        {!! $materi->deskripsi !!}
                     </div>
 
                     @if (count($file_materi))
                         <div class="flex gap-4 card-container">
                             @foreach ($file_materi as $item)
-                                @php
-                                    $file_name = explode('/', $item->file_path);
-                                    $file_name = end($file_name);
-                                    $file_name = substr($file_name, 11);
-                                @endphp
                                 <div class="h-20 p-3 border border-gray-400 rounded-md fw-1/2">
                                     <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank" class="flex items-center justify-center w-full h-full gap-2">
                                         @if (pathinfo($item->file_path, PATHINFO_EXTENSION) == 'pdf')
@@ -133,7 +128,7 @@
                                                 </path>
                                             </svg>
                                         @endif
-                                        <span class="text-sm">{{ $file_name }}</span>
+                                        <span class="text-sm">{{ $item->original_name }}</span>
                                     </a>
                                 </div>
                             @endforeach

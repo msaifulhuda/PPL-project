@@ -56,6 +56,7 @@ class file_materi extends Model
     protected $table = 'file_materi';
     protected $fillable = [
         'materi_id',
+        'original_name',
         'file_path',
         'file_type',
         'upload_at',

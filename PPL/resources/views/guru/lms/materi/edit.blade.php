@@ -35,13 +35,44 @@
                         <!-- Deskripsi -->
                         <div class="flex flex-col gap-3">
                             <label for="deskripsi" class="text-gray-700">Deskripsi Materi (Optional)</label>
-                            <textarea name="deskripsi" id="deskripsi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" rows="6">{{ old('deskripsi') ?? $materi->deskripsi }}</textarea>
+                            <input type="hidden" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') ?? $materi->deskripsi }}">
+                            <trix-toolbar id="my_toolbar"></trix-toolbar>
+                            <trix-editor toolbar="my_toolbar" input="deskripsi"></trix-editor>
+                        </div>
+
+                        <!-- Existing Files -->
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-700">File Materi Sebelumnya</label>
+                            <div class="space-y-2">
+                                @if ($file_materi_old->isEmpty())
+                                    <p class="text-sm text-gray-500">Tidak ada file materi sebelumnya.</p>
+                                @endif
+                                @foreach ($file_materi_old as $file)
+                                    <div class="flex items-center justify-between p-2 bg-gray-100 rounded-md">
+                                        <div class="flex items-center">
+                                            <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                </path>
+                                            </svg>
+                                            <span>{{ $file->original_name }}</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <input type="checkbox" name="removed_files[]" value="{{ $file->id_file_materi }}"
+                                                id="file_{{ $file->id_file_materi }}"
+                                                class="text-indigo-600 border-gray-300 rounded">
+                                            <label for="file_{{ $file->id_file_materi }}"
+                                                class="text-sm text-red-500">Hapus</label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
 
                         <!-- File Upload -->
                         <div class="flex flex-col gap-3">
                             <label class="block text-sm font-medium text-gray-700">File Materi</label>
-                            <i class="text-xs text-blue-500">*File yang anda pilih akan menghapus file yang sudah dimasukkan sebelumnya</i>
                             @error('file_materi')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -109,7 +140,7 @@
                             <button type="submit" name="update" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Simpan</button>
                         </li>
                         <li>
-                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="z-10 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">Hapus</button>
+                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="z-10 block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">Hapus</button>
                         </li>
                     </ul>
                 </div>
@@ -232,40 +263,8 @@
         cekJudul(judulInput, postButton);
     });
 
-    const getFileDetails = async function (filePath) {
-        try {
-            const response = await fetch(`/storage/${filePath}`);
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            const blob = await response.blob();
-            const fileSize = blob.size;
-            const fileType = blob.type;
-
-            return { fileSize, fileType };
-        } catch (error) {
-            console.error('Error fetching file details:', error);
-            return null;
-        }
-    };
-
     document.addEventListener('DOMContentLoaded', async function() {
         let selectedFiles = [];
-
-        @if (isset($file_materi_old))
-            let filePath = '';
-            let fileName = '';
-
-            @foreach ($file_materi_old as $item)
-            filePath = '{{ $item->file_path }}';
-            fileName = filePath.split('/').pop();
-            fileName = fileName.split('_').slice(1).join('_');
-
-            const fileDetails = await getFileDetails(filePath);
-            if (fileDetails) {
-                selectedFiles.push(new File([], fileName, { type: fileDetails.fileType, size: fileDetails.fileSize }));
-            }
-            @endforeach
-        @endif
 
         const fileInput = document.getElementById('files');
         const fileList = document.getElementById('file-list');

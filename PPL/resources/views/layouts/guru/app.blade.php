@@ -17,6 +17,15 @@
     {{-- Website Icon --}}
     <link rel="icon" href="{{ asset('images/SST-Icon-Black.png') }}" type="image/x-icon" />
 
+    {{-- Trix Editor --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -37,10 +46,17 @@
             @include('layouts.guru.footer')
         </div>
     </div>
+
+    {{-- Deactivate trix file accept --}}
+    <script>
+        document.addEventListener('trix-file-accept', function (event) {
+            event.preventDefault();
+        });
+    </script>
+
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
 </body>
 
 </html>
-    

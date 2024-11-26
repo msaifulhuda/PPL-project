@@ -15,9 +15,9 @@
 
         {{-- Main Content --}}
         <div class="px-3 mt-8">
-            <form action="{{ route('guru.dashboard.lms.materi.store', $kelas_mata_pelajaran->id_kelas_mata_pelajaran) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('guru.dashboard.lms.materi.store', $id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id_kelas_mata_pelajaran" value="{{ $kelas_mata_pelajaran->id_kelas_mata_pelajaran }}">
+                <input type="hidden" name="id_kelas_mata_pelajaran" value="{{ $id }}">
                 @if ($materi_old)
                     <input type="hidden" name="id_materi" value="{{ $materi_old->id_materi }}">
                 @endif
@@ -37,13 +37,46 @@
                         <!-- Deskripsi -->
                         <div class="flex flex-col gap-3">
                             <label for="deskripsi" class="text-sm text-gray-700">Deskripsi Materi (Optional)</label>
-                            <textarea name="deskripsi" id="deskripsi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" rows="6">{{ $materi_old ? $materi_old->deskripsi : old('deskripsi') }}</textarea>
+                            <input type="hidden" name="deskripsi" id="deskripsi" value="{{ $materi_old ? $materi_old->deskripsi : old('deskripsi') }}">
+                            <trix-toolbar id="my_toolbar"></trix-toolbar>
+                            <trix-editor toolbar="my_toolbar" input="deskripsi"></trix-editor>
                         </div>
+
+                        <!-- Existing Files Draft -->
+                        @if ($materi_old)
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700">File Materi Sebelumnya</label>
+                                <div class="space-y-2">
+                                    @if ($materi_old->fileMateri->isEmpty())
+                                        <p class="text-sm text-gray-500">Tidak ada file materi sebelumnya.</p>
+                                    @endif
+                                    @foreach ($materi_old->fileMateri as $file)
+                                        <div class="flex items-center justify-between p-2 bg-gray-100 rounded-md">
+                                            <div class="flex items-center">
+                                                <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                    </path>
+                                                </svg>
+                                                <span>{{ $file->original_name }}</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="checkbox" name="removed_files[]" value="{{ $file->id_file_materi }}"
+                                                    id="file_{{ $file->id_file_materi }}"
+                                                    class="text-indigo-600 border-gray-300 rounded">
+                                                <label for="file_{{ $file->id_file_materi }}"
+                                                    class="text-sm text-red-500">Hapus</label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
 
                         <!-- File Upload -->
                         <div class="flex flex-col gap-3">
                             <label class="block text-sm font-medium text-gray-700">File Materi</label>
-                            <i class="text-xs text-blue-500">*File yang anda pilih akan menghapus file yang sudah dimasukkan sebelumnya</i>
                             @error('file_materi')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -104,80 +137,20 @@
                     </div>
                 </div>
 
-                {{-- <div class="w-3/4 border rounded-lg">
-                    <div class="flex flex-col gap-6 p-6">
-                        <div class="flex flex-col gap-3">
-                            <label for="judul_materi" class="text-gray-700">Judul Materi</label>
-                            <input type="text" name="judul_materi" id="judul_materi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" value="{{ $materi_old ? $materi_old->judul_materi : old('judul_materi') }}">
-                            @error('judul_materi')
-                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-col gap-3">
-                            <label for="deskripsi" class="text-gray-700">Deskripsi Materi (Optional)</label>
-                            <textarea name="deskripsi" id="deskripsi" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" rows="6">{{ $materi_old ? $materi_old->deskripsi : old('deskripsi') }}</textarea>
-                        </div>
-
-                        <div class="flex flex-col gap-3">
-                            <label for="file_materi" class="text-gray-700">File Materi</label>
-                            <i class="text-sm text-blue-500">*File yang anda pilih akan menghapus file yang sudah dimasukkan sebelumnya</i>
-                            <input type="file" name="file_materi[]" id="file_materi" class="w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300" multiple>
-                            @error('file_materi')
-                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div id="filePreview" class="grid gap-4 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-1/3 border rounded-lg">
-                    <div class="flex flex-col gap-6 p-6">
-                        <div class="flex flex-col gap-3">
-                            <label for="topik_id" class="text-gray-700">Topik</label>
-                            <select name="topik_id" id="topik_id" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300">
-                                <option selected disabled>Pilih Topik</option>
-                                @foreach ($topik as $item)
-                                    @php
-                                        $selected = $materi_old ? $materi_old->topik_id : old('topik_id');
-                                        echo $selected;
-                                    @endphp
-                                    <option value="{{ $item->id_topik }}" {{ $selected == $item->id_topik ? 'selected' : '' }}>{{ $item->judul_topik }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="flex flex-wrap justify-end">
-                            <a href="" class="px-6 py-2 mr-3 text-white bg-gray-600 rounded-md hover:bg-gray-700">Tambah Topik</a>
-
-                            <button type="button" id="post" name="post" class="px-6 py-2 font-thin text-gray-400 bg-gray-300 cursor-default rounded-l-md">Posting</button>
-                            <button type="button" class="flex px-2 pt-2 text-sm bg-blue-500 rounded-r-md" id="topik-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-3">
-                                <span class="sr-only">Open dropdown topik</span>
-                                <svg class="w-6 h-6 text-slate-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div> --}}
-
                 {{-- Dropdown Submit Modal --}}
                 <div class="z-10 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdown-3">
                     <ul class="py-1" role="none">
                         <li>
-                            <button type="submit" name="post" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Posting</button>
+                            <button type="submit" name="post" class="block px-4 py-2 text-sm text-gray-700 w-ful hover:bg-gray-100">Posting</button>
                         </li>
                         <li>
-                            <button type="submit" name="draft" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Draft</button>
+                            <button type="submit" name="draft" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Draft</button>
                         </li>
                         <li>
                             <div class="border-t border-gray-100"></div>
                         </li>
                         <li>
-                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="z-10 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">Hapus</button>
+                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="z-10 block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">Hapus</button>
                         </li>
                     </ul>
                 </div>
@@ -323,22 +296,6 @@
     document.addEventListener('DOMContentLoaded', async function() {
         let selectedFiles = [];
 
-        @if (isset($file_materi_old))
-            let filePath = '';
-            let fileName = '';
-
-            @foreach ($file_materi_old as $item)
-            filePath = '{{ $item->file_path }}';
-            fileName = filePath.split('/').pop();
-            fileName = fileName.split('_').slice(1).join('_');
-
-            const fileDetails = await getFileDetails(filePath);
-            if (fileDetails) {
-                selectedFiles.push(new File([], fileName, { type: fileDetails.fileType, size: fileDetails.fileSize }));
-            }
-            @endforeach
-        @endif
-
         const fileInput = document.getElementById('files');
         const fileList = document.getElementById('file-list');
 
@@ -372,7 +329,7 @@
             });
         }
 
-        fileInput.addEventListener('change', function(e) {  
+        fileInput.addEventListener('change', function(e) {
             const newFiles = Array.from(this.files);
             selectedFiles = [...selectedFiles, ...newFiles]; // Gabungkan file baru dengan file sebelumnya
             updateFileList();
