@@ -61,6 +61,7 @@ use App\Http\Controllers\guru;
 use App\Http\Controllers\siswa;
 use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\staffakademik\RaporController;
+use App\Http\Controllers\Guru\ProfilController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
@@ -374,7 +375,12 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 // GURU ROLE
 Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
+    // Menampilkan profil pengguna
+    Route::get('/profil', [ProfilController::class, 'show'])->name('profil.show');
 
+    // Mengupdate profil pengguna
+    Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    
 
     /**
      * Start Pembina Ekstrakurikuler
