@@ -57,10 +57,9 @@ class materi extends Model
 
     protected $fillable = [
         'judul_materi',
+        'deskripsi',
         'topik_id',
         'kelas_mata_pelajaran_id',
-        'tanggal_dibuat',
-        'deskripsi',
         'status',
     ];
     public function topik()
@@ -72,11 +71,11 @@ class materi extends Model
     {
         return $this->belongsTo(kelas_mata_pelajaran::class, 'kelas_mata_pelajaran_id', 'id_kelas_mata_pelajaran');
     }
-    public function filemateri()
+    public function fileMateri()
     {
-        return $this->hasMany(file_materi::class, 'id_pengurus', 'id_pengurus_ekstra');
+        return $this->hasMany(file_materi::class, 'materi_id', 'id_materi');
     }
-    public function notifikasisistem()
+    public function notifikasiSistem()
     {
         return $this->hasMany(notifikasi_sistem::class, 'materi_id', 'id_materi');
     }

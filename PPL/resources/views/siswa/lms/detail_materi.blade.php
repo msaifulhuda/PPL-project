@@ -35,7 +35,7 @@
 
                 <div class="w-full">
                     <div class="mb-4">
-                        <p class="text-sm">{{ $materi->deskripsi }}</p>
+                        {!! $materi->deskripsi !!}
                     </div>
 
                     @if (count($file_materi))
