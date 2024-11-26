@@ -43,6 +43,6 @@ class Guru extends Authenticatable
     }
     public function ekstrakurikuler()
     {
-        return $this->hasMany(Ekstrakurikuler::class);
+        return $this->hasMany(Ekstrakurikuler::class, 'guru_id', 'id_guru');
     }
 }
