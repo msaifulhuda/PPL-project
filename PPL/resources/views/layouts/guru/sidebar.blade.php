@@ -62,11 +62,11 @@
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}"
-                            :active="request()->is('guru/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('guru/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}"
-                            :active="request()->is('guru/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
+                            :active="request()->is('guru/dashboard/lms/tugas*')">Tugas</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
