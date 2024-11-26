@@ -43,7 +43,7 @@ class UpdateProfilGuruRequest extends FormRequest
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email ini sudah digunakan.',
             'nomor_wa_guru.required' => 'Nomor telepon harus diisi.',
-            'nomor_wa_guru.digits_between' => 'Nomor telepon harus terdiri dari 12 hingga 13 digit.',
+            'nomor_wa_guru.digits_between' => 'Nomor telepon harus terdiri angka 12 hingga 13 digit.',
             'current_password.string' => 'Password lama harus berupa string.',
             'new_password.min' => 'Password baru harus memiliki minimal 8 karakter.',
             'new_password.confirmed' => 'Password baru tidak cocok dengan konfirmasi password.',
