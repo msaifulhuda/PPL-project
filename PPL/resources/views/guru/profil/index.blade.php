@@ -67,36 +67,67 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <!-- Password Lama -->
-                        <div>
+                        <div class="relative">
                             <label for="current_password" class="block text-sm font-medium text-gray-700">Password Lama</label>
-                            <input type="password" id="current_password" name="current_password"
-                                   class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none @error('current_password') border-red-500 @enderror"
-                                   placeholder="Masukkan password lama Anda">
+                            <div class="relative">
+                                <input type="password" id="current_password" name="current_password"
+                                       class="mt-1 block w-full px-4 py-2 pr-10 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none @error('current_password') border-red-500 @enderror"
+                                       placeholder="Masukkan password lama Anda">
+                                <button type="button" 
+                                        class="absolute inset-y-0 right-3 flex items-center"
+                                        style="top: 50%; transform: translateY(-50%);"
+                                        onclick="togglePasswordVisibility('current_password', this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="current_password_eye" class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    </svg>
+                                </button>
+                            </div>
                             @error('current_password')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <!-- Password Baru -->
-                        <div>
+                        
+                        <div class="relative">
                             <label for="new_password" class="block text-sm font-medium text-gray-700">Password Baru</label>
-                            <input type="password" id="new_password" name="new_password"
-                                   class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none @error('new_password') border-red-500 @enderror"
-                                   placeholder="Masukkan password baru">
+                            <div class="relative">
+                                <input type="password" id="new_password" name="new_password"
+                                       class="mt-1 block w-full px-4 py-2 pr-10 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none @error('new_password') border-red-500 @enderror"
+                                       placeholder="Masukkan password baru">
+                                <button type="button" 
+                                        class="absolute inset-y-0 right-3 flex items-center"
+                                        style="top: 50%; transform: translateY(-50%);"
+                                        onclick="togglePasswordVisibility('new_password', this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="new_password_eye" class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    </svg>
+                                </button>
+                            </div>
                             @error('new_password')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
-                        </div>
-
-                        <!-- Konfirmasi Password Baru -->
-                        <div>
+                        </div>                        
+                        <div class="relative">
                             <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password Baru</label>
-                            <input type="password" id="new_password_confirmation" name="new_password_confirmation"
-                                   class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                   placeholder="Ulangi password baru">
-                        </div>
+                            <div class="relative">
+                                <input type="password" id="new_password_confirmation" name="new_password_confirmation"
+                                       class="mt-1 block w-full px-4 py-2 pr-10 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                       placeholder="Ulangi password baru">
+                                <button type="button" 
+                                        class="absolute inset-y-0 right-3 flex items-center"
+                                        style="top: 50%; transform: translateY(-50%);"
+                                        onclick="togglePasswordVisibility('new_password_confirmation', this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="new_password_confirmation_eye" class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>                        
 
                         <!-- Submit -->
                         <div class="flex justify-center">
@@ -123,6 +154,28 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        function togglePasswordVisibility(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('svg');
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                `;
+                icon.classList.add('text-blue-500'); // Menambahkan warna aktif
+            } else {
+                input.type = "password";
+                icon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                `;
+                icon.classList.remove('text-blue-500'); // Menghapus warna aktif
+            }
+        }
+
         // Menampilkan SweetAlert jika ada pesan sukses
         @if(session('success') && !$errors->any())
             Swal.fire({
