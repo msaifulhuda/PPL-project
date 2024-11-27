@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
+use App\Models\pengumpulan_tugas;
 use Illuminate\Support\Facades\Storage;
 
 class TugasGuruController extends Controller
@@ -130,9 +131,17 @@ class TugasGuruController extends Controller
         $request->validate([
             'judul_tugas' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'files.*' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,xlsx|max:2048',
+            'files.*' => [
+                'nullable',
+                'file',
+                'mimes:pdf,doc,docx,ppt,pptx,xlsx',
+                'max:10000'
+            ],
             'tenggat' => 'required|date',
             'kelas_mata_pelajaran_id' => 'required|exists:kelas_mata_pelajaran,id_kelas_mata_pelajaran'
+        ], [
+            'files.*.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
+            'files.*.mimes' => 'File harus berupa PDF, DOC, DOCX, PPT, PPTX, atau XLSX.'
         ]);
 
         $topik_id = $request->topik_id ?? null;
@@ -283,6 +292,73 @@ class TugasGuruController extends Controller
             return redirect()->route('guru.dashboard.lms.forum.tugas', $id_kelas_mata_pelajaran)->with('success', 'Tugas berhasil dihapus');
         } catch (\Exception $e) {
             DB::rollBack();
+            return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function tugasSiswa($id)
+    {
+        $tugas = tugas::with(['pengumpulanTugas' => function ($query) {
+            $query->with(['siswa', 'pengumpulanTugasFile']);
+        }, 'kelasMataPelajaran'])->findOrFail($id);
+        $siswaList = $tugas->kelasMataPelajaran->kelas->siswa;
+        $pengumpulanTugas = $tugas->pengumpulantugas;
+        $diserahkan = $pengumpulanTugas->count();
+        $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas', 'mataPelajaran'])->findOrFail($tugas->kelas_mata_pelajaran_id);
+        $belumDiserahkan = $siswaList->count() - $diserahkan;
+
+        return view('guru.lms.tugas.tugas_siswa', [
+            'tugas' => $tugas,
+            'kelas' => $kelasMataPelajaran->kelas,
+            'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
+            'KelasMataPelajaranId' => $tugas->kelas_mata_pelajaran_id,
+            'siswaList' => $siswaList,
+            'pengumpulanTugas' => $pengumpulanTugas,
+            'diserahkan' => $diserahkan,
+            'belumDiserahkan' => $belumDiserahkan
+        ]);
+    }
+
+    public function detailTugasSiswa($id)
+    {
+        $pengumpulan = pengumpulan_tugas::with(['siswa', 'pengumpulanTugasFile', 'tugas'])->findOrFail($id);
+        $id_tugas = $pengumpulan->tugas->id_tugas;
+        $tugas = tugas::with(['pengumpulanTugas' => function ($query) {
+            $query->with(['siswa', 'pengumpulanTugasFile']);
+        }, 'kelasMataPelajaran'])->findOrFail($id_tugas);
+        $siswaList = $tugas->kelasMataPelajaran->kelas->siswa;
+        $pengumpulanTugas = $tugas->pengumpulantugas;
+        $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas', 'mataPelajaran'])->findOrFail($tugas->kelas_mata_pelajaran_id);
+
+
+
+        return view('guru.lms.tugas.detail_tugas_siswa', [
+            'pengumpulan' => $pengumpulan,
+            'tugas' => $tugas,
+            'kelas' => $kelasMataPelajaran->kelas,
+            'mataPelajaran' => $kelasMataPelajaran->mataPelajaran,
+            'KelasMataPelajaranId' => $tugas->kelas_mata_pelajaran_id,
+            'siswaList' => $siswaList,
+            'pengumpulanTugas' => $pengumpulanTugas,
+        ]);
+    }
+
+    public function nilaiTugas(Request $request, $id)
+    {
+        $request->validate([
+            'nilai' => 'required|numeric|min:0|max:100',
+            'komentar' => 'nullable|string',
+        ]);
+
+        try {
+            $pengumpulan = pengumpulan_tugas::findOrFail($id);
+            $pengumpulan->update([
+                'nilai' => $request->nilai,
+                'komentar' => $request->komentar,
+            ]);
+
+            return redirect()->back()->with('success', 'Nilai berhasil disimpan');
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
         }
     }

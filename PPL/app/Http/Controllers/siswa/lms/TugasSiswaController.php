@@ -141,7 +141,7 @@ class TugasSiswaController extends Controller
                     'siswa_id' => $idSiswa,
                     'tanggal_pengumpulan' => $now,
                     'status' => $status,
-                    'nilai' => 0,
+                    'nilai' => null,
                     'komentar' => ''
                 ]);
 

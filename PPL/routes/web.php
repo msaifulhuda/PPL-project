@@ -380,7 +380,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
     // Mengupdate profil pengguna
     Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
-    
+
 
     /**
      * Start Pembina Ekstrakurikuler
@@ -431,6 +431,11 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/lms/tugas/edit/{id}', [TugasGuruController::class, 'edit'])->name('guru.dashboard.lms.tugas.edit');
     Route::put('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'update'])->name('guru.dashboard.lms.tugas.update');
     Route::delete('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'destroy'])->name('guru.dashboard.lms.tugas.destroy');
+
+    // PENGUMPULAN TUGAS
+    Route::get('/dashboard/lms/tugasiswa/{id}', [TugasGuruController::class, 'tugasSiswa'])->name('guru.dashboard.lms.tugas.siswa');
+    Route::get('/dashboard/lms/pengumpulan_tugas_siswa/{id}', [TugasGuruController::class, 'detailTugasSiswa'])->name('guru.dashboard.lms.tugas.siswa.detail');
+    Route::put('/dashboard/lms/pengumpulan_tugas_siswa/{id}', [TugasGuruController::class, 'nilaiTugas'])->name('guru.dashboard.lms.tugas.siswa.update');
 
     // TOPIK
     Route::post('/dashboard/lms/topik/store/{id}', [TopikLmsController::class, "store"])->name('guru.dashboard.lms.topik.store');
