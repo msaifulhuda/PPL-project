@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('siswa_id');
             $table->string('tanggal_pengumpulan');
             $table->enum('status', ['diserahkan', 'tidak diserahkan', 'terlambat diserahkan']);
-            $table->float('nilai');
+            $table->float('nilai')->nullable()->default(null);
             $table->string('komentar');
             $table->timestamps();
             $table->foreign('tugas_id')->references('id_tugas')->on('tugas');

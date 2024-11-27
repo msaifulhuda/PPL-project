@@ -53,7 +53,7 @@ class Siswa extends Authenticatable
     }
     public function pengumpulantugas()
     {
-        return $this->hasMany(pengumpulan_tugas::class );
+        return $this->hasMany(pengumpulan_tugas::class, 'siswa_id', 'id_siswa');
     }
     public function pengumpulanujian()
     {

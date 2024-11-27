@@ -87,7 +87,7 @@
                                 </button>
                             </form>
                         </div>
-                        <a href=""
+                        <a href="{{route('guru.dashboard.lms.tugas.siswa', $tugas->id_tugas)}}"
                             class="font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-blue-500">
                             Tugas Siswa
                         </a>
