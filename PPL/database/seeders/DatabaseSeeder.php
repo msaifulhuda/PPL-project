@@ -131,20 +131,20 @@ class DatabaseSeeder extends Seeder
         //     EkstrakurikulerPengurusSeeder::class,
         // ]);
 
+        // $idUser1 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser1,
+        //     'username' => 'admin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'andreeka852@gmail.com',
+        // ]);
         $idUser1 = Str::uuid();
         Superadmin::create([
-            'id_admin' => $idUser1,
-            'username' => 'admin',
+            'id_admin' => $idUser2,
+            'username' => 'Superadmin',
             'password' => bcrypt('admin123'),
-            'email' => 'andreeka852@gmail.com',
+            'email' => 'adisahrul383@gmail.com',
         ]);
-        // $idUser2 = Str::uuid();
-        // Superadmin::create([
-        //     'id_admin' => $idUser2,
-        //     'username' => 'Superadmin',
-        //     'password' => bcrypt('admin123'),
-        //     'email' => 'adisahrul383@gmail.com',
-        // ]);
         $idStaffPerpus = Str::uuid();
         Staffperpus::create([
             'id_staff_perpustakaan' => $idStaffPerpus,
