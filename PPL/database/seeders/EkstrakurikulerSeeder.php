@@ -34,7 +34,7 @@ class EkstrakurikulerSeeder extends Seeder
                 'id_ekstrakurikuler' => Str::uuid(),
                 'guru_id' => $guruIds[array_rand($guruIds)],
                 'nama_ekstrakurikuler' => $ekstra,
-                'deskripsi' => $nama_ekstra[$index], ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
+                'deskripsi' => $nama_ekstra[$index] .  ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
                 'gambar' => '-',
                 'status' => 'tidak buka',
             ]);

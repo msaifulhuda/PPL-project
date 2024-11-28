@@ -5,7 +5,7 @@
             $breadcrumbs = [
                 ['label' => 'Dashboard', 'route' => route('siswa.dashboard')],
                 ['label' => 'LMS', 'route' => route('siswa.dashboard.lms')],
-                ['label' => "Tracking Tugas", 'route' => route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $id)],
+                ['label' => 'Tracking Tugas'],
             ];
         @endphp
 
@@ -16,11 +16,11 @@
         <div class="px-3">
             {{-- Tabs --}}
             <div class="flex gap-2 mb-4 mt-6">
-                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.ditugaskan" :id="$id" label="Ditugaskan" />
+                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.ditugaskan" label="Ditugaskan" />
 
-                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.belum_diserahkan" :id="$id" label="Belum Diserahkan" />
+                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.belum_diserahkan" label="Belum Diserahkan" />
 
-                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.diserahkan" :id="$id" label="Selesai" />
+                <x-nav-button-lms route="siswa.dashboard.lms.tracking.tugas.diserahkan" label="Selesai" />
 
             </div>
         </div>
