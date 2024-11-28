@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\kelas_mata_pelajaran;
+use App\Models\kelas;
 use App\Models\pengumpulan_tugas;
 use Illuminate\Support\Facades\Storage;
 
@@ -119,7 +120,7 @@ class TugasGuruController extends Controller
 
     public function detail($id)
     {
-        $tugas = Tugas::with(['filetugas', 'topik', 'kelasMataPelajaran'])->findOrFail($id);
+        $tugas = Tugas::with(['filetugas', 'topik', 'kelasMataPelajaran'])->find($id);
 
         return view('guru.lms.tugas.detail', compact('tugas'));
     }
@@ -249,6 +250,26 @@ class TugasGuruController extends Controller
                 }
             }
 
+            // Update the status of late submissions
+            $submissions = pengumpulan_tugas::where('tugas_id', $id)
+                // Ambil semua pengumpulan tugas yang sudah diserahkan
+                ->whereIn('status', ['diserahkan', 'terlambat diserahkan'])
+                ->get();
+
+            foreach ($submissions as $submission) {
+
+                $deadline = Carbon::parse($request->tenggat);
+
+
+                $submissionDate = Carbon::parse($submission->created_at);
+
+                $isLate = $submissionDate->isAfter($deadline);
+
+                $submission->update([
+                    'status' => $isLate ? 'terlambat diserahkan' : 'diserahkan'
+                ]);
+            }
+
             // Handle new file uploads
             if ($request->hasFile('files')) {
                 $this->handleFileUploads($request->file('files'), $tugas->id_tugas);
@@ -298,6 +319,10 @@ class TugasGuruController extends Controller
 
     public function tugasSiswa($id)
     {
+        // $lateSubmissions = pengumpulan_tugas::where('tugas_id', $id)
+        //     ->where('status', 'terlambat diserahkan')
+        //     ->get();
+        // dd($lateSubmissions);
         $tugas = tugas::with(['pengumpulanTugas' => function ($query) {
             $query->with(['siswa', 'pengumpulanTugasFile']);
         }, 'kelasMataPelajaran'])->findOrFail($id);
@@ -321,6 +346,7 @@ class TugasGuruController extends Controller
 
     public function detailTugasSiswa($id)
     {
+
         $pengumpulan = pengumpulan_tugas::with(['siswa', 'pengumpulanTugasFile', 'tugas'])->findOrFail($id);
         $id_tugas = $pengumpulan->tugas->id_tugas;
         $tugas = tugas::with(['pengumpulanTugas' => function ($query) {
@@ -361,6 +387,63 @@ class TugasGuruController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
         }
+    }
+
+
+    public function periksaTugas(Request $request)
+    {
+        $id_guru = auth()->guard('web-guru')->user()->id_guru;
+
+        $kelasId = $request->input('kelas_id');
+
+        $tugasQuery = tugas::with(['kelasMataPelajaran', 'pengumpulanTugas'])
+            ->whereHas('kelasMataPelajaran', function ($query) use ($id_guru) {
+                $query->where('guru_id', $id_guru);
+            });
+
+
+        if ($kelasId) {
+            $tugasQuery->whereHas('kelasMataPelajaran', function ($query) use ($kelasId) {
+                $query->where('kelas_id', $kelasId);
+            });
+        }
+
+        $tugas = $tugasQuery->get();
+
+        $infoTugas = $tugas->map(function ($t) {
+            $totalSiswa = $t->kelasMataPelajaran->kelas->siswa->count();
+            $siswaMenyerahkan = $t->pengumpulanTugas->count();
+            $dinilai = $t->pengumpulanTugas->filter(function ($p) {
+                return $p->nilai !== null;
+            })->count();
+            $siswaBelumMenyerahkan = $totalSiswa - $siswaMenyerahkan;
+            $namaKelas = $t->kelasMataPelajaran->kelas->nama_kelas;
+            $deadline = $t->deadline;
+
+            return [
+                'tugas' => $t,
+                'totalSiswa' => $totalSiswa,
+                'siswaMenyerahkan' => $siswaMenyerahkan,
+                'dinilai' => $dinilai,
+                'siswaBelumMenyerahkan' => $siswaBelumMenyerahkan,
+                'namaKelas' => $namaKelas,
+                'deadline' => $deadline
+
+            ];
+        });
+        $kelasList = kelas::whereIn('id_kelas', function ($query) use ($id_guru) {
+            $query->select('kelas_id')
+                ->from('kelas_mata_pelajaran')
+                ->where('guru_id', $id_guru);
+        })->pluck('nama_kelas', 'id_kelas')->toArray();
+        $kelasIds = array_keys($kelasList);
+        $kelas = kelas::whereIn('id_kelas', $kelasIds)->orderBy('nama_kelas', 'asc')->get();
+
+        return view('guru.lms.tracking_tugas', [
+            'tugas' => $infoTugas,
+            'kelasList' => $kelas,
+            'kelasId' => $kelasId
+        ]);
     }
 
 

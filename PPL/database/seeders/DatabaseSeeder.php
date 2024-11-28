@@ -139,12 +139,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'andreeka852@gmail.com',
         // ]);
         $idUser1 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser2,
-            'username' => 'Superadmin',
-            'password' => bcrypt('admin123'),
-            'email' => 'adisahrul383@gmail.com',
-        ]);
+        // Superadmin::create([
+        //     'id_admin' => $idUser2,
+        //     'username' => 'Superadmin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'adisahrul383@gmail.com',
+        // ]);
         $idStaffPerpus = Str::uuid();
         Staffperpus::create([
             'id_staff_perpustakaan' => $idStaffPerpus,

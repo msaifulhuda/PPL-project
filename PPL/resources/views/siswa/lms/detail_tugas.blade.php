@@ -31,7 +31,7 @@
                             </div>
                             <div class="text-sm text-gray-600">
                                 <span>Batas waktu:
-                                    {{ \Carbon\Carbon::parse($tugas->batas_waktu)->format('d M Y, H:i') }}</span>
+                                    {{ \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') }}</span>
                             </div>
                         </div>
                         <hr class="h-px mt-4 bg-gray-200 border-0 dark:bg-gray-700">
@@ -77,7 +77,7 @@
                 <div class="p-6 border rounded-lg">
                     <div class="flex items-center justify-between">
                         <h2 class="text-lg md:text-base font-medium text-gray-900">Tugas Anda</h2>
-                        <span class="px-2 py-1 text-sm font-medium {{ $status_color }} rounded-md">
+                        <span class="px-2 py-1 text-xs font-medium {{ $status_color }} rounded-md">
                             {{ $status_text }}
                         </span>
                     </div>
@@ -160,20 +160,31 @@
                         @endif
                     </div>
                 </div>
-            <!-- Nilai Box -->
+                <!-- Nilai Box -->
 
-            @if ($pengumpulan && $pengumpulan->nilai)
-                <div class="mt-3 p-1 border rounded-lg">
-                    <div class="flex justify-center items-center flex-col">
-                        <p class="text-sm text-gray-700">Nilai</p>
-                        <h1 class="text-2xl font-bold text-gray-900">{{ $pengumpulan->nilai }}</h1>
+                @if ($pengumpulan && $pengumpulan->nilai)
+                    <div class="mt-3 p-1  rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm text-gray-900 font-medium ">Nilai</h3>
+                            <h1 class="text-sm font-bold text-gray-900 py-1 px-2 bg-gray-100 rounded-lg">
+                                {{ $pengumpulan->nilai }}/100</h1>
+                        </div>
                     </div>
-                </div>
-            @else
-                 <div class="mt-3 p-1 border rounded-lg flex justify-between items-center">
-                    <p>Belum dinilai</p>
-                </div>
-            @endif
+                    @if ($pengumpulan->komentar)
+                        @if ($pengumpulan->komentar)
+                            <div class="mt-4">
+                                <h3 class="text-sm font-medium text-gray-900">Komentar</h3>
+                                <div class="mt-2 border px-2 py-3 rounded-lg">
+                                    <p>{{ $pengumpulan->komentar }}</p>
+                                </div>
+                            </div>
+                        @endif
+
+                    @endif
+                @else
+                    <p class="mt-3 py-4 px-2 border rounded-lg font-semibold text-center text-sm text-gray-700">Belum
+                        dinilai</p>
+                @endif
             </div>
         </div>
     </div>
@@ -202,7 +213,8 @@
 
                     if (!validTypes.includes(file.type)) {
                         alert(
-                            `File ${file.name} tidak didukung.Format yang didukung: PDF, DOC, DOCX, PPT, PPTX.`);
+                            `File ${file.name} tidak didukung.Format yang didukung: PDF, DOC, DOCX, PPT, PPTX.`
+                        );
 
                         return false;
                     }

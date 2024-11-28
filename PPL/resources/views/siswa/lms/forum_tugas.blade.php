@@ -39,7 +39,7 @@
                                         <p class="text-sm text-gray-600">
                                             {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                             | Tenggat:
-                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                         </p>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                             <p class="text-sm text-gray-600">
                                                 {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                                 | Tenggat:
-                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                             </p>
                                         </div>
                                     </div>

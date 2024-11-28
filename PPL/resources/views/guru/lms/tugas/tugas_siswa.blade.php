@@ -19,8 +19,8 @@
             <div class="basis-2/3 w-full  rounded-lg overflow-y-auto order-1 md:order-2 md:pl-4">
                 <h2 class="text-lg font-semibold mb-4">Pengumpulan Tugas</h2>
                 <div class="py-2 ">
-                    <p class="mb-4">Diserahkan: {{ $diserahkan }} / {{ $belumDiserahkan }}</p>
-                    <div class="flex flex-col gap-4 flex-wrap">
+                    <p class="mb-4 font-medium">Diserahkan: {{ $diserahkan }} / {{ $belumDiserahkan }}</p>
+                    <div class="flex gap-4 flex-wrap">
                         @foreach ($pengumpulanTugas as $pengumpulan)
                             <a href="{{ route('guru.dashboard.lms.tugas.siswa.detail', $pengumpulan->id_pengumpulan_tugas) }}"
                                 class="border px-3 py-2 rounded-lg hover:bg-gray-100">
@@ -44,19 +44,19 @@
                         @if ($pengumpulan)
                             <a href="{{ route('guru.dashboard.lms.tugas.siswa.detail', $pengumpulan->id_pengumpulan_tugas) }}"
                                 class="flex items-center justify-between">
-                                <div class="">{{ $siswa->nama_siswa }}</div>
+                                <div class="text-sm">{{ $siswa->nama_siswa }}</div>
                                 @if ($pengumpulan->nilai !== null)
                                     <span
-                                        class="bg-green-300 text-gray-700 rounded-2xl py-1 px-2 text-xs">Dinilai</span>
+                                        class="bg-green-300 text-gray-700 rounded-2xl py-1 px-2 text-[10px]">{{ $pengumpulan->nilai }}/100</span>
                                 @else
-                                    <span class="bg-red-300 text-gray-700 rounded-2xl py-1 px-2 text-xs">Belum
+                                    <span class="bg-red-300 text-gray-700 rounded-2xl py-1 px-2 text-[10px]">Belum
                                         Dinilai</span>
                                 @endif
                             </a>
                         @else
                             <div class="flex items-center justify-between">
-                                <div class="">{{ $siswa->nama_siswa }}</div>
-                                <span class="bg-gray-200     text-gray-700 rounded-2xl py-1 px-2 text-xs">Belum
+                                <div class="text-sm">{{ $siswa->nama_siswa }}</div>
+                                <span class="bg-gray-200 text-gray-700 rounded-2xl py-1 px-2 text-[10px]">Belum
                                     Diserahkan</span>
                             </div>
                         @endif
