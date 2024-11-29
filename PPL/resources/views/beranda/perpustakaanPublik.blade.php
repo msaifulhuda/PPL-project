@@ -62,18 +62,19 @@
         <h1 class="text-4xl font-bold mb-4 text-blue-700 text-center">Buku Terbaru</h1>
         <p class="text-gray-600 max-w-2xl mx-auto mb-8 text-center">Beberapa Buku terbaru yang kami sediakan</p>
         <div class="grid grid-cols-4 gap-8 md:px-8">
-            @for ($i = 0; $i < 4; $i++)
+            @foreach ($buku as $item)
                 <div class="flex bg-white p-4 rounded-lg shadow-lg gap-4">
-                    <img src="{{ asset('images/beranda/perpustakaan/cover.jpg') }}" alt="Category Image" class="w-48 h-64 object-cover rounded-md mb-4">
+                    <img src="{{ $item->foto_buku }}" alt="Category Image" class="w-48 h-64 object-cover rounded-md mb-4 border-black border-2">
                     <div class="py-2 flex flex-col gap-4">
-                        <h3 class="text-lg font-semibold">Cara Mendapatkan Pahala di Sekolah</h3>
-                        <p class="text-sm">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quisquam placeat labore rerum numquam nisi nesciunt earum</p>
+                        <h3 class="text-lg font-semibold">{{ $item->judul_buku }}</h3>
+                        <p class="text-sm">{{ $item->publisher_buku }}, {{ $item->tahun_terbit }}</p>
+                        <p class="text-sm">{{ $item->author_buku }}</p>
                         <a href="{{ route('login') }}" class="bg-white text-blue-600 text-sm font-semibold py-2 px-4 w-[120px] rounded-md border border-blue-600 hover:bg-blue-600 hover:text-white transition duration-300">
                             Mulai Baca →
                         </a>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </section>
 

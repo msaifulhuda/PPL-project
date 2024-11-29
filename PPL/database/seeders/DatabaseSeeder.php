@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $idUser1 = Str::uuid();
         Superadmin::create([
-            'id_admin' => $idUser1,
+            'id_admin' => $idUser2,
             'username' => 'Superadmin',
             'password' => bcrypt('admin123'),
             'email' => 'adisahrul383@gmail.com',

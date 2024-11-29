@@ -55,7 +55,6 @@
                             'guru.dashboard.lms.forum',
                             'guru.dashboard.lms.forum.tugas',
                             'guru.dashboard.lms.forum.anggota',
-                            'guru.dashboard.lms.forum.nilai_kelas',
                         ])">
                             Beranda
                         </x-sidebar-dropdown-list-link>
@@ -65,7 +64,7 @@
                             :active="request()->is('guru/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}"
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas.periksa') }}"
                             :active="request()->is('guru/dashboard/lms/tugas*')">Tugas</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>

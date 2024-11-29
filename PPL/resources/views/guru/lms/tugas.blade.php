@@ -44,9 +44,6 @@
                                     @endif
 
                                     <div class="flex gap-2 mt-3">
-                                        <a href="" class="text-sm text-green-500">
-                                            Tambah Tugas
-                                        </a>
                                         <span class="text-gray-300">|</span>
                                         <a href="" class="text-sm text-blue-500">
                                             Lihat Semua
