@@ -35,7 +35,7 @@ class Guru extends Authenticatable
     ];
     public function gurumatapelajaran()
     {
-        return $this->hasMany(guru_mata_pelajaran::class, 'id_laporan', 'id_laporan');
+        return $this->hasMany(guru_mata_pelajaran::class, 'guru_id', 'id_guru');
     }
     public function kelasmatapelajaran()
     {

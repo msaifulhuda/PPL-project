@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\beranda;
 
-use App\Http\Controllers\Controller;
+use App\Models\buku;
 use App\Models\Guru;
-use App\Models\Staffakademik;
 use App\Models\Staffperpus;
 use Illuminate\Http\Request;
+use App\Models\Staffakademik;
+use App\Http\Controllers\Controller;
+use App\Models\PrestasiEkstrakurikuler;
 
 class BerandaController extends Controller
 {
@@ -15,17 +17,17 @@ class BerandaController extends Controller
     }
 
     public function perpustakaanPublik(){
-        return view('beranda.perpustakaanPublik');
+        $buku = buku::orderBy('tgl_ditambahkan', 'desc')->limit(4)->get();
+        return view('beranda.perpustakaanPublik', compact('buku'));
     }
 
     public function tenagaPengajarPublik(){
-        $guru = Guru::all();
-        $staff_akademik = Staffakademik::all();
-        $staff_perpustakaan = Staffperpus::all();
-        return view('beranda.tenagaPengajarPublik', compact('guru', 'staff_akademik', 'staff_perpustakaan'));
+        $guru = Guru::with(['gurumatapelajaran.mataPelajaran'])->get();
+        return view('beranda.tenagaPengajarPublik', compact('guru'));
     }
 
     public function prestasiPublik(){
-        return view('beranda.prestasiPublik');
+        $prestasi = PrestasiEkstrakurikuler::with('ekstrakurikuler')->get();
+        return view('beranda.prestasiPublik', compact('prestasi'));
     }
 }
