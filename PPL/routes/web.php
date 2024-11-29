@@ -27,6 +27,7 @@ use App\Http\Controllers\siswa\lms\DashboardSiswaController;
 use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
+use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
@@ -449,7 +450,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
     Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexGuru'])->name('perpustakaan');
     Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showGuru'])->name('dashboard.perpustakaan.detail');
-
+    Route::get('/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transGuru'])->name('guru.perpustakaan.riwayat');
 
     //END PERPUS
 
