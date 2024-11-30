@@ -92,7 +92,7 @@
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.riwayat') }}"
-                            :active="request()->is('siswa/dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
