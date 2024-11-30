@@ -128,6 +128,8 @@ class TugasGuruController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request->all());
+
 
         $request->validate([
             'judul_tugas' => 'required|string|max:255',
@@ -319,10 +321,6 @@ class TugasGuruController extends Controller
 
     public function tugasSiswa($id)
     {
-        // $lateSubmissions = pengumpulan_tugas::where('tugas_id', $id)
-        //     ->where('status', 'terlambat diserahkan')
-        //     ->get();
-        // dd($lateSubmissions);
         $tugas = tugas::with(['pengumpulanTugas' => function ($query) {
             $query->with(['siswa', 'pengumpulanTugasFile']);
         }, 'kelasMataPelajaran'])->findOrFail($id);

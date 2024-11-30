@@ -74,8 +74,8 @@
                         </div>
                     </div>
                 @empty
-                    <div class="text-center py-6 text-gray-500">
-                        Tidak ada mata pelajaran dengan tugas saat ini.
+                    <div class="text-center font-bold py-6 text-gray-500">
+                       Yeay Tidak ada Tugas yang belum diserahkan!
                     </div>
                 @endforelse
             </div>
