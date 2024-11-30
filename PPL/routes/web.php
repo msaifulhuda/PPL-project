@@ -362,6 +362,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
     Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexSiswa'])->name('dashboard.perpustakaan');
     Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showSiswa'])->name('siswa.dashboard.perpustakaan.detail');
+    Route::get('/siswa/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transSiswa'])->name('siswa.perpustakaan.riwayat');
 
 
     //END PERPUS
