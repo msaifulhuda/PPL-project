@@ -60,18 +60,18 @@
                                             <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
                                                 class="flex justify-between items-center">
                                                 <span class="font-medium text-gray-700">{{ $tugas->judul }}</span>
-                                                @if ($tugas->pengumpulantugas->isNotEmpty())
+                                                @if ($tugas->pengumpulanTugas->count() > 0)
                                                     <div class="flex flex-col">
                                                         <div class="flex flex-col items-end">
-                                                            <span
-                                                                class="font-medium text-gray-700">{{ $tugas->pengumpulantugas->first()->nilai }}
-                                                                / 100</span>
-                                                            @if ($tugas->pengumpulantugas->first()->status == 'terlambat diserahkan')
+                                                            <span class="font-medium text-gray-700">
+                                                                {{ $tugas->pengumpulanTugas->first()->nilai }} / 100
+                                                            </span>
+                                                            <p>{{$tugas->pengumpulanTugas->first()->status}}</p>
+                                                            @if ($tugas->pengumpulanTugas->first()->status == 'terlambat diserahkan')
                                                                 <span class="text-red-500 text-xs">terlambat
                                                                     diserahkan</span>
                                                             @endif
                                                         </div>
-
                                                     </div>
                                                 @endif
                                             </a>

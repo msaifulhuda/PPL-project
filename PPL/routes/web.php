@@ -454,7 +454,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
     // START PERPUS
 
-    
+
     Route::get('/guru/dashboard/perpustakaan', [PerpustakaanController::class, 'indexGuru'])->name('perpustakaan');
     Route::get('/guru/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showGuru'])->name('dashboard.perpustakaan.detail');
     Route::get('/guru/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transGuru'])->name('guru.perpustakaan.riwayat');

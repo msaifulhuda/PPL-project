@@ -16,7 +16,7 @@
                 <div class="md:col-span-2 space-y-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">{{ $tugas->judul }}</h2>
-                        <p class="mt-2 text-gray-600">{{ $tugas->deskripsi }}</p>
+                        <p class="mt-6 text-gray-600">     {!! $tugas->deskripsi !!}</p>
                     </div>
 
                     @if ($tugas->filetugas->count() > 0)
