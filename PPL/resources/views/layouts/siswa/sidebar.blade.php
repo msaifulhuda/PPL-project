@@ -90,6 +90,10 @@
                             :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
 
                     </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.riwayat') }}"
+                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                    </li>
                     </x-sidebar-dropdown-list>
                     </li>
 
