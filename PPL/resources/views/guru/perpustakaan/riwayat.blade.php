@@ -26,6 +26,7 @@
             </thead>
             <tbody>
                 @foreach($transaksis as $transaksi)
+                    @include('guru/perpustakaan/modal/riwayatGuru_Modal')
                     <tr>
                         <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $transaksi->judul_buku }}</td>
                         <td class="px-6 py-4 text-sm text-gray-700">{{ \Carbon\Carbon::parse($transaksi->tgl_pengembalian)->format('d M Y') }}</td>
@@ -37,7 +38,12 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm">
-                            <a href="#" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Detail</a>
+                            <button
+                                data-modal-target="update-modal-{{ $transaksi->id_transaksi_peminjaman }}"
+                                data-modal-toggle="update-modal-{{ $transaksi->id_transaksi_peminjaman }}"
+                                type="button" class="flex py-3 px-6">
+                                <span class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg">Detail</span>
+                            </button>
                         </td>
                     </tr>
                 @endforeach

@@ -36,12 +36,6 @@
                                 <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>Hilang</option>
                             </select>
                         </li>
-                        <!-- <li class=" pb-3 justify-between">
-                            <h3 class="my-5">Jumlah buku yang dipinjam: {{ $transaction->stok }}</h3>
-                            <input type="number" name="jumlah_dikembalikan" class="form-input border-gray-300 rounded-lg w-3/5"
-                                placeholder="Jumlah buku yang dikembalikan" min="1" max="{{ $transaction->stok }}" required>
-                            <span class="text-sm ml-2">/ {{ $transaction->stok }}</span>
-                        </li> -->
                     </ul>
 
                     <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
