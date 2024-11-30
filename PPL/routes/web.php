@@ -62,6 +62,7 @@ use App\Http\Controllers\siswa;
 use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\staffakademik\RaporController;
 use App\Http\Controllers\guru\ProfilController;
+use App\Http\Controllers\Siswa\SiswaProfilController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
@@ -276,6 +277,9 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
 // Route Siswa
 Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+
+    Route::get('/profil', [SiswaProfilController::class, 'show'])->name('siswaprofil.show');
+    Route::put('/profil', [SiswaProfilController::class, 'update'])->name('siswaprofil.update');
     /**
      * Start Pengurus Ekstrakurikuler
      */
