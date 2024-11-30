@@ -103,7 +103,7 @@
                 @if (session()->has('username'))
                     <a href="{{ route('ekstrakurikuler.registrasi') }}" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-semibold">Registrasi Ekstra</a>
                 @else
-                    <a href="{{ route('login', ['redirect' => 'registrasi']) }}" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-semibold">Registrasi Ekstra</a>
+                    <a href="{{ route('login', ['redirect' => 'ekstrakurikuler.registrasi']) }}" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-semibold">Registrasi Ekstra</a>
                 @endif
             </div>
         </div>

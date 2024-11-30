@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('gambar');
-            $table->date('tgl_uploud');
+            $table->timestamp('tgl_uploud')->useCurrent();
         });
 
         Schema::enableForeignKeyConstraints();

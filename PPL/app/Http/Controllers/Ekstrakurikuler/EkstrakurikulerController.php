@@ -19,7 +19,7 @@ class EkstrakurikulerController extends Controller
         $siswa = Auth::guard('web-siswa')->user();
 
         // Ambil semua data ekstrakurikuler
-        $ekstrakurikulerList = Ekstrakurikuler::all();
+        $ekstrakurikulerList = Ekstrakurikuler::where('status', 'buka')->get();
 
         // Kirim data siswa dan ekstrakurikuler ke view
         return view('ekstrakurikuler.registrasi', compact('siswa', 'ekstrakurikulerList'));
