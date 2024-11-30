@@ -82,11 +82,11 @@
                         <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('guru/dashboard/perpustakaan*')">
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('perpustakaan') }}"
-                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                            :active="request()->is('guru/dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('guru.perpustakaan.riwayat') }}"
-                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('guru/dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>

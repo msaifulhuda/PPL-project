@@ -4,20 +4,24 @@ namespace App\Http\Controllers\perpustakaan;
 
 use App\Models\buku;
 use App\Models\transaksi_peminjaman;
-use App\Models\guru;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Auth;  // Pastikan Auth diimport
 
 class RiwayatPengunjungController extends Controller
 {
-
-    
     public function transGuru(Request $request)
     {
+        // Ambil data pengguna dari Auth guard
+        $guru = Auth::guard('web-guru')->user();
 
-        $nip = session('nip');  // Mengambil NIP dari akun yang sedang login
+        // Pastikan pengguna login
+        if (!$guru) {
+            return redirect()->route('login')->withErrors(['username' => 'Sesi Anda telah berakhir. Silakan login kembali.']);
+        }
+
+        // Mengambil NIP dari guru yang sedang login
+        $nip = $guru->nip;
 
         // Mendapatkan transaksi berdasarkan NIP guru yang login
         $query = transaksi_peminjaman::where('kode_peminjam', '=', $nip)
