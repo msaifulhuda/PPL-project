@@ -16,13 +16,11 @@
             </x-alert-notification>
         @endif
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+            @foreach ($errors->all() as $error)
+                <x-alert-notification :color="'red'">
+                    {{ $error }}
+                </x-alert-notification>
+            @endforeach
         @endif
 
         <form action="{{ route('guru.dashboard.lms.tugas.store', $id) }}" method="POST" enctype="multipart/form-data"
@@ -36,16 +34,18 @@
                     <!-- Judul -->
                     <div>
                         <label for="judul" class="block text-sm font-medium text-gray-700">Judul Tugas</label>
-                        <input type="text" name="judul_tugas" id="judul"
+                        <input type="text" name="judul_tugas" id="judul" autofocus
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             required>
                     </div>
 
                     <!-- Deskripsi -->
                     <div>
-                        <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi Materi(Optional)</label>
-                        <textarea name="deskripsi" id="deskripsi" rows="4"
-                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                        <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi
+                            Tugas</label>
+                        <input id="deskripsi" type="hidden" name="deskripsi">
+                        <trix-editor input="deskripsi" id="deskripsi" rows="4"
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></trix-editor>
                     </div>
 
                     <!-- File Upload -->
@@ -92,7 +92,7 @@
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col gap-y-3">
-                        <button type="button"  onclick="openModal()"
+                        <button type="button" onclick="openModal()"
                             class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-500 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Tambah Topik
                         </button>

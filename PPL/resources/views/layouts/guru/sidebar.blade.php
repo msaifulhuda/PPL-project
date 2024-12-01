@@ -55,18 +55,17 @@
                             'guru.dashboard.lms.forum',
                             'guru.dashboard.lms.forum.tugas',
                             'guru.dashboard.lms.forum.anggota',
-                            'guru.dashboard.lms.forum.nilai_kelas',
                         ])">
                             Beranda
                         </x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.materi') }}"
-                            :active="request()->is('guru/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('guru/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas') }}"
-                            :active="request()->is('guru/dashboard/lms/tugas')">Tugas</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.lms.tugas.periksa') }}"
+                            :active="request()->is('guru/dashboard/lms/tugas*')">Tugas</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
@@ -80,12 +79,14 @@
                                     clip-rule="evenodd" />+
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
-                        <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('guru/dashboard/perpustakaan*')">
+                        <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
                     <li>
-
                         <x-sidebar-dropdown-list-link href="{{ route('perpustakaan') }}"
                             :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
-
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.perpustakaan.riwayat') }}"
+                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>

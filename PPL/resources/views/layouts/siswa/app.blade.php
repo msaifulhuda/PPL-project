@@ -16,7 +16,8 @@
 
     {{-- Website Icon --}}
     <link rel="icon" href="{{ asset('images/SST-Icon-Black.png') }}" type="image/x-icon" />
-
+    {{-- font-awesome --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js'])
 </head>

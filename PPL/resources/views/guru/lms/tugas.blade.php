@@ -20,8 +20,8 @@
 
                     @foreach ($mataPelajaranGrup as $mapelId => $mapel)
                         @foreach ($mapel['kelas'] as $kelas)
-                            <div class="mb-6 p-4 border border-black rounded-xl">
-                                <div class="mt-4 pl-4">
+                            <div class="p-4 mb-6 border border-black rounded-xl">
+                                <div class="pl-4 mt-4">
                                     <h4 class="font-medium">
                                         <h3 class="text-lg font-medium">{{ $mapel['mata_pelajaran'] }} {{ $kelas['nama_kelas'] }}</h3>
 
@@ -43,10 +43,7 @@
                                         <p class="text-sm text-gray-500">Tidak ada tugas</p>
                                     @endif
 
-                                    <div class="mt-3 flex gap-2">
-                                        <a href="" class="text-sm text-green-500">
-                                            Tambah Tugas
-                                        </a>
+                                    <div class="flex gap-2 mt-3">
                                         <span class="text-gray-300">|</span>
                                         <a href="" class="text-sm text-blue-500">
                                             Lihat Semua
@@ -66,12 +63,12 @@
 
                     @foreach ($allTasks as $date => $tasks)
                         <div class="mb-4">
-                            <div class="flex justify-between items-center cursor-pointer"
+                            <div class="flex items-center justify-between cursor-pointer"
                                 onclick="toggleTasks('{{ $date }}')">
                                 <h3 class="mb-2 text-lg font-medium text-gray-800">
                                     {{ \Carbon\Carbon::parse($date)->format('d F Y') }}
                                 </h3>
-                                <span id="arrow-{{ $date }}" class="text-gray-500 pr-1">
+                                <span id="arrow-{{ $date }}" class="pr-1 text-gray-500">
                                     <svg width="20" height="10" viewBox="0 0 12 6" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -85,7 +82,7 @@
                                 @foreach ($tasks as $task)
                                     <a href="{{ route('guru.dashboard.lms.detail.tugas', $task->id_tugas) }}">
                                         <div
-                                            class="flex items-center gap-4 p-4 mb-4 border border-black rounded-xl hover:bg-gray-100 transition-colors">
+                                            class="flex items-center gap-4 p-4 mb-4 transition-colors border border-black rounded-xl hover:bg-gray-100">
                                             <div class="flex-shrink-0">
                                                 <svg width="28" height="36" viewBox="0 0 28 36" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">

@@ -16,7 +16,7 @@
                 <div class="md:col-span-2 space-y-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">{{ $tugas->judul }}</h2>
-                        <p class="mt-2 text-gray-600">{{ $tugas->deskripsi }}</p>
+                        <p class="mt-6 text-gray-600">     {!! $tugas->deskripsi !!}</p>
                     </div>
 
                     @if ($tugas->filetugas->count() > 0)
@@ -52,12 +52,13 @@
                         <dl class="mt-4 space-y-3">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Topik</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $tugas->topik->judul_topik }}</dd>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ $tugas->topik->judul_topik ?? 'Tidak ada topik' }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Tenggat</dt>
                                 <dd class="mt-1 text-sm  text-red-600">
-                                    {{ $tugas->deadline ? $tugas->deadline->format('d M Y H:i') : 'Tidak ada tenggat' }}
+                                    {{ $tugas->deadline ? $tugas->deadline->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
 
 
                                 </dd>
@@ -77,17 +78,19 @@
                                 class="flex-1 font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-yellow-400">
                                 Edit Tugas
                             </a>
-                            <form action="{{ route('guru.dashboard.lms.tugas.destroy', $tugas->id_tugas) }}" method="POST" onclick="return confirm('yakin tugas ini ingin dihapus?')">
+                            <form action="{{ route('guru.dashboard.lms.tugas.destroy', $tugas->id_tugas) }}"
+                                method="POST" onclick="return confirm('yakin tugas ini ingin dihapus?')">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="kelas_mata_pelajaran_id" value="{{$tugas->kelas_mata_pelajaran_id}}">
+                                <input type="hidden" name="kelas_mata_pelajaran_id"
+                                    value="{{ $tugas->kelas_mata_pelajaran_id }}">
                                 <button type="submit"
                                     class="flex-1 font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-red-500">
                                     Hapus Tugas
                                 </button>
                             </form>
                         </div>
-                        <a href=""
+                        <a href="{{ route('guru.dashboard.lms.tugas.siswa', $tugas->id_tugas) }}"
                             class="font-semibold inline-flex justify-center py-2 px-4 border border-black rounded-lg hover:bg-blue-500">
                             Tugas Siswa
                         </a>
@@ -100,4 +103,3 @@
 
 
 </x-app-guru-layout>
-
