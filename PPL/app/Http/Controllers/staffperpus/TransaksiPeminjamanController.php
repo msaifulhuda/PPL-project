@@ -264,6 +264,14 @@ class TransaksiPeminjamanController extends Controller
             return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
         }
 
+        if (isset($request->status_denda)) {
+            if ($request->status_denda !== null) {
+                if ($request->status_denda == 1) {
+                    $transaction->status_denda = 1;
+                }
+            }
+        }
+
         // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
         if ($request->status_pengembalian == 1) {
             // Kurangi stok transaksi
@@ -319,5 +327,13 @@ class TransaksiPeminjamanController extends Controller
         } else {
             return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
         }
+    }
+    public function update_status_denda(Request $request)
+    {
+        $transaction = transaksi_peminjaman::find($request->status_denda_id_transaksi);
+        $transaction->status_denda = $request->status_denda_button;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Status Denda Telah Dibayar!');
     }
 }

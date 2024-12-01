@@ -270,6 +270,7 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
     Route::put('/staff_perpus/transaksi/daftartransaksi/{id}', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
+    Route::post('/update_status_denda', [TransaksiPeminjamanController::class, 'update_status_denda'])->name('staff_perpus.transaksi.update_status_denda');
 });
 
 

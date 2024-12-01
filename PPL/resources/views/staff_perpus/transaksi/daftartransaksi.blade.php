@@ -25,6 +25,7 @@
                                 <th class="py-3 px-6">Tanggal Peminjaman</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Action</th>
+                                <th class="py-3 px-6">Status Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,11 +35,11 @@
                                     <td class="py-3 px-6">{{ $transaction->kode_peminjam }}</td>
                                     <td class="py-3 px-6">
                                         {{ \Carbon\Carbon::parse($transaction->tgl_peminjaman)->format('d F Y') }}
-                                          <!-- {{ $transaction->tgl_pengembalian }} -->
+                                        <!-- {{ $transaction->tgl_pengembalian }} -->
                                     </td>
                                     <td class="py-3 px-6">
                                         {{ \Carbon\Carbon::parse($transaction->tgl_pengembalian)->format('d F Y') }}
-                                          <!-- {{ $transaction->tgl_pengembalian }} -->
+                                        <!-- {{ $transaction->tgl_pengembalian }} -->
                                     </td>
                                     <!-- <td class="py-3 px-6">
                                         <span
@@ -51,11 +52,34 @@
                                             data-modal-target="update-modal-{{ $transaction->id_transaksi_peminjaman }}"
                                             data-modal-toggle="update-modal-{{ $transaction->id_transaksi_peminjaman }}"
                                             type="button" class="flex py-3 px-6">
-                                            <span class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Edit</span>
+                                            <span
+                                                class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Edit</span>
                                         </button>
                                     </td>
+                                    <td>
+                                        <div class="flex gap-4 items-center">
+                                            <button disabled
+                                                class="inline-block px-3 py-1 rounded-full text-xs {{ $transaction->status_denda == 0 ? 'bg-red-500 text-white' : 'bg-green-500 text-white' }}">
+                                                {{ $transaction->status_denda == 0 ? 'Belum Dibayar (Rp. ' . $transaction->denda . ')' : 'Sudah Dibayar' }}
+                                            </button>
+                                            @if ($transaction->status_denda == 0)
+                                                <form
+                                                    action="{{ route('staff_perpus.transaksi.update_status_denda') }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="status_denda_button" value="1">
+                                                    <input type="hidden" name="status_denda_id_transaksi"
+                                                        value="{{ $transaction->id_transaksi_peminjaman }}">
+                                                    <button type="submit"
+                                                        class="inline-block px-3 py-1 rounded-full text-xs bg-blue-500 text-white">
+                                                        Ubah (Lunas)
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
                                 </tr>
-                                @empty
+                            @empty
                                 <tr>
                                     <td colspan="4" class="text-center py-3 text-red-500">
                                         Tidak ada transaksi yang ditemukan well
@@ -65,9 +89,8 @@
                         </tbody>
                     </table>
                 </div>
-                    <div class="mt-4">
-                        {{ $transactions->links('pagination::tailwind') }}
-                    </div>
+                <div class="mt-4">
+                    {{ $transactions->links('pagination::tailwind') }}
+                </div>
             </div>
-            
 </x-staffperpustakaan-layout>
