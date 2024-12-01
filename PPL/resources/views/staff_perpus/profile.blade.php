@@ -30,7 +30,8 @@
                 <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Password</dt>
                 <dd class="flex justify-between">
                     <span class="text-lg font-semibold">******</span>
-                    <button data-modal-target="pwd-modal" data-modal-toggle="pwd-modal" type="button"
+                    <button data-modal-target="pwd-modal" data-modal-toggle="pwd-modal" id="pwd-modal-trigger"
+                        type="button"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 24 24">

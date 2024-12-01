@@ -20,13 +20,14 @@ class TransaksiPeminjamanController extends Controller
 
     public function __construct()
     {
-        $this->staff_account = DB::table('staffperpus')
-            ->where('username', '=', session('username'))
-            ->first();
+        if (!session()->has('bio') || session('bio') === null) {
+            $this->staff_account = DB::table('staffperpus')
+                ->select('username', 'nama_staff_perpustakaan', 'email')
+                ->where('username', '=', session('username'))
+                ->first();
 
-        view()->composer('*', function ($view) {
-            $view->with('staff_account',  $this->staff_account);
-        });
+            session(['bio' => $this->staff_account]);
+        }
     }
 
     public function index(Request $request)
@@ -288,32 +289,32 @@ class TransaksiPeminjamanController extends Controller
             // Tambahkan denda berdasarkan harga_buku
             $transaction->denda += $book->harga_buku * $request->jumlah_dikembalikan;
             $transaction->save();
-    
+
             return redirect()->back()->with('success', 'Status buku hilang berhasil diproses. Denda telah diperbarui.');
         } elseif ($request->status_pengembalian == 0 && $request->jumlah_dikembalikan <= $transaction->stok) {
-        // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
-        $transaction->stok -= $request->jumlah_dikembalikan;
-        $transaction->status_pengembalian = 0;
+            // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
+            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->status_pengembalian = 0;
 
-        $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+            $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
 
-        // Hitung selisih hari antara tanggal pengembalian dan hari ini
-        $today = now(); // Mengambil tanggal hari ini
-        $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
-        $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
+            // Hitung selisih hari antara tanggal pengembalian dan hari ini
+            $today = now(); // Mengambil tanggal hari ini
+            $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
+            $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
 
-        // Tambahkan denda jika telat
-        if ($daysLate > 0) {
-            $transaction->denda += 1000 * $daysLate * $request->jumlah_dikembalikan;
-        }
+            // Tambahkan denda jika telat
+            if ($daysLate > 0) {
+                $transaction->denda += 1000 * $daysLate * $request->jumlah_dikembalikan;
+            }
 
-        // Update stok buku
-        $book->stok_buku += $request->jumlah_dikembalikan;
-        $book->save();
+            // Update stok buku
+            $book->stok_buku += $request->jumlah_dikembalikan;
+            $book->save();
 
-        $transaction->save();
+            $transaction->save();
 
-        return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
+            return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
         } else {
             return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
         }
