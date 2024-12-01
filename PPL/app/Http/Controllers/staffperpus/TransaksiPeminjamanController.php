@@ -20,19 +20,21 @@ class TransaksiPeminjamanController extends Controller
 
     public function __construct()
     {
-        $this->staff_account = DB::table('staffperpus')
-            ->where('username', '=', session('username'))
-            ->first();
+        if (!session()->has('bio') || session('bio') === null) {
+            $this->staff_account = DB::table('staffperpus')
+                ->select('username', 'nama_staff_perpustakaan', 'email')
+                ->where('username', '=', session('username'))
+                ->first();
 
-        view()->composer('*', function ($view) {
-            $view->with('staff_account',  $this->staff_account);
-        });
+            session(['bio' => $this->staff_account]);
+        }
     }
 
     public function index(Request $request)
     {
         $query = $request->input('query');
         // Mengambil transaksi dengan status_pengembalian = 0
+        $transactions = transaksi_peminjaman::with('buku');
         $transactions = transaksi_peminjaman::where('stok', '!=', '0')
             ->when($query, function ($queryBuilder) use ($query) {
                 return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
@@ -231,8 +233,8 @@ class TransaksiPeminjamanController extends Controller
         // Validasi input
         $request->validate([
             'status_pengembalian' => 'required|in:0,1,2', // Hanya menerima nilai 0, 1, atau 2
-            'jumlah_dikembalikan' => 'required|integer|min:1',
         ]);
+
 
         // Ambil data transaksi berdasarkan ID
         $transaction = transaksi_peminjaman::find($id);
@@ -241,15 +243,23 @@ class TransaksiPeminjamanController extends Controller
             return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
         }
 
+        if (isset($request->status_denda)) {
+            if ($request->status_denda !== null) {
+                if ($request->status_denda == 1) {
+                    $transaction->status_denda = 1;
+                }
+            }
+        }
+
         // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
-        if ($request->status_pengembalian == 1 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        if ($request->status_pengembalian == 1) {
             // Kurangi stok transaksi
-            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->stok -= 1;
 
             // Update stok buku terkait
             $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
             if ($book) {
-                $book->stok_buku += $request->jumlah_dikembalikan;
+                $book->stok_buku += 1;
                 $book->save();
             }
 
@@ -258,43 +268,51 @@ class TransaksiPeminjamanController extends Controller
             $transaction->save();
 
             return redirect()->back()->with('success', 'Status pengembalian berhasil diperbarui.');
-        } elseif ($request->status_pengembalian == 2 && $request->jumlah_dikembalikan <= $transaction->stok) {
+        } elseif ($request->status_pengembalian == 2) {
             // Jika 'Hilang', kurangi stok transaksi dan tambahkan denda
-            $transaction->stok -= $request->jumlah_dikembalikan;
+            $transaction->stok -= 1;
             $transaction->status_pengembalian = 2;
 
             $book = buku::find($transaction->id_buku);
             // Tambahkan denda berdasarkan harga_buku
-            $transaction->denda += $book->harga_buku * $request->jumlah_dikembalikan;
+            $transaction->denda += $book->harga_buku;
             $transaction->save();
-    
+
             return redirect()->back()->with('success', 'Status buku hilang berhasil diproses. Denda telah diperbarui.');
-        } elseif ($request->status_pengembalian == 0 && $request->jumlah_dikembalikan <= $transaction->stok) {
-        // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
-        $transaction->stok -= $request->jumlah_dikembalikan;
-        $transaction->status_pengembalian = 0;
+        } elseif ($request->status_pengembalian == 0) {
+            // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
+            $transaction->stok -= 1;
+            $transaction->status_pengembalian = 0;
 
-        $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+            $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
 
-        // Hitung selisih hari antara tanggal pengembalian dan hari ini
-        $today = now(); // Mengambil tanggal hari ini
-        $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
-        $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
+            // Hitung selisih hari antara tanggal pengembalian dan hari ini
+            $today = now(); // Mengambil tanggal hari ini
+            $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
+            $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
 
-        // Tambahkan denda jika telat
-        if ($daysLate > 0) {
-            $transaction->denda += 1000 * $daysLate * $request->jumlah_dikembalikan;
-        }
+            // Tambahkan denda jika telat
+            if ($daysLate > 0) {
+                $transaction->denda += 1000 * $daysLate;
+            }
 
-        // Update stok buku
-        $book->stok_buku += $request->jumlah_dikembalikan;
-        $book->save();
+            // Update stok buku
+            $book->stok_buku += 1;
+            $book->save();
 
-        $transaction->save();
+            $transaction->save();
 
-        return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
+            return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
         } else {
             return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
         }
+    }
+    public function update_status_denda(Request $request)
+    {
+        $transaction = transaksi_peminjaman::find($request->status_denda_id_transaksi);
+        $transaction->status_denda = $request->status_denda_button;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Status Denda Telah Dibayar!');
     }
 }

@@ -60,12 +60,12 @@
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.materi') }}"
-                            :active="request()->is('siswa/dashboard/lms/materi')">Materi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/lms/materi*')">Materi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tugas') }}"
+                        <x-sidebar-dropdown-list-link href="{{ route('siswa.dashboard.lms.tracking.tugas.ditugaskan') }}"
                             :active="request()->routeIs([
-                                'siswa/dashboard/lms/tugas',
+                                // 'siswa/dashboard/lms/tugas',
                                 'siswa.dashboard.lms.tracking.tugas.ditugaskan',
                                 'siswa.dashboard.lms.tracking.tugas.belum_diserahkan',
                                 'siswa.dashboard.lms.tracking.tugas.diserahkan'
@@ -89,6 +89,10 @@
                         <x-sidebar-dropdown-list-link href="{{ route('dashboard.perpustakaan') }}"
                             :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
 
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.riwayat') }}"
+                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
@@ -135,6 +139,15 @@
                                 </path>
                             </x-sidebar-icon>
                             <span class="ml-3" sidebar-toggle-item>Ujian</span>
+                        </x-sidebar-link>
+                    </li>
+
+                    {{-- Prestasi--}}
+                    <li>
+                        <x-sidebar-link href="{{route('siswa.prestasi')}}">
+                                <i class="ml-1 fa-solid fa-trophy"></i>
+
+                            <span class="ml-3" sidebar-toggle-item>Prestasi</span>
                         </x-sidebar-link>
                     </li>
                 </ul>

@@ -24,7 +24,7 @@
             <div class="flex flex-col items-center">
                 <div class="w-full max-w-3xl">
                     @foreach ($tugasTanpaTopik as $tugas)
-                        <a href="{{ route('guru.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
+                        <a href="{{ route('siswa.dashboard.lms.detail.tugas', $tugas->id_tugas) }}"
                             class="block hover:bg-gray-200">
                             <div class="p-4 mt-4 border rounded-lg border-black">
                                 <div class="flex items-center">
@@ -39,7 +39,7 @@
                                         <p class="text-sm text-gray-600">
                                             {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                             | Tenggat:
-                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                         </p>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                             <p class="text-sm text-gray-600">
                                                 {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                                 | Tenggat:
-                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                             </p>
                                         </div>
                                     </div>

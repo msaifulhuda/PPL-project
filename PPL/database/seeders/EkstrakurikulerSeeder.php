@@ -34,7 +34,7 @@ class EkstrakurikulerSeeder extends Seeder
                 'id_ekstrakurikuler' => Str::uuid(),
                 'guru_id' => $guruIds[array_rand($guruIds)],
                 'nama_ekstrakurikuler' => $ekstra,
-                'deskripsi' => $nama_ekstra[$index], ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
+                'deskripsi' => $nama_ekstra[$index] .  ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
                 'gambar' => '-',
                 'status' => 'tidak buka',
             ]);
@@ -85,13 +85,13 @@ class EkstrakurikulerSeeder extends Seeder
         /**
          * Mengisi laporan penilaian ekstrakurikuler.
          */
-        foreach ($idEkstra as $index => $ekstra){
-            $idAnggota = RegistrasiEkstrakurikuler::whereIn('id_siswa', $idSiswa)->where('status', 'diterima')->where('id_ekstrakurikuler', $ekstra)->pluck('id_siswa')->toArray();
+        foreach ($idEkstra as $index => $id){
+            $idAnggota = RegistrasiEkstrakurikuler::whereIn('id_siswa', $idSiswa)->where('status', 'diterima')->where('id_ekstrakurikuler', $id)->pluck('id_siswa')->toArray();
             foreach ($idAnggota as $anggota){
                 LaporanPenilaianEkstrakurikuler::create([
                     'id_laporan' => Str::uuid(),
                     'id_siswa' => $anggota,
-                    'id_ekstrakurikuler' => $ekstra,
+                    'id_ekstrakurikuler' => $id,
                     'isi_laporan' => 'Deskripsi laporan penilaian ekstrakurikuler ' . $ekstra[$index]->nama_ekstrakurikuler,
                 ]);
             }

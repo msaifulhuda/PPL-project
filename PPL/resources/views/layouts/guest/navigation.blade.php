@@ -8,10 +8,10 @@
 
         <nav class="space-x-8">
             <a href="{{ route('beranda.home') }}" class="text-gray-700 hover:text-blue-600">Home</a>
-            <a href="{{ route('beranda.home') }}" class="text-gray-700 hover:text-blue-600">Tentang Kami</a>
             <a href="{{ route('beranda.perpustakaanPublik') }}" class="text-gray-700 hover:text-blue-600">Perpustakaan</a>
             <a href="{{ route('beranda.tenagaPengajarPublik') }}" class="text-gray-700 hover:text-blue-600">Tenaga Pengajar</a>
             <a href="{{ route('ekstrakurikuler.dashboardEkstra') }}" class="text-gray-700 hover:text-blue-600">Ekstrakurikuler</a>
+            <a href="{{ route('beranda.prestasiPublik') }}" class="text-gray-700 hover:text-blue-600">Prestasi</a>
         </nav>
         @if(session()->has('username'))
             <div class="relative">
@@ -28,7 +28,6 @@
                                 <a href="{{ route('siswa.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                             @elseif(auth()->guard('web-guru')->check())
                                 <a href="{{ route('guru.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-
                             @endif
                         </li>
                         </li>

@@ -2,29 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Prestasi extends Model
 {
-    use HasFactory;
+    use HasUuids;
 
-    // Mengatur UUID sebagai primary key
-    protected $keyType = 'string';
+    protected $table = 'prestasi';
+    protected $primaryKey = 'id_prestasi';
     public $incrementing = false;
-
-    // Event untuk mengisi UUID otomatis
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->id = $model->id ?? (string) Str::uuid();
-        });
-    }
+    public $timestamps = false;
+    protected $keyType = 'string';
 
     // Kolom yang dapat diisi massal
     protected $fillable = [
         'siswa_id', 'id_prestasi', 'nama_prestasi', 'bukti_prestasi', 'deskripsi_prestasi', 'status_prestasi'
     ];
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id', 'id_siswa');
+    }
 }

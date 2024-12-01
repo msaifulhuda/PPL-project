@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\kategori_buku;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -17,13 +18,14 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->staff_account = DB::table('staffperpus')
-            ->where('username', '=', session('username'))
-            ->first();
+        if (!session()->has('bio') || session('bio') === null) {
+            $this->staff_account = DB::table('staffperpus')
+                ->select('username', 'nama_staff_perpustakaan', 'email')
+                ->where('username', '=', session('username'))
+                ->first();
 
-        view()->composer('*', function ($view) {
-            $view->with('staff_account',  $this->staff_account);
-        });
+            session(['bio' => $this->staff_account]);
+        }
     }
     public function manageCategory()
     {
@@ -35,18 +37,29 @@ class CategoryController extends Controller
     }
     public function addCategory(Request $request)
     {
-        $valid = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:kategori_buku,nama_kategori',
+        ], [
+            'name.required' => 'Please input the name.',
+            'name.max' => 'The maximum length for name is 255 characters.',
+            'name.unique' => 'The name must be unique.',
         ]);
-        if ($valid) {
-            kategori_buku::create([
-                'id_kategori_buku' => Str::uuid(),
-                'nama_kategori' => $request->input('name')
-            ]);
-            return redirect()->route('staff_perpus.managecategories')->with('success', 'Category added successfully!');
+
+        if ($validator->fails()) {
+            return redirect()->route('staff_perpus.managecategories')
+                ->withErrors($validator)
+                ->withInput();
         }
-        return redirect()->route('staff_perpus.managecategories')->with('failed', 'Category added failed!');
+
+        kategori_buku::create([
+            'id_kategori_buku' => Str::uuid(),
+            'nama_kategori' => $request->input('name'),
+        ]);
+
+        return redirect()->route('staff_perpus.managecategories')
+            ->with('success', 'Category added successfully!');
     }
+
     public function deleteCategory(Request $request)
     {
         $categories = $request->input();
