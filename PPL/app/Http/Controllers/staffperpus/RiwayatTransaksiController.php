@@ -17,7 +17,7 @@ use App\Models\transaksi_peminjaman;
 class RiwayatTransaksiController extends Controller
 {
     protected $staff_account;
-    
+
     public function __construct()
     {
         $this->staff_account = DB::table('staffperpus')
@@ -29,18 +29,21 @@ class RiwayatTransaksiController extends Controller
         });
     }
     public function index(Request $request)
-    {
-        $query = $request->input('query');
-        // Mengambil transaksi dengan status_pengembalian = 0
-        $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '0')
-            ->when($query, function ($queryBuilder) use ($query) {
-                return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
-            })
-            ->orderBy('tgl_awal_peminjaman', 'desc') // Urutkan dari yang terbaru
-            ->paginate(10) // Tambahkan pagination
-            ->withQueryString(); // Pertahankan query string pada pagination
+{
+    $query = $request->input('query');
+    
+    // Mengambil transaksi dengan status_pengembalian != 0 dan status denda != 0
+    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '0')
+        ->where('status_denda', '!=', '0') // Filter untuk status denda != 0
+        ->when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
+        })
+        ->orderBy('tgl_awal_peminjaman', 'desc') // Urutkan dari yang terbaru
+        ->paginate(10) // Tambahkan pagination
+        ->withQueryString(); // Pertahankan query string pada pagination
 
-        // Mengembalikan data ke view
-        return view('staff_perpus.transaksi.daftartransaksi', compact('transactions'));
-    }
+    // Mengembalikan data ke view
+    return view('staff_perpus.riwayat_transaksi.riwayattransaksi', compact('transactions'));
+}
+
 }

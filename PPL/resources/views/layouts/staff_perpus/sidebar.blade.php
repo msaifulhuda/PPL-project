@@ -85,7 +85,7 @@
                         </x-sidebar-link>
                     </li>
                     <li>
-                        <x-sidebar-link href="{{ route('staff_perpus.riwayat_transaksi.riwayat_transaksi') }}" :active="request()->is('staff_perpus/manageCategory')">
+                        <x-sidebar-link href="{{ route('staff_perpus.riwayat_transaksi.riwayattransaksi') }}" :active="request()->is('staff_perpus/manageCategory')">
                             <x-sidebar-icon>
                                 <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -109,15 +109,15 @@
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.laporan.laporanbukumasuk') }}"  :active="request()->is('dashboard/perpustakaan/laporan/bukumasuk')">Laporan Buku
                             Masuk</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.laporan.laporanbukuhilang') }}" :active="request()->is('dashboard/perpustakaan/laporan/bukuhilang')">Laporan Buku
                             Hilang</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="dashboard/lms" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
+                        <x-sidebar-dropdown-list-link href="{{ route('staff_perpus.laporan.laporantransaksi') }}" :active="request()->is('dashboard/perpustakaan/laporan/transaksi')">Laporan
                             Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     <!-- <li>

@@ -39,6 +39,7 @@ use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
+use App\Http\Controllers\staffperpus\LaporanController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
@@ -262,7 +263,15 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/daftartransaksi/{id}', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
 
     // Riwayat transaksi
-    Route::get('/riwayat_transaksi', [RiwayatTransaksiController::class, 'index'])->name('staff_perpus.riwayat_transaksi.riwayat_transaksi');
+    Route::get('/riwayat_transaksi', [RiwayatTransaksiController::class, 'index'])->name('staff_perpus.riwayat_transaksi.riwayattransaksi');
+    // Route untuk menampilkan laporan buku masuk
+    Route::get('/laporan/buku-masuk', [LaporanController::class, 'bukumasuk'])->name('staff_perpus.laporan.laporanbukumasuk');
+   // Route untuk menampilkan laporan buku hilang
+    Route::get('/laporan/buku-hilang', [LaporanController::class, 'bukuhilang'])->name('staff_perpus.laporan.laporanbukuhilang');
+   // Route untuk menampilkan laporan buku transaksi
+    Route::get('/laporan/transaksi-buku', [LaporanController::class, 'transaksibuku'])->name('staff_perpus.laporan.laporantransaksi');
+
+
 });
 
 
