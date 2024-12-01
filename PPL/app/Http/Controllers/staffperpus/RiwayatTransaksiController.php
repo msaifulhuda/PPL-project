@@ -33,8 +33,8 @@ class RiwayatTransaksiController extends Controller
     $query = $request->input('query');
     
     // Mengambil transaksi dengan status_pengembalian != 0 dan status denda != 0
-    $transactions = transaksi_peminjaman::where('status_pengembalian', '!=', '0')
-        ->where('status_denda', '!=', '0') // Filter untuk status denda != 0
+    $transactions = transaksi_peminjaman::where('stok', '=', '0')
+        // ->where('status_denda', '!=', '0') // Filter untuk status denda != 0
         ->when($query, function ($queryBuilder) use ($query) {
             return $queryBuilder->where('kode_peminjam', 'like', '%' . $query . '%');
         })

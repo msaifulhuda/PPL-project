@@ -32,9 +32,10 @@
                                     <td class="py-3 px-6">
                                         <span
                                         class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">
-                                        
-                                        @if($transaction->status_pengembalian == 1)
-                                        Sudah Dikembalikan
+                                        @if($transaction->status_pengembalian == 0)
+                                        Telat
+                                        @elseif($transaction->status_pengembalian == 1)
+                                        Aman
                                         @elseif($transaction->status_pengembalian == 2)
                                         Hilang
                                         @endif

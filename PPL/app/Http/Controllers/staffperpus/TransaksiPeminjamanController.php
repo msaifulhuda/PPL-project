@@ -127,7 +127,7 @@ class TransaksiPeminjamanController extends Controller
     
             // Batas maksimal peminjaman buku non-paket yang belum dikembalikan
             $jumlahPinjamanNonPaket = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
-                ->where('status_pengembalian', 0)
+                ->where('stok', 1)
                 ->whereHas('buku', function ($query) {
                     $query->where('id_jenis_buku', 1);
                 })
@@ -158,16 +158,16 @@ class TransaksiPeminjamanController extends Controller
     
             // Batas maksimal peminjaman buku non-paket yang belum dikembalikan
             $jumlahPinjamanNonPaket = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
-                ->where('status_pengembalian', 0)
+                ->where('stok', 1)
                 ->whereHas('buku', function ($query) {
                     $query->where('id_jenis_buku', 1);
                 })
                 ->count();
-    
+
             if ($jumlahPinjamanNonPaket >= 3 && $buku->id_jenis_buku == 1) {
                 return redirect()->back()->withErrors(['message' => 'Guru telah mencapai batas peminjaman 3 buku non-paket yang belum dikembalikan.']);
             }
-    
+
             // Durasi peminjaman untuk guru
             $tgl_pengembalian = now()->addYear(); // Semua jenis buku durasi 1 tahun untuk guru
         }
