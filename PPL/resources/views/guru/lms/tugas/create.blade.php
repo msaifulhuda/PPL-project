@@ -34,7 +34,7 @@
                     <!-- Judul -->
                     <div>
                         <label for="judul" class="block text-sm font-medium text-gray-700">Judul Tugas</label>
-                        <input type="text" name="judul_tugas" id="judul"
+                        <input type="text" name="judul_tugas" id="judul" autofocus
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             required>
                     </div>
@@ -42,9 +42,10 @@
                     <!-- Deskripsi -->
                     <div>
                         <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi
-                            Materi(Optional)</label>
-                        <textarea name="deskripsi" id="deskripsi" rows="4"
-                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                            Tugas</label>
+                        <input id="deskripsi" type="hidden" name="deskripsi">
+                        <trix-editor input="deskripsi" id="deskripsi" rows="4"
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></trix-editor>
                     </div>
 
                     <!-- File Upload -->
