@@ -20,8 +20,8 @@
                         </svg>
                     </div>
                     <li class="flex">
-                        <a href="{{ route('superadmin.kelola_pembina_ekstrakurikuler') }}" class="text-black-500 hover:underline">
-                            <span><b>Kelola Data Pembina Ekstrakurikuler</b></span>
+                        <a href="{{ route('superadmin.kelola_pembina_ekstrakurikuler') }}" class="text-gray-400 hover:text-gray-700">
+                            <span>Kelola Data Pembina Ekstrakurikuler</span>
                         </a>
                     </li>
                     <div class="flex justify-center py-1">
@@ -31,7 +31,7 @@
                     </div>
                     <li class="flex">
                         <a href="#" class="text-gray-400 hover:text-gray-700">
-                            <span>Edit Data Pembina Ekstrakurikuler</span>
+                            <span><b>Edit Data Pembina Ekstrakurikuler</b></span>
                         </a>
                     </li>
                 </ol>
@@ -85,14 +85,7 @@
                 <!-- Role Guru -->
                 <div class="mb-4">
                     <label for="role_guru" class="block text-sm font-medium text-gray-700 mb-1">Role Guru :</label>
-                    <select name="role_guru" id="role_guru" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('role_guru') border-red-500 @enderror" required>
-                        <option value="guru" {{ old('role_guru', $pembina->role_guru) == 'guru' ? 'selected' : '' }}>Guru</option>
-                        <option value="pembina" {{ old('role_guru', $pembina->role_guru) == 'pembina' ? 'selected' : '' }}>Pembina</option>
-                        <option value="wali_kelas" {{ old('role_guru', $pembina->role_guru) == 'wali_kelas' ? 'selected' : '' }}>Wali Kelas</option>
-                    </select>
-                    @error('role_guru')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    <input type="text" name="role_guru" id="role_guru" value="Pembina" readonly class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500 @error('alamat_guru') border-red-500 @enderror">
                 </div>
 
                 <!-- Alamat -->

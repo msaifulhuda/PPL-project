@@ -14,30 +14,16 @@ class KelolaPembinaEkstraRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (request('id_guru')) {
-            return [
-                'username' => 'required|string|min:8|max:50',
-                'nama_guru' => 'required|string|max:125',
-                'nip' => 'required|string|max:20',
-                'alamat_guru' => 'required|string|max:255',
-                'role_guru' => 'required|in:guru,pembina,wali_kelas',
-                'nomor_wa_guru' => 'required|digits_between:12,13',
-                'email' => 'required|email|max:255',
-            ];
-        }
-        else{
-            return [
-                'username' => 'required|string|min:8|max:50|unique:guru,username',
-                'password' => 'required|string|min:8',
-                'nama_guru' => 'required|string|max:125',
-                'nip' => 'required|string|max:20|unique:guru,nip',
-                'alamat_guru' => 'required|string|max:255',
-                'role_guru' => 'required|in:guru,pembina,wali_kelas',
-                'foto_guru' => 'required|image|max:25000',
-                'nomor_wa_guru' => 'required|digits_between:12,13',
-                'email' => 'required|email|max:255|unique:guru,email',
-            ];
-        }
+        return [
+            'username' => 'required|string|min:8|max:50',
+            'nama_guru' => 'required|string|max:125',
+            'nip' => 'required|string|max:20',
+            'alamat_guru' => 'required|string|max:255',
+            'foto_guru' => 'required|image|max:5000',
+            'nomor_wa_guru' => 'required|digits_between:12,13',
+            'email' => 'required|email|max:255',
+        ];
+
     }
 
     public function messages()
@@ -56,11 +42,9 @@ class KelolaPembinaEkstraRequest extends FormRequest
             'nip.max' => 'NIP maksimal 20 karakter.',
             'alamat_guru.required' => 'Alamat wajib diisi.',
             'alamat_guru.max' => 'Alamat maksimal 255 karakter.',
-            'role_guru.required' => 'Role Guru wajib dipilih.',
-            'role_guru.in' => 'Role Guru tidak valid.',
             'foto_guru.required' => 'Foto wajib diunggah.',
             'foto_guru.image' => 'Foto harus berupa gambar.',
-            'foto_guru.max' => 'Ukuran foto maksimal 25 MB.',
+            'foto_guru.max' => 'Ukuran foto maksimal 5 MB.',
             'nomor_wa_guru.required' => 'Nomor WhatsApp wajib diisi.',
             'nomor_wa_guru.digits_between' => 'Nomor WhatsApp harus antara 12 hingga 13 digit.',
             'email.required' => 'Email wajib diisi.',
