@@ -1,70 +1,71 @@
 <?php
 
+use App\Http\Controllers\guru;
+use App\Http\Controllers\siswa;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\guru\ProfilController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\siswa\SiswaLmsController;
 use App\Http\Controllers\beranda\BerandaController;
+use App\Http\Controllers\guru\lms\TopikLmsController;
+use App\Http\Controllers\Siswa\SiswaProfilController;
 use App\Http\Controllers\guru\lms\ForumGuruController;
 use App\Http\Controllers\guru\lms\TugasGuruController;
 use App\Http\Controllers\guru\lms\MateriGuruController;
+use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\StaffAkademik\KelasController;
+use App\Http\Controllers\staffakademik\RaporController;
+use App\Http\Controllers\staffperpus\LaporanController;
 use App\Http\Controllers\guru\lms\AnggotaGuruController;
 use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
 use App\Http\Controllers\siswa\lms\TugasSiswaController;
 use App\Http\Controllers\staffakademik\JadwalController;
+use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\guru\lms\DashboardGuruController;
-use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
+use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\siswa\lms\DashboardSiswaController;
-use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
-use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
+use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
 use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
-use App\Http\Controllers\staffperpus\LaporanController;
-use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
-use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
-use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
-use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
-use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
-
-
-
-use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-
+use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
+use App\Http\Controllers\superadmin\KelolaPembinaEkstraController;
+use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
+use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 
-
-use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
-
-use App\Http\Controllers\guru\lms\TopikLmsController;
+/**
+* ! Ekstrakurikuler Controllers
+*/
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
+use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
+use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
-use App\Http\Controllers\staffakademik;
-use App\Http\Controllers\guru;
-use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
-use App\Http\Controllers\siswa;
-use App\Http\Controllers\Siswa\PrestasiSiswaController;
-use App\Http\Controllers\staffakademik\RaporController;
-use App\Http\Controllers\guru\ProfilController;
-use App\Http\Controllers\Siswa\SiswaProfilController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
+/**
+* End Ekstrakurikuler Controllers
+*/
+
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
@@ -127,6 +128,20 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     // Untuk Search Data
     Route::get('/superadmin/keloladataguru/search', [SuperadminController::class, 'searchGuru'])->name('superadmin.searchGuru');
     Route::get('/superadmin/keloladatasiswa/search', [SuperadminController::class, 'searchSiswa'])->name('superadmin.searchSiswa');
+
+    /**
+    * Pembina Ekstrakurikuler
+    */
+    Route::get('/kelola-pembina-ekstrakurikuler', [KelolaPembinaEkstraController::class, 'index'])->name('superadmin.kelola_pembina_ekstrakurikuler');
+    Route::get('/kelola-pembina-ekstrakurikuler/create', [KelolaPembinaEkstraController::class, 'create'])->name('kelola_pembina_ekstrakurikuler.create');
+    Route::put('/kelola-pembina-ekstrakurikuler/store/{id}', [KelolaPembinaEkstraController::class, 'store'])->name('kelola_pembina_ekstrakurikuler.store');
+    Route::get('/kelola-pembina-ekstrakurikuler/edit/{id}', [KelolaPembinaEkstraController::class, 'edit'])->name('kelola_pembina_ekstrakurikuler.edit');
+    Route::put('/kelola-pembina-ekstrakurikuler/update', [KelolaPembinaEkstraController::class, 'update'])->name('kelola_pembina_ekstrakurikuler.update');
+    Route::put('/superadmin/kelola_pembina_ekstrakurikuler/delete/{id}', [KelolaPembinaEkstraController::class, 'destroy'])->name('kelola_pembina_ekstrakurikuler.destroy');
+    /**
+    * End Pembina Ekstrakurikuler
+    */
+    
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
@@ -299,13 +314,14 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      */
 
     Route::group(['middleware' => 'pengurus'], function () {
+        // Dashboard Ekstrakurikuler
         Route::get('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'dashboard'])->name('pengurus_ekstra.dashboard');
         Route::post('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'store'])->name('dashboard.store');
         Route::delete('/dashboard/{id_posting}', [PengurusekstraController::class, 'destroy'])->name('dashboard.destroy');
         Route::put('dashboard/{id_posting}', [PengurusekstraController::class, 'update'])->name('dashboard.update');
         Route::put('/ekstrakurikuler/dashboard', [PengurusekstraController::class, 'updateStatus'])->name('dashboard.status');
 
-        // Anggota
+        // Anggota Ekstrakurikuler
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
 
