@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('nilai')->nullable()->default(null);
             $table->string('komentar');
             $table->timestamps();
-            $table->foreign('tugas_id')->references('id_tugas')->on('tugas');
+            $table->foreign('tugas_id')->references('id_tugas')->on('tugas')->onDelete('cascade');
             $table->foreign('siswa_id')->references('id_siswa')->on('siswa');
         });
     }

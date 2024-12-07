@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\NotifikasiTenggatTugas;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -9,3 +10,6 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::command('app:calculate-denda')->everyMinute();
+Schedule::job(new NotifikasiTenggatTugas)->everyMinute();
+
+
