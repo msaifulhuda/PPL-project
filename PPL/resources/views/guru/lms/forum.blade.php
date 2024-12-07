@@ -63,7 +63,7 @@
                     {{-- List of Materi & Tugas --}}
                     <div class="space-y-4">
                         {{-- Sample Item --}}
-                        @if ($materiTugas)
+                        @if ($materiTugas && $materiTugas->count() > 0)
                             @foreach ($materiTugas as $item)
                                 @php
                                     $route =
@@ -110,6 +110,7 @@
                                 </a>
                             @endforeach
                         @else
+                            <p class="text-gray-500 font-semibold text-center">Tidak ada materi atau tugas baru.</p>
                         @endif
                     </div>
                 </div>

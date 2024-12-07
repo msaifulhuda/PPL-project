@@ -12,9 +12,11 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Jobs\NotifikasUploadTugas;
 use App\Models\kelas_mata_pelajaran;
 use App\Models\kelas;
 use App\Models\pengumpulan_tugas;
+use App\Models\Siswa;
 use Illuminate\Support\Facades\Storage;
 
 class TugasGuruController extends Controller
@@ -167,7 +169,25 @@ class TugasGuruController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('guru.dashboard.lms.forum.tugas', $request->kelas_mata_pelajaran_id)->with('success', 'Tugas berhasil dibuat');
+
+            $namaTugas = $tugas->judul;
+            $mataPelajaran = $tugas->kelasMataPelajaran->mataPelajaran->nama_matpel;
+            $deadline = Carbon::parse($tugas->deadline)->format('d M Y H:i');
+
+
+            $siswaNomorWhatsApp = Siswa::whereHas('kelas', function ($query) use ($tugas) {
+                $query->whereHas('kelasMataPelajaran', function ($query) use ($tugas) {
+                    $query->where('id_kelas_mata_pelajaran', $tugas->kelas_mata_pelajaran_id);
+                });
+            })->pluck('nomor_wa_siswa')->toArray();
+
+            try {
+                NotifikasUploadTugas::dispatch($namaTugas, $mataPelajaran, $deadline, $siswaNomorWhatsApp);
+                return redirect()->route('guru.dashboard.lms.forum.tugas', $request->kelas_mata_pelajaran_id)->with('success', 'Tugas berhasil dibuat ');
+            } catch (\Exception $e) {
+                return redirect()->route('guru.dashboard.lms.forum.tugas', $request->kelas_mata_pelajaran_id)->with('success', 'Tugas berhasil dibuat tetapi notifikasi gagal dikirim');
+                \Log::error('Gagal mengirim notifikasi WhatsApp: ' . $e->getMessage());
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
@@ -292,18 +312,15 @@ class TugasGuruController extends Controller
         $id_kelas_mata_pelajaran = $request->kelas_mata_pelajaran_id;
         try {
             DB::beginTransaction();
-            $tugas = tugas::findOrFail($id);
-            $tugas->delete();
 
             $files = file_tugas::where('tugas_id', $id)->get();
             foreach ($files as $file) {
                 try {
-                    $filePath = 'public/uploads/file_tugas/' . basename($file->file_path);
-                    if (Storage::exists($filePath)) {
-                        Storage::delete($filePath);
-                    }
-                    if (Storage::disk('public')->exists('uploads/file_tugas/' . basename($file->file_path))) {
-                        Storage::disk('public')->delete('uploads/file_tugas/' . basename($file->file_path));
+                    $filePath = 'uploads/file_tugas/' . basename($file->file_path);
+
+                    // Gunakan disk public untuk konsistensi
+                    if (Storage::disk('public')->exists($filePath)) {
+                        Storage::disk('public')->delete($filePath);
                     }
                     $file->delete();
                 } catch (\Exception $e) {
@@ -311,6 +328,8 @@ class TugasGuruController extends Controller
                     $file->delete();
                 }
             }
+            $tugas = tugas::findOrFail($id);
+            $tugas->delete();
             DB::commit();
             return redirect()->route('guru.dashboard.lms.forum.tugas', $id_kelas_mata_pelajaran)->with('success', 'Tugas berhasil dihapus');
         } catch (\Exception $e) {

@@ -1,68 +1,71 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\Siswa;
+// use App\Http\Controllers\siswa;
+use App\Http\Controllers\guru;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\guru\GuruController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\guru\ProfilController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\guru\GuruLmsController;
 use App\Http\Controllers\siswa\SiswaLmsController;
 use App\Http\Controllers\beranda\BerandaController;
+use App\Http\Controllers\guru\lms\TopikLmsController;
+use App\Http\Controllers\Siswa\SiswaProfilController;
 use App\Http\Controllers\guru\lms\ForumGuruController;
 use App\Http\Controllers\guru\lms\TugasGuruController;
 use App\Http\Controllers\guru\lms\MateriGuruController;
+use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\StaffAkademik\KelasController;
+use App\Http\Controllers\staffakademik\RaporController;
 use App\Http\Controllers\guru\lms\AnggotaGuruController;
 use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
 use App\Http\Controllers\siswa\lms\TugasSiswaController;
 use App\Http\Controllers\staffakademik\JadwalController;
+use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\guru\lms\DashboardGuruController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
-use App\Http\Controllers\siswa\lms\DashboardSiswaController;
-use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\perpustakaan\PerpustakaanController;
-use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
-use App\Http\Controllers\staffakademik\LihatJadwalController;
-use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
-use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
-use App\Http\Controllers\staffperpus\CategoryController;
+use App\Http\Controllers\siswa\lms\DashboardSiswaController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CeKController;
+use App\Http\Controllers\perpustakaan\PerpustakaanController;
+use App\Http\Controllers\staffakademik\LihatJadwalController;
+use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
+use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
-use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
+
+
+
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
+
+
+use App\Http\Controllers\staffakademik\StaffakademikController;
+
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
-use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
-
-
-
-use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-
-use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
-
-
+use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
 use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
-
-use App\Http\Controllers\guru\lms\TopikLmsController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
+use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
-use App\Http\Controllers\staffakademik;
-use App\Http\Controllers\guru;
-use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
-use App\Http\Controllers\siswa;
-use App\Http\Controllers\Siswa\PrestasiSiswaController;
-use App\Http\Controllers\staffakademik\RaporController;
-use App\Http\Controllers\guru\ProfilController;
-use App\Http\Controllers\Siswa\SiswaProfilController;
+use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
+use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
@@ -516,5 +519,7 @@ Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])-
 
 // Rute untuk menyimpan informasi
 // Route::post('/kelola-informasi', [KelolaInformasiController::class, 'store'])->name('kelolaInformasi.store');
-
 require __DIR__ . '/auth.php';
+
+
+Route::get("/cek", CeKController::class );
