@@ -1,9 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Siswa;
-// use App\Http\Controllers\siswa;
 use App\Http\Controllers\guru;
+use App\Http\Controllers\siswa;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\staffakademik;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +21,7 @@ use App\Http\Controllers\guru\lms\MateriGuruController;
 use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Http\Controllers\staffakademik\RaporController;
+use App\Http\Controllers\staffperpus\LaporanController;
 use App\Http\Controllers\guru\lms\AnggotaGuruController;
 use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
@@ -31,7 +31,6 @@ use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\guru\lms\DashboardGuruController;
-use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
@@ -43,29 +42,35 @@ use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
 use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
-
-
-
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
-
-
 use App\Http\Controllers\staffakademik\StaffakademikController;
-
-use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
+use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
+use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
+use App\Http\Controllers\superadmin\KelolaPembinaEkstraController;
+use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
+use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
+
+/**
+ * ! Ekstrakurikuler Controllers
+ */
+
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
+use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
-use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
-use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
-use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
-use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
+
+/**
+ * End Ekstrakurikuler Controllers
+ */
+
 
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'home'])->name('beranda.home');
@@ -128,6 +133,19 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     // Untuk Search Data
     Route::get('/superadmin/keloladataguru/search', [SuperadminController::class, 'searchGuru'])->name('superadmin.searchGuru');
     Route::get('/superadmin/keloladatasiswa/search', [SuperadminController::class, 'searchSiswa'])->name('superadmin.searchSiswa');
+
+    /**
+     * Pembina Ekstrakurikuler
+     */
+    Route::get('/kelola-pembina-ekstrakurikuler', [KelolaPembinaEkstraController::class, 'index'])->name('superadmin.kelola_pembina_ekstrakurikuler');
+    Route::get('/kelola-pembina-ekstrakurikuler/create', [KelolaPembinaEkstraController::class, 'create'])->name('kelola_pembina_ekstrakurikuler.create');
+    Route::put('/kelola-pembina-ekstrakurikuler/store/{id}', [KelolaPembinaEkstraController::class, 'store'])->name('kelola_pembina_ekstrakurikuler.store');
+    Route::get('/kelola-pembina-ekstrakurikuler/edit/{id}', [KelolaPembinaEkstraController::class, 'edit'])->name('kelola_pembina_ekstrakurikuler.edit');
+    Route::put('/kelola-pembina-ekstrakurikuler/update', [KelolaPembinaEkstraController::class, 'update'])->name('kelola_pembina_ekstrakurikuler.update');
+    Route::put('/superadmin/kelola_pembina_ekstrakurikuler/delete/{id}', [KelolaPembinaEkstraController::class, 'destroy'])->name('kelola_pembina_ekstrakurikuler.destroy');
+    /**
+     * End Pembina Ekstrakurikuler
+     */
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
@@ -273,6 +291,16 @@ Route::group(['prefix' => 'staff_perpus', 'middleware' => ['staff_perpus']], fun
     Route::put('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'update'])->name('staff_perpus.transaksi.update');
     Route::delete('/staff_perpus/transaksi/{id}', [TransaksiPeminjamanController::class, 'destroy'])->name('staff_perpus.transaksi.destroy');
     Route::put('/staff_perpus/transaksi/daftartransaksi/{id}', [TransaksiPeminjamanController::class, 'updateStatus'])->name('updateStatus');
+    Route::post('/update_status_denda', [TransaksiPeminjamanController::class, 'update_status_denda'])->name('staff_perpus.transaksi.update_status_denda');
+
+    // Riwayat transaksi
+    Route::get('/riwayat_transaksi', [RiwayatTransaksiController::class, 'index'])->name('staff_perpus.riwayat_transaksi.riwayattransaksi');
+    // Route untuk menampilkan laporan buku masuk
+    Route::get('/laporan/buku-masuk', [LaporanController::class, 'bukumasuk'])->name('staff_perpus.laporan.laporanbukumasuk');
+    // Route untuk menampilkan laporan buku hilang
+    Route::get('/laporan/buku-hilang', [LaporanController::class, 'bukuhilang'])->name('staff_perpus.laporan.laporanbukuhilang');
+    // Route untuk menampilkan laporan buku transaksi
+    Route::get('/laporan/transaksi-buku', [LaporanController::class, 'transaksibuku'])->name('staff_perpus.laporan.laporantransaksi');
 });
 
 
@@ -288,13 +316,14 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
      */
 
     Route::group(['middleware' => 'pengurus'], function () {
+        // Dashboard Ekstrakurikuler
         Route::get('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'dashboard'])->name('pengurus_ekstra.dashboard');
         Route::post('/ekstrakurikuler/dashboard', [PengurusEkstraController::class, 'store'])->name('dashboard.store');
         Route::delete('/dashboard/{id_posting}', [PengurusekstraController::class, 'destroy'])->name('dashboard.destroy');
         Route::put('dashboard/{id_posting}', [PengurusekstraController::class, 'update'])->name('dashboard.update');
         Route::put('/ekstrakurikuler/dashboard', [PengurusekstraController::class, 'updateStatus'])->name('dashboard.status');
 
-        // Anggota
+        // Anggota Ekstrakurikuler
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
 
@@ -522,4 +551,4 @@ Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])-
 require __DIR__ . '/auth.php';
 
 
-Route::get("/cek", CeKController::class );
+Route::get("/cek", CeKController::class);

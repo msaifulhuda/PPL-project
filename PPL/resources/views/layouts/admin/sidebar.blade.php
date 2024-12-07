@@ -65,11 +65,11 @@ aria-label="Sidebar">
                                 Data Staff Perpus
                             </x-sidebar-dropdown-list-link>
                         </li>
-                        {{-- <li>
+                        <li>
                             <x-sidebar-dropdown-list-link href="{{ route('superadmin.kelola_pembina_ekstrakurikuler') }}" :active="request()->is('superadmin/kelola-pembina-ekstrakurikuler*')">
                                 Data Pembina Ekstrakurikuler
                             </x-sidebar-dropdown-list-link>
-                        </li> --}}
+                        </li>
                     </x-sidebar-dropdown-list>
                 </li>
                                 {{-- Kelola Akun --}}

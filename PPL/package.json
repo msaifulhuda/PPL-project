@@ -23,7 +23,8 @@
         "apexcharts": "^4.0.0",
         "flowbite": "^2.5.2",
         "flowbite-typography": "^1.0.4",
-        "simple-datatables": "^9.2.1"
+        "simple-datatables": "^9.2.1",
+        "trix": "^2.1.8"
     },
     "overrides": {
         "prosemirror-model": "1.19.3"

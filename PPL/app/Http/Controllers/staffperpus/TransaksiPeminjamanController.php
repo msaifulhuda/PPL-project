@@ -20,13 +20,14 @@ class TransaksiPeminjamanController extends Controller
 
     public function __construct()
     {
-        $this->staff_account = DB::table('staffperpus')
-            ->where('username', '=', session('username'))
-            ->first();
+        if (!session()->has('bio') || session('bio') === null) {
+            $this->staff_account = DB::table('staffperpus')
+                ->select('username', 'nama_staff_perpustakaan', 'email')
+                ->where('username', '=', session('username'))
+                ->first();
 
-        view()->composer('*', function ($view) {
-            $view->with('staff_account',  $this->staff_account);
-        });
+            session(['bio' => $this->staff_account]);
+        }
     }
 
     public function index(Request $request)
@@ -46,13 +47,6 @@ class TransaksiPeminjamanController extends Controller
         return view('staff_perpus.transaksi.daftartransaksi', compact('transactions'));
     }
 
-
-
-
-
-
-
-
     // public function index(Request $request)
     // {   
     //     // $transaksi = transaksi_peminjaman::with('buku')->orderBy('tgl_awal_peminjaman', 'desc')->get(); // Memuat relasi buku
@@ -68,6 +62,7 @@ class TransaksiPeminjamanController extends Controller
 
     // return view('staff_perpus.transaksi.daftartransaksi', compact('transaksi'));
     // }
+
     // Menampilkan form transaksi peminjaman
     public function create()
     {
@@ -85,130 +80,115 @@ class TransaksiPeminjamanController extends Controller
             'jenis_peminjam' => 'required|in:siswa,guru',
             'id_buku' => 'required|uuid',
             'nisn_nip' => 'required',
-            'jumlah' => 'required|integer|min:1',
+            // 'jumlah' => 'required|integer|min:1|max:1', // Maksimal 1 stok per buku
         ], [
             'jenis_peminjam.required' => 'Jenis peminjam harus dipilih.',
             'jenis_peminjam.in' => 'Jenis peminjam harus salah satu dari: siswa atau guru.',
-
+    
             'id_buku.required' => 'Buku harus dipilih.',
             'id_buku.uuid' => 'ID buku harus berupa UUID yang valid.',
-
+    
             'nisn_nip.required' => 'NISN atau NIP harus diisi.',
-
-            'jumlah.required' => 'Jumlah buku yang dipinjam harus diisi.',
-            'jumlah.integer' => 'Jumlah buku yang dipinjam harus berupa angka.',
-            'jumlah.min' => 'Jumlah buku yang dipinjam harus minimal 1.',
+    
+        //     'jumlah.required' => 'Jumlah buku yang dipinjam harus diisi.',
+        //     'jumlah.integer' => 'Jumlah buku yang dipinjam harus berupa angka.',
+        //     'jumlah.min' => 'Jumlah buku yang dipinjam harus minimal 1.',
+        //     'jumlah.max' => 'Setiap peminjam hanya boleh meminjam 1 stok per buku.',
         ]);
-
+    
         // Mendapatkan data buku yang akan dipinjam
         $buku = Buku::findOrFail($request->id_buku);
-
+    
         // Mengecek apakah stok buku mencukupi
-        if ($buku->stok_buku < $request->jumlah) {
-            return redirect()->back()->withErrors(['jumlah' => 'Stok buku tidak mencukupi.']);
+        if ($buku->stok_buku < 1) {
+            return redirect()->back()->withErrors(['message' =>  'Stok buku tidak mencukupi.']);
         }
-
+    
         // Memeriksa apakah peminjam adalah guru atau siswa
+        $kode_peminjam = null;
+        $tgl_pengembalian = null;
+    
         if ($request->jenis_peminjam == 'siswa') {
             $siswa = Siswa::where('nisn', $request->nisn_nip)->first();
             if (!$siswa) {
                 return redirect()->back()->withErrors(['nisn_nip' => 'NISN siswa tidak ditemukan.']);
             }
+            $kode_peminjam = $siswa->nisn;
 
-            // Pengecekan status denda, jika siswa memiliki 3 transaksi dengan status_denda = 1
-            $jumlahDenda = transaksi_peminjaman::where('kode_peminjam', $siswa->nisn)
-                ->where('status_denda', 1)
+            // Pengecekan denda dengan syarat `denda > 0` dan `status_denda = 0`
+            $jumlahDendaBelumDibayar = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
+                ->where('denda', '>', 0)
+                ->where('status_denda', 0)
                 ->count();
 
-            if ($jumlahDenda >= 3) {
-                return redirect()->back()->withErrors(['message' => 'Siswa memiliki 3 denda yang belum diselesaikan dan tidak dapat meminjam buku.']);
+            if ($jumlahDendaBelumDibayar >= 3) {
+                return redirect()->back()->withErrors(['message' => 'Siswa memiliki lebih dari 3 denda yang belum dibayar. Tidak dapat meminjam buku.']);
             }
-
-            // Siswa hanya dapat meminjam buku jenis 'non-paket'
-            if ($buku->id_jenis_buku != 1) {
-                return redirect()->back()->withErrors(['id_buku' => 'Siswa hanya boleh meminjam buku jenis non-paket.']);
-            }
-
-            // Pengecekan apakah siswa telah meminjam 3 buku non-paket yang belum dikembalikan
-            $jumlahPinjaman = transaksi_peminjaman::where('kode_peminjam', $siswa->nisn)
-                ->where('status_pengembalian', 0)
+    
+            // Batas maksimal peminjaman buku non-paket yang belum dikembalikan
+            $jumlahPinjamanNonPaket = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
+                ->where('stok', 1)
                 ->whereHas('buku', function ($query) {
-                    $query->where('id_jenis_buku', 1); // Pastikan ID jenis buku non-paket sesuai
+                    $query->where('id_jenis_buku', 1);
                 })
                 ->count();
-
-            if ($jumlahPinjaman >= 3) {
+    
+            if ($jumlahPinjamanNonPaket >= 3 && $buku->id_jenis_buku == 1) {
                 return redirect()->back()->withErrors(['message' => 'Siswa telah mencapai batas peminjaman 3 buku non-paket yang belum dikembalikan.']);
             }
-
-            // Siswa hanya bisa meminjam 1 stok buku jenis non-paket per buku
-            if ($request->jumlah > 1) {
-                return redirect()->back()->withErrors(['jumlah' => 'Siswa hanya boleh meminjam 1 stok per buku jenis non-paket.']);
-            }
-
-            // Durasi pinjam default 2 minggu untuk siswa
-            $tgl_pengembalian = now()->addWeeks(2);
-            $kode_peminjam = $siswa->nisn; // Menyimpan NISN sebagai kode_peminjam
-
+    
+            // Durasi peminjaman untuk siswa
+            $tgl_pengembalian = $buku->id_jenis_buku == 2 ? now()->addYear() : now()->addWeeks(2); // 1 tahun untuk buku paket, 2 minggu untuk non-paket
         } else {
             $guru = Guru::where('nip', $request->nisn_nip)->first();
             if (!$guru) {
                 return redirect()->back()->withErrors(['nisn_nip' => 'NIP guru tidak ditemukan.']);
             }
+            $kode_peminjam = $guru->nip;
 
-            // Pengecekan status denda, jika guru memiliki 3 transaksi dengan status_denda = 1
-            $jumlahDenda = transaksi_peminjaman::where('kode_peminjam', $guru->nip)
-                ->where('status_denda', 1)
-                ->count();
+                // Pengecekan denda dengan syarat `denda > 0` dan `status_denda = 0`
+            $jumlahDendaBelumDibayar = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
+            ->where('denda', '>', 0)
+            ->where('status_denda', 0)
+            ->count();
 
-            if ($jumlahDenda >= 3) {
-                return redirect()->back()->withErrors(['message' => 'Guru memiliki 3 denda yang belum diselesaikan dan tidak dapat meminjam buku.']);
+            if ($jumlahDendaBelumDibayar >= 3) {
+                return redirect()->back()->withErrors(['message' => 'Guru memiliki lebih dari 3 denda yang belum dibayar. Tidak dapat meminjam buku.']);
             }
-
-            // Pengecekan apakah guru telah meminjam 3 buku non-paket yang belum dikembalikan
-            $jumlahPinjaman = transaksi_peminjaman::where('kode_peminjam', $guru->nip)
-                ->where('status_pengembalian', 0)
+    
+            // Batas maksimal peminjaman buku non-paket yang belum dikembalikan
+            $jumlahPinjamanNonPaket = transaksi_peminjaman::where('kode_peminjam', $kode_peminjam)
+                ->where('stok', 1)
                 ->whereHas('buku', function ($query) {
-                    $query->where('id_jenis_buku', 1); // Pastikan ID jenis buku non-paket sesuai
+                    $query->where('id_jenis_buku', 1);
                 })
                 ->count();
 
-            if ($jumlahPinjaman >= 3 && $buku->id_jenis_buku == 1) {
+            if ($jumlahPinjamanNonPaket >= 3 && $buku->id_jenis_buku == 1) {
                 return redirect()->back()->withErrors(['message' => 'Guru telah mencapai batas peminjaman 3 buku non-paket yang belum dikembalikan.']);
             }
 
-            // Guru bebas menentukan jumlah stok untuk buku jenis 'buku paket'
-            if ($buku->id_jenis_buku == 2) {
-                $jumlahPinjamanBukuPaket = $request->jumlah; // Guru bebas menentukan jumlah stok buku paket
-            } else {
-                // Batas 1 stok untuk buku non-paket
-                if ($request->jumlah > 1) {
-                    return redirect()->back()->withErrors(['jumlah' => 'Guru hanya boleh meminjam 1 stok per buku jenis non-paket.']);
-                }
-            }
-
-            // Durasi pinjam default 1 tahun untuk guru
-            $tgl_pengembalian = now()->addYear();
-            $kode_peminjam = $guru->nip; // Menyimpan NIP sebagai kode_peminjam
+            // Durasi peminjaman untuk guru
+            $tgl_pengembalian = now()->addYear(); // Semua jenis buku durasi 1 tahun untuk guru
         }
-
+    
         // Buat transaksi peminjaman
         transaksi_peminjaman::create([
             'id_transaksi_peminjaman' => (string) Str::uuid(),
             'id_buku' => $buku->id_buku,
-            'kode_peminjam' => $kode_peminjam, // Menggunakan NISN atau NIP sebagai kode_peminjam
+            'kode_peminjam' => $kode_peminjam,
             'tgl_awal_peminjaman' => now(),
             'tgl_pengembalian' => $tgl_pengembalian,
-            'denda' => 0,  // Anggap 0 saat peminjaman awal
-            'status_pengembalian' => 0,  // 0 untuk belum dikembalikan
-            'jenis_peminjam' => $request->jenis_peminjam == 'siswa' ? 1 : 2,
+            'denda' => 0, // Anggap 0 saat peminjaman awal
+            'status_pengembalian' => 0, // 0 untuk belum dikembalikan
+            'jenis_peminjam' => $request->jenis_peminjam == 'siswa' ? 0 : 1,
             'status_denda' => 0,
-            'stok' => $request->jumlah,  // Jumlah stok yang dipinjam
+            'stok' => 1,
         ]);
-
+    
         // Mengurangi stok buku setelah transaksi berhasil
-        $buku->decrement('stok_buku', $request->jumlah);
-
+        $buku->decrement('stok_buku', 1);
+    
         return redirect()->route('staff_perpus.transaksi.daftartransaksi')->with('success', 'Transaksi peminjaman berhasil ditambahkan');
     }
 
@@ -263,6 +243,14 @@ class TransaksiPeminjamanController extends Controller
             return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
         }
 
+        if (isset($request->status_denda)) {
+            if ($request->status_denda !== null) {
+                if ($request->status_denda == 1) {
+                    $transaction->status_denda = 1;
+                }
+            }
+        }
+
         // Periksa apakah opsi 'Aman' dipilih dan jumlah yang dikembalikan valid
         if ($request->status_pengembalian == 1) {
             // Kurangi stok transaksi
@@ -289,34 +277,42 @@ class TransaksiPeminjamanController extends Controller
             // Tambahkan denda berdasarkan harga_buku
             $transaction->denda += $book->harga_buku;
             $transaction->save();
-    
+
             return redirect()->back()->with('success', 'Status buku hilang berhasil diproses. Denda telah diperbarui.');
         } elseif ($request->status_pengembalian == 0) {
-        // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
-        $transaction->stok -= 1;
-        $transaction->status_pengembalian = 0;
+            // Jika 'Telat', tambahkan denda sesuai selisih hari, kurangi stok transaksi, dan tambahkan ke stok_buku
+            $transaction->stok -= 1;
+            $transaction->status_pengembalian = 0;
 
-        $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
+            $book = buku::find($transaction->id_buku); // Sesuaikan field id_buku
 
-        // Hitung selisih hari antara tanggal pengembalian dan hari ini
-        $today = now(); // Mengambil tanggal hari ini
-        $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
-        $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
+            // Hitung selisih hari antara tanggal pengembalian dan hari ini
+            $today = now(); // Mengambil tanggal hari ini
+            $returnDate = \Carbon\Carbon::parse($transaction->tgl_pengembalian); // Konversi tgl_pengembalian ke Carbon
+            $daysLate = $returnDate->diffInDays($today, false); // Menghitung selisih hari
 
-        // Tambahkan denda jika telat
-        if ($daysLate > 0) {
-            $transaction->denda += 1000 * $daysLate;
-        }
+            // Tambahkan denda jika telat
+            if ($daysLate > 0) {
+                $transaction->denda += 1000 * $daysLate;
+            }
 
-        // Update stok buku
-        $book->stok_buku += 1;
-        $book->save();
+            // Update stok buku
+            $book->stok_buku += 1;
+            $book->save();
 
-        $transaction->save();
+            $transaction->save();
 
-        return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
+            return redirect()->back()->with('success', 'Pengembalian terlambat berhasil diproses. Denda telah diperbarui.');
         } else {
             return redirect()->back()->with('error', 'Pastikan Anda memilih opsi Aman dan jumlah yang dikembalikan valid.');
         }
+    }
+    public function update_status_denda(Request $request)
+    {
+        $transaction = transaksi_peminjaman::find($request->status_denda_id_transaksi);
+        $transaction->status_denda = $request->status_denda_button;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Status Denda Telah Dibayar!');
     }
 }
