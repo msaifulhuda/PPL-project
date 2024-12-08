@@ -373,8 +373,6 @@ class TugasGuruController extends Controller
         $pengumpulanTugas = $tugas->pengumpulantugas;
         $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas', 'mataPelajaran'])->findOrFail($tugas->kelas_mata_pelajaran_id);
 
-
-
         return view('guru.lms.tugas.detail_tugas_siswa', [
             'pengumpulan' => $pengumpulan,
             'tugas' => $tugas,

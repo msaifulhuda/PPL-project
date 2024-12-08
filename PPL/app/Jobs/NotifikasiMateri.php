@@ -15,10 +15,15 @@ class NotifikasiMateri implements ShouldQueue
 
     protected $materi;
     protected $kelas_mata_pelajaran;
-    public function __construct($materi, $kelas_mata_pelajaran)
+    protected $nomorWhatsApps;
+    protected $status;
+
+    public function __construct($materi, $kelas_mata_pelajaran, $nomorWhatsApps, $status)
     {
         $this->materi = $materi;
         $this->kelas_mata_pelajaran = $kelas_mata_pelajaran;
+        $this->nomorWhatsApps = $nomorWhatsApps;
+        $this->status = $status;
     }
 
 
@@ -41,15 +46,26 @@ class NotifikasiMateri implements ShouldQueue
      */
     public function handle()
     {
-        $nomorWhatsApps = ["+6289531419612", "+6287864365113", "+6285784377750", "+6285936191911"];
+        $nomorWhatsApps = $this->nomorWhatsApps;
         $twilioSid = env('TWILIO_SID');
         $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
         $twilioWhatsappNumber = 'whatsapp:' . env('TWILIO_WHATSAPP_NUMBER');
-        $to = 'whatsapp:' . '+6289531419612';
 
-        $message = "Materi Baru Diupload: " . $this->materi->judul_materi . "\n" .
-            "Kelas: " . $this->kelas_mata_pelajaran->kelas->nama_kelas . "\n" .
-            "Mata Pelajaran: " . $this->kelas_mata_pelajaran->mataPelajaran->nama_matpel;
+        if ($this->status == 'store') {
+            $message = "📔 *Materi Baru Diupload!* 📔 \n\n" .
+                "📕 *Materi:* " . $this->materi->judul_materi . "\n" .
+                "📚 *Mata Pelajaran:* " . $this->kelas_mata_pelajaran->mataPelajaran->nama_matpel . "\n" .
+                "🎓 *Kelas:* " . $this->kelas_mata_pelajaran->kelas->nama_kelas . "\n" .
+                "📅 *Tanggal Upload:* " . $this->materi->created_at->format('d M Y') . "\n\n" .
+                "Silahkan cek materi di website sekolah dan jangan lupa dipelajari ya✨ \n\n";
+        } else {
+            $message = "📔 *Materi Diupdate!* 📔 \n\n" .
+                "📕 *Materi:* " . $this->materi->judul_materi . "\n" .
+                "📚 *Mata Pelajaran:* " . $this->kelas_mata_pelajaran->mataPelajaran->nama_matpel . "\n" .
+                "🎓 *Kelas:* " . $this->kelas_mata_pelajaran->kelas->nama_kelas . "\n" .
+                "📅 *Tanggal Update:* " . $this->materi->updated_at->format('d M Y') . "\n\n" .
+                "Silahkan cek materi di website sekolah dan jangan lupa dipelajari ya✨ \n\n";
+        }
 
         $client = new Client($twilioSid, $twilioAuthToken);
 
@@ -57,18 +73,5 @@ class NotifikasiMateri implements ShouldQueue
             $to = 'whatsapp:' . $nomor;
             $this->sendWhatsApp($client, $to, $twilioWhatsappNumber, $message);
         }
-
-        // try {
-        //     $client->messages->create(
-        //         $to,
-        //         ['from' => $twilioWhatsappNumber, 'body' => $message]
-        //     );
-
-        //     // dd('Notifikasi WhatsApp berhasil dikirim');
-        // } catch (\Exception $e) {
-        //     // Log error atau handle kegagalan
-        //     \Log::error('Gagal mengirim notifikasi WhatsApp: ' . $e->getMessage());
-        //     // dd('Gagal mengirim notifikasi WhatsApp: ' . $e->getMessage());
-        // }
     }
 }

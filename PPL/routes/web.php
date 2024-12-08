@@ -447,14 +447,14 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     // ========================================================== START ROUTE LMS =================================================================================
     // MATERI
     Route::get('/dashboard/lms', [DashboardGuruController::class, 'index'])->name('guru.dashboard.lms');
-    Route::get('/dashboard/lms/materi', [GuruLmsController::class, 'materi'])->name('guru.dashboard.lms.materi');
-    Route::get('/dashboard/lms/materi/create', [GuruLmsController::class, 'materiCreateView'])->name('guru.dashboard.lms.materi.create_view');
-    Route::get('/dashboard/lms/materi/create/{id}', [GuruLmsController::class, 'materiCreate'])->name('guru.dashboard.lms.materi.create');
-    Route::get('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiDetail'])->name('guru.dashboard.lms.materi.detail');
-    Route::post('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiStore'])->name('guru.dashboard.lms.materi.store');
-    Route::delete('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiDestroy'])->name('guru.dashboard.lms.materi.destroy');
-    Route::get('/dashboard/lms/materi/edit/{id}', [GuruLmsController::class, 'materiEdit'])->name('guru.dashboard.lms.materi.edit');
-    Route::put('/dashboard/lms/materi/{id}', [GuruLmsController::class, 'materiUpdate'])->name('guru.dashboard.lms.materi.update');
+    Route::get('/dashboard/lms/materi', [MateriGuruController::class, 'index'])->name('guru.dashboard.lms.materi');
+    Route::get('/dashboard/lms/materi/create', [MateriGuruController::class, 'createView'])->name('guru.dashboard.lms.materi.create_view');
+    Route::get('/dashboard/lms/materi/create/{id}', [MateriGuruController::class, 'create'])->name('guru.dashboard.lms.materi.create');
+    Route::get('/dashboard/lms/materi/{id}', [MateriGuruController::class, 'detail'])->name('guru.dashboard.lms.materi.detail');
+    Route::post('/dashboard/lms/materi/{id}', [MateriGuruController::class, 'store'])->name('guru.dashboard.lms.materi.store');
+    Route::delete('/dashboard/lms/materi/{id}', [MateriGuruController::class, 'destroy'])->name('guru.dashboard.lms.materi.destroy');
+    Route::get('/dashboard/lms/materi/edit/{id}', [MateriGuruController::class, 'edit'])->name('guru.dashboard.lms.materi.edit');
+    Route::put('/dashboard/lms/materi/{id}', [MateriGuruController::class, 'update'])->name('guru.dashboard.lms.materi.update');
 
     // FORUM
     Route::get('/dashboard/lms/forum/{id}', [ForumGuruController::class, 'index'])->name('guru.dashboard.lms.forum');

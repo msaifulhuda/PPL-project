@@ -21,7 +21,7 @@
                     {{-- Content --}}
                     <div class="p-4 border-2 border-gray-500 rounded-xl card">
                         <h4 class="mb-3 text-xl font-semibold">
-                            {{ $item->mataPelajaran->nama_matpel . ' ' . $item->kelas->nama_kelas }}</h4>
+                            {{ $item->mataPelajaran->nama_matpel }}</h4>
                         <ul class="space-y-2 text-sm">
                             @foreach ($materi as $m)
                                 @if ($m->kelas_mata_pelajaran_id == $item->id_kelas_mata_pelajaran)
