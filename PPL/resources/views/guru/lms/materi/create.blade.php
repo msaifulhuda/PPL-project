@@ -206,7 +206,7 @@
                                 <div class="relative">
                                     <input type="hidden" name="mata_pelajaran_id" value="{{ $mata_pelajaran->id_matpel }}">
                                     <input type="hidden" name="kelas_mata_pelajaran_id" value="{{ $id }}">
-                                    <input type="hidden" name="dari_tugas" value="1">
+                                    <input type="hidden" name="dari_materi" value="1">
                                     <input type="text" name="topic" id="topicInput" maxlength="200"
                                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Topik" oninput="updateCharCount(this)" required>

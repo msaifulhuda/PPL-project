@@ -19,6 +19,8 @@ class MateriSiswaController extends Controller
         $data['kelas_mata_pelajaran'] = kelas_mata_pelajaran::with('kelas', 'mataPelajaran')
             ->whereIn('kelas_id', $data['kelas_siswa']->pluck('id_kelas'))
             ->whereHas('tahunAjaran', fn($query) => $query->where('aktif', 1))
+            ->join('kelas', 'kelas_mata_pelajaran.kelas_id', '=', 'kelas.id_kelas')
+            ->orderBy('kelas.nama_kelas', 'asc')
             ->get();
         $data['materi'] = materi::whereIn('kelas_mata_pelajaran_id', $data['kelas_mata_pelajaran']->pluck('id_kelas_mata_pelajaran'))->where('status', 1)->get();
         $data['materi_baru'] = materi::whereIn('id_materi', $data['materi']->pluck('id_materi'))->orderBy('created_at', 'desc')->get();

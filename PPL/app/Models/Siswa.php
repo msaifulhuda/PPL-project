@@ -83,4 +83,9 @@ class Siswa extends Authenticatable
     {
         return $this->belongsToMany(Kelas::class, 'kelas_siswas', 'id_siswa', 'id_kelas');
     }
+
+    public function notifikasitugas()
+    {
+        return $this->hasMany(NotifikasiTugas::class, 'siswa_id', 'id_siswa');
+    }
 }
