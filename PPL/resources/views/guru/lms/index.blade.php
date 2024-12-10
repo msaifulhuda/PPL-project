@@ -2,7 +2,7 @@
     <div class="px-3 py-5 mx-4 my-6 bg-white rounded-lg shadow xl:p-6">
         {{-- Breadcrumb --}}
         @php
-            $breadcrumbs = [
+        $breadcrumbs = [
                 ['label' => 'Dashboard', 'route' => route('guru.dashboard')],
                 ['label' => 'LMS', 'route' => route('guru.dashboard.lms')],
             ];
