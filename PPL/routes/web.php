@@ -22,6 +22,7 @@ use App\Http\Controllers\Siswa\PrestasiSiswaController;
 use App\Http\Controllers\StaffAkademik\KelasController;
 use App\Http\Controllers\staffakademik\RaporController;
 use App\Http\Controllers\staffperpus\LaporanController;
+use App\Http\Controllers\guru\LihatJadwalGuruController;
 use App\Http\Controllers\guru\lms\AnggotaGuruController;
 use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
@@ -31,6 +32,8 @@ use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\guru\lms\DashboardGuruController;
+use App\Http\Controllers\pengurusekstra\AnggotaController;
+use App\Http\Controllers\siswa\LihatJadwalSiswaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
 use App\Http\Controllers\staffperpus\StaffperpusController;
@@ -41,20 +44,15 @@ use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
 use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
+use App\Http\Controllers\pembinaekstra\PembinaekstraController;
+use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
+use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
+
+
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
-use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
-use App\Http\Controllers\superadmin\KelolaPembinaEkstraController;
-use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
-use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
-use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
-
-/**
- * ! Ekstrakurikuler Controllers
- */
-
 use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
@@ -62,7 +60,13 @@ use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\pembinaekstra\PenilaianEkstraController;
 use App\Http\Controllers\pengurusekstra\PengurusekstraController;
+use App\Http\Controllers\perpustakaan\RiwayatPengunjungController;
+use App\Http\Controllers\superadmin\KelolaPembinaEkstraController;
+use App\Http\Controllers\superadmin\KelolaStaffAkademikController;
+use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
+use App\Http\Controllers\staffperpus\TransaksiPeminjamanController;
 use App\Http\Controllers\pengurusekstra\HistoriPeminjamanController;
+use App\Http\Controllers\staffakademik\DashboardStaffAkdemikController;
 use App\Http\Controllers\pengurusekstra\PenilaianEkstraPengurusController;
 use App\Http\Controllers\pembinaekstra\PerlengkapanController as PembinaekstraPerlengkapanController;
 use App\Http\Controllers\pembinaekstra\HistoriPeminjamanController as PembinaekstraHistoriPeminjamanController;
@@ -406,6 +410,11 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/absensi/{id}/pertemuan', [siswa\AbsensiController::class, 'details'])->name('siswa.absensi.details');
     Route::get('/absensi/scan/{pertemuan_id}', [siswa\AbsensiController::class, 'scanQrCode'])->name('siswa.absensi.scan');
     Route::get('/notifikasi', [siswa\NotifikasiController::class, 'index'])->name('siswa.notifikasi');
+
+    //lihat jadwal siswa
+    Route::get('/dashboard/lihat-jadwal', [LihatJadwalSiswaController::class, 'index'])->name('lihat-jadwal-siswa');
+    Route::get('/jadwal-siswa/print', [LihatJadwalSiswaController::class, 'print'])->name('siswa.jadwal.print');
+    
 });
 
 
@@ -503,6 +512,11 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::post('/guru/absensi/update-status', [guru\AbsensiController::class, 'updateStatusQr'])->name('guru.absensi.update-status');
 
     // END ABSENSI
+
+    //lihat Jadwal Guru
+    Route::get('/dashboard/lihat-jadwal', [LihatJadwalGuruController::class, 'index'])->name('lihat-jadwal-guru');
+    //tombol print jadwal guru
+    Route::get('/guru/jadwal/print', [LihatJadwalGuruController::class, 'print'])->name('guru.jadwal.print');
 
 });
 
