@@ -56,8 +56,7 @@
                         <!-- Pramuka -->
                         @foreach($ekstrakurikulerList as $ekstra)
                         <a href="{{ route('ekstrakurikuler.detail', ['id' => $ekstra->id_ekstrakurikuler]) }}" class="block bg-white rounded-lg shadow-lg p-6 text-center grid-item">
-                            {{-- <img src="{{ asset($ekstra->gambar) }}" alt="{{ $ekstra->nama_ekstrakurikuler }}" class="w-full h-32 object-cover rounded-lg mb-4"> --}}
-                            <img src="{{ asset('images/ekstra/pramuka.jpeg') }}" alt="Pramuka" class="w-full h-32 object-cover rounded-lg mb-4">
+                            <img src="{{ asset('images/ekstra/'.$ekstra->gambar) }}" alt="{{ $ekstra->nama_ekstrakurikuler }}" class="w-full h-32 object-cover rounded-lg mb-4">
                             <h4 class="text-xl font-bold text-primary-color mb-2">{{ $ekstra->nama_ekstrakurikuler }}</h4>
                             <p class="text-gray-600">{{ $ekstra->deskripsi }}</p>
                         </a>
@@ -66,36 +65,6 @@
                 </div>
             </section>
         </div>
-        <!-- Results Section -->
-        <section class="py-12 prestasi-section bg-gray-50">
-            <!-- Elemen latar belakang blur -->
-            <div class="prestasi-background"></div>
-        
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <h3 class="text-2xl font-bold text-primary-color mb-6 text-center">Prestasi Ekstrakurikuler</h3>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-                    <div class="bg-white rounded-lg p-6 shadow-md">
-                        <img src="https://via.placeholder.com/100" alt="Student" class="w-24 h-24 mx-auto rounded-full mb-4">
-                        <h4 class="font-bold text-gray-800">Shubhash T</h4>
-                        <p class="text-primary-color">80%</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md">
-                        <img src="https://via.placeholder.com/100" alt="Student" class="w-24 h-24 mx-auto rounded-full mb-4">
-                        <h4 class="font-bold text-gray-800">Mina W</h4>
-                        <p class="text-primary-color">80%</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md">
-                        <img src="https://via.placeholder.com/100" alt="Student" class="w-24 h-24 mx-auto rounded-full mb-4">
-                        <h4 class="font-bold text-gray-800">Rani T</h4>
-                        <p class="text-primary-color">80%</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-6 shadow-md">
-                        <img src="https://via.placeholder.com/100" alt="Student" class="w-24 h-24 mx-auto rounded-full mb-4">
-                        <h4 class="font-bold text-gray-800">Neetu G</h4>
-                        <p class="text-primary-color">80%</p>
-                    </div>
-                </div>
-            </div>
         </section>        
         
             <!-- Tombol Registrasi Ekstra -->

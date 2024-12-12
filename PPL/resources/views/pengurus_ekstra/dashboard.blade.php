@@ -271,13 +271,13 @@
                     // Perbarui teks tombol utama
                     const toggleButton = document.getElementById('toggleButton');
                     if (isRegistrationOpen) {
-                        toggleButton.textContent = 'Tutup Registrasi';
-                        toggleButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                        toggleButton.classList.add('bg-red-600', 'hover:bg-red-700');
-                    } else {
                         toggleButton.textContent = 'Buka Registrasi';
                         toggleButton.classList.remove('bg-red-600', 'hover:bg-red-700');
                         toggleButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    } else {
+                        toggleButton.textContent = 'Tutup Registrasi';
+                        toggleButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                        toggleButton.classList.add('bg-red-600', 'hover:bg-red-700');
                     }
 
                     function confirmAction() {

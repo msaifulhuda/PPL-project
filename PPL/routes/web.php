@@ -50,6 +50,7 @@ use App\Http\Controllers\staffakademik\StaffakademikController;
 use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
 
 
+use App\Http\Controllers\superadmin\KelolaPengurusEkstraController;
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
@@ -147,6 +148,18 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     /**
      * End Pembina Ekstrakurikuler
      */
+    // Pengurus Ekstra
+    // Route untuk kelola data pengurus
+    Route::get('/keloladatapengurus', [KelolaPengurusEkstraController::class, 'showDataPengurus'])->name('superadmin.keloladatapengurus');
+    Route::get('/kelola-akun/data-pengurus/tambah', [KelolaPengurusEkstraController::class, 'createPengurus'])->name('data.pengurus.tambah');
+    Route::post('/kelola-akun/data-pengurus/store/{id_siswa}', [KelolaPengurusEkstraController::class, 'storePengurus'])->name('pengurus.store');
+    Route::delete('/kelola-akun/data-pengurus/{id_pengurus}', [KelolaPengurusEkstraController::class, 'pengurusDestroy'])->name('pengurus.destroy');
+    Route::get('/data/pengurus/{id}/edit', [KelolaPengurusEkstraController::class, 'editPengurus'])->name('data.pengurus.edit');
+    Route::put('/data/pengurus/{id}/update', [KelolaPengurusEkstraController::class, 'updatePengurus'])->name('data.pengurus.update');
+    Route::get('/superadmin/keloladatapengurus/search', [KelolaPengurusEkstraController::class, 'searchPengurus'])->name('superadmin.searchPengurus');
+    Route::delete('/pengurus/{id_siswa}/delete-role', [KelolaPengurusEkstraController::class, 'deleteRole'])->name('pengurus.delete-role');
+
+    
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');

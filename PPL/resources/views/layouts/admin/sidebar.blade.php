@@ -70,6 +70,11 @@ aria-label="Sidebar">
                                 Data Pembina Ekstrakurikuler
                             </x-sidebar-dropdown-list-link>
                         </li>
+                        <li>
+                            <x-sidebar-dropdown-list-link href="{{ route('superadmin.keloladatapengurus') }}" :active="request()->is('superadmin/keloladatapengurus*')">
+                                Data Pengurus Ekstrakurikuler
+                            </x-sidebar-dropdown-list-link>                            
+                        </li>
                     </x-sidebar-dropdown-list>
                 </li>
                                 {{-- Kelola Akun --}}

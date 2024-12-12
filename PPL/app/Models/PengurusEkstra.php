@@ -18,7 +18,7 @@ class PengurusEkstra extends Model
 
     protected $keyType = 'string';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'id_pengurus_ekstra',
