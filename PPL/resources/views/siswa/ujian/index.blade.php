@@ -14,7 +14,7 @@
     {{-- Main Content --}}
     <div class="p-6 bg-white rounded shadow">
         <h2 class="text-lg font-bold text-gray-800">Daftar Ujian</h2>
-        {{-- <table class="w-full mt-4 border-collapse border border-gray-300">
+        <table class="w-full mt-4 border-collapse border border-gray-300">
             <thead class="bg-gray-200">
                 <tr>
                     <th class="p-2 border border-gray-300">Judul</th>
@@ -37,6 +37,6 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table> --}}
+        </table>
     </div>
 </x-siswa-layout>

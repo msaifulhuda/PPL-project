@@ -15,6 +15,7 @@ class pengumpulan_ujian extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -48,6 +49,7 @@ class pengumpulan_ujian extends Model
      * @var array
      */
     protected $table = 'pengumpulan_ujian';
+    protected $primaryKey = 'id_pengumpulan_ujian';
 
     protected $fillable = [
         'ujian_id',
