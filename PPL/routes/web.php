@@ -24,6 +24,7 @@ use App\Http\Controllers\staffakademik\RaporController;
 use App\Http\Controllers\staffperpus\LaporanController;
 use App\Http\Controllers\guru\lms\AnggotaGuruController;
 use App\Http\Controllers\guru\lms\AnggotaSiswaContoller;
+use App\Http\Controllers\guru\GuruUjianController;
 use App\Http\Controllers\siswa\lms\ForumSiswaController;
 use App\Http\Controllers\siswa\lms\TugasSiswaController;
 use App\Http\Controllers\staffakademik\JadwalController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\staffperpus\StaffperpusController;
 use App\Http\Controllers\siswa\lms\DashboardSiswaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CeKController;
+use App\Http\Controllers\siswa\UjianSiswaController;
 use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
@@ -385,6 +387,18 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     // ========================================================== END ROUTE LMS =================================================================================
 
 
+    /**
+      * START UJIAN
+      */
+      Route::get('/dashboard/ujian/index', [UjianSiswaController::class, 'index'])->name('siswa.ujian.index');
+      Route::get('/ujian/{id}/start', [UjianSiswaController::class, 'start'])->name('siswa.ujian.start');
+      Route::post('/ujian/{id}/submit', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.submit');
+      Route::post('/ujian{id}/end', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.end');
+    /**
+     * END UJIAN
+     */
+
+
     // START PRESTASI
     Route::get('/dashboard/prestasi', [PrestasiSiswaController::class, 'index'])->name('siswa.prestasi');
     Route::get('/dashboard/prestasi/create', [PrestasiSiswaController::class, 'create'])->name('siswa.prestasi.create');
@@ -493,6 +507,31 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transGuru'])->name('guru.perpustakaan.riwayat');
 
     //END PERPUS
+
+
+    /**
+     * START UJIAN
+     */
+    // CRUD JAWABAN UJIAN
+    Route::get('/dashboard/ujian/jawaban_ujian', [GuruUjianController::class, 'showJawabanUjian'])->name('guru.dashboard.ujian.jawaban_ujian');
+    Route::get('/dashboard/ujian/jawaban_ujian/{id}/jawaban_ujian_edit/', [GuruUjianController::class, 'editJawabanUjian'])->name('jawaban_ujian.edit');
+    Route::put('/dashboard/ujian/jawaban_ujian/{id}', [GuruUjianController::class, 'jawabanUpdate'])->name('jawaban_ujian.update');
+    Route::delete('/dashboard/ujian/jawaban_ujian/{id}', [GuruUjianController::class, 'destroyJawabanUjian'])->name('jawaban_ujian.destroy');
+
+    //CRUD SOAL UJIAN
+    Route::post('jawaban_ujian/import', [GuruUjianController::class, 'importSoal'])->name('soal_ujian.import');
+    Route::get('/dashboard/ujian/soal_ujian', [GuruUjianController::class, 'showSoalUjian'])->name('guru.dashboard.ujian.soal_ujian');
+    Route::get('/dashboard/ujian/soal_ujian/{id}/soal_edit', [GuruUjianController::class, 'soalEdit'])->name('soal_ujian.edit');
+    Route::put('/dashboard/ujian/soal_ujian/{id}/', [GuruUjianController::class, 'soalUpdate'])->name('soal_ujian.update');
+    Route::delete('/dashboard/ujian/soal_ujian/{id}', [GuruUjianController::class, 'destroySoal'])->name('soal_ujian.destroy');
+
+
+    //CRUD PENGUMPULAN
+    Route::get('/dashboard/ujian/pengumpulan_ujian', [GuruUjianController::class, 'index'])->name('guru.dashboard.ujian.pengumpulan');
+    Route::delete('pengumpulan_ujian/{id}', [GuruUjianController::class, 'destroy'])->name('guru.dashboard.pengumpulan_ujian.destroy');
+    /**
+     * END UJIAN
+     */
 
     // START ABSENSI
 

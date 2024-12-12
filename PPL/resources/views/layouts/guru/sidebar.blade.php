@@ -124,17 +124,31 @@
 
                     {{-- Ujian --}}
                     <li>
-                        <x-sidebar-link href="#">
+                        <x-sidebar-dropdown label="Ujian" id="ujian" :active="request()->is('guru/dashboard/ujian*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
-                                    d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
-                                    clip-rule="evenodd" />+
-                                </path>
+                                    d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293a1 1 0 0 1 1.414 0L19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
+                                    clip-rule="evenodd" />
                             </x-sidebar-icon>
-                            <span class="ml-3" sidebar-toggle-item>Ujian</span>
-                        </x-sidebar-link>
+                        </x-sidebar-dropdown>
+                        <x-sidebar-dropdown-list id="ujian" :active="request()->is('guru/dashboard/ujian*')">
+                            <li>
+                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.jawaban_ujian') }}" :active="request()->is('guru.dashboard.ujian.jawaban_ujian')">
+                                    Jawaban Ujian
+                                </x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.soal_ujian') }}" :active="request()->is('guru/dashboard/ujian/soal_ujian')">
+                                    Bank Soal
+                                </x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.pengumpulan') }}" :active="request()->is('guru/dashboard/ujian/pengumpulan_ujian')">
+                                    Beranda pengumpulan
+                                </x-sidebar-dropdown-list-link>
+                            </li>
+                        </x-sidebar-dropdown-list>
                     </li>
-                </ul>
 
                 {{-- Sidebar Footer --}}
                 <div class="pt-2 space-y-2">
