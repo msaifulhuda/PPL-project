@@ -24,6 +24,7 @@ class AkunSeeder extends Seeder
                     'username' => 'admin',
                     'password' => 'admin123',
                     'email' => 'andreeka852@gmail.com',
+                    "nama_superadmin" => "Andre"
                 ]
             ],
             'staff_akademik' => [
@@ -243,6 +244,7 @@ class AkunSeeder extends Seeder
 
         foreach ($akun_seeder['superadmin'] as $superadmin) {
             Superadmin::create([
+                'nama_superadmin' => $superadmin['nama_superadmin'],
                 'username' => $superadmin['username'],
                 'password' => bcrypt($superadmin['password']),
                 'email' => $superadmin['email']

@@ -127,29 +127,29 @@ class DatabaseSeeder extends Seeder
         //     ]);
         // }
 
-        $idUser1 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser1,
-            'username' => 'admin',
-            'password' => bcrypt('admin123'),
-            'email' => 'andreeka852@gmail.com',
-        ]);
-        $idUser2 = Str::uuid();
-        Superadmin::create([
-            'id_admin' => $idUser2,
-            'username' => 'Superadmin',
-            'password' => bcrypt('admin123'),
-            'email' => 'adisahrul383@gmail.com',
-        ]);
-        $idStaffPerpus = Str::uuid();
-        Staffperpus::create([
-            'id_staff_perpustakaan' => $idStaffPerpus,
-            'username' => '123456789101',
-            'password' => bcrypt('Perpus123'),
-        ]);
-        $this->call([
-            PerpustakaanSeeder::class,
-        ]);
+        // $idUser1 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser1,
+        //     'username' => 'admin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'andreeka852@gmail.com',
+        // ]);
+        // $idUser2 = Str::uuid();
+        // Superadmin::create([
+        //     'id_admin' => $idUser2,
+        //     'username' => 'Superadmin',
+        //     'password' => bcrypt('admin123'),
+        //     'email' => 'adisahrul383@gmail.com',
+        // ]);
+        // $idStaffPerpus = Str::uuid();
+        // Staffperpus::create([
+        //     'id_staff_perpustakaan' => $idStaffPerpus,
+        //     'username' => '123456789101',
+        //     'password' => bcrypt('Perpus123'),
+        // ]);
+        // $this->call([
+        //     PerpustakaanSeeder::class,
+        // ]);
 
         // $idUser3 = Str::uuid();
         // Staffakademik::create([
