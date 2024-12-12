@@ -200,6 +200,20 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      * END PRESTASI
      */
 
+    // START MANAGEMENT KELAS (NAUFAL | PROSES)
+    Route::get('/daftarkelas',[KelasController::class,'daftarkelas'] )->name('daftarkelas');
+    Route::get('/kelas/{id}/siswa', [KelasController::class, 'showSiswa'])->name('kelas.siswa');
+    Route::get('/kelas/{id_kelas}/tambah-siswa', [KelasController::class, 'tambahSiswa'])->name('kelas.tambahSiswa');
+    Route::post('/kelas/{id_kelas}/simpan-siswa', [KelasController::class, 'simpanSiswa'])->name('kelas.simpanSiswa');
+
+    Route::delete('/kelas/{id_kelas}/siswa/{id_siswa}', [KelasController::class, 'hapusSiswa'])->name('kelas.hapusSatuSiswa');
+    Route::delete('/kelas/{id_kelas}/hapus-siswa-massal', [KelasController::class, 'hapusSiswaMassal'])->name('kelas.hapusSiswaMassal');
+    
+    Route::get('/kelas/{id_kelas}/edit-wali-kelas', [KelasController::class, 'editWaliKelas'])->name('kelas.editWaliKelas');
+    Route::put('/kelas/{id_kelas}/update-wali-kelas', [KelasController::class, 'updateWaliKelas'])->name('kelas.updateWaliKelas');
+    
+    // ENDL MANAGEMENT KELAS
+
     /**
      * START MATA PELAJARAN MANAGEMENT
      */
@@ -506,7 +520,11 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::delete('/dashboard/lms/topik/delete/{id}', [TopikLmsController::class, "destroy"])->name('guru.dashboard.lms.topik.destroy');
     // ========================================================== END ROUTE LMS =================================================================================
 
-
+    // START WALI KELAS (NAUFAL | PROSES)
+    Route::get('/kelas/daftar-siswa', [GuruController::class, 'daftarSiswaWali'])->name('guru.daftarSiswaWali');
+    Route::get('/kelas/{id_kelas}/siswa/{id_siswa}', [SiswaController::class, 'show'])->name('kelas.siswa.profil');
+    Route::get('/kelas/jadwal-pelajaran', [GuruController::class, 'daftarKelasDanJadwal'])->name('guru.jadwalPelajaran');
+    // ENDL WALI KELAS
 
     // START PERPUS
 
