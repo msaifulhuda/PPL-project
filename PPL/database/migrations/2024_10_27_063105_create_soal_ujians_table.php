@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id_soal_ujian')->primary();
             $table->uuid('ujian_id');
             $table->string('judul_ujian');
-            $table->string('teks_soal');
+            $table->text('teks_soal');
             $table->string('opsi_a');
             $table->string('opsi_b');
             $table->string('opsi_c');

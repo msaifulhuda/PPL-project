@@ -14,14 +14,15 @@ class SoalUjianImport implements ToModel
     */
     public function model(array $row)
     {
+        // dd($row);
         return new soal_ujian([
-            'teks_soal'    => $row['teks_soal'],
-            'judul_ujian'  => $row['judul_ujian'],
-            'opsi_a'       => $row['opsi_a'],
-            'opsi_b'       => $row['opsi_b'],
-            'opsi_c'       => $row['opsi_c'],
-            'opsi_d'       => $row['opsi_d'],
-            'kunci_jawaban'=> $row['kunci_jawaban'],
+            'judul_ujian'  => $row[0],
+            'teks_soal'    => $row[1],
+            'opsi_a'       => $row[2],
+            'opsi_b'       => $row[3],
+            'opsi_c'       => $row[4],
+            'opsi_d'       => $row[5],
+            'kunci_jawaban'=> $row[6],
         ]);
     }
 }
