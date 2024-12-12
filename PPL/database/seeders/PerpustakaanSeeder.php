@@ -253,7 +253,7 @@ class PerpustakaanSeeder extends Seeder
                 'author_buku' => 'John B. Carrol',
                 'publisher_buku' => 'Oxford University Press',
                 'judul_buku' => 'Oxford English Dictionary',
-                'foto_buku' => 'images/Perpustakaan/foto_buku/oxford_english_dictionary.jpg',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/oxford_english_dictionary.webp',
                 'tahun_terbit' => 2010,
                 'bahasa_buku' => 'Inggris',
                 'stok_buku' => 10,
@@ -278,9 +278,9 @@ class PerpustakaanSeeder extends Seeder
                 'id_jenis_buku' => 1,
                 'author_buku' => 'M. Davidow',
                 'publisher_buku' => 'Collins',
-                'judul_buku' => 'Collins English Dictionary',
+                'judul_buku' => 'Collins English Dictionary Essential Edition',
                 'foto_buku' => 'images/Perpustakaan/foto_buku/collins_english_dictionary.jpg',
-                'tahun_terbit' => 2008,
+                'tahun_terbit' => 2019,
                 'bahasa_buku' => 'Inggris',
                 'stok_buku' => 15,
                 'rak_buku' => 3,
@@ -331,7 +331,7 @@ class PerpustakaanSeeder extends Seeder
                 'id_jenis_buku' => 1,
                 'author_buku' => 'Editors of Encyclopaedia Britannica',
                 'publisher_buku' => 'Encyclopædia Britannica, Inc.',
-                'judul_buku' => 'Encyclopaedia Britannica: 15th Edition',
+                'judul_buku' => 'Encyclopaedia Britannica: 15th Edition Volume 1',
                 'foto_buku' => 'images/Perpustakaan/foto_buku/encyclopaedia_britannica.jpg',
                 'tahun_terbit' => 2010,
                 'bahasa_buku' => 'Inggris',
@@ -342,7 +342,7 @@ class PerpustakaanSeeder extends Seeder
             [
                 'id_kategori_buku' => $ArrayCategory[3],
                 'id_jenis_buku' => 1,
-                'author_buku' => 'National Geographic Society',
+                'author_buku' => 'Karen McGhee, George McKay',
                 'publisher_buku' => 'National Geographic',
                 'judul_buku' => 'National Geographic Encyclopedia of Animals',
                 'foto_buku' => 'images/Perpustakaan/foto_buku/national_geographic_animals.jpg',
@@ -358,7 +358,7 @@ class PerpustakaanSeeder extends Seeder
                 'author_buku' => 'Dorling Kindersley',
                 'publisher_buku' => 'Dorling Kindersley',
                 'judul_buku' => 'The DK Encyclopedia of Science',
-                'foto_buku' => 'images/Perpustakaan/foto_buku/dk_encyclopedia_science.jpg',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/dk_encyclopedia_science.webp',
                 'tahun_terbit' => 2008,
                 'bahasa_buku' => 'Inggris',
                 'stok_buku' => 12,
@@ -376,7 +376,7 @@ class PerpustakaanSeeder extends Seeder
                 'bahasa_buku' => 'Inggris',
                 'stok_buku' => 7,
                 'rak_buku' => 5,
-                'harga_buku' => 1100000
+                'harga_buku' => 250000
             ],
             // buku paket
             [
