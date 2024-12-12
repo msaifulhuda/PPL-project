@@ -75,7 +75,7 @@
                                     <a href="{{ route('kelola_pembina_ekstrakurikuler.edit', $pembina->id_guru) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600">Edit</a>
                                     <form action="{{ route('kelola_pembina_ekstrakurikuler.destroy', $pembina->id_guru) }}" method="POST" onsubmit="return confirmDelete(event)" class="inline">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('PUT')
                                         <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Delete</button>
                                     </form>
                                 </td>
@@ -94,7 +94,7 @@
     <script>
         function confirmDelete(event) {
             event.preventDefault();
-            const confirmation = confirm("Apakah Anda yakin ingin menghapus data ini?");
+            const confirmation = confirm("Apakah Anda yakin ingin menghapus role pembina?");
             if (confirmation) {
                 event.target.submit();
             }

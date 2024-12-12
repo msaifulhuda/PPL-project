@@ -20,7 +20,7 @@ class KelasSiswaSeeder extends Seeder
         $tahunAjaranAktif = tahun_ajaran::where('aktif', 1)->pluck('id_tahun_ajaran')->first();
 
         $siswaIds = Siswa::pluck('id_siswa')->toArray();
-        $kelasIds = kelas::pluck('id_kelas')->toArray();
+        $kelasIds = kelas::where('nama_kelas', "7A")->pluck('id_kelas')->toArray();
 
         foreach ($siswaIds as $siswaId) {
             $kelasId = $kelasIds[array_rand($kelasIds)];

@@ -10,6 +10,7 @@ use App\Models\file_materi;
 use Illuminate\Http\Request;
 use App\Models\notifikasi_sistem;
 use App\Http\Controllers\Controller;
+use App\Jobs\NotifikasiMateri;
 use App\Models\kelas_mata_pelajaran;
 
 class GuruLmsController extends Controller
@@ -128,23 +129,26 @@ class GuruLmsController extends Controller
                 );
             }
 
-            // Send notification to Whatsapp
-            $twilioSid = env('TWILIO_SID');
-            $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
-            $twilioWhatsappNumber = 'whatsapp:' . env('TWILIO_WHATSAPP_NUMBER');
-            $to = 'whatsapp:' . '+6287864365113';
-            $message = "Materi Baru Diupload: " . $materi->judul_materi . "\n" . "Kelas: " . $kelas_mata_pelajaran->kelas->nama_kelas . "\n" . "Mata Pelajaran: " . $kelas_mata_pelajaran->mataPelajaran->nama_matpel;
-            $client = new Client($twilioSid, $twilioAuthToken);
+            // // Send notification to Whatsapp
+            // $twilioSid = env('TWILIO_SID');
+            // $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
+            // $twilioWhatsappNumber = 'whatsapp:' . env('TWILIO_WHATSAPP_NUMBER');
+            // $to = 'whatsapp:' . '+6289531419612';
+            // $message = "Materi Baru Diupload: " . $materi->judul_materi . "\n" . "Kelas: " . $kelas_mata_pelajaran->kelas->nama_kelas . "\n" . "Mata Pelajaran: " . $kelas_mata_pelajaran->mataPelajaran->nama_matpel;
+            // $client = new Client($twilioSid, $twilioAuthToken);
 
-            try {
-                $message = $client->messages->create(
-                    $to,
-                    array('from' => $twilioWhatsappNumber, 'body' => $message)
-                );
-                return redirect()->route('guru.dashboard.lms.materi')->with('success', 'Materi created successfully.');
-            } catch (Exception $e) {
-                return redirect()->route('guru.dashboard.lms.materi')->with('error', 'Failed to send notification to Whatsapp.');
-            }
+            // try {
+            //     $message = $client->messages->create(
+            //         $to,
+            //         array('from' => $twilioWhatsappNumber, 'body' => $message)
+            //     );
+            //     return redirect()->route('guru.dashboard.lms.materi')->with('success', 'Materi created successfully.');
+            // } catch (Exception $e) {
+            //     return redirect()->route('guru.dashboard.lms.materi')->with('error', 'Failed to send notification to Whatsapp.');
+            // }
+
+            NotifikasiMateri::dispatch($materi, $kelas_mata_pelajaran);
+            return redirect()->route('guru.dashboard.lms.materi')->with('success', 'Materi created successfully.');
         } else {
             return redirect()->route('guru.dashboard.lms.materi')->with('success', 'Materi created successfully.');
         }

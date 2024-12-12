@@ -15,6 +15,7 @@ class soal_ujian extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -42,15 +43,19 @@ class soal_ujian extends Model
         return 'string';
     }
 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $primaryKey = 'id_soal_ujian';
+
     protected $table = 'soal_ujian';
 
     protected $fillable = [
         'ujian_id',
+        'judul_ujian',
         'teks_soal',
         'opsi_a',
         'opsi_b',

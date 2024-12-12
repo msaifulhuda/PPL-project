@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\notifikasi_sistem;
+use App\Models\NotifikasiTugas;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,19 +69,15 @@ class AuthenticatedSessionController extends Controller
 
         $intendedUrl = session('url.intended', route('siswa.dashboard'));
 
-        if ($user->role_siswa === 'siswa') {
-            if ($redirect != null) {
-                return redirect()->route($redirect);
-            } else {
-                $notifikasi_count = notifikasi_sistem::where('siswa_id', $user->id_siswa)->where('status', 0)->count();
-                $request->session()->put('notifikasi_count', $notifikasi_count);
-                return redirect()->intended($intendedUrl);
-            }
-        } elseif ($user->role_siswa === 'pengurus') {
-            return redirect()->intended($intendedUrl);
-        } elseif ($user->role_siswa === 'pengurus') {
+        if ($redirect !== null) {
+            return redirect()->route($redirect);
+        } else {
+            $notifikasi_materi = notifikasi_sistem::where('siswa_id', $user->id_siswa)->where('status', 0)->count();
+
+            $request->session()->put('notifikasi_count', $notifikasi_materi);
             return redirect()->intended($intendedUrl);
         }
+
         return back()->withErrors([
             'username' => 'Role tidak dikenali.'
         ])->onlyInput('username');
