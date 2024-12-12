@@ -32,7 +32,6 @@ use App\Http\Controllers\staffperpus\CategoryController;
 use App\Http\Controllers\siswa\lms\MateriSiswaController;
 use App\Http\Controllers\superadmin\SuperadminController;
 use App\Http\Controllers\guru\lms\DashboardGuruController;
-use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\siswa\LihatJadwalSiswaController;
 use App\Http\Controllers\siswa\lms\AnggotaSiswaController;
 use App\Http\Controllers\staffakademik\PrestasiController;
@@ -44,16 +43,12 @@ use App\Http\Controllers\perpustakaan\PerpustakaanController;
 use App\Http\Controllers\staffakademik\LihatJadwalController;
 use App\Http\Controllers\guru\lms\TrackingTugasGuruController;
 use App\Http\Controllers\siswa\lms\DaftarTugasSiswaController;
-use App\Http\Controllers\pembinaekstra\PembinaekstraController;
-use App\Http\Controllers\pengurusekstra\PerlengkapanController;
 use App\Http\Controllers\pembinaekstra\AnggotaEkstraController;
 use App\Http\Controllers\staffakademik\StaffakademikController;
-use App\Http\Controllers\pembinaekstra\PembinaAnggotaController;
 use App\Http\Controllers\staffperpus\RiwayatTransaksiController;
 
 
 use App\Http\Controllers\superadmin\KelolaStaffPerpusController;
-use App\Http\Controllers\Ekstrakurikuler\EkstrakurikulerController;
 use App\Http\Controllers\pengurusekstra\AnggotaController;
 use App\Http\Controllers\pembinaekstra\PembinaekstraController;
 use App\Http\Controllers\pengurusekstra\PerlengkapanController;
