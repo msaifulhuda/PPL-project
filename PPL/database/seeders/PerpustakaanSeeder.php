@@ -391,6 +391,58 @@ class PerpustakaanSeeder extends Seeder
                 'stok_buku' => 20,
                 'rak_buku' => 9,
                 'harga_buku' => 20000
+            ],
+            [
+                'id_kategori_buku' => $ArrayCategory[1],
+                'id_jenis_buku' => 2,
+                'author_buku' => 'Asep Suryana, Diana Oktaviani',
+                'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
+                'judul_buku' => 'Buku Panduan Siswa Bahasa Indonesia untuk SMP Kelas VIII',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/paket2.png',
+                'tahun_terbit' => 2021,
+                'bahasa_buku' => 'Indonesia',
+                'stok_buku' => 15,
+                'rak_buku' => 10,
+                'harga_buku' => 25000
+            ],
+            [
+                'id_kategori_buku' => $ArrayCategory[1],
+                'id_jenis_buku' => 2,
+                'author_buku' => 'Mulyadi Karyono, Titi Suharsih',
+                'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
+                'judul_buku' => 'Buku Panduan Guru Matematika untuk SMP Kelas IX',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/paket3.jpg',
+                'tahun_terbit' => 2022,
+                'bahasa_buku' => 'Indonesia',
+                'stok_buku' => 10,
+                'rak_buku' => 11,
+                'harga_buku' => 30000
+            ],
+            [
+                'id_kategori_buku' => $ArrayCategory[1],
+                'id_jenis_buku' => 2,
+                'author_buku' => 'Sriyono, Lilis Kartikasari',
+                'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
+                'judul_buku' => 'Buku Panduan Siswa Ilmu Pengetahuan Alam untuk SMP Kelas VII Edisi Revisi',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/paket4.png',
+                'tahun_terbit' => 2023,
+                'bahasa_buku' => 'Indonesia',
+                'stok_buku' => 18,
+                'rak_buku' => 12,
+                'harga_buku' => 22000
+            ],
+            [
+                'id_kategori_buku' => $ArrayCategory[1],
+                'id_jenis_buku' => 2,
+                'author_buku' => 'Joko Purwanto, Siti Nurhayati',
+                'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
+                'judul_buku' => 'Buku Panduan Guru Pendidikan Pancasila dan Kewarganegaraan untuk SMP Kelas VIII',
+                'foto_buku' => 'images/Perpustakaan/foto_buku/paket5.jpg',
+                'tahun_terbit' => 2021,
+                'bahasa_buku' => 'Indonesia',
+                'stok_buku' => 12,
+                'rak_buku' => 13,
+                'harga_buku' => 24000
             ]
         ];
 
