@@ -23,8 +23,10 @@ return new class extends Migration
             $table->string('nomor_wa_guru')->nullable();
             $table->string('username')->default('guru');
             $table->string('password')->default(Hash::make('guru'));
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->string('alamat_guru')->nullable();
             $table->enum('role_guru',['guru','pembina','wali_kelas'])->default('guru');
+            $table->string('alamat')->nullable();
             $table->timestamps();
         });
     }

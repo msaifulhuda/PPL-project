@@ -35,9 +35,7 @@ class KelasMataPelajaranSeeder extends Seeder
             ['guru_nama' => 'Fajar Hidayat', 'mata_pelajaran' => 'Seni Budaya'],
             ['guru_nama' => 'Sri Wahyuni', 'mata_pelajaran' => 'Pendidikan Agama'],
             ['guru_nama' => 'Yoga Aditya', 'mata_pelajaran' => 'Pendidikan Jasmani'],
-            ['guru_nama' => 'Rahmawati Anisa', 'mata_pelajaran' => 'TIK'],
-            ['guru_nama' => 'Andi Prakoso', 'mata_pelajaran' => 'Prakarya'],
-            ['guru_nama' => 'Lina Kusuma', 'mata_pelajaran' => 'Bahasa Madura'],
+            ['guru_nama' => 'Lina Kusuma', 'mata_pelajaran' => 'Bahasa Daerah'],
         ];
 
         $hari = hari::all()->first()->id_hari;

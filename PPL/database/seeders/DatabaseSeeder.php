@@ -34,18 +34,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // isi data siswa jika belum ada
-        if (Siswa::count() == 0) {
+        if (Siswa::count() == 0 && Guru::count() == 0 && Staffperpus::count() == 0 && Staffakademik::count() == 0 && Superadmin::count() == 0) {
+            // $this->call([
+            //     SiswaSeeder::class,
+            // ]);
+
             $this->call([
-                SiswaSeeder::class,
+                AkunSeeder::class,
             ]);
         }
 
         // isi data guru jika belum ada
-        if (Guru::count() == 0) {
-            $this->call([
-                GuruSeeder::class,
-            ]);
-        }
+        // if (Guru::count() == 0) {
+        //     $this->call([
+        //         GuruSeeder::class,
+        //     ]);
+        // }
 
         // isi tahun ajaran jika belum ada
         if (tahun_ajaran::count() == 0) {
