@@ -31,20 +31,39 @@
                         <li class="flex pb-3 justify-between">
                             <span>{{ $transaction->buku->judul_buku }}</span>
                             <select name="status_pengembalian" class="form-select">
-                                <option value="0" {{ $transaction->status_pengembalian == 0 ? 'selected' : '' }}>Telat</option>
-                                <option value="1" {{ $transaction->status_pengembalian == 1 ? 'selected' : '' }}>Aman</option>
-                                <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>Hilang</option>
+                                <option value="0" {{ $transaction->status_pengembalian == 0 ? 'selected' : '' }}>
+                                    Telat</option>
+                                <option value="1" {{ $transaction->status_pengembalian == 1 ? 'selected' : '' }}>
+                                    Aman</option>
+                                <option value="2" {{ $transaction->status_pengembalian == 2 ? 'selected' : '' }}>
+                                    Hilang</option>
                             </select>
                         </li>
-                        <!-- <li class=" pb-3 justify-between">
-                            <h3 class="my-5">Jumlah buku yang dipinjam: {{ $transaction->stok }}</h3>
-                            <input type="number" name="jumlah_dikembalikan" class="form-input border-gray-300 rounded-lg w-3/5"
-                                placeholder="Jumlah buku yang dikembalikan" min="1" max="{{ $transaction->stok }}" required>
-                            <span class="text-sm ml-2">/ {{ $transaction->stok }}</span>
-                        </li> -->
                     </ul>
 
-                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <div class="flex items-center space-x-4 mb-5">
+                        @if ($transaction->status_denda == 0)
+                            <div class="flex items-center mb-4">
+                                <input id="default-checkbox" type="checkbox" value="1" name="status_denda"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="default-checkbox"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sudah
+                                    Dibayar</label>
+                            </div>
+                        @else
+                            <div class="flex items-center mb-4">
+                                <input disabled checked id="disabled-checked-checkbox" type="checkbox" value="1"
+                                    name="status_denda"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="disabled-checked-checkbox"
+                                    class="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">Sudah
+                                    Dibayar</label>
+                            </div>
+                        @endif
+                    </div>
+
+                    <button type="submit"
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Konfirmasi
                     </button>
                 </form>

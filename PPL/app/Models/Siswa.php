@@ -35,10 +35,11 @@ class Siswa extends Authenticatable
         'google_id',
         'google_token',
     ];
-    public function pengurusekstra()
+    public function pengurusEkstra()
     {
-        return $this->hasMany(PengurusEkstra::class);
+        return $this->hasMany(PengurusEkstra::class, 'id_siswa', 'id_siswa');
     }
+
     public function rapor()
     {
         return $this->hasMany(Rapor::class);
@@ -53,7 +54,7 @@ class Siswa extends Authenticatable
     }
     public function pengumpulantugas()
     {
-        return $this->hasMany(pengumpulan_tugas::class );
+        return $this->hasMany(pengumpulan_tugas::class, 'siswa_id', 'id_siswa');
     }
     public function pengumpulanujian()
     {
@@ -82,5 +83,10 @@ class Siswa extends Authenticatable
     public function kelas()
     {
         return $this->belongsToMany(Kelas::class, 'kelas_siswas', 'id_siswa', 'id_kelas');
+    }
+
+    public function notifikasitugas()
+    {
+        return $this->hasMany(NotifikasiTugas::class, 'siswa_id', 'id_siswa');
     }
 }

@@ -16,6 +16,7 @@ class ujian extends Model
      * @return void
      */
     protected static function boot() {
+        parent::boot();
         static::creating(function ($model) {
             if ( ! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -81,7 +82,7 @@ class ujian extends Model
     {
         return $this->hasMany(soal_ujian::class, 'ujian_id', 'id_ujian');
     }
-    public function pengunmpulanUjian()
+    public function pengumpulanUjian()
     {
         return $this->hasMany(pengumpulan_ujian::class, 'ujian_id', 'id_ujian');
     }

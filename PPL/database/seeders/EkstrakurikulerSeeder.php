@@ -24,7 +24,7 @@ class EkstrakurikulerSeeder extends Seeder
     {
 
         $guruIds = Guru::where('role_guru', 'pembina')->pluck('id_guru')->toArray();
-        $nama_ekstra = ['Pramuka', 'PMR', 'Paskibra', 'Tahfidz', 'Basket', 'Volly', 'Futsal'];
+        $nama_ekstra = ['Pramuka'];
 
         /**
          * Mengisi ekstrakurikuler.
@@ -34,8 +34,8 @@ class EkstrakurikulerSeeder extends Seeder
                 'id_ekstrakurikuler' => Str::uuid(),
                 'guru_id' => $guruIds[array_rand($guruIds)],
                 'nama_ekstrakurikuler' => $ekstra,
-                'deskripsi' => $nama_ekstra[$index], ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
-                'gambar' => '-',
+                'deskripsi' => $nama_ekstra[$index] .  ' adalah kegiatan ekstrakurikuler yang bertujuan untuk membentuk karakter siswa.',
+                'gambar' => $nama_ekstra[$index].'.jpg',
                 'status' => 'tidak buka',
             ]);
         }
@@ -85,13 +85,13 @@ class EkstrakurikulerSeeder extends Seeder
         /**
          * Mengisi laporan penilaian ekstrakurikuler.
          */
-        foreach ($idEkstra as $index => $ekstra){
-            $idAnggota = RegistrasiEkstrakurikuler::whereIn('id_siswa', $idSiswa)->where('status', 'diterima')->where('id_ekstrakurikuler', $ekstra)->pluck('id_siswa')->toArray();
+        foreach ($idEkstra as $index => $id){
+            $idAnggota = RegistrasiEkstrakurikuler::whereIn('id_siswa', $idSiswa)->where('status', 'diterima')->where('id_ekstrakurikuler', $id)->pluck('id_siswa')->toArray();
             foreach ($idAnggota as $anggota){
                 LaporanPenilaianEkstrakurikuler::create([
                     'id_laporan' => Str::uuid(),
                     'id_siswa' => $anggota,
-                    'id_ekstrakurikuler' => $ekstra,
+                    'id_ekstrakurikuler' => $id,
                     'isi_laporan' => 'Deskripsi laporan penilaian ekstrakurikuler ' . $ekstra[$index]->nama_ekstrakurikuler,
                 ]);
             }
@@ -102,16 +102,17 @@ class EkstrakurikulerSeeder extends Seeder
          * Mengisi prestasi ekstrakurikuler.
          */
         foreach ($idEkstra as $ekstra){
+            $nama_ekstra = Ekstrakurikuler::where('id_ekstrakurikuler', $ekstra)->get()->first()->nama_ekstrakurikuler;
             PrestasiEkstrakurikuler::create([
                 'id_prestasi' => Str::uuid(),
                 'id_ekstrakurikuler' => $ekstra,
                 'judul' => collect([
-                    'Juara 1 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)],
-                    'Juara 2 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)],
-                    'Juara 3 Lomba ' . $nama_ekstra[array_rand($nama_ekstra)]
+                    'Juara 1 Lomba ' . $nama_ekstra,
+                    'Juara 2 Lomba ' . $nama_ekstra,
+                    'Juara 3 Lomba ' . $nama_ekstra
                 ])->random(),
                 'deskripsi' => collect(['Deskripsi prestasi 1', 'Deskripsi prestasi 2', 'Deskripsi prestasi 3'])->random(),
-                'gambar' => collect(['gambar1.jpg', 'gambar2.jpg', 'gambar3.jpg'])->random(),
+                'gambar' => collect(['prestasiPramuka.jpeg', 'prestasiPramuka2.jpeg'])->random(),
             ]);
         }
 

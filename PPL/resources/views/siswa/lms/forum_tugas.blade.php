@@ -20,6 +20,8 @@
                 <x-nav-button-lms route="siswa.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
             </div>
 
+        
+
             {{-- tugas dan materi tanpa topik  --}}
             <div class="flex flex-col items-center">
                 <div class="w-full max-w-3xl">
@@ -39,7 +41,7 @@
                                         <p class="text-sm text-gray-600">
                                             {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                             | Tenggat:
-                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                            {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                         </p>
                                     </div>
                                 </div>
@@ -73,7 +75,7 @@
                                             <p class="text-sm text-gray-600">
                                                 {{ $tugas->created_at ? \Carbon\Carbon::parse($tugas->created_at)->format('d F Y') : '' }}
                                                 | Tenggat:
-                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->format('d F Y, H:i') : 'Tidak ada tenggat' }}
+                                                {{ $tugas->deadline ? \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('l, d F Y h:i A') : 'Tidak ada tenggat' }}
                                             </p>
                                         </div>
                                     </div>

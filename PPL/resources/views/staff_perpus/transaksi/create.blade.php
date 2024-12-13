@@ -7,6 +7,16 @@
             </svg>
             Kembali
         </a>
+        @if ($errors->has('message'))
+        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+            <ul class="list-disc pl-5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $errors->first('message') }}</li>
+                @endforeach
+            </ul>
+            </div>
+        @endif
+
         {{-- @if ($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
                 <ul class="list-disc pl-5">
@@ -57,13 +67,13 @@
             </div>
 
             <!-- Jumlah Buku yang Dipinjam -->
-            <div>
+            {{-- <div>
                 <label for="jumlah" class="block text-gray-700 font-semibold mb-1">Jumlah Buku yang Dipinjam</label>
                 <input type="number" name="jumlah" id="jumlah" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                 @error('jumlah')
                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
             @enderror
-            </div>
+            </div> --}}
 
             <!-- Submit Button -->
             <div class="text-left">

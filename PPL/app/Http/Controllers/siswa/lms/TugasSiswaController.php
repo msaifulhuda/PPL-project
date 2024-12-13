@@ -52,6 +52,10 @@ class TugasSiswaController extends Controller
 
 
 
+
+
+
+
     public function forumTugas($id)
     {
         $kelasMataPelajaran = kelas_mata_pelajaran::with([
@@ -87,6 +91,7 @@ class TugasSiswaController extends Controller
             ->where('siswa_id', auth()->guard('web-siswa')->user()->id_siswa)
             ->first();
         $now = Carbon::now();
+        // dd($pengumpulan->status);
         $deadline = Carbon::parse($tugas->deadline);
 
         if ($pengumpulan) {
@@ -141,7 +146,7 @@ class TugasSiswaController extends Controller
                     'siswa_id' => $idSiswa,
                     'tanggal_pengumpulan' => $now,
                     'status' => $status,
-                    'nilai' => 0,
+                    'nilai' => null,
                     'komentar' => ''
                 ]);
 
@@ -152,7 +157,7 @@ class TugasSiswaController extends Controller
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $path = $file->storeAs('uploads/pengumpulan_file_tugas', $filename, 'public');
                     $fileType = $file->getMimeType();
-
+ 
                     PengumpulanTugasFile::create([
                         'pengumpulan_tugas_id' => $pengumpulan->id_pengumpulan_tugas,
                         'file_path' => $path,

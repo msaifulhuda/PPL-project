@@ -88,7 +88,7 @@ class Ekstrakurikuler extends Model
     }
     public function postinganekstra()
     {
-        return $this->hasMany(posting_ekstrakurikuler::class);
+        return $this->hasMany(PostingEkstrakurikuler::class);
     }
     public function prestasiekstra()
     {

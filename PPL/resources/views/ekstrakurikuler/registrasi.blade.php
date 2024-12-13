@@ -1,7 +1,8 @@
-<x-stacked-layout>
+<x-guest-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded-lg shadow-lg">
+        
                 <h3 class="text-lg font-semibold mb-4">Halo, {{ $siswa->nama_siswa }}</h3>
                 <p class="text-gray-600 mb-6">Pendaftaran ekstrakurikuler sudah dibuka. Silahkan lakukan pendaftaran!</p>
                 
@@ -16,22 +17,15 @@
                     @csrf
                     <div class="mb-4">
                         <label for="nama_lengkap" class="block text-gray-700">Nama Lengkap:</label>
-                        <input type="text" id="nama_lengkap" class="w-full px-4 py-2 border rounded-lg" placeholder="Nama Lengkap">
+                        <input  value="{{ $siswa->nama_siswa }}" id="nama_lengkap" class="w-full px-4 py-2 border rounded-lg" placeholder="Nama Lengkap" readonly>
                     </div>
 
                     <div class="mb-4">
                         <label for="nisn" class="block text-gray-700">NISN:</label>
-                        <input type="text" id="nisn" class="w-full px-4 py-2 border rounded-lg" placeholder="NISN">
+                        <input  value="{{ $siswa->nisn }}" id="nisn" class="w-full px-4 py-2 border rounded-lg" placeholder="NISN" readonly>
                     </div>
 
                     <div class="mb-4">
-                        <label for="kelas" class="block text-gray-700">Kelas:</label>
-                        <input type="text" id="kelas" name="kelas" class="w-full px-4 py-2 border rounded-lg" value="{{ $siswa->kelas_id }}" readonly>
-                    </div>
-
-                    <div class="mb-4">
-=======
->>>>>>> Stashed changes
                         <label for="no_hp" class="block text-gray-700">No HP:</label>
                         <input type="text" id="no_hp" class="w-full px-4 py-2 border rounded-lg" placeholder="No HP">
                     </div>
@@ -54,28 +48,40 @@
                     <div class="mb-4">
                         <label for="pilih_ekskul" class="block text-gray-700">Pilih Ekstrakurikuler 1:</label>
                         <select id="pilih_ekskul" name="pilih_ekskul[]" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="" disabled selected>Pilih Ekstrakurikuler</option>
-                            @foreach ($ekstrakurikulerList as $ekstra)
-                                <option value="{{ $ekstra->id_ekstrakurikuler }}">{{ $ekstra->nama_ekstrakurikuler }}</option>
-                            @endforeach
+                            <option disabled selected>Pilih Ekstrakurikuler</option>
+                            @forelse ($ekstrakurikulerList as $ekstra)
+                                <option value="{{ $ekstra->id_ekstrakurikuler }}">
+                                    {{ $ekstra->nama_ekstrakurikuler }} 
+                                </option>
+                                @empty
+                                    <option disabled>Tidak ada ekstrakurikuler yang dibuka saat ini</option>
+                            @endforelse
                         </select>
                     </div>
                     <div class="mb-5">
-                        <label for="pilih_ekskul" class="block text-gray-700">Pilih Ekstrakurikuler 1:</label>
+                        <label for="pilih_ekskul" class="block text-gray-700">Pilih Ekstrakurikuler 2:</label>
                         <select id="pilih_ekskul" name="pilih_ekskul[]" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="" disabled selected>Pilih Ekstrakurikuler</option>
-                            @foreach ($ekstrakurikulerList as $ekstra)
-                                <option value="{{ $ekstra->id_ekstrakurikuler }}">{{ $ekstra->nama_ekstrakurikuler }}</option>
-                            @endforeach
+                            <option disabled selected>Pilih Ekstrakurikuler</option>
+                            @forelse ($ekstrakurikulerList as $ekstra)
+                                <option value="{{ $ekstra->id_ekstrakurikuler }}">
+                                    {{ $ekstra->nama_ekstrakurikuler }} 
+                                </option>
+                                @empty
+                                    <option disabled>Tidak ada ekstrakurikuler yang dibuka saat ini</option>
+                            @endforelse
                         </select>
                     </div>
                     <div class="mb-6">
-                        <label for="pilih_ekskul" class="block text-gray-700">Pilih Ekstrakurikuler 1:</label>
+                        <label for="pilih_ekskul" class="block text-gray-700">Pilih Ekstrakurikuler 3:</label>
                         <select id="pilih_ekskul" name="pilih_ekskul[]" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="" disabled selected>Pilih Ekstrakurikuler</option>
-                            @foreach ($ekstrakurikulerList as $ekstra)
-                                <option value="{{ $ekstra->id_ekstrakurikuler }}">{{ $ekstra->nama_ekstrakurikuler }}</option>
-                            @endforeach
+                            <option disabled selected>Pilih Ekstrakurikuler</option>
+                            @forelse ($ekstrakurikulerList as $ekstra)
+                                <option value="{{ $ekstra->id_ekstrakurikuler }}">
+                                    {{ $ekstra->nama_ekstrakurikuler }} 
+                                </option>
+                                @empty
+                                    <option disabled>Tidak ada ekstrakurikuler yang dibuka saat ini</option>
+                            @endforelse
                         </select>
                     </div>
                     <div class="text-right">
@@ -119,7 +125,7 @@
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
                                         alert("{{ session('success') }}");
-                                        window.location.href = "{{ route('beranda') }}";
+                                        window.location.href = "{{ route('beranda.home') }}";
                                     });
                                 </script>
                             @endif
@@ -164,4 +170,4 @@
         showBerkasPendukung();
     }
 </script>
-</x-stacked-layout>
+</x-guest-layout>

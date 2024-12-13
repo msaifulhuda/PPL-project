@@ -18,7 +18,7 @@ class PengurusEkstra extends Model
 
     protected $keyType = 'string';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'id_pengurus_ekstra',
@@ -47,11 +47,11 @@ class PengurusEkstra extends Model
      */
     public function laporanpenilaianekstra()
     {
-        return $this->hasMany(LaporanPenilaianEkstrakurikuler::class, 'id_pengurus', 'id_pengurus_ekstra');
+        return $this->hasMany(LaporanPenilaianEkstrakurikuler::class);
     }
 
     public function postinganekstra()
     {
-        return $this->hasMany(posting_ekstrakurikuler::class,'id_pengurus', 'id_pengurus_ekstra' );
+        return $this->hasMany(PostingEkstrakurikuler::class);
     }
 }

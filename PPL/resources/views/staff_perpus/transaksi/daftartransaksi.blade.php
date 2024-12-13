@@ -25,6 +25,7 @@
                                 <th class="py-3 px-6">Tanggal Peminjaman</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Action</th>
+                                <th class="py-3 px-6">Status Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,11 +35,11 @@
                                     <td class="py-3 px-6">{{ $transaction->kode_peminjam }}</td>
                                     <td class="py-3 px-6">
                                         {{ \Carbon\Carbon::parse($transaction->tgl_peminjaman)->format('d F Y') }}
-                                          <!-- {{ $transaction->tgl_pengembalian }} -->
+                                        <!-- {{ $transaction->tgl_pengembalian }} -->
                                     </td>
                                     <td class="py-3 px-6">
                                         {{ \Carbon\Carbon::parse($transaction->tgl_pengembalian)->format('d F Y') }}
-                                          <!-- {{ $transaction->tgl_pengembalian }} -->
+                                        <!-- {{ $transaction->tgl_pengembalian }} -->
                                     </td>
                                     <!-- <td class="py-3 px-6">
                                         <span
@@ -51,18 +52,34 @@
                                             data-modal-target="update-modal-{{ $transaction->id_transaksi_peminjaman }}"
                                             data-modal-toggle="update-modal-{{ $transaction->id_transaksi_peminjaman }}"
                                             type="button" class="flex py-3 px-6">
-                                            <span class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Edit</span>
-                                            <!-- <svg class="w-5 h-5 ml-2 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M14 4.182A4.136 4.136 0 0 1 16.9 3c1.087 0 2.13.425 2.899 1.182A4.01 4.01 0 0 1 21 7.037c0 1.068-.43 2.092-1.194 2.849L18.5 11.214l-5.8-5.71 1.287-1.31.012-.012Zm-2.717 2.763L6.186 12.13l2.175 2.141 5.063-5.218-2.141-2.108Zm-6.25 6.886-1.98 5.849a.992.992 0 0 0 .245 1.026 1.03 1.03 0 0 0 1.043.242L10.282 19l-5.25-5.168Zm6.954 4.01 5.096-5.186-2.218-2.183-5.063 5.218 2.185 2.15Z"
-                                                    clip-rule="evenodd" />
-                                            </svg> -->
+                                            <span
+                                                class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">Edit</span>
                                         </button>
                                     </td>
+                                    <td>
+                                        <div class="flex gap-4 items-center">
+                                            <button disabled
+                                                class="inline-block px-3 py-1 rounded-full text-xs {{ $transaction->status_denda == 0 ? 'bg-red-500 text-white' : 'bg-green-500 text-white' }}">
+                                                {{ $transaction->status_denda == 0 ? 'Belum Dibayar (Rp. ' . $transaction->denda . ')' : 'Sudah Dibayar' }}
+                                            </button>
+                                            @if ($transaction->status_denda == 0)
+                                                <form
+                                                    action="{{ route('staff_perpus.transaksi.update_status_denda') }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="status_denda_button" value="1">
+                                                    <input type="hidden" name="status_denda_id_transaksi"
+                                                        value="{{ $transaction->id_transaksi_peminjaman }}">
+                                                    <button type="submit"
+                                                        class="inline-block px-3 py-1 rounded-full text-xs bg-blue-500 text-white">
+                                                        Ubah (Lunas)
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
                                 </tr>
-                                @empty
+                            @empty
                                 <tr>
                                     <td colspan="4" class="text-center py-3 text-red-500">
                                         Tidak ada transaksi yang ditemukan well
@@ -72,9 +89,8 @@
                         </tbody>
                     </table>
                 </div>
-                    <div class="mt-4">
-                        {{ $transactions->links('pagination::tailwind') }}
-                    </div>
+                <div class="mt-4">
+                    {{ $transactions->links('pagination::tailwind') }}
+                </div>
             </div>
-            
 </x-staffperpustakaan-layout>

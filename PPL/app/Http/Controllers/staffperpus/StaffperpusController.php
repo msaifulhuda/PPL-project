@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\staffperpus;
 
 use Carbon\Carbon;
+use App\Models\buku;
+use App\Models\Staffperpus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Controller;
-use App\Models\buku;
 use App\Models\kategori_buku;
-use App\Models\Staffperpus;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Models\transaksi_peminjaman;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class StaffperpusController extends Controller
@@ -20,13 +21,14 @@ class StaffperpusController extends Controller
 
     public function __construct()
     {
-        $this->staff_account = DB::table('staffperpus')
-            ->where('username', '=', session('username'))
-            ->first();
+        if (!session()->has('bio') || session('bio') === null) {
+            $this->staff_account = DB::table('staffperpus')
+                ->select('username', 'nama_staff_perpustakaan', 'email')
+                ->where('username', '=', session('username'))
+                ->first();
 
-        view()->composer('*', function ($view) {
-            $view->with('staff_account',  $this->staff_account);
-        });
+            session(['bio' => $this->staff_account]);
+        }
     }
     public function index()
     {
@@ -72,7 +74,8 @@ class StaffperpusController extends Controller
     }
     public function profile()
     {
-        return view('staff_perpus.profile');
+        $staff_account = StaffPerpus::where('username', session('username'))->first();
+        return view('staff_perpus.profile', compact('staff_account'));
     }
     public function editprofile(Request $request)
     {
@@ -84,7 +87,7 @@ class StaffperpusController extends Controller
             'no_wa' => 'required|regex:/^\+?[0-9]{10,15}$/',
         ]);
 
-        $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
+        $profile = StaffPerpus::where('username', session('username'))->first();
         if ($profile) {
             $profile->update([
                 'nama_staff_perpustakaan' => $validated['nama'],
@@ -99,18 +102,34 @@ class StaffperpusController extends Controller
     }
     public function pwdEdit(Request $request)
     {
-        $samepwd = $request->input('npwd') == $request->input('rpwd');
-        $oldpwdpass = password_verify($request->input('opwd'), $this->staff_account->password);
-        if ($samepwd && $oldpwdpass) {
-            $profile = Staffperpus::find($this->staff_account->id_staff_perpustakaan);
-            if ($profile) {
-                $profile->update([
-                    'password' => $request->input('npwd'),
-                ]);
-                return redirect()->route('staff_perpus.profile')->with('success', 'Password updated successfully!');
-            }
+        $validator = Validator::make($request->all(), [
+            'opwd' => 'required|string',
+            'npwd' => 'required|string|min:8|confirmed:rpwd',
+            'rpwd' => 'required|string|min:8|confirmed:npwd',
+        ], [
+            'npwd.confirmed' => 'Password is not same',
+            'rpwd.confirmed' => 'Password is not same',
+            'npwd.min' => 'The new password must be at least 8 characters.',
+            'rpwd.min' => 'The repeat password must be at least 8 characters.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('staff_perpus.profile')
+                ->withErrors($validator)
+                ->withInput();
         }
-        return redirect()->route('staff_perpus.profile')->with('failed', 'Password failed to update!');
+
+        // Step 3: Check if the old password matches
+        $profile = StaffPerpus::where('username', session('username'))->first();
+
+        if ($profile && password_verify($request->input('opwd'), $profile->password)) {
+            $profile->update([
+                'password' => bcrypt($request->input('npwd')),
+            ]);
+
+            return redirect()->route('staff_perpus.profile')->with('success', 'Password updated successfully!');
+        }
+        return redirect()->route('staff_perpus.profile')->with('failed', 'Password update failed! Old password is incorrect.');
     }
 
 
@@ -153,7 +172,7 @@ class StaffperpusController extends Controller
     public function storebuku(Request $request)
     {
         $request->validate([
-            'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_buku' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'judul_buku' => [
                 'required',
                 'string',
@@ -179,7 +198,7 @@ class StaffperpusController extends Controller
         ], [
             'foto_buku.required' => 'Foto buku harus diisi.',
             'foto_buku.image' => 'File foto buku harus berupa gambar.',
-            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg.',
             'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
 
             'judul_buku.required' => 'Judul buku harus diisi.',
@@ -263,7 +282,7 @@ class StaffperpusController extends Controller
     public function updatebuku(Request $request, $id)
     {
         $request->validate([
-            'foto_buku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_buku' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'judul_buku' => [
                 'required',
                 'string',
@@ -289,7 +308,7 @@ class StaffperpusController extends Controller
         ], [
             'foto_buku.required' => 'Foto buku harus diisi.',
             'foto_buku.image' => 'File foto buku harus berupa gambar.',
-            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto_buku.mimes' => 'Foto buku harus memiliki format jpeg, png, jpg.',
             'foto_buku.max' => 'Foto buku tidak boleh lebih dari 2MB.',
 
             'judul_buku.required' => 'Judul buku harus diisi.',
@@ -332,12 +351,23 @@ class StaffperpusController extends Controller
         ]);
 
         $buku = buku::findOrFail($id);
+         // Jika ada file foto baru
         if ($request->hasFile('foto_buku')) {
-            if ($buku->foto_buku) {
-                Storage::delete($buku->foto_buku);
+            // Hapus foto lama jika ada
+            $fotoPath = str_replace('storage/', '', $buku->foto_buku);
+            if ($buku->foto_buku && Storage::disk('public')->exists($fotoPath)) {
+                Storage::disk('public')->delete($fotoPath);
             }
-            $buku->foto_buku = $request->file('foto_buku')->store('public/buku');
+        
+            // Simpan foto baru
+            $file = $request->file('foto_buku');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->put('images/Perpustakaan/' . $filename, file_get_contents($file));
+        
+            // Update path foto di database
+            $buku->foto_buku = 'storage/images/Perpustakaan/' . $filename;
         }
+
 
         $buku->update([
             'judul_buku' => $request->judul_buku,

@@ -19,7 +19,6 @@
                 <x-nav-button-lms route="guru.dashboard.lms.forum" :id="$id" label="Forum" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.tugas" :id="$id" label="Tugas" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
-                <x-nav-button-lms route="guru.dashboard.lms.forum.nilai_kelas" :id="$id" label="Nilai" />
             </div>
 
             {{-- Main --}}

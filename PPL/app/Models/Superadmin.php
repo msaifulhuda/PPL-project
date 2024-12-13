@@ -55,5 +55,5 @@ class Superadmin extends Authenticatable
     public $timestamps = false;
     protected $primaryKey = 'id_admin';
     protected $table = 'superadmin';
-    protected $fillable = ['id_admin', 'username', 'password', 'email', 'google_id', 'google_token'];
+    protected $fillable = ['id_admin', 'username', 'password','nama_superadmin','no_hp', 'email', 'google_id', 'google_token'];
 }

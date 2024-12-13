@@ -19,7 +19,6 @@
                 <x-nav-button-lms route="guru.dashboard.lms.forum" :id="$id" label="Forum" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.tugas" :id="$id" label="Tugas" />
                 <x-nav-button-lms route="guru.dashboard.lms.forum.anggota" :id="$id" label="Anggota" />
-                <x-nav-button-lms route="guru.dashboard.lms.forum.nilai_kelas" :id="$id" label="Nilai" />
             </div>
 
             {{-- Main Content with Sidebar and Material/Tugas --}}
@@ -54,9 +53,6 @@
                                 <p class="text-gray-500">Tidak ada tugas mendatang</p>
                             @endforelse
                         </ul>
-                        <p class="text-right mt-4 text-sm text-blue-500"><a
-                                href="{{ route('siswa.dashboard.lms.tracking.tugas.ditugaskan', $id) }}">Lihat Semua</a>
-                        </p>
 
                     </div>
 
@@ -67,7 +63,7 @@
                     {{-- List of Materi & Tugas --}}
                     <div class="space-y-4">
                         {{-- Sample Item --}}
-                        @if ($materiTugas)
+                        @if ($materiTugas && $materiTugas->count() > 0)
                             @foreach ($materiTugas as $item)
                                 @php
                                     $route =
@@ -114,6 +110,7 @@
                                 </a>
                             @endforeach
                         @else
+                            <p class="text-gray-500 font-semibold text-center">Tidak ada materi atau tugas baru.</p>
                         @endif
                     </div>
                 </div>
