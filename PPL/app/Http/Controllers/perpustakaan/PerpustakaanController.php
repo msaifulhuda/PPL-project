@@ -94,4 +94,14 @@ class PerpustakaanController extends Controller
         $kategori = $buku->kategori_buku;
         return view('siswa.perpustakaan.detail', compact('buku', 'kategori'));
     }
+
+    public function showRulesSiswa()
+    {
+        return view('siswa.perpustakaan.rules');
+    }
+
+    public function showRulesGuru()
+    {
+        return view('guru.perpustakaan.rules');
+    }
 }

@@ -437,6 +437,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexSiswa'])->name('dashboard.perpustakaan');
     Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showSiswa'])->name('siswa.dashboard.perpustakaan.detail');
     Route::get('/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transSiswa'])->name('siswa.perpustakaan.riwayat');
+    Route::get('/dashboard/perpustakaan/rules', [PerpustakaanController::class, 'showRulesSiswa'])->name('siswa.perpustakaan.rules');
 
 
     //END PERPUS
@@ -540,6 +541,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/perpustakaan', [PerpustakaanController::class, 'indexGuru'])->name('perpustakaan');
     Route::get('/dashboard/perpustakaan/detail/{id}', [PerpustakaanController::class, 'showGuru'])->name('dashboard.perpustakaan.detail');
     Route::get('/dashboard/perpustakaan/riwayat', [RiwayatPengunjungController::class, 'transGuru'])->name('guru.perpustakaan.riwayat');
+    Route::get('/dashboard/perpustakaan/rules', [PerpustakaanController::class, 'showRulesGuru'])->name('guru.perpustakaan.rules');
 
     //END PERPUS
 
