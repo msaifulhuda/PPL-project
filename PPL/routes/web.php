@@ -216,6 +216,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::get('/rapor', [RaporController::class, 'index'])->name('staff_akademik.rapor.index');
     Route::get('/rapor/siswa/{id}', [RaporController::class, 'showDetail'])->name('staff_akademik.rapor.detail');
     Route::get('/rapor/siswa/{id}/download', [RaporController::class, 'downloadPdf'])->name('staff_akademik.rapor.download');
+    Route::get('/rapor/update-nilai', [RaporController::class, 'updateNilai'])->name('staff_akademik.rapor.update_nilai');
 
     // Absensi
     Route::get('/absensi', [staffakademik\AbsensiController::class, 'index'])->name('akademik.absensi.index');
@@ -380,7 +381,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
 
     // Mengupdate profil pengguna
     Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
-    
+
 
     /**
      * Start Pembina Ekstrakurikuler

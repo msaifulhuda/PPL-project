@@ -5,10 +5,13 @@ namespace App\Http\Controllers\staffakademik;
 use ZipArchive;
 use App\Models\kelas;
 use App\Models\Siswa;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\pengumpulan_tugas;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\tahun_ajaran;
 use Illuminate\Support\Facades\Storage;
 
 class RaporController extends Controller
@@ -134,10 +137,54 @@ class RaporController extends Controller
     }
 
 
+    public function insertNilaiSiswa($id_siswa)
+    {
+        DB::table('nilai_ekstra')->delete();
+        DB::table('rapor')->delete();
+        $tahunAjaranAktif = DB::table('tahun_ajaran')->where('aktif', 1)->first();
+
+        if ($tahunAjaranAktif) {
+            $siswaList = Siswa::all(); // Ambil semua siswa
+            foreach ($siswaList as $siswa) {
+                DB::table('rapor')->insert([
+                    'id_rapor' => Str::uuid(),
+                    'siswa_id' => $siswa->id_siswa,
+                    'tahun_ajaran_id' => $tahunAjaranAktif->id_tahun_ajaran, // Set tahun ajaran aktif
+                ]);
+            }
+        }
+
+        // $tugasData = pengumpulan_tugas::with(['siswa.tugas.kelasMataPelajaran.mataPelajaran'])
+        // ->where('pengumpulan_tugas.siswa_id', $id_siswa)
+        // ->select('tugas_id', 'nilai')
+        // ->get()
+        // ->groupBy('tugas.kelasMataPelajaran.mataPelajaran.id_matpel');
+
+        // DB::table('nilai_matpel')->whereIn('matpel_id', $tugasData->keys())->delete();
+
+
+        // foreach ($tugasData as $matpelId => $tugasItems) {
+        //     $rataNilai = $tugasItems->avg('nilai');
+        //     DB::table('nilai_matpel')->insert([
+        //         'id_nilai_matpel' => Str::uuid(),
+        //         'matpel_id' => $matpelId,
+        //         'nilai_rata_rata_matpel' => $rataNilai,
+        //         'pesan' => 'bagus'
+        //     ]);
+        // }
+    }
+
+    public function updateNilai()
+    {
+        $siswaList = Siswa::all();
+        foreach ($siswaList as $siswa) {
+            $this->insertNilaiSiswa($siswa->id_siswa);
+        }
+    }
+
     public function downloadPDF($id)
     {
         $data = $this->getSiswaData($id);
-
         $pdfData = [
             'nama_siswa' => $data['siswa']->nama_siswa,
             'kelas' => $data['siswa']->nama_kelas,
