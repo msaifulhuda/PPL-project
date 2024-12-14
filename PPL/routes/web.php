@@ -97,6 +97,11 @@ Route::get('/dashboard', function () {
 // Super Admin
 Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () {
     Route::get('/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
+
+
+    //PROFILE//
+    Route::get('/setting', [SuperadminController::class, 'setting'])->name('superadmin.profile');
+    Route::post('/setting/update', [SuperadminController::class, 'setting_update'])->name('superadmin.profile.update');
     //STAFF AKADEMIK//
     Route::get('/kelola-staff-akademik', [KelolaStaffAkademikController::class, 'index'])->name('superadmin.kelola_staff_akademik');
     Route::get('/kelola-staff-akademik/create', [KelolaStaffAkademikController::class, 'create'])->name('superadmin.kelola_staff_akademik.create');

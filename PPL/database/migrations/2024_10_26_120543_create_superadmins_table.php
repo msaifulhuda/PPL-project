@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id_admin')->primary();
             $table->string('username');
             $table->string('password');
-            $table->string('nama_superadmin');
+            $table->string('nama_superadmin')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('email')->nullable();
             $table->string('google_id')->nullable();
