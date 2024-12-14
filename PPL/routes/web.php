@@ -158,8 +158,6 @@ Route::group(['prefix' => 'superadmin', 'middleware' => ['admin']], function () 
     Route::put('/data/pengurus/{id}/update', [KelolaPengurusEkstraController::class, 'updatePengurus'])->name('data.pengurus.update');
     Route::get('/superadmin/keloladatapengurus/search', [KelolaPengurusEkstraController::class, 'searchPengurus'])->name('superadmin.searchPengurus');
     Route::delete('/pengurus/{id_siswa}/delete-role', [KelolaPengurusEkstraController::class, 'deleteRole'])->name('pengurus.delete-role');
-
-    
 });
 Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']], function () {
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
@@ -209,7 +207,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
      */
 
     // START MANAGEMENT KELAS (NAUFAL | PROSES)
-    Route::get('/daftarkelas',[KelasController::class,'daftarkelas'] )->name('daftarkelas');
+    Route::get('/daftarkelas', [KelasController::class, 'daftarkelas'])->name('daftarkelas');
     Route::get('/kelas/{id}/siswa', [KelasController::class, 'showSiswa'])->name('kelas.siswa');
     Route::get('/kelas/{id_kelas}/tambah-siswa', [KelasController::class, 'tambahSiswa'])->name('kelas.tambahSiswa');
     Route::post('/kelas/{id_kelas}/simpan-siswa', [KelasController::class, 'simpanSiswa'])->name('kelas.simpanSiswa');
@@ -415,12 +413,12 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
 
 
     /**
-      * START UJIAN
-      */
-      Route::get('/dashboard/ujian/index', [UjianSiswaController::class, 'index'])->name('siswa.ujian.index');
-      Route::get('/ujian/{id}/start', [UjianSiswaController::class, 'start'])->name('siswa.ujian.start');
-      Route::post('/ujian/{id}/submit', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.submit');
-      Route::post('/ujian{id}/end', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.end');
+     * START UJIAN
+     */
+    Route::get('/dashboard/ujian/index', [UjianSiswaController::class, 'index'])->name('siswa.ujian.index');
+    Route::get('/ujian/{id}/start', [UjianSiswaController::class, 'start'])->name('siswa.ujian.start');
+    Route::post('/ujian/{id}/submit', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.submit');
+    Route::post('/ujian{id}/end', [UjianSiswaController::class, 'submit'])->name('siswa.ujian.end');
     /**
      * END UJIAN
      */
@@ -452,7 +450,6 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
     //lihat jadwal siswa
     Route::get('/dashboard/lihat-jadwal', [LihatJadwalSiswaController::class, 'index'])->name('lihat-jadwal-siswa');
     Route::get('/jadwal-siswa/print', [LihatJadwalSiswaController::class, 'print'])->name('siswa.jadwal.print');
-
 });
 
 
@@ -557,8 +554,8 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::delete('/dashboard/ujian/jawaban_ujian/{id}', [GuruUjianController::class, 'destroyJawabanUjian'])->name('jawaban_ujian.destroy');
 
     //CRUD SOAL UJIAN
-    Route::get('/dashboard/ujian/{id}/show_soal',[GuruUjianController::class,'showSoal'])->name('guru.ujian.soal_ujian');
-    Route::get('dashboard/ujian/{id}/create_soal',[GuruUjianController::class, 'storeSoal'])->name('guru.ujian.add.soal');
+    Route::get('/dashboard/ujian/{id}/show_soal', [GuruUjianController::class, 'showSoal'])->name('guru.ujian.soal_ujian');
+    Route::get('dashboard/ujian/{id}/create_soal', [GuruUjianController::class, 'storeSoal'])->name('guru.ujian.add.soal');
     Route::post('jawaban_ujian/import/{ujian_id}', [GuruUjianController::class, 'importSoal'])->name('soal_ujian.import');
     Route::get('/dashboard/ujian/soal_ujian/{id}/soal_edit', [GuruUjianController::class, 'soalEdit'])->name('soal_ujian.edit');
     Route::put('/dashboard/ujian/soal_ujian/{id}/', [GuruUjianController::class, 'soalUpdate'])->name('soal_ujian.update');
@@ -567,8 +564,8 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     //CRUD UJIAN
     Route::get('/dashboard/ujian/create_ujian', [GuruUjianController::class, 'createUjian'])->name('guru.dashboard.ujian.create_ujian');
     // Route::post('/dashboard/ujian/create_ujian/', [GuruUjianController::class, 'storeUjian'])->name('ujian.store');
-    Route::post('/dashboard/ujian/create_ujian/',[GuruUjianController::class,'storeData'])->name('ujian.stored');
-    Route::get('/dashboard/ujian/view_ujian',[GuruUjianController::class,'indexUjian'])->name('ujian.show');
+    Route::post('/dashboard/ujian/create_ujian/', [GuruUjianController::class, 'storeData'])->name('ujian.stored');
+    Route::get('/dashboard/ujian/view_ujian', [GuruUjianController::class, 'indexUjian'])->name('ujian.show');
     Route::get('/dashboard/ujian/{id}/ujian_edit', [GuruUjianController::class, 'ujianEdit'])->name('guru.ujian.edit');
     Route::get('/dashboard/ujian/{id}/delete_ujian', [GuruUjianController::class, 'ujianDelete'])->name('guru.ujian.delete');
 
@@ -593,7 +590,6 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     Route::get('/dashboard/lihat-jadwal', [LihatJadwalGuruController::class, 'index'])->name('lihat-jadwal-guru');
     //tombol print jadwal guru
     Route::get('/guru/jadwal/print', [LihatJadwalGuruController::class, 'print'])->name('guru.jadwal.print');
-
 });
 
 

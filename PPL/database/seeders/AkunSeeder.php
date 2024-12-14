@@ -55,7 +55,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Bangkalan',
                     'nomor_wa_guru' => '+6289531419612',
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Sabil Ahmad Hidayat',
@@ -66,7 +66,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Nganjuk',
                     'nomor_wa_guru' => null,
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Adi Prawono',
@@ -77,7 +77,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Bangkalan',
                     'nomor_wa_guru' => null,
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Abdul Hijjah Akbarul Hidayatulloh',
@@ -88,7 +88,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Bangkalan',
                     'nomor_wa_guru' => '+6285607147641',
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Rizkyan Dwi Prasetiawan',
@@ -99,7 +99,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => null,
                     'nomor_wa_guru' => '+62859106520760',
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Niken Ning Pambudi',
@@ -143,7 +143,7 @@ class AkunSeeder extends Seeder
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Bangkalan',
                     'nomor_wa_guru' => '+6287853053661',
-                    'role_guru' => 'pembina'
+                    'role_guru' => 'guru'
                 ],
                 [
                     'nama_guru' => 'Ronggo',
@@ -168,17 +168,6 @@ class AkunSeeder extends Seeder
                     'nomor_wa_siswa' => '+6281215784584',
                     'jenis_kelamin' => 'Laki-laki',
                     'alamat' => 'Mojokerto',
-                    'role_siswa' => 'siswa'
-                ],
-                [
-                    'nisn' => '220411100041',
-                    'nama_siswa' => 'Muhammad Saiful Huda',
-                    'email' => 'muhammadsaifulhuda01@gmail.com',
-                    'username' => 'huda',
-                    'password' => 'Admin#1234',
-                    'nomor_wa_siswa' => '082146153816',
-                    'jenis_kelamin' => 'Laki-laki',
-                    'alamat' => 'Surabaya',
                     'role_siswa' => 'siswa'
                 ],
                 [
@@ -216,10 +205,10 @@ class AkunSeeder extends Seeder
                 ],
                 [
                     'nisn' => '220411100059',
-                    'nama_siswa' => 'Nurul Maulydia Imami',
+                    'nama_siswa' => 'Nur Rohma Widiya Ningsih',
                     'email' => 'nurrohmawidiyaningsih@gmail.com',
-                    'username' => 'ranwiesiel',
-                    'password' => 'ronggo123',
+                    'username' => 'widiya',
+                    'password' => 'widiya',
                     'nomor_wa_siswa' => '+6285745612946',
                     'jenis_kelamin' => 'Perempuan',
                     'alamat' => 'Gresik',
@@ -228,12 +217,12 @@ class AkunSeeder extends Seeder
                 [
                     'nisn' => '220411100041',
                     'nama_siswa' => 'Muhammad Saiful Huda',
-                    'email' => 'nurrohmawidiyaningsih@gmail.com',
-                    'username' => 'ranwiesiel',
-                    'password' => 'ronggo123',
+                    'email' => 'muhammadsaifulhuda01@gmail.com',
+                    'username' => 'huda',
+                    'password' => 'huda',
                     'nomor_wa_siswa' => '+6282146153816',
                     'jenis_kelamin' => 'Laki-laki',
-                    'alamat' => 'Gresik',
+                    'alamat' => 'Bojonegoro',
                     'role_siswa' => 'pengurus'
                 ]
             ],
