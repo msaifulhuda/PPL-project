@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id_nilai_ekstra')->primary();
             $table->uuid('ekstrakurikuler_id');
             $table->uuid('rapor_id');
-            $table->float('nilai_rata_rata_ekstra');
+            $table->string('nilai_rata_rata_ekstra');
             $table->string('pesan')->nullable();
             $table->timestamps();
             $table->foreign('ekstrakurikuler_id')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
