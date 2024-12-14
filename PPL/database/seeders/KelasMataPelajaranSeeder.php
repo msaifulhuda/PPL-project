@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Guru;
+use App\Models\guru_mata_pelajaran;
 use App\Models\hari;
 use App\Models\kelas;
 use App\Models\kelas_mata_pelajaran;
@@ -23,7 +24,7 @@ class KelasMataPelajaranSeeder extends Seeder
             echo "No active academic year found.\n";
             return;
         }
-        $kelasList = kelas::all();
+        // $kelasList = kelas::all();
 
         $assignments = [
             ['guru_nama' => 'Abdul Rahem Faqih', 'mata_pelajaran' => 'Matematika'],
@@ -38,25 +39,34 @@ class KelasMataPelajaranSeeder extends Seeder
             ['guru_nama' => 'Ronggo', 'mata_pelajaran' => 'Bahasa Daerah'],
         ];
 
-        $hari = hari::all()->first()->id_hari;
-
-        foreach ($kelasList as $kelas) {
-            foreach ($assignments as $assignment) {
-                $guru = Guru::where('nama_guru', $assignment['guru_nama'])->first();
-                $matpel = mata_pelajaran::where('nama_matpel', $assignment['mata_pelajaran'])->first();
-
-                if ($guru && $matpel) {
-                    kelas_mata_pelajaran::create([
-                        'kelas_id' => $kelas->id_kelas,
-                        'mata_pelajaran_id' => $matpel->id_matpel,
-                        'guru_id' => $guru->id_guru,
-                        'hari_id' => $hari,
-                        'waktu_mulai' => "10:00",
-                        'waktu_selesai' => "12:00",
-                        'tahun_ajaran_id' => $tahunAjaran->id_tahun_ajaran,
-                    ]);
-                }
-            }
+        foreach ($assignments as $data) {
+            $guru = Guru::where('nama_guru', $data['guru_nama'])->first();
+            $matpel = mata_pelajaran::where('nama_matpel', $data['mata_pelajaran'])->first();
+            guru_mata_pelajaran::create([
+                "guru_id" => $guru['id_guru'],
+                "matpel_id" => $matpel['id_matpel']
+            ]);
         }
+
+        // $hari = hari::all()->first()->id_hari;
+
+        // foreach ($kelasList as $kelas) {
+        //     foreach ($assignments as $assignment) {
+        //         $guru = Guru::where('nama_guru', $assignment['guru_nama'])->first();
+        //         $matpel = mata_pelajaran::where('nama_matpel', $assignment['mata_pelajaran'])->first();
+
+        //         if ($guru && $matpel) {
+        //             kelas_mata_pelajaran::create([
+        //                 'kelas_id' => $kelas->id_kelas,
+        //                 'mata_pelajaran_id' => $matpel->id_matpel,
+        //                 'guru_id' => $guru->id_guru,
+        //                 'hari_id' => $hari,
+        //                 'waktu_mulai' => "10:00",
+        //                 'waktu_selesai' => "12:00",
+        //                 'tahun_ajaran_id' => $tahunAjaran->id_tahun_ajaran,
+        //             ]);
+        //         }
+        //     }
+        // }
     }
 }
