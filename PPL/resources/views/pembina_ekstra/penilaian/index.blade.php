@@ -123,7 +123,7 @@
                     var value = $(this).val();
                     var iteration = $(this).data('iteration');
                     var id_laporan = $('#id_laporan-' + iteration).val();
-    
+
                     $.ajax({
                         url: '/guru/pembina/ekstrakurikuler/penilaian/' + id_siswa,
                         type: 'POST',

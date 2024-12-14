@@ -84,7 +84,7 @@ class EkstrakurikulerController extends Controller
     {
         // Ambil data ekstrakurikuler berdasarkan ID
         $ekstrakurikuler = Ekstrakurikuler::findOrFail($id);
-
+        
         $prestasiList = DB::table('prestasi_ektrakurikuler')
             ->where('id_ekstrakurikuler', $id)
             ->get();

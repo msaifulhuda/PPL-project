@@ -5,10 +5,14 @@ namespace App\Http\Controllers\staffakademik;
 use ZipArchive;
 use App\Models\kelas;
 use App\Models\Siswa;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\pengumpulan_tugas;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PenilaianEkstrakurikuler;
+use App\Models\tahun_ajaran;
 use Illuminate\Support\Facades\Storage;
 
 class RaporController extends Controller
@@ -134,10 +138,74 @@ class RaporController extends Controller
     }
 
 
+    public function insertNilaiSiswa($id_siswa)
+    {
+        $raporId = DB::table('rapor')
+        ->where('siswa_id', $id_siswa)
+        ->value('id_rapor');
+
+        $nilaiMatpel = pengumpulan_tugas::with(['siswa.tugas.kelasMataPelajaran.mataPelajaran'])
+        ->where('pengumpulan_tugas.siswa_id', $id_siswa)
+        ->select('tugas_id', 'nilai')
+        ->get()
+        ->groupBy('tugas.kelasMataPelajaran.mataPelajaran.id_matpel');
+
+        $nilaiEkstra = PenilaianEkstrakurikuler::with(['siswa'])
+        ->where('penilaian_ekstrakurikuler.id_siswa', $id_siswa)
+        ->select('id_ekstrakurikuler', 'penilaian')
+        ->get();
+        // ->groupBy('laporan.ekstrakurikuler_id');
+
+        foreach ($nilaiMatpel as $matpelId => $tugasItems) {
+            $rataNilai = $tugasItems->avg('nilai');
+            DB::table('nilai_matpel')->insert([
+                'id_nilai_matpel' => Str::uuid(),
+                'rapor_id' => $raporId,
+                'matpel_id' => $matpelId,
+                'nilai_rata_rata_matpel' => $rataNilai,
+                'pesan' => 'bagus'
+            ]);
+        }
+
+        foreach ($nilaiEkstra as $nilai) {
+            $pesan = DB::table('laporan_penilaian_ekstrakurikuler')
+                ->where('id_siswa', $id_siswa)
+                ->where('id_ekstrakurikuler', $nilai->id_ekstrakurikuler)
+                ->value('isi_laporan');
+
+            DB::table('nilai_ekstra')->insert([
+                'id_nilai_ekstra' => Str::uuid(),
+                'rapor_id' => $raporId,
+                'ekstrakurikuler_id' => $nilai->id_ekstrakurikuler,
+                'nilai_rata_rata_ekstra' => $nilai->penilaian,
+                'pesan' => $pesan
+            ]);
+        }
+    }
+
+    public function updateNilai()
+    {
+        DB::table('nilai_ekstra')->delete();
+        DB::table('nilai_matpel')->delete();
+        DB::table('rapor')->delete();
+        $siswaList = Siswa::all();
+        $tahunAjaranAktif = DB::table('tahun_ajaran')->where('aktif', 1)->first();
+
+        if ($tahunAjaranAktif) {
+            foreach ($siswaList as $siswa) {
+                DB::table('rapor')->insert([
+                    'id_rapor' => Str::uuid(),
+                    'siswa_id' => $siswa->id_siswa,
+                    'tahun_ajaran_id' => $tahunAjaranAktif->id_tahun_ajaran,
+                ]);
+                $this->insertNilaiSiswa($siswa->id_siswa);
+            }
+        }
+    }
+
     public function downloadPDF($id)
     {
         $data = $this->getSiswaData($id);
-
         $pdfData = [
             'nama_siswa' => $data['siswa']->nama_siswa,
             'kelas' => $data['siswa']->nama_kelas,

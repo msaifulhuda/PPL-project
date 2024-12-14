@@ -25,9 +25,10 @@ class PenilaianEkstraController extends Controller
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
-            $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif)
-            {$query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);})
-            ->firstOrFail();
+            $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif) {
+                $query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);
+            })
+                ->firstOrFail();
 
             array_push($anggota_aktif, $siswa);
         }
@@ -59,9 +60,10 @@ class PenilaianEkstraController extends Controller
         $anggota_aktif = [];
 
         foreach ($anggota as $a) {
-            $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif)
-            {$query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);})
-            ->first();
+            $siswa = KelasSiswa::with(['siswa', 'tahunajaran'])->where('id_siswa', $a->id_siswa)->whereHas('tahunajaran', function ($query) use ($tahun_ajaran_aktif) {
+                $query->where('tahun_ajaran', $tahun_ajaran_aktif->id_tahun_ajaran);
+            })
+                ->first();
 
             array_push($anggota_aktif, $siswa);
         }
@@ -95,24 +97,22 @@ class PenilaianEkstraController extends Controller
             'id_siswa' => 'required',
             'id_laporan' => 'required',
         ]);
-        
+
         $tahun_ajaran = tahun_ajaran::where('aktif', '1')->firstOrFail()->id_tahun_ajaran;
         $id_ekstra = Ekstrakurikuler::where('guru_id', auth()->guard('web-guru')->user()->id_guru)->firstOrFail()->id_ekstrakurikuler;
-        
+
         // Mencari data penilaian ekstrakurikuler berdasarkan id_siswa dan id_tahun_ajaran
         $penilaian = PenilaianEkstrakurikuler::where('id_siswa', $id_siswa)->where('id_tahun_ajaran', $tahun_ajaran)->first();
         // Jika data penilaian sudah ada, maka akan diupdate
-        if($penilaian)
-        {
+        if ($penilaian) {
             $penilaian->update([
                 'penilaian' => $request->penilaian,
             ]);
-        } 
+        }
 
         // Jika data penilaian belum ada, maka akan disimpan
-        else
-        {
-    
+        else {
+
             $penilaian = PenilaianEkstrakurikuler::create([
                 'id_siswa' => $id_siswa,
                 'id_ekstrakurikuler' => $id_ekstra,

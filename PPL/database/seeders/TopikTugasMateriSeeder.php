@@ -22,7 +22,7 @@ class TopikTugasMateriSeeder extends Seeder
             $namaMataPelajaran = $kelas->mataPelajaran->nama_matpel;
             $namaKelas = $kelas->kelas->nama_kelas;
             // For each kelas_mata_pelajaran, create 3 topik entries
-            for ($i = 1; $i <= 3; $i++) {
+            for ($i = 1; $i <= 2; $i++) {
                 $topik = Topik::create([
                     'mata_pelajaran_id' => $kelas->mata_pelajaran_id,
                     'judul_topik' => "Bab $i $namaMataPelajaran - $namaKelas",

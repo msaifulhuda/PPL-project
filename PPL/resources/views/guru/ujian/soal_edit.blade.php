@@ -44,7 +44,7 @@
 
         {{-- Main Content --}}
         <h2 class="text-xl font-bold text-gray-700">Edit Soal Ujian</h2>
-    <form action="{{ route('soal_ujian.update', $soal->id_soal_ujian) }}" method="POST" class="mt-4">
+        <form action="{{ route('soal_ujian.update', $soal->id_soal_ujian) }}" method="POST" class="mt-4">
         @csrf
         @method('PUT')
 
