@@ -10,6 +10,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::command('app:calculate-denda')->everyMinute();
+Schedule::command('app:notifikasi-tenggat-peminjaman')->everyMinute();
 Schedule::job(new NotifikasiTenggatTugas)->everyMinute();
-
-

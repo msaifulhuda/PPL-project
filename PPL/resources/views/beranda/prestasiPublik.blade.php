@@ -9,7 +9,7 @@
                     <!-- Slide 1 -->
                     <div class="swiper-slide">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @for ($i = 0; $i < 2; $i++)
+                            @for ($i = 0; $i < 1; $i++)
                                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                                     <img src="{{ $prestasi[$i]->gambar }}" alt="Prestasi Akademik" class="w-full h-40 object-cover">
                                     <div class="p-6">

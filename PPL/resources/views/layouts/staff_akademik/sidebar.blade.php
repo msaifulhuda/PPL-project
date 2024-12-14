@@ -49,6 +49,12 @@ aria-label="Sidebar">
                             <x-sidebar-dropdown-list-link href="{{route('staff_akademik.kelas.index')}}" :active="request()->is('staff_akademik/kelas')">Data Kelas</x-sidebar-dropdown-list-link>
                         </li>
                         <li>
+                            <x-sidebar-dropdown-list-link href="{{route('daftarkelas')}}" :active="request()->is('staff-akademik/master/kelas')">Atur Siswa & Wali Kelas</x-sidebar-dropdown-list-link>
+                        </li>
+                        <li>
+                            <x-sidebar-dropdown-list-link href="{{route('daftarkelas')}}" :active="request()->is('staff-akademik/master/kelas')">Atur Siswa & Wali Kelas</x-sidebar-dropdown-list-link>
+                        </li>
+                        <li>
                             <x-sidebar-dropdown-list-link href="{{route('staff_akademik.guru_mata_pelajaran.index')}}" :active="request()->is('staff_akademik/guru-mata-pelajaran')">Data Guru</x-sidebar-dropdown-list-link>
                         </li>
                         <li>

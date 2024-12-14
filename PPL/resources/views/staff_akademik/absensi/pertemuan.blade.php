@@ -90,7 +90,7 @@
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ route('akademik.absensi.pertemuan.details', ['id' => $detail->id_kelas_mata_pelajaran, 'pertemuan' => $pertemuan->id_pertemuan]) }}" class="text-blue-500 flex gap-2">
+                                        <a href="{{ route('akademik.absensi.pertemuan.details', ['id' => $detail->id_kelas_mata_pelajaran, 'pertemuan' => $pertemuan->id_pertemuan]) }}" class="text-blue-500 flex gap-2 mb-2">
                                             <button class="flex items-center gap-1 bg-blue-100 text-primary-800 text-xs font-medium py-0.5 px-2 rounded-md border border-blue-300 hover:text-blue-700 focus:ring-2 focus:outline-none focus:ring-blue-300" data-modal-target="showRpsModal-01J620BBWTCSE859ZVBZPEX46C" data-modal-toggle="showRpsModal-01J620BBWTCSE859ZVBZPEX46C">
                                                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"></path>
@@ -99,6 +99,10 @@
                                                 Detail
                                             </button>
                                         </a>
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Hadir: {{ $pertemuan->absensisiswa->where('status_absensi', 'Hadir')->count() }}</span>
+                                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">Izin: {{ $pertemuan->absensisiswa->where('status_absensi', 'Izin')->count() }}</span>
+                                        <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">Sakit: {{ $pertemuan->absensisiswa->where('status_absensi', 'Sakit')->count() }}</span>
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Alpa: {{ $pertemuan->absensisiswa->where('status_absensi', 'Alpa')->count() }}</span>
                                     </td>
                                 </tr>
 

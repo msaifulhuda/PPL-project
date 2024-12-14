@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="max-w-4xl mx-auto py-12 px-4 lg:px-8 bg-white rounded-lg shadow-md">
         <h2 class="text-3xl font-bold text-primary-color mb-6">{{ $ekstrakurikuler->nama_ekstrakurikuler }}</h2>
-        <img src="{{ asset($ekstrakurikuler->gambar) }}" alt="{{ $ekstrakurikuler->nama_ekstrakurikuler }}" class="w-full h-64 object-cover rounded-lg mb-6">
+        <img src="{{ asset('images/ekstra/'.$ekstrakurikuler->gambar) }}" alt="{{ $ekstrakurikuler->nama_ekstrakurikuler }}" class="w-full h-64 object-cover rounded-lg mb-6">
         
         <div class="text-gray-600 leading-relaxed">
             <p>{{ $ekstrakurikuler->deskripsi }}</p>
@@ -9,12 +9,12 @@
         </div>
     
     <!-- Tampilkan prestasi terkait -->
-    <h3 class="mt-8">Prestasi Ekstrakurikuler</h3>
+    <h3 class="text-3xl font-bold text-primary-color mb-6">Prestasi Ekstrakurikuler</h3>
     <div class="prestasi-list mt-8">
         @foreach($prestasiList as $prestasi)
             <div class="prestasi-item bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
                 <!-- Gambar Prestasi -->
-                <img src="{{ asset($prestasi->gambar) }}" alt="{{ ($prestasi) ? $prestasi ->judul : prestasi }}" class="w-full h-64 object-cover">
+                <img src="{{ asset('images/ekstra/'.$ekstrakurikuler->nama_ekstrakurikuler.'/'.$prestasi->gambar) }}" alt="{{ ($prestasi) ? $prestasi ->judul : prestasi }}" class="w-full h-64 object-cover">
                 <!-- Informasi Prestasi -->
                 <div class="p-6">
                     <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $prestasi->judul }}</h2>

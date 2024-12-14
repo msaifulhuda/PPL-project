@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ujian', function (Blueprint $table) {
             $table->uuid('id_ujian')->primary();
             $table->string('judul');
+            $table->string('jenis_ujian');
             $table->string('deskripsi');
             $table->uuid('topik_id');
             $table->uuid('kelas_mata_pelajaran_id');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('topik_id')->references('id_topik')->on('topik');
             $table->foreign('kelas_mata_pelajaran_id')->references('id_kelas_mata_pelajaran')->on('kelas_mata_pelajaran');
-            
+
         });
     }
 

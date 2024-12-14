@@ -1,9 +1,17 @@
 <x-staffakademik-layout>
-    <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">Rapor</h2>
+    <div class="flex justify-between bg-white rounded-lg shadow p-6">
+        <h2 class="font-semibold text-2xl pl-4 text-gray-800 leading-tight">Rapor</h2>
+        <form action="{{ route('staff_akademik.rapor.update_nilai') }}" method="GET">
+            <button type="submit" class="p-2 bg-green-600 hover:bg-green-800 text-white rounded-md flex items-center">
+                <svg class="w-6 h-6 pr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 14 3-3m-3 3 3 3m-3-3h16v-3m2-7-3 3m3-3-3-3m3 3H3v3"/>
+                </svg>
+                Refresh Nilai
+            </button>
+        </form>
     </div>
 
-    <!-- Kontainer Utama -->
+
     <div class="flex justify-center p-6 pb-0">
         <!-- Section Kiri dan Kanan: Tabel Siswa dan Detail -->
         <div class="flex w-full h-full bg-gray-50 rounded-lg space-x-4">
@@ -11,7 +19,6 @@
             <div class="w-1/2 p-10 bg-white rounded-lg shadow-md">
                 <h4 class="text-xl font-bold text-gray-800 mb-4">Daftar Siswa</h4>
 
-                <!-- Filter Pencarian dan Dropdown Kelas -->
                 <form method="GET" action="{{ route('staff_akademik.rapor.index') }}" class="mb-4">
                     <div class="flex space-x-4">
                         <div class="w-1/3">

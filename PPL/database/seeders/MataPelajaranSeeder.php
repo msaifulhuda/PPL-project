@@ -23,9 +23,7 @@ class MataPelajaranSeeder extends Seeder
             ['nama_matpel' => "Seni Budaya", "deskripsi_matpel" => "Pelajaran Seni Budaya"],
             ['nama_matpel' => "Pendidikan Agama", "deskripsi_matpel" => "Pelajaran Pendidikan Agama"],
             ['nama_matpel' => "Pendidikan Jasmani", "deskripsi_matpel" => "Pelajaran Pendidikan Jasmani"],
-            ['nama_matpel' => "TIK", "deskripsi_matpel" => "Pelajaran TIK"],
-            ['nama_matpel' => "Prakarya", "deskripsi_matpel" => "Pelajaran Prakarya"],
-            ['nama_matpel' => "Bahasa Madura", "deskripsi_matpel" => "Pelajaran Bahasa Madura"],
+            ['nama_matpel' => "Bahasa Daerah", "deskripsi_matpel" => "Pelajaran Bahasa Madura"],
         ];
 
         foreach ($mataPelajaran as $matpel) {
