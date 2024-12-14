@@ -28,6 +28,7 @@ class LihatJadwalController extends Controller
             ->join('guru', 'kelas_mata_pelajaran.guru_id', '=', 'guru.id_guru')
             ->join('hari', 'kelas_mata_pelajaran.hari_id', '=', 'hari.id_hari')
             ->join('tahun_ajaran', 'kelas_mata_pelajaran.tahun_ajaran_id', '=', 'tahun_ajaran.id_tahun_ajaran')
+            ->orderBy('hari.nama_hari', 'desc')
             ->select(
                 'kelas_mata_pelajaran.id_kelas_mata_pelajaran',
                 'kelas_mata_pelajaran.kelas_id',
@@ -75,6 +76,7 @@ class LihatJadwalController extends Controller
         ->join('guru', 'kelas_mata_pelajaran.guru_id', '=', 'guru.id_guru')
         ->join('hari', 'kelas_mata_pelajaran.hari_id', '=', 'hari.id_hari')
         ->join('tahun_ajaran', 'kelas_mata_pelajaran.tahun_ajaran_id', '=', 'tahun_ajaran.id_tahun_ajaran')
+        ->orderBy('hari.nama_hari', 'desc')
         ->select(
             'hari.nama_hari', 
             'kelas_mata_pelajaran.waktu_mulai', 
