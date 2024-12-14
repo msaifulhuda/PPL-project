@@ -70,10 +70,10 @@
                             id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full"
-                            src="{{ auth()->guard('web-guru')->user()->foto_guru 
-                                     ? asset('images/guru/' . auth()->guard('web-guru')->user()->foto_guru) 
-                                     : 'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_640.png' }}" 
-                            alt="user photo">                       
+                            src="{{ auth()->guard('web-guru')->user()->foto_guru
+                                     ? asset('images/guru/' . auth()->guard('web-guru')->user()->foto_guru)
+                                     : 'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_640.png' }}"
+                            alt="user photo">
                         </button>
                     </div>
 
@@ -92,9 +92,9 @@
                                 <a href="{{ route('profil.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                                     Profil Saya
                                 </a>
-                            </li>                            
+                            </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <a href="{{ route('guru.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">Dashboard</a>
                             </li>
                             <li>

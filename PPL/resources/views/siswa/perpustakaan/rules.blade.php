@@ -1,4 +1,4 @@
-<x-app-guru-layout>
+<x-siswa-layout>
 <div class="container mx-auto p-6">
     <h1 class="text-3xl font-bold text-center mb-6">Aturan Peminjaman Buku</h1>
 
@@ -15,7 +15,7 @@
                     <li>Buku Non-Paket: 2 minggu</li>
                 </ul>
             </li>
-            <li><strong>Pengembalian Buku:</strong> 
+            <li><strong>Pengembalian Buku:</strong>
                 <ul class="list-inside list-disc text-gray-600">
                     <li>Buku Paket: 1 tahun</li>
                     <li>Buku Non-Paket: 2 minggu</li>
@@ -31,12 +31,12 @@
             <li><strong>Validasi Identitas:</strong> NIP guru harus valid dan terdaftar di sistem.</li>
             <li><strong>Pengecekan Denda:</strong> Guru tidak boleh memiliki lebih dari 3 denda yang belum dibayar.</li>
             <li><strong>Batas Peminjaman Buku Non-Paket:</strong> Guru hanya dapat meminjam maksimal 3 buku non-paket yang belum dikembalikan.</li>
-            <li><strong>Durasi Peminjaman:</strong> 
+            <li><strong>Durasi Peminjaman:</strong>
                 <ul class="list-inside list-disc text-gray-600">
                     <li>Semua Buku (Paket dan Non-Paket): 1 tahun</li>
                 </ul>
             </li>
-            <li><strong>Pengembalian Buku:</strong> 
+            <li><strong>Pengembalian Buku:</strong>
                 <ul class="list-inside list-disc text-gray-600">
                     <li>Semua Buku: 1 tahun</li>
                 </ul>
@@ -44,4 +44,4 @@
         </ul>
     </div>
 </div>
-</x-app-guru-layout>
+</x-siswa-layout>

@@ -87,7 +87,7 @@
 
                     {{-- Perpustakaan --}}
                     <li>
-                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
+                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('siswa/dashboard/perpustakaan*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
@@ -98,16 +98,16 @@
                     <li>
 
                         <x-sidebar-dropdown-list-link href="{{ route('dashboard.perpustakaan') }}"
-                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/perpustakaan')">Beranda</x-sidebar-dropdown-list-link>
 
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.riwayat') }}"
-                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.rules') }}"
-                            :active="request()->is('dashboard/perpustakaan/rules')">Aturan</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/perpustakaan/rules')">Aturan</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
@@ -146,7 +146,7 @@
 
                     {{-- Ujian --}}
                     <li>
-                        <x-sidebar-link href="{{ route('siswa.ujian.index') }}">
+                        <x-sidebar-link href="{{ route('siswa.ujian.index') }}" :active="request()->is('siswa/dashboard/ujian*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
@@ -159,7 +159,7 @@
 
                     {{-- Prestasi--}}
                     <li>
-                        <x-sidebar-link href="{{route('siswa.prestasi')}}">
+                        <x-sidebar-link href="{{route('siswa.prestasi')}}" :active="request()->is('siswa/dashboard/prestasi*')">
                                 <i class="ml-1 fa-solid fa-trophy"></i>
 
                             <span class="ml-3" sidebar-toggle-item>Prestasi</span>
@@ -169,7 +169,7 @@
 
                 {{-- Sidebar Footer --}}
                 <div class="pt-2 space-y-2">
-                    <x-sidebar-link href="{{ route('siswa.notifikasi') }}">
+                    <x-sidebar-link href="{{ route('siswa.notifikasi') }}" :active="request()->is('siswa/notifikasi')">
                         <x-sidebar-icon>
                             <path
                                 d="M17.133 12.632v-1.8a5.406 5.406 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V3.1a1 1 0 0 0-2 0v2.364a.955.955 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C6.867 15.018 5 15.614 5 16.807 5 17.4 5 18 5.538 18h12.924C19 18 19 17.4 19 16.807c0-1.193-1.867-1.789-1.867-4.175ZM8.823 19a3.453 3.453 0 0 0 6.354 0H8.823Z" />
@@ -179,21 +179,13 @@
                             {{ session('notifikasi_count', 0) }}
                         </span>
                     </x-sidebar-link>
-                    <x-sidebar-link href="{{ route('siswa.absensi.index') }}">
+                    <x-sidebar-link href="{{ route('siswa.absensi.index') }}" :active="request()->is('siswa/absensi*')">
                         <x-sidebar-icon>
                             <path fill-rule="evenodd"
                                 d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
                                 clip-rule="evenodd" />
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Absensi</span>
-                    </x-sidebar-link>
-                    <x-sidebar-link href="#">
-                        <x-sidebar-icon>
-                            <path fill-rule="evenodd"
-                                d="M3 6a2 2 0 0 1 2-2h5.532a2 2 0 0 1 1.536.72l1.9 2.28H3V6Zm0 3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9H3Z"
-                                clip-rule="evenodd" />
-                        </x-sidebar-icon>
-                        <span class="ml-3" sidebar-toggle-item>Raport</span>
                     </x-sidebar-link>
                 </div>
             </div>
