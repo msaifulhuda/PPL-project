@@ -11,6 +11,8 @@ use App\Models\pengumpulan_ujian;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SoalUjianImport;
 use App\Models\Siswa;
+use App\Models\topik;
+use App\Models\kelas_mata_pelajaran;
 
 class GuruUjianController extends Controller
 {
@@ -56,21 +58,93 @@ class GuruUjianController extends Controller
     }
 
     //CRUD SOAL=================================================================================================================
-    public function showSoalUjian()
+    public function storeSoal(Request $request, $ujian_id)
     {
-        $soalUjian = soal_ujian::all();
-        return view("guru.ujian.soal_ujian", compact("soalUjian"));
+        $ujian = Ujian::findOrFail($ujian_id);
+
+        return view('guru.ujian.create_soal', compact('ujian_id','ujian'));
     }
 
-    public function importSoal(Request $request)
+    public function createUjian()
+    {
+        $soalUjian = soal_ujian::all();
+        $topik = topik::all();
+        $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas','mataPelajaran'])->get();
+
+        return view("guru.ujian.create_ujian", compact("soalUjian","topik","kelasMataPelajaran"));
+    }
+
+    public function indexUjian()
+    {
+        $ujian = Ujian::paginate(10);
+
+        return view('guru.ujian.view_ujian', compact('ujian'));
+    }
+
+    public function ujianEdit(Request $request, $id)
+    {
+
+    }
+
+    public function ujianDelete()
+    {
+
+    }
+
+    public function updateUjian(Request $request, Ujian $ujian)
+    {
+
+    }
+
+    public function storeData(Request $request)
+    {
+        $request->validate([
+            'judul'                => 'required|string|max:255',
+            'deskripsi'            => 'required|string',
+            'topik_id'             => 'required|string',
+            'kelas_mata_pelajaran_id' => 'required|string',
+            'tanggal_dibuat'       => 'required|date',
+        ]);
+        // dd($request->all());
+        Ujian::create([
+            'judul'                => $request->judul,
+            'deskripsi'            => $request->deskripsi,
+            'topik_id'             => $request->topik_id,
+            'kelas_mata_pelajaran_id' => $request->kelas_mata_pelajaran_id,
+            'tanggal_dibuat'       => $request->tanggal_dibuat,
+            'created_at'           => now(),
+            'updated_at'           => now(),
+        ]);
+
+        return redirect()->route('ujian.show');
+    }
+
+    public function createSoal($ujian_id)
+    {
+        // dd($ujian_id);
+        return view('guru.ujian.create_soal',compact('ujian_id') );
+    }
+    public function showSoal($id)
+    {
+        // Cek apakah ujian dengan id ini ada
+        $ujian = Ujian::findOrFail($id);
+
+        // Ambil semua soal yang terkait dengan id ujian
+        $soalUjian = Soal_ujian::where('ujian_id', $id)->get();
+
+        // Return view dengan data soal ujian
+        return view('guru.ujian.show_soal', compact('soalUjian', 'ujian'));
+    }
+
+    public function importSoal(Request $request, $ujian_id)
     {
         $request->validate([
             'file' => 'required|mimes:xlsx,csv',
         ]);
 
-        Excel::import(new SoalUjianImport, $request->file('file'));
+        Excel::import(new SoalUjianImport($ujian_id), $request->file('file'));
 
-        return redirect()->route('guru.ujian.soal_ujian')->with('success', 'Soal ujian berhasil diimpor!');
+        return redirect()->route('ujian.show')->with('success', 'Soal ujian berhasil diimpor!');
     }
 
     public function soalEdit($id)
