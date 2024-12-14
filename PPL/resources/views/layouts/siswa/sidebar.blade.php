@@ -76,7 +76,7 @@
 
                     {{-- Perpustakaan --}}
                     <li>
-                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
+                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('siswa/dashboard/perpustakaan*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
@@ -87,12 +87,12 @@
                     <li>
 
                         <x-sidebar-dropdown-list-link href="{{ route('dashboard.perpustakaan') }}"
-                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/perpustakaan')">Beranda</x-sidebar-dropdown-list-link>
 
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('siswa.perpustakaan.riwayat') }}"
-                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>
@@ -171,14 +171,6 @@
                                 clip-rule="evenodd" />
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Absensi</span>
-                    </x-sidebar-link>
-                    <x-sidebar-link href="#">
-                        <x-sidebar-icon>
-                            <path fill-rule="evenodd"
-                                d="M3 6a2 2 0 0 1 2-2h5.532a2 2 0 0 1 1.536.72l1.9 2.28H3V6Zm0 3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9H3Z"
-                                clip-rule="evenodd" />
-                        </x-sidebar-icon>
-                        <span class="ml-3" sidebar-toggle-item>Raport</span>
                     </x-sidebar-link>
                 </div>
             </div>

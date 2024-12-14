@@ -72,23 +72,23 @@
 
                     {{-- Perpustakaan --}}
                     <li>
-                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
+                        <x-sidebar-dropdown label="Perpustakaan" id="perpustakaan" :active="request()->is('guru/dashboard/perpustakaan*')">
                             <x-sidebar-icon>
                                 <path fill-rule="evenodd"
                                     d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z"
                                     clip-rule="evenodd" />+
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
-                        <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('dashboard/perpustakaan*')">
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('perpustakaan') }}"
-                            :active="request()->is('dashboard/perpustakaan/beranda')">Beranda</x-sidebar-dropdown-list-link>
-                    </li>
-                    <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('guru.perpustakaan.riwayat') }}"
-                            :active="request()->is('dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
-                    </li>
-                    </x-sidebar-dropdown-list>
+                        <x-sidebar-dropdown-list id="perpustakaan" :active="request()->is('guru/dashboard/perpustakaan*')">
+                            <li>
+                                <x-sidebar-dropdown-list-link href="{{ route('perpustakaan') }}"
+                                    :active="request()->is('guru/dashboard/perpustakaan')">Beranda</x-sidebar-dropdown-list-link>
+                            </li>
+                            <li>
+                                <x-sidebar-dropdown-list-link href="{{ route('guru.perpustakaan.riwayat') }}"
+                                    :active="request()->is('guru/dashboard/perpustakaan/riwayat')">Transaksi</x-sidebar-dropdown-list-link>
+                            </li>
+                        </x-sidebar-dropdown-list>
                     </li>
 
                     {{-- Ekstrakurikuler --}}
@@ -102,23 +102,19 @@
                                 </x-sidebar-icon>
                             </x-sidebar-dropdown>
                             <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('pembina.dashboard') }}"
-                                :active="request()->is('*pembina/ekstrakurikuler/beranda')">Beranda</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}"
-                                :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}"
-                                :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
-                        </li>
-                        <li>
-                            <x-sidebar-dropdown-list-link href="{{ route('pembina.perlengkapan') }}"
-                                :active="request()->is('*pembina/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
-                        </li>
-                        </x-sidebar-dropdown-list>
+                                <li>
+                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}"
+                                        :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                                </li>
+                                <li>
+                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}"
+                                        :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
+                                </li>
+                                <li>
+                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.perlengkapan') }}"
+                                        :active="request()->is('*pembina/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
+                                </li>
+                            </x-sidebar-dropdown-list>
                         </li>
                     @endif
 
@@ -138,21 +134,13 @@
 
                 {{-- Sidebar Footer --}}
                 <div class="pt-2 space-y-2">
-                    <x-sidebar-link href="#">
+                    <x-sidebar-link href="{{ route('guru.absensi.index') }}" :active="request()->is('guru/absensi*')">
                         <x-sidebar-icon>
                             <path fill-rule="evenodd"
                                 d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
                                 clip-rule="evenodd" />
                         </x-sidebar-icon>
                         <span class="ml-3" sidebar-toggle-item>Absensi</span>
-                    </x-sidebar-link>
-                    <x-sidebar-link href="#">
-                        <x-sidebar-icon>
-                            <path fill-rule="evenodd"
-                                d="M3 6a2 2 0 0 1 2-2h5.532a2 2 0 0 1 1.536.72l1.9 2.28H3V6Zm0 3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9H3Z"
-                                clip-rule="evenodd" />
-                        </x-sidebar-icon>
-                        <span class="ml-3" sidebar-toggle-item>Raport</span>
                     </x-sidebar-link>
                 </div>
             </div>
