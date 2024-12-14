@@ -114,18 +114,18 @@ class DatabaseSeeder extends Seeder
         }
 
         // isi topik, materi dan tugas jika belum ada
-        // if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {
-        //     $this->call([
-        //         TopikTugasMateriSeeder::class,
-        //     ]);
-        // }
+        if (topik::count() == 0 && materi::count() == 0 && tugas::count() == 0) {
+            $this->call([
+                TopikTugasMateriSeeder::class,
+            ]);
+        }
 
         // isi pengumpulan tugas
-        // if (pengumpulan_tugas::count() == 0) {
-        //     $this->call([
-        //         PengumpulanTugasSiswaSeeder::class,
-        //     ]);
-        // }
+        if (pengumpulan_tugas::count() == 0) {
+            $this->call([
+                PengumpulanTugasSiswaSeeder::class,
+            ]);
+        }
 
         // $idUser1 = Str::uuid();
         // Superadmin::create([
