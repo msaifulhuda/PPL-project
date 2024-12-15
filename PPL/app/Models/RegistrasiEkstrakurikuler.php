@@ -17,7 +17,7 @@ class RegistrasiEkstrakurikuler extends Model
 
     protected $keyType = 'string';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.

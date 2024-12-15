@@ -58,7 +58,7 @@
             const dataTable = new simpleDatatables.DataTable("#search-table", {
                 searchable: true,
                 paging: false,
-                sortable: false
+                sortable: true
             });
         }
     </script>

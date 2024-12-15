@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('tgl_registrasi')->useCurrent();
             $table->foreign('id_ekstrakurikuler')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
             $table->foreign('id_siswa')->references('id_siswa')->on('siswa');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

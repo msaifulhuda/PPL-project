@@ -19,9 +19,10 @@
     {{-- font-awesome --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
     <!-- Scripts -->
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js']) -->
-    <link rel="stylesheet" href="{{ asset('build/assets/app-cAc1bIIl.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-BgO_RYd7.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-cAc1bIIl.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-BgO_RYd7.css') }}"> --}}
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">

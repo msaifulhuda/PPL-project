@@ -97,10 +97,12 @@
                                                 <option value="e" {{ ($item->penilaian && $item->penilaian->penilaian == 'E') ? 'selected' : '' }}>E</option>
                                             </select>
                                         </td>
-                                        <input type="hidden" value="{{ $item->laporan ? $item->laporan->id_laporan : '' }}" id="id_laporan-{{ $loop->iteration }}">
-                                        <td class="px-1 py-4 whitespace-nowrap text-sm text-gray-500" id="tgl-penilaian-{{ $loop->iteration }}">{{ ($item->penilaian) ? $item->penilaian->tgl_penilaian : '-' }}</td>
+                                        <td class="px-1 py-4 whitespace-nowrap text-sm text-gray-500" id="tgl-penilaian-{{ $loop->iteration }}">
+                                            {{ ($item->penilaian) ? $item->penilaian->tgl_penilaian : '-' }}
+                                            <input type="hidden" value="{{ $item->laporan ? $item->laporan->id_laporan : '' }}" id="id_laporan-{{ $loop->iteration }}">
+                                        </td>
                                     </tr>
-                                @empty
+                                    @empty
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900 text-center" colspan="6">Tidak ada data</td>
                                     </tr>
@@ -147,7 +149,7 @@
             const dataTable = new simpleDatatables.DataTable("#search-table", {
                 searchable: true,
                 paging: false,
-                sortable: false
+                sortable: true
             });
         }
 
