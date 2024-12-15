@@ -154,7 +154,7 @@
                 </ul>
 
                 {{-- Sidebar Footer --}}
-                <div class="pt-5">
+                <!-- <div class="pt-5">
                     <x-sidebar-link href="{{ route('beranda.home') }}">
                         <x-sidebar-icon>
                             <svg class="w-[14px] h-[14px] text-gray-500 dark:text-white" aria-hidden="true"
@@ -196,7 +196,7 @@
                             <span class="ml-3" sidebar-toggle-item>Log Out</span>
                         </x-sidebar-link>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

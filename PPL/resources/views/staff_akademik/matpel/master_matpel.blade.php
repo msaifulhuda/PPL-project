@@ -44,11 +44,11 @@
 
     <script>
         
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+        // if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        //     document.documentElement.classList.add('dark');
+        // } else {
+        //     document.documentElement.classList.remove('dark')
+        // }
     </script> 
         <main>
             <div id="notification-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50"> 

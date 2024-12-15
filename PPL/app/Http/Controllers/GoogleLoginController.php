@@ -42,7 +42,7 @@ class GoogleLoginController extends Controller
                         'google_id'=>$googleUser->id,
                         'google_token'=>$googleUser->token,
                     ]);
-                    return redirect()->route('siswa.dashboard');
+                    return redirect()->route('lihat-jadwal-siswa');
                 }
                 $user = Guru::where('email', $googleUser->email)->first();
                 if($user){
@@ -53,7 +53,7 @@ class GoogleLoginController extends Controller
                         'google_id'=>$googleUser->id,
                         'google_token'=>$googleUser->token,
                     ]);
-                    return redirect()->route('guru.dashboard');
+                    return redirect()->route('lihat-jadwal-guru');
                 }
                 $user = StaffAkademik::where('email', $googleUser->email)->first();
                 if($user){

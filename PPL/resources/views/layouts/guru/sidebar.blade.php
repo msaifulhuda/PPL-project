@@ -42,8 +42,8 @@
                         <x-sidebar-link href="{{ route('lihat-jadwal-guru') }}" :active="request()->is('guru/dashboard/lihat-jadwal')">
                             <x-sidebar-icon>
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
-                                  </svg>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                                </svg>
 
                             </x-sidebar-icon>
                             <span class="ml-3" sidebar-toggle-item>Jadwal</span>
@@ -85,18 +85,18 @@
                     <li>
                         <x-sidebar-dropdown label="Kelas" id="master" :active="request()->is('guru/kelas*')">
                             <x-sidebar-icon>
-                                <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd" />
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="master" :active="request()->is('guru/kelas/*')">
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{route('guru.daftarSiswaWali')}}" :active="request()->is('guru/kelas/daftar-siswa')">Siswa Wali</x-sidebar-dropdown-list-link>
-                            </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{route('guru.daftarSiswaWali')}}" :active="request()->is('guru/kelas/daftar-siswa')">Siswa Wali</x-sidebar-dropdown-list-link>
+                    </li>
 
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{route('guru.jadwalPelajaran')}}" :active="request()->is('guru/kelas/jadwal-pelajaran')">Jadwal Pelajaran</x-sidebar-dropdown-list-link>
-                            </li>
-                        </x-sidebar-dropdown-list>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{route('guru.jadwalPelajaran')}}" :active="request()->is('guru/kelas/jadwal-pelajaran')">Jadwal Pelajaran</x-sidebar-dropdown-list-link>
+                    </li>
+                    </x-sidebar-dropdown-list>
                     </li>
 
                     {{-- Perpustakaan --}}
@@ -126,29 +126,29 @@
 
                     {{-- Ekstrakurikuler --}}
                     @if (auth()->guard('web-guru')->user()->role_guru == 'pembina')
-                        <li>
-                            <x-sidebar-dropdown label="Ekstrakurikuler" id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
-                                <x-sidebar-icon>
-                                    <path fill-rule="evenodd"
-                                        d="M17.316 4.052a.99.99 0 0 0-.9.14c-.262.19-.416.495-.416.82v8.566a4.573 4.573 0 0 0-2-.464c-1.99 0-4 1.342-4 3.443 0 2.1 2.01 3.443 4 3.443 1.99 0 4-1.342 4-3.443V6.801c.538.5 1 1.219 1 2.262 0 .56.448 1.013 1 1.013s1-.453 1-1.013c0-1.905-.956-3.18-1.86-3.942a6.391 6.391 0 0 0-1.636-.998 4 4 0 0 0-.166-.063l-.013-.005-.005-.002h-.002l-.002-.001ZM4 5.012c-.552 0-1 .454-1 1.013 0 .56.448 1.013 1 1.013h9c.552 0 1-.453 1-1.013 0-.559-.448-1.012-1-1.012H4Zm0 4.051c-.552 0-1 .454-1 1.013 0 .56.448 1.013 1 1.013h9c.552 0 1-.454 1-1.013 0-.56-.448-1.013-1-1.013H4Zm0 4.05c-.552 0-1 .454-1 1.014 0 .559.448 1.012 1 1.012h4c.552 0 1-.453 1-1.012 0-.56-.448-1.013-1-1.013H4Z"
-                                        clip-rule="evenodd" />+
-                                </x-sidebar-icon>
-                            </x-sidebar-dropdown>
-                            <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
-                                <li>
-                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}"
-                                        :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
-                                </li>
-                                <li>
-                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}"
-                                        :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
-                                </li>
-                                <li>
-                                    <x-sidebar-dropdown-list-link href="{{ route('pembina.perlengkapan') }}"
-                                        :active="request()->is('*pembina/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
-                                </li>
-                            </x-sidebar-dropdown-list>
-                        </li>
+                    <li>
+                        <x-sidebar-dropdown label="Ekstrakurikuler" id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
+                            <x-sidebar-icon>
+                                <path fill-rule="evenodd"
+                                    d="M17.316 4.052a.99.99 0 0 0-.9.14c-.262.19-.416.495-.416.82v8.566a4.573 4.573 0 0 0-2-.464c-1.99 0-4 1.342-4 3.443 0 2.1 2.01 3.443 4 3.443 1.99 0 4-1.342 4-3.443V6.801c.538.5 1 1.219 1 2.262 0 .56.448 1.013 1 1.013s1-.453 1-1.013c0-1.905-.956-3.18-1.86-3.942a6.391 6.391 0 0 0-1.636-.998 4 4 0 0 0-.166-.063l-.013-.005-.005-.002h-.002l-.002-.001ZM4 5.012c-.552 0-1 .454-1 1.013 0 .56.448 1.013 1 1.013h9c.552 0 1-.453 1-1.013 0-.559-.448-1.012-1-1.012H4Zm0 4.051c-.552 0-1 .454-1 1.013 0 .56.448 1.013 1 1.013h9c.552 0 1-.454 1-1.013 0-.56-.448-1.013-1-1.013H4Zm0 4.05c-.552 0-1 .454-1 1.014 0 .559.448 1.012 1 1.012h4c.552 0 1-.453 1-1.012 0-.56-.448-1.013-1-1.013H4Z"
+                                    clip-rule="evenodd" />+
+                            </x-sidebar-icon>
+                        </x-sidebar-dropdown>
+                        <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}"
+                            :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}"
+                            :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('pembina.perlengkapan') }}"
+                            :active="request()->is('*pembina/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
+                    </li>
+                    </x-sidebar-dropdown-list>
+                    </li>
                     @endif
 
                     {{-- Ujian --}}
@@ -161,40 +161,40 @@
                             </x-sidebar-icon>
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown-list id="ujian" :active="request()->is('guru/dashboard/ujian*')">
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{ route('ujian.show') }}" :active="request()->is('guru/dashboard/ujian/view_ujian')">
-                                    Beranda Ujian
-                                </x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.jawaban_ujian') }}" :active="request()->is('guru/dashboard/ujian/jawaban_ujian')">
-                                    Jawaban Ujian
-                                </x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.create_ujian') }}" :active="request()->is('guru/dashboard/ujian/create_ujian')">
-                                    Buat Ujian
-                                </x-sidebar-dropdown-list-link>
-                            </li>
-                            <li>
-                                <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.pengumpulan') }}" :active="request()->is('guru/dashboard/ujian/pengumpulan_ujian')">
-                                    Beranda pengumpulan
-                                </x-sidebar-dropdown-list-link>
-                            </li>
-                        </x-sidebar-dropdown-list>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('ujian.show') }}" :active="request()->is('guru/dashboard/ujian/view_ujian')">
+                            Beranda Ujian
+                        </x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.jawaban_ujian') }}" :active="request()->is('guru/dashboard/ujian/jawaban_ujian')">
+                            Jawaban Ujian
+                        </x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.create_ujian') }}" :active="request()->is('guru/dashboard/ujian/create_ujian')">
+                            Buat Ujian
+                        </x-sidebar-dropdown-list-link>
+                    </li>
+                    <li>
+                        <x-sidebar-dropdown-list-link href="{{ route('guru.dashboard.ujian.pengumpulan') }}" :active="request()->is('guru/dashboard/ujian/pengumpulan_ujian')">
+                            Beranda pengumpulan
+                        </x-sidebar-dropdown-list-link>
+                    </li>
+                    </x-sidebar-dropdown-list>
                     </li>
 
-                {{-- Sidebar Footer --}}
-                <div class="pt-2 space-y-2">
-                    <x-sidebar-link href="{{ route('guru.absensi.index') }}" :active="request()->is('guru/absensi*')">
-                        <x-sidebar-icon>
-                            <path fill-rule="evenodd"
-                                d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
-                                clip-rule="evenodd" />
-                        </x-sidebar-icon>
-                        <span class="ml-3" sidebar-toggle-item>Absensi</span>
-                    </x-sidebar-link>
-                </div>
+                    {{-- Sidebar Footer --}}
+                    <div class="pt-2 space-y-2">
+                        <x-sidebar-link href="{{ route('guru.absensi.index') }}" :active="request()->is('guru/absensi*')">
+                            <x-sidebar-icon>
+                                <path fill-rule="evenodd"
+                                    d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
+                                    clip-rule="evenodd" />
+                            </x-sidebar-icon>
+                            <span class="ml-3" sidebar-toggle-item>Absensi</span>
+                        </x-sidebar-link>
+                    </div>
             </div>
         </div>
     </div>
