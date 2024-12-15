@@ -25,7 +25,7 @@
                                 <th class="py-3 px-6">Tanggal Peminjaman</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Action</th>
-                                <th class="py-3 px-6">Status Pembayaran</th>
+                                <th class="py-3 px-6">Status Denda</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,23 +58,30 @@
                                     </td>
                                     <td>
                                         <div class="flex gap-4 items-center">
-                                            <button disabled
-                                                class="inline-block px-3 py-1 rounded-full text-xs {{ $transaction->status_denda == 0 ? 'bg-red-500 text-white' : 'bg-green-500 text-white' }}">
-                                                {{ $transaction->status_denda == 0 ? 'Belum Dibayar (Rp. ' . $transaction->denda . ')' : 'Sudah Dibayar' }}
-                                            </button>
-                                            @if ($transaction->status_denda == 0)
-                                                <form
-                                                    action="{{ route('staff_perpus.transaksi.update_status_denda') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="status_denda_button" value="1">
-                                                    <input type="hidden" name="status_denda_id_transaksi"
-                                                        value="{{ $transaction->id_transaksi_peminjaman }}">
-                                                    <button type="submit"
-                                                        class="inline-block px-3 py-1 rounded-full text-xs bg-blue-500 text-white">
-                                                        Ubah (Lunas)
-                                                    </button>
-                                                </form>
+                                            @if ($transaction->denda < 1)
+                                                <button disabled
+                                                    class="inline-block px-3 py-1 rounded-full text-xs {{ $transaction->status_denda == 0 ? 'bg-gray-500 text-white' : 'bg-green-500 text-white' }}">
+                                                    Masih Dalam Masa Peminjaman
+                                                </button>
+                                            @else
+                                                <button disabled
+                                                    class="inline-block px-3 py-1 rounded-full text-xs {{ $transaction->status_denda == 0 ? 'bg-red-500 text-white' : 'bg-green-500 text-white' }}">
+                                                    {{ $transaction->status_denda == 0 ? 'Belum Dibayar (Rp. ' . $transaction->denda . ')' : 'Sudah Dibayar' }}
+                                                </button>
+                                                @if ($transaction->status_denda == 0)
+                                                    <form
+                                                        action="{{ route('staff_perpus.transaksi.update_status_denda') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="status_denda_button" value="1">
+                                                        <input type="hidden" name="status_denda_id_transaksi"
+                                                            value="{{ $transaction->id_transaksi_peminjaman }}">
+                                                        <button type="submit"
+                                                            class="inline-block px-3 py-1 rounded-full text-xs bg-blue-500 text-white">
+                                                            Ubah (Lunas)
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             @endif
                                         </div>
                                     </td>
