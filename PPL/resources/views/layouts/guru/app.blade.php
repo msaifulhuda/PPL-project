@@ -29,7 +29,9 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'node_modules/flowbite/dist/flowbite.min.css'])
+
+    <link rel="stylesheet" href="{{ asset('build/assets/app-cAc1bIIl.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-BgO_RYd7.css') }}">
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
@@ -53,7 +55,7 @@
             event.preventDefault();
         });
     </script>
-
+    <script src="{{asset('build/asset/app-CMQILbDN.js')}}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>

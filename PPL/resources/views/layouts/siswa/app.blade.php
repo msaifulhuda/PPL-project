@@ -19,7 +19,9 @@
     {{-- font-awesome --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js'])
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js']) -->
+    <link rel="stylesheet" href="{{ asset('build/assets/app-cAc1bIIl.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-BgO_RYd7.css') }}">
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
@@ -37,6 +39,7 @@
             @include('layouts.siswa.footer')
         </div>
     </div>
+    <script src="{{asset('build/asset/app-CMQILbDN.js')}}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
