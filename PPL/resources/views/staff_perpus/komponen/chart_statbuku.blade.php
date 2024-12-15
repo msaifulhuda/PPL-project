@@ -13,7 +13,7 @@
     }
     $totalbook = 0;
     foreach ($buku as $bk) {
-        $totalbook += 1;
+        $totalbook += $bk->stok_buku;
     }
     $leftover = $totalbook - ($borrow + $lost);
     $array_value = [$lost, $borrow, $leftover];

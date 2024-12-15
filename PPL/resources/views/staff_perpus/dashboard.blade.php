@@ -58,7 +58,7 @@
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $tp->nama_kategori ?? 'Buku' }} dipinjam oleh
-                                <b>{{ $tp->nama_guru ?? 'Anonymous' }}</b>
+                                <b>{{ $Nama_Peminjam?? 'Anonymous' }}</b>
                             </th>
                             <td class="px-6 py-4">
                                 {{ date_format(date_create($tp->tgl_awal_peminjaman), 'M d, Y') ?? 'Unknown' }}
@@ -68,7 +68,7 @@
                                 {{-- <a href="#">Edit</a> --}}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $tp->judul_buku ?? 'Lorem, ipsum dolor sit amet.' }}
+                                {{ $tp->judul_buku ?? 'Tidak diketahui' }}
                             </td>
                             <td class="px-6 py-4 text-lg text-black">
                                 {{ $tp->nama_kategori ?? 'Tidak Memiliki Kategori' }}
