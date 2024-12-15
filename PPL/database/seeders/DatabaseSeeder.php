@@ -147,9 +147,12 @@ class DatabaseSeeder extends Seeder
         //     'username' => '123456789101',
         //     'password' => bcrypt('Perpus123'),
         // ]);
-        // $this->call([
-        //     PerpustakaanSeeder::class,
-        // ]);
+        $this->call([
+            PerpustakaanSeeder::class,
+        ]);
+        $this->call([
+            TransaksiPeminjamanBukuSeeder::class,
+        ]);
 
         // $idUser3 = Str::uuid();
         // Staffakademik::create([

@@ -67,7 +67,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->put('username', $user->username);
         $request->session()->put('role_siswa', $user->role_siswa);
 
-        $intendedUrl = session('url.intended', route('siswa.dashboard'));
+        $intendedUrl = session('url.intended', route('lihat-jadwal-siswa'));
 
         if ($redirect !== null) {
             return redirect()->route($redirect);
@@ -100,9 +100,9 @@ class AuthenticatedSessionController extends Controller
 
 
         if ($user->role_guru === 'guru') {
-            return redirect()->route('guru.dashboard');
+            return redirect()->route('lihat-jadwal-guru');
         } elseif ($user->role_guru === 'pembina') {
-            return redirect()->route('guru.dashboard');
+            return redirect()->route('lihat-jadwal-guru');
         }
         return back()->withErrors([
             'username' => 'Role tidak dikenali.'

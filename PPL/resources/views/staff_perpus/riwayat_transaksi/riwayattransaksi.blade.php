@@ -30,16 +30,19 @@
                                         {{ \Carbon\Carbon::parse($transaction->tgl_pengembalian)->format('d F Y') }}
                                     </td>
                                     <td class="py-3 px-6">
-                                        <span
-                                        class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs">
+                                        {{-- <span
+                                        class="inline-block px-3 py-1 bg-blue-500 text-white rounded-full text-xs"> --}}
                                         @if($transaction->status_pengembalian == 0)
-                                        Telat
+                                        <span class="bg-yellow-500 text-white px-4 py-2 rounded-full">Telat</span>
+                                        {{-- Telat --}}
                                         @elseif($transaction->status_pengembalian == 1)
-                                        Aman
+                                        <span class="bg-blue-500 text-white px-4 py-2 rounded-full">Aman</span>
+                                        {{-- Aman --}}
                                         @elseif($transaction->status_pengembalian == 2)
-                                        Hilang
+                                        <span class="bg-red-500 text-white px-4 py-2 rounded-full">Hilang</span>
+                                        {{-- Hilang --}}
                                         @endif
-                                    </span>
+                                    {{-- </span> --}}
                                     </td>
                                 </tr>
                                 @empty
