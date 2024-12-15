@@ -28,7 +28,7 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
         $siswaNISN = Siswa::pluck('nisn')->toArray(); // Ambil NISN siswa
 
         // Ambil semua buku
-        $bukuList = Buku::all();
+        $bukuList = buku::all();
 
         for ($i = 0; $i < 20; $i++) { // Misalnya 50 transaksi peminjaman
             // Pilih jenis peminjam secara acak (0 = Guru, 1 = Siswa)
@@ -47,9 +47,9 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
             $buku = $bukuList->random();
 
             // Cek stok buku
-            if ($buku->stok <= 0) {
-                continue; // Jika stok tidak mencukupi, lewati iterasi
-            }
+            // if ($buku->stok <= 0) {
+            //     continue; // Jika stok tidak mencukupi, lewati iterasi
+            // }
 
             // Hitung jumlah buku yang belum dikembalikan oleh peminjam
             $jumlahBukuBelumDikembalikan = transaksi_peminjaman::where('kode_peminjam', $kodePeminjam)
@@ -87,7 +87,7 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
             // Buat transaksi peminjaman
             transaksi_peminjaman::create([
                 'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
-                'id_buku' => $buku->id,
+                'id_buku' => $buku->id_buku,
                 'kode_peminjam' => $kodePeminjam,
                 'tgl_awal_peminjaman' => now(),
                 'tgl_pengembalian' => $tglPengembalian,
