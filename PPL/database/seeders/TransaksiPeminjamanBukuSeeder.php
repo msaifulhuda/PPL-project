@@ -84,7 +84,7 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
 
             $transaksi_peminjaman_id = Str::uuid();
             // Buat transaksi peminjaman
-            if ($i > 10 && $jenisPeminjam == 1) {
+            if ($i > 10 ) {
                 // Transaksi Telat
                 transaksi_peminjaman::create([
                     'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
