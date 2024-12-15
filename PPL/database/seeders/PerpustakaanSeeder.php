@@ -393,7 +393,7 @@ class PerpustakaanSeeder extends Seeder
                 'harga_buku' => 20000
             ],
             [
-                'id_kategori_buku' => $ArrayCategory[1],
+                'id_kategori_buku' => $ArrayCategory[0],
                 'id_jenis_buku' => 2,
                 'author_buku' => 'Asep Suryana, Diana Oktaviani',
                 'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
@@ -406,7 +406,7 @@ class PerpustakaanSeeder extends Seeder
                 'harga_buku' => 25000
             ],
             [
-                'id_kategori_buku' => $ArrayCategory[1],
+                'id_kategori_buku' => $ArrayCategory[0],
                 'id_jenis_buku' => 2,
                 'author_buku' => 'Mulyadi Karyono, Titi Suharsih',
                 'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
@@ -419,7 +419,7 @@ class PerpustakaanSeeder extends Seeder
                 'harga_buku' => 30000
             ],
             [
-                'id_kategori_buku' => $ArrayCategory[1],
+                'id_kategori_buku' => $ArrayCategory[0],
                 'id_jenis_buku' => 2,
                 'author_buku' => 'Sriyono, Lilis Kartikasari',
                 'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
@@ -432,7 +432,7 @@ class PerpustakaanSeeder extends Seeder
                 'harga_buku' => 22000
             ],
             [
-                'id_kategori_buku' => $ArrayCategory[1],
+                'id_kategori_buku' => $ArrayCategory[0],
                 'id_jenis_buku' => 2,
                 'author_buku' => 'Joko Purwanto, Siti Nurhayati',
                 'publisher_buku' => 'Kementrian Pendidikan, Kebudayaan, Riset dan Teknologi',
