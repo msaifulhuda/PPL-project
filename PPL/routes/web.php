@@ -513,7 +513,7 @@ Route::group(['prefix' => 'guru', 'middleware' => ['guru']], function () {
     // PERIKSA TUGAS
     Route::get(('dashboard/lms/tugas/periksa'), [TugasGuruController::class, 'periksaTugas'])->name('guru.dashboard.lms.tugas.periksa');
 
-    // TUGAS
+    // TUGASFlo
     Route::get('/dashboard/lms/tugas/create/{id}', [TugasGuruController::class, 'create'])->name('guru.dashboard.lms.tugas.create');
     Route::get('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'detail'])->name('guru.dashboard.lms.detail.tugas');
     Route::post('/dashboard/lms/tugas/{id}', [TugasGuruController::class, 'store'])->name('guru.dashboard.lms.tugas.store');

@@ -27,7 +27,7 @@
                     </li>
 
                     {{-- Overview --}}
-                    <li>
+                    <!-- <li>
                         <x-sidebar-link href="{{ route('siswa.dashboard') }}" :active="request()->is('siswa/dashboard')">
                             <x-sidebar-icon>
                                 <path
@@ -37,7 +37,7 @@
                             </x-sidebar-icon>
                             <span class="ml-3" sidebar-toggle-item>Overview</span>
                         </x-sidebar-link>
-                    </li>
+                    </li> -->
                     <li>
                         <x-sidebar-link href="{{ route('lihat-jadwal-siswa') }}" :active="request()->is('/dashboard/lihat-jadwal')">
                             <x-sidebar-icon>

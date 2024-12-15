@@ -26,7 +26,7 @@
                         </form>
                     </li>
 
-                    {{-- Overview --}}
+                    <!-- {{-- Overview --}}
                     <li>
                         <x-sidebar-link href="{{ route('guru.dashboard') }}" :active="request()->is('guru/dashboard')">
                             <x-sidebar-icon>
@@ -37,7 +37,7 @@
                             </x-sidebar-icon>
                             <span class="ml-3" sidebar-toggle-item>Overview</span>
                         </x-sidebar-link>
-                    </li>
+                    </li> -->
                     <li>
                         <x-sidebar-link href="{{ route('lihat-jadwal-guru') }}" :active="request()->is('guru/dashboard/lihat-jadwal')">
                             <x-sidebar-icon>
