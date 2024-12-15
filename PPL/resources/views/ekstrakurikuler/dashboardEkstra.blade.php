@@ -65,8 +65,20 @@
                 </div>
             </section>
         </div>
-        </section>        
-        
+
+        <h3 class="text-3xl font-bold text-primary-color mb-4 text-center py-5">Postingan</h3>
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto px-4">
+            @foreach($postingan as $item)
+            <div class="block bg-white rounded-lg shadow-lg p-6 text-center grid-item">
+                <img src="{{ $item->gambar }}" alt="" class="w-full h-64 object-cover rounded-lg mb-4">
+                <h4 class="text-xl font-bold text-primary-color mb-2">{{ $item->judul }}</h4>
+                <p class="text-gray-600">{{ $item->deskripsi }}</p>
+            </div>
+            @endforeach
+        </div>
+
+        </section>
+
             <!-- Tombol Registrasi Ekstra -->
             <div class="text-center mt-8">
                 @if (session()->has('username'))
