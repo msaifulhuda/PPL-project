@@ -55,9 +55,16 @@
                 <!-- WA (WhatsApp) Field -->
                 <div class="mb-4">
                     <label for="wa_staff_perpustakaan" class="block text-gray-700">Nomor WhatsApp</label>
-                    <input type="text" id="wa_staff_perpustakaan" name="wa_staff_perpustakaan" value="{{ old('wa_staff_perpustakaan') }}" class="w-full border border-gray-300 p-2 rounded">
+                    <input type="text" id="wa_staff_perpustakaan" name="wa_staff_perpustakaan" value="{{ old('wa_staff_perpustakaan') }}" class="w-full border border-gray-300 p-2 rounded" placeholder="e.g. +62089515896944">
                     @error('wa_staff_perpustakaan')
                     <x-input-error :messages="$message" class="mt-2 text-red-500 text-sm" />
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Nomor WA :</label>
+                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder=" @gmail.com">
+                    @error('email')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 

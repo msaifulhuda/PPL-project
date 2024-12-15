@@ -42,7 +42,7 @@
                             id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                                src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_640.png" alt="user photo">
                         </button>
                     </div>
 

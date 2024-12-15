@@ -59,10 +59,13 @@ public function update(Request $request, $id)
 
 public function destroy($id)
 {
-    $mataPelajaran = mata_pelajaran::findOrFail($id);
-    $mataPelajaran->delete();
-
-    return redirect()->route('staff_akademik.mata-pelajaran.index')->with('danger', 'Mata pelajaran berhasil dihapus.');
+    try {
+        $mataPelajaran = mata_pelajaran::findOrFail($id);
+        $mataPelajaran->delete();
+        return redirect()->route('staff_akademik.mata-pelajaran.index')->with('success', 'Mata pelajaran berhasil dihapus.');
+    } catch (\Exception $e) {
+        return redirect()->route('staff_akademik.mata-pelajaran.index')->with('danger', 'Mata pelajaran tidak bisa dihapus karena sedang digunakan.');
+    }
 }
 
 
@@ -239,7 +242,7 @@ public function destroy($id)
     public function tambahSiswa($id_kelas)
     {
         $kelas = kelas::findOrFail($id_kelas);
-        $siswa = Siswa::all(); // Tampilkan semua siswa yang bisa dipilih, bisa juga difilter
+        $siswa = Siswa::whereDoesntHave('kelas')->get();
         return view('staff_akademik.managementkelas.tambah_siswa', compact('kelas', 'siswa'));
     }
     
@@ -300,7 +303,7 @@ public function destroy($id)
     public function editWaliKelas($id_kelas)
     {
         $kelas = Kelas::findOrFail($id_kelas);
-        $gurus = Guru::all();  // Ambil semua guru untuk pilihan wali kelas
+        $gurus = Guru::whereDoesntHave('kelasSiswas')->get();
         return view('staff_akademik.managementkelas.edit_wali_kelas', compact('kelas', 'gurus'));
     }
     public function updateWaliKelas(Request $request, $id_kelas)

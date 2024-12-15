@@ -14,7 +14,7 @@
                     </svg>
                 </div>
                 <li class="flex">
-                    <a href="{{ route('guru.dashboard') }}" class="text-gray-400 hover:text-gray-700">
+                    <a href="{{ route('ujian.show') }}" class="text-gray-400 hover:text-gray-700">
                         <span>Ujian</span>
                     </a>
                 </li>

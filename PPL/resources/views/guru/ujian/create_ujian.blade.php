@@ -10,7 +10,7 @@
                 </li>
                 <div class="flex justify-center py-1">
                     <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                     </svg>
                 </div>
                 <li class="flex">
@@ -20,7 +20,7 @@
                 </li>
                 <div class="flex justify-center py-1">
                     <svg class="flex w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                     </svg>
                 </div>
                 <li class="flex">
@@ -57,6 +57,16 @@
                         @foreach ($topik as $item)
                         <option value="{{ $item->id_topik }}">{{ $item->judul_topik }}</option>
                         @endforeach
+                    </select>
+                    {{-- {{ dd($item) }} --}}
+                </div>
+
+                {{--Jenis Ujian--}}
+                <div class="mb-4">
+                    <label for="jenis_ujian" class="block text-sm font-medium text-gray-700">Jenis Ujian</label>
+                    <select name="jenis_ujian" id="jenis_ujian" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                        <option value="UTS">UTS</option>
+                        <option value="UAS">UAS</option>
                     </select>
                     {{-- {{ dd($item) }} --}}
                 </div>

@@ -58,8 +58,15 @@
                 <!-- Nomor WA -->
                 <div class="mb-4">
                     <label for="wa_staff_akademik" class="block text-sm font-medium text-gray-700 mb-1">Nomor WA :</label>
-                    <input type="text" id="wa_staff_akademik" name="wa_staff_akademik" value="{{ old('wa_staff_akademik') }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="wa_staff_akademik" name="wa_staff_akademik" value="{{ old('wa_staff_akademik') }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder="e.g. +62089515896944">
                     @error('wa_staff_akademik')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Nomor WA :</label>
+                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder=" @gmail.com">
+                    @error('email')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>

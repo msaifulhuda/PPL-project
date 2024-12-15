@@ -105,7 +105,7 @@
                                             </span>
                                         </td>
                                         <td class="py-3 px-6 flex space-x-2">
-                                            <button onclick="toggleModal('edit-modal-{{ $row->id_prestasi }}')" class="px-4 py-2 bg-yellow-500 text-white rounded-md">Update</button>
+                                            <button onclick="toggleModal('edit-modal-{{ $row->id_prestasi }}')" class="px-4 py-2 bg-blue-500 text-white rounded-md">Update</button>
                                             <form action="{{ route('prestasi.destroy', $row->id_prestasi) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                 @csrf
                                                 @method('DELETE')

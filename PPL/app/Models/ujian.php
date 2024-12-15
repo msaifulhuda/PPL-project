@@ -54,6 +54,7 @@ class ujian extends Model
     protected $fillable = [
         'judul',
         'deskripsi',
+        'jenis_ujian',
         'topik_id',
         'kelas_mata_pelajaran_id',
         'tanggal_dibuat',

@@ -54,8 +54,17 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="wa_staff_akademik">
                         Whatsapp
                     </label>
-                    <input type="text" id="wa_staff_akademik" name="wa_staff_akademik" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder="Whatsapp" value="{{ old('wa_staff_akademik', $staffakademik->wa_staff_akademik) }}">
+                    <input type="text" id="wa_staff_akademik" name="wa_staff_akademik" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder="+6289515896944" value="{{ old('wa_staff_akademik', $staffakademik->wa_staff_akademik) }}">
                     @error('wa_staff_akademik')
+                    <x-input-error :messages="$message" class="mt-2 text-red-500 text-sm" />
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                        Email
+                    </label>
+                    <input type="text" id="email" name="email" class="w-full border border-black rounded-md p-2.5 focus:outline-none focus:border-blue-500" placeholder="@gamil" value="{{ old('email', $staffakademik->email) }}">
+                    @error('email')
                     <x-input-error :messages="$message" class="mt-2 text-red-500 text-sm" />
                     @enderror
                 </div>
