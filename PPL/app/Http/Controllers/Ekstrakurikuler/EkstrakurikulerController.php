@@ -8,8 +8,9 @@ use App\Models\ekstrakurikuler;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Berkas; // Model untuk tabel berkas
+use App\Models\PostingEkstrakurikuler;
 use App\Models\RegistrasiEkstrakurikuler; // Model untuk tabel RegistrasiEkstrakurikuler
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 class EkstrakurikulerController extends Controller
 {
     // Fungsi untuk menampilkan form registrasi
@@ -27,7 +28,7 @@ class EkstrakurikulerController extends Controller
 
     // Fungsi untuk mengolah data yang dikirim dari form regis
     public function submitForm(Request $request)
-    {   
+    {
         // Validasi data
         $request->validate([
             'no_hp' => 'nullable|string|max:15',
@@ -70,21 +71,19 @@ class EkstrakurikulerController extends Controller
 
         return redirect()->route('ekstrakurikuler.registrasi')->with('success', 'Pendaftaran berhasil!');
     }
-    
+
     public function dashboardEkstra()
     {
-    // Ambil semua data ekstrakurikuler
         $ekstrakurikulerList = Ekstrakurikuler::all();
-
-    // Kirim data ke view
-        return view('ekstrakurikuler.dashboardEkstra', compact('ekstrakurikulerList'));
+        $postingan = PostingEkstrakurikuler::all();
+        return view('ekstrakurikuler.dashboardEkstra', compact('ekstrakurikulerList', 'postingan'));
     }
 
     public function show($id)
     {
         // Ambil data ekstrakurikuler berdasarkan ID
         $ekstrakurikuler = Ekstrakurikuler::findOrFail($id);
-        
+
         $prestasiList = DB::table('prestasi_ektrakurikuler')
             ->where('id_ekstrakurikuler', $id)
             ->get();
