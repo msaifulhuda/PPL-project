@@ -20,7 +20,7 @@ class InventarisEkstrakurikuler extends Model
 
     protected $keyType = 'string';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'id_inventaris',

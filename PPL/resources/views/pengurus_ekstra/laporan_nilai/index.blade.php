@@ -40,7 +40,7 @@
                         </x-alert-notification>
                     @endif
                     <div class="mt-4">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200" id="search-table">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th>No</th>
@@ -83,9 +83,8 @@
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <form action="{{ route('pengurus_ekstra.laporan.update', $item->laporan->id_laporan ?? '') }}" method="POST">
+                                                <form action="{{ route('pengurus_ekstra.penilaian.storeOrUpdate', $item->id_siswa) }}" method="POST">
                                                     @csrf
-                                                    @method('PUT')
                                                     <div class="p-6 space-y-4">
                                                         <label for="isi_laporan" class="block text-sm font-medium text-gray-700">Isi Laporan</label>
                                                         <textarea name="isi_laporan" id="isi_laporan" rows="4" class="w-full border-gray-300 rounded-md">{{ $item->laporan->isi_laporan ?? '' }}</textarea>
@@ -114,4 +113,13 @@
             </div>
         </div>
     </div>
+    <script>
+        if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+            const dataTable = new simpleDatatables.DataTable("#search-table", {
+                searchable: true,
+                paging: false,
+                sortable: true
+            });
+        }
+    </script>
 </x-siswa-layout>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('id_ekstrakurikuler')->references('id_ekstrakurikuler')->on('ekstrakurikuler');
             $table->string('nama_barang');
             $table->bigInteger('stok');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

@@ -44,7 +44,7 @@ class PenilaianEkstraController extends Controller
                 return $item;
             });
 
-
+            // dd($laporan_anggota->get(1)->laporan->id_laporan);
             return view('pembina_ekstra.penilaian.index', compact('laporan_anggota', 'nama_ekstra', 'penilaian', 'tahun_ajaran_aktif', 'id_ekstra', 'tahun_ajaran'));
 
         } catch (\Exception) {

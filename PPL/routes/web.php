@@ -359,10 +359,9 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['siswa']], function () {
         Route::get('/ekstrakurikuler/anggota', [AnggotaController::class, 'index'])->name('pengurus_ekstra.anggota');
         Route::put('/ekstrakurikuler/anggota/update-status/{id}', [AnggotaController::class, 'updateStatus'])->name('pengurus_ekstra.anggota.updateStatus');
 
-        // Penilaian Ekstrakurikuler
-        Route::get('ekstrakurikuler/penilaian', [PenilaianEkstraPengurusController::class, 'index'])->name('pengurus_ekstra.penilaian');
-        Route::post('ekstrakurikuler/penilaian/{id}', [PenilaianEkstraPengurusController::class, 'storeOrUpdate'])->name('pengurus_ekstra.penilaian.storeOrUpdate');
-        Route::put('ekstrakurikuler/penilaian/laporan/{id_laporan}', [PenilaianEkstraPengurusController::class, 'updateLaporan'])->name('pengurus_ekstra.laporan.update');
+        // Penilaian Ekstrakurikuler 
+        Route::get('/ekstrakurikuler/penilaian', [PenilaianEkstraPengurusController::class, 'index'])->name('pengurus_ekstra.penilaian');
+        Route::post('/ekstrakurikuler/penilaian/storeOrUpdate/{id}', [PenilaianEkstraPengurusController::class, 'storeOrUpdate'])->name('pengurus_ekstra.penilaian.storeOrUpdate');
 
         // Perlengkapan
         Route::get('/ekstrakurikuler/perlengkapan', [PerlengkapanController::class, 'index'])->name('pengurus_ekstra.perlengkapan');

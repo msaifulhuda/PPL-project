@@ -39,7 +39,7 @@
                     @endif
 
                     <div class="pt-4">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200" id="search-table">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
@@ -85,4 +85,13 @@
             </div>
         </div>
     </div>
+    <script>
+        if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+            const dataTable = new simpleDatatables.DataTable("#search-table", {
+                searchable: true,
+                paging: false,
+                sortable: true
+            });
+        }
+    </script>
 </x-app-guru-layout>
