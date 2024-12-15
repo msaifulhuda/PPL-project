@@ -7,19 +7,24 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 relative">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard Ekstrakurikuler
-                    <b>{{ $ekstra->ekstrakurikuler->nama_ekstrakurikuler }}</b></h2>
-                <!-- Tombol untuk membuka/tutup registrasi -->
-                <form id="statusForm" method="post" action="{{ route('dashboard.status') }}">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="status" id="statusInput"
-                        value="{{ $rilStatus == 'tidak buka' ? 'buka' : 'tidak buka' }}">
-                    <button type="button" id="toggleButton" onclick="handleToggle(event)"
-                        class="absolute top-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        {{ $rilStatus == 'tidak buka' ? 'Buka Registrasi' : 'Tutup Registrasi' }}
-                    </button>
-                </form>
+                @if ($ekstra && $ekstra->ekstrakurikuler)
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard Ekstrakurikuler
+                        <span class="text-sm text-gray-500">({{ $ekstra->ekstrakurikuler->nama_ekstrakurikuler }})</span>
+                        <!-- Tombol untuk membuka/tutup registrasi -->
+                        <form id="statusForm" method="post" action="{{ route('dashboard.status') }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" id="statusInput"
+                                value="{{ $rilStatus == 'tidak buka' ? 'buka' : 'tidak buka' }}">
+                            <button type="button" id="toggleButton" onclick="handleToggle(event)"
+                                class="absolute top-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                {{ $rilStatus == 'tidak buka' ? 'Buka Registrasi' : 'Tutup Registrasi' }}
+                            </button>
+                        </form>
+                    @else
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard Ekstrakurikuler
+                            <span class="text-sm text-gray-500">(Belum terdaftar)</span>
+                    @endif
             </div>
         </div>
     </div>
@@ -53,6 +58,7 @@
 
 
 
+    @if ($ekstra && $ekstra->ekstrakurikuler)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -62,7 +68,8 @@
                         {{ session('success') }}
                     </div>
                 @endif
-
+                
+                
                 <!-- Tombol Modal Posting Baru -->
                 <div class="flex justify-end mb-4">
                     <button onclick="toggleCreateModal()"
@@ -226,6 +233,7 @@
                         <p class="text-gray-500">Belum ada postingan untuk ekstrakurikuler ini.</p>
                     @endforelse
                 </div>
+                @endif
                 <script>
                     function toggleCreateModal() {
                         const modal = document.getElementById('createModal');

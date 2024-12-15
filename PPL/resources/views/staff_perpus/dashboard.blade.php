@@ -50,12 +50,15 @@
                 </thead>
                 <tbody>
                     @foreach ($transaksi as $tp)
+                        @php
+                            $Nama_Peminjam = isset($tp->nama_guru) ? $tp->nama_guru : $tp->nama_siswa;
+                        @endphp
                         <tr
                             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $tp->nama_kategori ?? 'Buku' }} dipinjam oleh
-                                <b>{{ $Nama_Peminjam ?? 'Anonymous' }}</b>
+                                <b>{{ $tp->nama_guru ?? 'Anonymous' }}</b>
                             </th>
                             <td class="px-6 py-4">
                                 {{ date_format(date_create($tp->tgl_awal_peminjaman), 'M d, Y') ?? 'Unknown' }}

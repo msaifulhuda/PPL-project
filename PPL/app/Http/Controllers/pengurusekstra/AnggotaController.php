@@ -16,8 +16,9 @@ class AnggotaController extends Controller
             ->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)
             ->first();
 
-        $perPage = 7;
-        $currentPage = $request->input('page', 1);
+        if (!$pengurusEkstra) {
+            return view('pengurus_ekstra.anggota.index', ['ekstrakurikuler' => 'Tidak Ada', 'loggedInUsername' => auth()->guard('web-siswa')->user()->nama_siswa, 'totalItems' => 0, 'members' => []]);
+        }
 
         $siswa = RegistrasiEkstrakurikuler::with('siswa')
             ->where('id_ekstrakurikuler', $pengurusEkstra->id_ekstrakurikuler)
@@ -29,19 +30,12 @@ class AnggotaController extends Controller
             return $registrasi->siswa;
         });
 
-        // Paginasi manual
-        $totalItems = $members->count();
-        $totalPages = (int) ceil($totalItems / $perPage);
-        $paginatedMembers = $members->slice(($currentPage - 1) * $perPage, $perPage);
 
         return view('pengurus_ekstra.anggota.index', [
             'ekstrakurikuler' => $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler,
-            'members' => $paginatedMembers,
-            'currentPage' => $currentPage,
-            'totalPages' => $totalPages,
-            'totalItems' => $totalItems,
+            'members' => $members,
             'loggedInUsername' => $pengurusEkstra->siswa->nama_siswa,
-            'perPage' => $perPage,
+            'totalItems' => $members->count()
         ]);
     }
 
