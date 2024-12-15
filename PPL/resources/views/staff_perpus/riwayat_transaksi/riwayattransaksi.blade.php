@@ -19,6 +19,7 @@
                                 <th class="py-3 px-6">NIP / NISN</th>
                                 <th class="py-3 px-6">Tanggal Pengembalian</th>
                                 <th class="py-3 px-6">Status</th>
+                                <th class="py-3 px-6">Denda</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,9 @@
                                         {{-- Hilang --}}
                                         @endif
                                     {{-- </span> --}}
+                                    </td>
+                                    <td class="py-3 px-6">
+                                        {{ $transaction->denda }}
                                     </td>
                                 </tr>
                                 @empty
