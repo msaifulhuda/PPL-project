@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris_ekstrakurikuler');
             $table->timestamp('histori_keluar')->nullable();
             $table->timestamp('histori_masuk')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

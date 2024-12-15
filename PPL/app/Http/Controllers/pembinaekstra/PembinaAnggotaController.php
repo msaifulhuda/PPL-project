@@ -23,6 +23,7 @@ class PembinaAnggotaController extends Controller
         // Ambil anggota ekstrakurikuler berdasarkan `id_ekstrakurikuler` dari pembina
         $siswa = RegistrasiEkstrakurikuler::with('siswa')
             ->where('id_ekstrakurikuler', $pembinaEkstra->id_ekstrakurikuler)
+            ->latest()
             ->get();
 
         // Map data siswa dan tambahkan status dari registrasi ekstrakurikuler

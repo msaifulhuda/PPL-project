@@ -125,18 +125,18 @@
                         <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('siswa/ekstrakurikuler*')">
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.dashboard') }}"
-                            :active="request()->is('siswa/ekstrakurikuler/dashboard')">Beranda</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/ekstrakurikuler/dashboard*')">Beranda</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.anggota') }}"
-                            :active="request()->is('siswa/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/ekstrakurikuler/anggota*')">Anggota</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
-                        <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.penilaian') }}" :active="request()->is('siswa/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                        <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.penilaian') }}" :active="request()->is('siswa/ekstrakurikuler/penilaian*')">Laporan Penilaian</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.perlengkapan') }}"
-                            :active="request()->is('siswa/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/ekstrakurikuler/perlengkapan*')">Perlengkapan</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>

@@ -137,15 +137,15 @@
                         <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('*pembina/ekstrakurikuler*')">
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pembina.penilaian') }}"
-                            :active="request()->is('*pembina/ekstrakurikuler/penilaian')">Penilaian</x-sidebar-dropdown-list-link>
+                            :active="request()->is('*pembina/ekstrakurikuler/penilaian*')">Penilaian</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pembina.anggota') }}"
-                            :active="request()->is('*pembina/ekstrakurikuler/anggota')">Anggota</x-sidebar-dropdown-list-link>
+                            :active="request()->is('*pembina/ekstrakurikuler/anggota*')">Anggota</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pembina.perlengkapan') }}"
-                            :active="request()->is('*pembina/ekstrakurikuler/perlengkapan')">Perlengkapan</x-sidebar-dropdown-list-link>
+                            :active="request()->is('*pembina/ekstrakurikuler/perlengkapan*')">Perlengkapan</x-sidebar-dropdown-list-link>
                     </li>
                     </x-sidebar-dropdown-list>
                     </li>

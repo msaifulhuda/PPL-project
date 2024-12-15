@@ -119,7 +119,7 @@ class EkstrakurikulerSeeder extends Seeder
         /**
          * Mengisi inventaris ekstrakurikuler.
          */
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             InventarisEkstrakurikuler::create([
             'id_inventaris' => Str::uuid(),
             'id_ekstrakurikuler' => $idEkstra[array_rand($idEkstra)],

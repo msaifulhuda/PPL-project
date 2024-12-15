@@ -21,9 +21,9 @@ export default {
     plugins: [
         forms,
         require('flowbite/plugin')({
+            datatables: true,
             charts: true,
             wysiwyg: true,
-            datatables: true,
         }),
         // require('flowbite-typography')
   ],
