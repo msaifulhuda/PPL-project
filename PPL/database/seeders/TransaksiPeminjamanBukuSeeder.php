@@ -85,18 +85,18 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
 
             $transaksi_peminjaman_id = Str::uuid();
             // Buat transaksi peminjaman
-            if ($i > 100) {
+            if ($i > 20) {
                 // Transaksi Telat
-                $datetime = new DateTime('2024-12-01 00:00:00');
+                $datetime = new DateTime('2024-11-01 00:00:00');
                 transaksi_peminjaman::create([
                     'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
                     'id_buku' => $buku->id_buku,
-                    'kode_peminjam' => rand('220411100076', '220411100108'),
-                    'tgl_awal_peminjaman' => now(),
-                    'tgl_pengembalian' => now(),
+                    'kode_peminjam' => $kodePeminjam,
+                    'tgl_awal_peminjaman' => $datetime,
+                    'tgl_pengembalian' => $datetime,
                     'denda' => 0,
                     'status_pengembalian' => 0, // Belum dikembalikan
-                    'jenis_peminjam' => 0,
+                    'jenis_peminjam' => $jenisPeminjam,
                     'status_denda' => 0, // Tidak ada denda
                     'stok' => 1, // Stok selalu bernilai 1 pada transaksi peminjaman
                 ]);
