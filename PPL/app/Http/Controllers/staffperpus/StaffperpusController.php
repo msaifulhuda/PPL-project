@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\kategori_buku;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Guru;
 use App\Models\transaksi_peminjaman;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -37,6 +38,12 @@ class StaffperpusController extends Controller
             ->join('buku', 'transaksi_peminjaman.id_buku', '=', 'buku.id_buku')
             ->join('kategori_buku', 'buku.id_kategori_buku', '=', 'kategori_buku.id_kategori_buku')
             ->join('jenis_buku', 'buku.id_jenis_buku', '=', 'jenis_buku.id_jenis_buku')
+            ->leftJoin('guru', function ($join) {
+                $join->on('guru.nip', '=', 'transaksi_peminjaman.kode_peminjam');
+            })
+            ->leftJoin('siswa', function ($join) {
+                $join->on('siswa.nisn', '=', 'transaksi_peminjaman.kode_peminjam');
+            })
             ->limit(7)
             ->get();
 
@@ -351,19 +358,19 @@ class StaffperpusController extends Controller
         ]);
 
         $buku = buku::findOrFail($id);
-         // Jika ada file foto baru
+        // Jika ada file foto baru
         if ($request->hasFile('foto_buku')) {
             // Hapus foto lama jika ada
             $fotoPath = str_replace('storage/', '', $buku->foto_buku);
             if ($buku->foto_buku && Storage::disk('public')->exists($fotoPath)) {
                 Storage::disk('public')->delete($fotoPath);
             }
-        
+
             // Simpan foto baru
             $file = $request->file('foto_buku');
             $filename = time() . '_' . $file->getClientOriginalName();
             Storage::disk('public')->put('images/Perpustakaan/' . $filename, file_get_contents($file));
-        
+
             // Update path foto di database
             $buku->foto_buku = 'storage/images/Perpustakaan/' . $filename;
         }
