@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use App\Models\Guru;
 use App\Models\Siswa;
-use App\Models\transaksi_peminjaman;
-use Carbon\Carbon;
 use Twilio\Rest\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\transaksi_peminjaman;
 
 class NotifikasiTenggatPeminjaman extends Command
 {
@@ -35,10 +36,10 @@ class NotifikasiTenggatPeminjaman extends Command
         $besok = Carbon::tomorrow(); // Besok
 
         // Ambil transaksi yang pengembaliannya besok
-        $peminjamanBesok = transaksi_peminjaman::join('buku', 'transaksi_peminjaman.id_buku', '=', 'buku.id_buku')
+        $peminjamanBesok = DB::table('transaksi_peminjaman')
+            ->join('buku', 'transaksi_peminjaman.id_buku', '=', 'buku.id_buku')
             ->where('transaksi_peminjaman.tgl_pengembalian', '<=', $besok)
             ->where('transaksi_peminjaman.status_pengembalian', 0)
-            ->select('transaksi_peminjaman.*', 'buku.*')
             ->get();
 
         if ($peminjamanBesok->count() > 0) {
@@ -63,27 +64,19 @@ class NotifikasiTenggatPeminjaman extends Command
             try {
                 // Mengambil data siswa berdasarkan NISN
                 $peminjam = Siswa::where('nisn', $peminjaman->kode_peminjam)->first();  // Using first() to fetch the first result
-                if (!$peminjam) {
-                    return null;  // If no student is found, return null
-                }
                 $nama = $peminjam->nama_siswa;
                 $wa = $peminjam->nomor_wa_siswa;
             } catch (\Exception $e) {
                 Log::error('Error while fetching Siswa data: ' . $e->getMessage());
-                return null;
             }
         } else {  // Jika peminjam adalah guru
             try {
                 // Mengambil data guru berdasarkan NIP
                 $peminjam = Guru::where('nip', $peminjaman->kode_peminjam)->first();  // Using first() to fetch the first result
-                if (!$peminjam) {
-                    return null;  // If no teacher is found, return null
-                }
                 $nama = $peminjam->nama_guru;
                 $wa = $peminjam->nomor_wa_guru;
             } catch (\Exception $e) {
                 Log::error('Error while fetching Guru data: ' . $e->getMessage());
-                return null;
             }
         }
 
