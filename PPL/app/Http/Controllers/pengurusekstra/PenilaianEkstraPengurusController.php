@@ -5,6 +5,7 @@ namespace App\Http\Controllers\pengurusekstra;
 use App\Models\KelasSiswa;
 use App\Models\tahun_ajaran;
 use Illuminate\Http\Request;
+use App\Models\PengurusEkstra;
 use App\Models\Ekstrakurikuler;
 use App\Http\Controllers\Controller;
 use App\Models\PenilaianEkstrakurikuler;
@@ -18,10 +19,14 @@ class PenilaianEkstraPengurusController extends Controller
         $tahun_ajaran = tahun_ajaran::get();
         $tahun_ajaran_aktif = tahun_ajaran::where('aktif', '1')->firstOrFail();
 
+        try{
         // Ambil data pengurus dari tabel pengurus_ekstra
-        $pengurusEkstra = \App\Models\PengurusEkstra::with('ekstrakurikuler')
+        $pengurusEkstra = PengurusEkstra::with('ekstrakurikuler')
             ->where('id_siswa', auth()->guard('web-siswa')->user()->id_siswa)
             ->firstOrFail();
+        } catch (\Exception) {
+            return view('pengurus_ekstra.laporan_nilai.index', ['laporan_anggota' => [], 'nama_ekstra' => 'Tidak Ada Ekstrakurikuler', 'penilaian', 'tahun_ajaran_aktif', 'id_ekstra', 'tahun_ajaran']);
+        }
 
         $id_ekstra = $pengurusEkstra->id_ekstrakurikuler;
         $nama_ekstra = $pengurusEkstra->ekstrakurikuler->nama_ekstrakurikuler;

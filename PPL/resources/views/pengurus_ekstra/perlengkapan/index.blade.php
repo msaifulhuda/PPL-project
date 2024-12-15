@@ -177,7 +177,7 @@
                         {{ $perlengkapan_ekstras->links() }}
                     </div>
                 </div>
-            @endif
+                        @endif
         </div>
     </div>
 </x-siswa-layout>

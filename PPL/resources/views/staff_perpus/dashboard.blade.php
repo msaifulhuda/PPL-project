@@ -50,7 +50,9 @@
                 </thead>
                 <tbody>
                     @foreach ($transaksi as $tp)
-                    @dd($tp)
+                        @php
+                            $Nama_Peminjam = isset($tp->nama_guru) ? $tp->nama_guru : $tp->nama_siswa;
+                        @endphp
                         <tr
                             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <th scope="row"

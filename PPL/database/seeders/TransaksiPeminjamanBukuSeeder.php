@@ -83,21 +83,36 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
             }
 
             $transaksi_peminjaman_id = Str::uuid();
-
             // Buat transaksi peminjaman
-            transaksi_peminjaman::create([
-                'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
-                'id_buku' => $buku->id_buku,
-                'kode_peminjam' => $kodePeminjam,
-                'tgl_awal_peminjaman' => now(),
-                'tgl_pengembalian' => $tglPengembalian,
-                'denda' => 0,
-                'status_pengembalian' => 0, // Belum dikembalikan
-                'jenis_peminjam' => $jenisPeminjam,
-                'status_denda' => 0, // Tidak ada denda
-                'stok' => 1, // Stok selalu bernilai 1 pada transaksi peminjaman
-            ]);
-
+            if ($i > 10 && $jenisPeminjam === 1) {
+                // Transaksi Telat
+                transaksi_peminjaman::create([
+                    'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
+                    'id_buku' => $buku->id_buku,
+                    'kode_peminjam' => $kodePeminjam,
+                    'tgl_awal_peminjaman' => now()->subDays(8),
+                    'tgl_pengembalian' => $tglPengembalian->subDays(8),
+                    'denda' => 0,
+                    'status_pengembalian' => 0, // Belum dikembalikan
+                    'jenis_peminjam' => $jenisPeminjam,
+                    'status_denda' => 0, // Tidak ada denda
+                    'stok' => 1, // Stok selalu bernilai 1 pada transaksi peminjaman
+                ]);
+            } else {
+                // Transaksi Masih Jalan
+                transaksi_peminjaman::create([
+                    'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
+                    'id_buku' => $buku->id_buku,
+                    'kode_peminjam' => $kodePeminjam,
+                    'tgl_awal_peminjaman' => now(),
+                    'tgl_pengembalian' => $tglPengembalian,
+                    'denda' => 0,
+                    'status_pengembalian' => 0, // Belum dikembalikan
+                    'jenis_peminjam' => $jenisPeminjam,
+                    'status_denda' => 0, // Tidak ada denda
+                    'stok' => 1, // Stok selalu bernilai 1 pada transaksi peminjaman
+                ]);
+            }
             // Kurangi stok buku di tabel buku
             // $buku->decrement('stok');
         }

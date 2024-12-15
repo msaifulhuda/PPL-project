@@ -18,7 +18,7 @@
             <h3 class="text-lg font-semibold text-gray-800 mb-2">Nama Anggota Ekstrakurikuler</h3>
             <p class="text-sm text-gray-500 mb-4">Ini adalah list untuk anggota ekstrakurikuler</p>
 
-            <table class="w-full table-auto">
+            <table class="w-full table-auto" id="search-table">
                 <thead>
                     <tr class="text-left text-gray-600">
                         <th class="p-2 border-b">No</th>
@@ -30,9 +30,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($members as $index => $member)
+                    @forelse ($members as $index => $member)
                     <tr class="hover:bg-gray-50">
-                        <td class="p-2 border-b">{{ ($currentPage - 1) * $perPage + $loop->iteration }}</td>
+                        <td class="p-2 border-b">{{ $index+1 }}</td>
                         <td class="p-2 border-b">{{ $member->nama_siswa }}</td>
                         <td class="p-2 border-b">{{ $member->nisn }}</td>
                         <td class="p-2 border-b">{{ $member->alamat_siswa }}</td>
@@ -82,26 +82,23 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td class="p-2 border   text-center" colspan="6">Tidak ada data</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-
-            <!-- Custom Pagination Links -->
-            <div class="mt-4 flex justify-center">
-                @if ($currentPage > 1)
-                    <a href="?page={{ $currentPage - 1 }}" class="px-4 py-2 border rounded-l-lg bg-gray-200 hover:bg-gray-300">Previous</a>
-                @endif
-
-                @for ($i = 1; $i <= $totalPages; $i++)
-                    <a href="?page={{ $i }}" class="px-4 py-2 border-t border-b {{ $i === $currentPage ? 'bg-blue-500 text-white font-bold' : 'bg-gray-200 hover:bg-gray-300' }}">
-                        {{ $i }}
-                    </a>
-                @endfor
-
-                @if ($currentPage < $totalPages)
-                    <a href="?page={{ $currentPage + 1 }}" class="px-4 py-2 border rounded-r-lg bg-gray-200 hover:bg-gray-300">Next</a>
-                @endif
-            </div>
         </div>
     </div>
+
+    <script>
+        if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+            const dataTable = new simpleDatatables.DataTable("#search-table", {
+                searchable: true,
+                paging: false,
+                sortable: false
+            });
+        }
+    </script>
 </x-siswa-layout>
