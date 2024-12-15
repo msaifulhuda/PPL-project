@@ -66,7 +66,7 @@ class NotifikasiTenggatPeminjaman extends Command
 
             // Mengirim pesan WhatsApp
             $client->messages->create(
-                'whatsapp:' . '+6289514735692',  // Use the fetched WhatsApp number
+                'whatsapp:' . $wa,  // Use the fetched WhatsApp number
                 [
                     'from' => $twilioWhatsappNumber,
                     'body' => $pesan
