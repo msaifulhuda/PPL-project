@@ -1,7 +1,7 @@
 @php
     $totalbook = 0;
     foreach ($buku as $bk) {
-        $totalbook += $bk->stok_buku;
+        $totalbook += 1;
     }
 @endphp
 <div class="relative overflow-x-auto">

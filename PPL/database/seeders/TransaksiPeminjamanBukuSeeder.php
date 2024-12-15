@@ -74,23 +74,23 @@ class TransaksiPeminjamanBukuSeeder extends Seeder
             // Tentukan durasi peminjaman
             if ($jenisPeminjam === 1) { // Siswa
                 if ($buku->id_jenis_buku === 1) { // Buku paket
-                    $tglPengembalian = now()->addYear(); // 1 tahun
+                    $tglPengembalian = Carbon::now()->addYear(); // 1 tahun
                 } else { // Buku non-paket
-                    $tglPengembalian = now()->addWeeks(2); // 2 minggu
+                    $tglPengembalian = Carbon::now()->addWeeks(2); // 2 minggu
                 }
             } else { // Guru
-                $tglPengembalian = now()->addYear(); // 1 tahun untuk semua jenis buku
+                $tglPengembalian = Carbon::now()->addYear(); // 1 tahun untuk semua jenis buku
             }
 
             $transaksi_peminjaman_id = Str::uuid();
             // Buat transaksi peminjaman
-            if ($i > 10 && $jenisPeminjam === 1) {
+            if ($i > 10 && $jenisPeminjam == 1) {
                 // Transaksi Telat
                 transaksi_peminjaman::create([
                     'id_transaksi_peminjaman' => $transaksi_peminjaman_id,
                     'id_buku' => $buku->id_buku,
                     'kode_peminjam' => $kodePeminjam,
-                    'tgl_awal_peminjaman' => now()->subDays(8),
+                    'tgl_awal_peminjaman' => Carbon::now()->subDays(8),
                     'tgl_pengembalian' => $tglPengembalian->subDays(8),
                     'denda' => 0,
                     'status_pengembalian' => 0, // Belum dikembalikan
