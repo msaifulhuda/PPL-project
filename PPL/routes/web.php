@@ -168,7 +168,7 @@ Route::group(['prefix' => 'staff_akademik', 'middleware' => ['staff_akademik']],
     Route::get('/dashboard', [DashboardStaffAkdemikController::class, 'index'])->name('staff_akademik.dashboard');
     //EDIT PROFILE STAFF AKADEMIK
     Route::get('/profile', [StaffakademikController::class, 'profile'])->name('staff_akademik.profile');
-    Route::post('/profile/update', [StaffakademikController::class, 'update'])->name('staff_akademik.profile.update');
+    Route::put('/profile/update', [StaffakademikController::class, 'update_profile'])->name('staff_akademik.profile.update');
     //END PROFILE STAFF AKADEMIK
 
     /**

@@ -19,7 +19,8 @@ class KelolaStaffPeprusRequest extends FormRequest
                 'username' => 'required|string|max:255',
                 'nama_staff_perpustakaan'=> 'required|string|max:255',
                 'alamat_staff_perpustakaan'=> 'required|string|max:255',
-                'wa_staff_perpustakaan'=> 'required|digits_between:12,13',
+                'wa_staff_perpustakaan'=> 'required|regex:/^\+62\d{8,15}$/',
+                'email' => 'required|email|max:255|unique:guru,email|unique:siswa,email|unique:staffakademik,email|unique:staffperpus,email' 
             ];
         }
         else{
@@ -28,7 +29,8 @@ class KelolaStaffPeprusRequest extends FormRequest
                 'password' => 'required|string|min:8',
                 'nama_staff_perpustakaan'=> 'required|string|max:255',
                 'alamat_staff_perpustakaan'=> 'required|string|max:255',
-                'wa_staff_perpustakaan'=> 'required|digits_between:12,13',
+                'wa_staff_perpustakaan'=> 'required|regex:/^\+62\d{8,15}$/',
+                'email' => 'required|email|max:255|unique:guru,email|unique:siswa,email|unique:staffakademik,email|unique:staffperpus,email' 
             ];
         }
 
@@ -52,7 +54,11 @@ class KelolaStaffPeprusRequest extends FormRequest
             'alamat_staff_perpustakaan.required' => 'Alamat wajib diisi.',
             'alamat_staff_perpustakaan.max' => 'Alamat maksimal 255 karakter.',
             'wa_staff_perpustakaan.required' => 'Nomor WhatsApp wajib diisi.',
-            'wa_staff_perpustakaan.digits_between' => 'Nomor WhatsApp harus antara 12 hingga 13 digit.',
+            'wa_staff_perpustakaan.digits_between' => 'Nomor WhatsApp max 15 digit.',
+            'wa_staff_perpustakaan.regex' => 'Nomor WhatsApp harus dimulai dengan +62 diikuti oleh 8 hingga 15 digit angka.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
         ];
     }
 }

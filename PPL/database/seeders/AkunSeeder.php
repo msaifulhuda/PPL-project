@@ -228,9 +228,6 @@ class AkunSeeder extends Seeder
             ],
         ];
 
-
-
-
         foreach ($akun_seeder['superadmin'] as $superadmin) {
             Superadmin::create([
                 'nama_superadmin' => $superadmin['nama_superadmin'],

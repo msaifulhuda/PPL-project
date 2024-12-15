@@ -21,7 +21,7 @@ class GuruUjianController extends Controller
     {
         $jawabanUjian = jawaban_ujian::all();
         $soalUjian = soal_ujian::all();
-        return view("guru.ujian.jawaban_ujian", compact("jawabanUjian","soalUjian"));
+        return view("guru.ujian.jawaban_ujian", compact("jawabanUjian", "soalUjian"));
     }
 
     // public function editJawabanUjian($id)
@@ -62,16 +62,16 @@ class GuruUjianController extends Controller
     {
         $ujian = Ujian::findOrFail($ujian_id);
 
-        return view('guru.ujian.create_soal', compact('ujian_id','ujian'));
+        return view('guru.ujian.create_soal', compact('ujian_id', 'ujian'));
     }
 
     public function createUjian()
     {
         $soalUjian = soal_ujian::all();
         $topik = topik::all();
-        $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas','mataPelajaran'])->get();
+        $kelasMataPelajaran = kelas_mata_pelajaran::with(['kelas', 'mataPelajaran'])->get();
 
-        return view("guru.ujian.create_ujian", compact("soalUjian","topik","kelasMataPelajaran"));
+        return view("guru.ujian.create_ujian", compact("soalUjian", "topik", "kelasMataPelajaran"));
     }
 
     public function indexUjian()
@@ -81,26 +81,18 @@ class GuruUjianController extends Controller
         return view('guru.ujian.view_ujian', compact('ujian'));
     }
 
-    public function ujianEdit(Request $request, $id)
-    {
+    public function ujianEdit(Request $request, $id) {}
 
-    }
+    public function ujianDelete() {}
 
-    public function ujianDelete()
-    {
-
-    }
-
-    public function updateUjian(Request $request, Ujian $ujian)
-    {
-
-    }
+    public function updateUjian(Request $request, Ujian $ujian) {}
 
     public function storeData(Request $request)
     {
         $request->validate([
             'judul'                => 'required|string|max:255',
             'deskripsi'            => 'required|string',
+            'jenis_ujian'          => 'required|string',
             'topik_id'             => 'required|string',
             'kelas_mata_pelajaran_id' => 'required|string',
             'tanggal_dibuat'       => 'required|date',
@@ -109,6 +101,7 @@ class GuruUjianController extends Controller
         Ujian::create([
             'judul'                => $request->judul,
             'deskripsi'            => $request->deskripsi,
+            'jenis_ujian'          => $request->jenis_ujian,
             'topik_id'             => $request->topik_id,
             'kelas_mata_pelajaran_id' => $request->kelas_mata_pelajaran_id,
             'tanggal_dibuat'       => $request->tanggal_dibuat,
@@ -122,7 +115,7 @@ class GuruUjianController extends Controller
     public function createSoal($ujian_id)
     {
         // dd($ujian_id);
-        return view('guru.ujian.create_soal',compact('ujian_id') );
+        return view('guru.ujian.create_soal', compact('ujian_id'));
     }
     public function showSoal($id)
     {
@@ -152,7 +145,7 @@ class GuruUjianController extends Controller
         $soal = soal_ujian::findOrFail($id); // Find soal by primary key
         $jawaban = soal_ujian::all();
 
-        return view('guru.ujian.soal_edit', compact('soal','jawaban'));
+        return view('guru.ujian.soal_edit', compact('soal', 'jawaban'));
     }
 
     /**
@@ -171,13 +164,14 @@ class GuruUjianController extends Controller
             'opsi_b' => 'required|string',
             'opsi_c' => 'required|string',
             'opsi_d' => 'required|string',
-            'kunci_jawaban' => 'required|string|in:a,b,c,d',
+            'kunci_jawaban' => 'required|string',
         ]);
+
 
         $soal = soal_ujian::findOrFail($id);
         $soal->update($request->all());
 
-        return redirect()->route('guru.dashboard.ujian.soal_ujian')->with('success', 'Soal Ujian berhasil diperbarui.');
+        return redirect()->route('ujian.show')->with('success', 'Soal Ujian berhasil diperbarui.');
     }
 
 
@@ -187,14 +181,15 @@ class GuruUjianController extends Controller
         $soal->delete();
 
         return redirect()->route('guru.dashboard.ujian.soal_ujian')
-                         ->with('success', 'Soal ujian berhasil dihapus.');
+            ->with('success', 'Soal ujian berhasil dihapus.');
     }
     public function pengumpulan()
     {
         return view("guru.ujian.pengumpulan");
     }
     //CRUD PENGUMPULAN UJIAN===============================================================================================
-    public function index(){
+    public function index()
+    {
         $pengumpulanUjian = pengumpulan_ujian::with(['siswa', 'ujian'])->get();
         // $soalUjian = soal_ujian::with('ujian')->get();
         // $namaSiswa = Siswa::select('nama_siswa')->get();

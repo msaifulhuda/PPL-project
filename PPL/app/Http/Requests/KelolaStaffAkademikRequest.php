@@ -18,19 +18,20 @@ class KelolaStaffAkademikRequest extends FormRequest
                 'username' => 'required|string|max:255',
                 'nama_staff_akademik'=> 'required|string|max:255',
                 'alamat_staff_akademik'=> 'required|string|max:255',
-                'wa_staff_akademik'=> 'required|digits_between:12,13',
+                'wa_staff_akademik'=> 'required|regex:/^\+62\d{8,15}$/', // regex untuk nomor WhatsApp dengan kode negara +62
+                'email' => 'required|email|max:255|unique:guru,email|unique:siswa,email|unique:staffakademik,email|unique:staffperpus,email' 
             ];
         }
-        else{
+        else {
             return [
                 'username' => 'required|string|max:255',
                 'password' => 'required|string|min:8',
                 'nama_staff_akademik'=> 'required|string|max:255',
                 'alamat_staff_akademik'=> 'required|string|max:255',
-                'wa_staff_akademik'=> 'required|digits_between:12,13',
+                'wa_staff_akademik'=> 'required|regex:/^\+62\d{8,15}$/', // regex untuk nomor WhatsApp dengan kode negara +62
+                'email' => 'required|email|max:255|unique:guru,email|unique:siswa,email|unique:staffakademik,email|unique:staffperpus,email' 
             ];
         }
-
     }
 
     /**
@@ -51,7 +52,10 @@ class KelolaStaffAkademikRequest extends FormRequest
             'alamat_staff_akademik.required' => 'Alamat wajib diisi.',
             'alamat_staff_akademik.max' => 'Alamat maksimal 255 karakter.',
             'wa_staff_akademik.required' => 'Nomor WhatsApp wajib diisi.',
-            'wa_staff_akademik.digits_between' => 'Nomor WhatsApp harus antara 12 hingga 13 digit.',
+            'wa_staff_akademik.regex' => 'Nomor WhatsApp harus dimulai dengan +62 diikuti oleh 8 hingga 15 digit angka.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
         ];
     }
 }
