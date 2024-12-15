@@ -17,11 +17,8 @@ class PembinaAnggotaController extends Controller
             ->first();
 
         if (!$pembinaEkstra) {
-            return redirect()->route('pembina_ekstra.dashboard')->withErrors('Ekstrakurikuler tidak ditemukan untuk pembina ini.');
+            return view('pembina_ekstra.anggota.index', ['totalItems' => 0, 'members' => []]);
         }
-
-        $perPage = 7;
-        $currentPage = $request->input('page', 1);
 
         // Ambil anggota ekstrakurikuler berdasarkan `id_ekstrakurikuler` dari pembina
         $siswa = RegistrasiEkstrakurikuler::with('siswa')
@@ -38,19 +35,10 @@ class PembinaAnggotaController extends Controller
             ];
         });
 
-        // Paginasi manual
-        $totalItems = $members->count();
-        $totalPages = (int) ceil($totalItems / $perPage);
-        $paginatedMembers = $members->slice(($currentPage - 1) * $perPage, $perPage);
-
         return view('pembina_ekstra.anggota.index', [
             'ekstrakurikuler' => $pembinaEkstra->nama_ekstrakurikuler,
-            'members' => $paginatedMembers,
-            'currentPage' => $currentPage,
-            'totalPages' => $totalPages,
-            'totalItems' => $totalItems,
-            'loggedInUsername' => auth()->guard('web-guru')->user()->username,
-            'perPage' => $perPage,
+            'members' => $members,
+            'totalItems' => $members->count(),
         ]);
     }
 }

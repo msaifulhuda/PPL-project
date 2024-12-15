@@ -15,21 +15,28 @@ class PengurusekstraController extends Controller
         // Ambil data pengurus yang login
         $pengurusEkstra = auth()->guard('web-siswa')->user()->id_siswa;
     
-        // Pastikan pengurus memiliki id_ekstrakurikuler
-        $ekstra = PengurusEkstra::with('ekstrakurikuler')->where('id_siswa',$pengurusEkstra)->first();
-        $id_ekstra = $ekstra->id_ekstrakurikuler;
-        // Ambil semua postingan terkait ekstrakurikuler
-        $postings = PostingEkstrakurikuler::with(['pengurus.siswa'])
-        ->where('id_ekstrakurikuler', $ekstra->id_ekstrakurikuler)
-            ->orderBy('tgl_uploud', 'desc')
-            ->get();
+        try {
+            // Pastikan pengurus memiliki id_ekstrakurikuler
+            $ekstra = PengurusEkstra::with('ekstrakurikuler')->where('id_siswa',$pengurusEkstra)->first();
+            $id_ekstra = $ekstra->id_ekstrakurikuler;
+            // Ambil semua postingan terkait ekstrakurikuler
+            $postings = PostingEkstrakurikuler::with(['pengurus.siswa'])
+            ->where('id_ekstrakurikuler', $ekstra->id_ekstrakurikuler)
+                ->orderBy('tgl_uploud', 'desc')
+                ->get();
 
-        $uplouders = $postings->map(function ($posting) {
-            return $posting->pengurus->siswa ?? null;
-        })->filter();
+            $uplouders = $postings->map(function ($posting) {
+                return $posting->pengurus->siswa ?? null;
+            })->filter();
 
-        $rilStatus = Ekstrakurikuler::where('id_ekstrakurikuler', $ekstra->id_ekstrakurikuler)->first()->status;
-        
+            $rilStatus = Ekstrakurikuler::where('id_ekstrakurikuler', $ekstra->id_ekstrakurikuler)->firstOrFail()->status;
+        } catch (\Exception $e) {
+            $rilStatus = 'Tidak ada status';
+            $postings = [];
+            $id_ekstra = null;
+            $uplouders = [];
+        }
+
         return view('pengurus_ekstra.dashboard', compact('postings', 'id_ekstra', 'uplouders', 'rilStatus', 'ekstra'));
     }
 

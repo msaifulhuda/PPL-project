@@ -12,18 +12,25 @@ class PerlengkapanController extends Controller
 {
     public function index()
     {
-        $pembinaEkstra = Ekstrakurikuler::with('pembinaEkstra')
-        ->where('guru_id', auth()->guard('web-guru')->user()->id_guru)
-        ->first();
-        
-        $nama_ekstrakurikuler = $pembinaEkstra->nama_ekstrakurikuler;
-        $id_ekstra = $pembinaEkstra->id_ekstrakurikuler;
-        $perlengkapan_ekstras = Perlengkapan::where('id_ekstrakurikuler', $id_ekstra)->paginate(10);
+        if ($pembinaEkstra = Ekstrakurikuler::with('pembinaEkstra')
+            ->where('guru_id', auth()->guard('web-guru')->user()->id_guru)
+            ->first()){
+            
+            $nama_ekstrakurikuler = $pembinaEkstra->nama_ekstrakurikuler;
+            $id_ekstra = $pembinaEkstra->id_ekstrakurikuler;
+            $perlengkapan_ekstras = Perlengkapan::where('id_ekstrakurikuler', $id_ekstra)->paginate(10);
 
-        return view('pembina_ekstra.perlengkapan.index', compact([
-            'perlengkapan_ekstras',
-            'nama_ekstrakurikuler',
-            'id_ekstra'
-        ]));
+            return view('pembina_ekstra.perlengkapan.index', compact([
+                'perlengkapan_ekstras',
+                'nama_ekstrakurikuler',
+                'id_ekstra'
+            ]));
+        } else {
+            return view('pembina_ekstra.perlengkapan.index', [
+                'perlengkapan_ekstras' => [],
+                'nama_ekstrakurikuler' => 'Tidak Ada Ekstrakurikuler',
+                'id_ekstra' => null
+            ]);
+        }
     }
 }

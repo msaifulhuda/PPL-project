@@ -125,7 +125,7 @@
                         <x-sidebar-dropdown-list id="ekstrakurikuler" :active="request()->is('siswa/ekstrakurikuler*')">
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.dashboard') }}"
-                            :active="request()->is('siswa/ekstrakurikuler/beranda')">Beranda</x-sidebar-dropdown-list-link>
+                            :active="request()->is('siswa/ekstrakurikuler/dashboard')">Beranda</x-sidebar-dropdown-list-link>
                     </li>
                     <li>
                         <x-sidebar-dropdown-list-link href="{{ route('pengurus_ekstra.anggota') }}"
